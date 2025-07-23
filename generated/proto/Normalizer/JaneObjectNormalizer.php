@@ -12,7 +12,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,1333 +19,695 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    protected $normalizers = [
+        \Pezos\Generated\Proto\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => _022PsRiotumBlockHeaderAlphaFullHeaderNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumBondId::class => _022PsRiotumBondIdNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedAttestation::class => _022PsRiotumInlinedAttestationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestation::class => _022PsRiotumInlinedPreattestationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestationContents::class => _022PsRiotumInlinedPreattestationContentsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class => _022PsRiotumPerBlockVotesNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class => _022PsRiotumScriptedContractsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\_022PsRiotumScriptedTraceItem::class => _022PsRiotumScriptedTraceItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\BlockHeaderShell::class => BlockHeaderShellNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => BlockHeaderMetadataNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => BlockHeaderMetadataMaxOperationListLengthItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\NextOperation::class => NextOperationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\RawBlockHeader::class => RawBlockHeaderNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => SaplingTransactionCiphertextNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\GetResponse200::class => GetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => ContextBigMapsBigMapIdScriptExprNormalizedPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => ContextConstantsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => ContextConstantsGetResponse200IssuanceWeightsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => ContextConstantsGetResponse200MinimalParticipationRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MaxSlashingThreshold::class => ContextConstantsGetResponse200MaxSlashingThresholdNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => ContextConstantsGetResponse200DalParametricNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricMinimalParticipationRatio::class => ContextConstantsGetResponse200DalParametricMinimalParticipationRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricRewardsRatio::class => ContextConstantsGetResponse200DalParametricRewardsRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricTrapsFraction::class => ContextConstantsGetResponse200DalParametricTrapsFractionNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => ContextConstantsGetResponse200AdaptiveRewardsParamsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => ContextConstantsParametricGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => ContextConstantsParametricGetResponse200IssuanceWeightsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => ContextConstantsParametricGetResponse200MinimalParticipationRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MaxSlashingThreshold::class => ContextConstantsParametricGetResponse200MaxSlashingThresholdNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => ContextConstantsParametricGetResponse200DalParametricNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatio::class => ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricRewardsRatio::class => ContextConstantsParametricGetResponse200DalParametricRewardsRatioNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricTrapsFraction::class => ContextConstantsParametricGetResponse200DalParametricTrapsFractionNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => ContextContractsContractIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => ContextContractsContractIdAllTicketBalancesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => ContextContractsContractIdBigMapGetPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => ContextContractsContractIdEntrypointsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => ContextContractsContractIdEntrypointsGetResponse200UnreachableItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => ContextContractsContractIdEntrypointsGetResponse200EntrypointsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => ContextContractsContractIdScriptGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => ContextContractsContractIdScriptNormalizedPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => ContextContractsContractIdSingleSaplingGetDiffGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => ContextContractsContractIdStorageNormalizedPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => ContextContractsContractIdTicketBalancePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => ContextDalPublishedSlotHeadersGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => ContextDalShardsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => ContextDelegatesPkhGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => ContextDelegatesPkhGetResponse200ParticipationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DalParticipation::class => ContextDelegatesPkhGetResponse200DalParticipationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => ContextDelegatesPkhGetResponse200ActiveStakingParametersNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemParametersNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevelNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => ContextDelegatesPkhGetResponse200DenunciationsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviourNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => ContextDelegatesPkhGetResponse200VotingInfoNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => ContextDelegatesPkhGetResponse200ConsensusKeyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => ContextDelegatesPkhGetResponse200ConsensusKeyActiveNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => ContextDelegatesPkhGetResponse200StakersItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => ContextDelegatesPkhActiveStakingParametersGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => ContextDelegatesPkhConsensusKeyGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => ContextDelegatesPkhConsensusKeyGetResponse200ActiveNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => ContextDelegatesPkhConsensusKeyGetResponse200PendingsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhDalParticipationGetResponse200::class => ContextDelegatesPkhDalParticipationGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => ContextDelegatesPkhDenunciationsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200LevelNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => ContextDelegatesPkhParticipationGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParametersNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => ContextDelegatesPkhStakersGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => ContextDelegatesPkhVotingInfoGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => ContextDenunciationsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => ContextDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200StaticNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200DynamicNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => ContextIssuanceCurrentYearlyRateExactGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => ContextSaplingSaplingStateIdGetDiffGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => ContextSeedPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => ContextSmartRollupsAllInboxGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitmentNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitmentNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContentNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => ContextTotalCurrentlyStakedGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => HeaderGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => HeaderProtocolDataGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => HeaderShellGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => HelpersAttestationRightsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => HelpersBakingRightsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => HelpersCurrentLevelGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => HelpersForgeOperationsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => HelpersForgeProtocolDataPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => HelpersForgeProtocolDataPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => HelpersForgeBlockHeaderPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => HelpersForgeBlockHeaderPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => HelpersLevelsInCurrentCycleGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => HelpersParseBlockPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => HelpersParseBlockPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => HelpersParseOperationsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => HelpersParseOperationsPostResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => HelpersPreapplyBlockPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => HelpersPreapplyBlockPostBodyProtocolDataNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => HelpersPreapplyBlockPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => HelpersPreapplyBlockPostResponse200OperationsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemAppliedItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemRefusedItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => HelpersScriptsEntrypointPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => HelpersScriptsEntrypointPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => HelpersScriptsEntrypointsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => HelpersScriptsEntrypointsPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => HelpersScriptsEntrypointsPostResponse200UnreachableItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => HelpersScriptsEntrypointsPostResponse200EntrypointsNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => HelpersScriptsNormalizeDataPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => HelpersScriptsNormalizeDataPostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeDataPostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => HelpersScriptsNormalizeDataPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => HelpersScriptsNormalizeScriptPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => HelpersScriptsNormalizeScriptPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => HelpersScriptsNormalizeStackPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => HelpersScriptsNormalizeStackPostBodyInputItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => HelpersScriptsNormalizeStackPostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeStackPostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => HelpersScriptsNormalizeStackPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => HelpersScriptsNormalizeStackPostResponse200OutputItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => HelpersScriptsNormalizeTypePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => HelpersScriptsNormalizeTypePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => HelpersScriptsPackDataPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => HelpersScriptsPackDataPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => HelpersScriptsRunCodePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => HelpersScriptsRunCodePostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => HelpersScriptsRunCodePostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => HelpersScriptsRunCodePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => HelpersScriptsRunInstructionPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => HelpersScriptsRunInstructionPostBodyInputItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => HelpersScriptsRunInstructionPostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => HelpersScriptsRunInstructionPostBodyBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => HelpersScriptsRunInstructionPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => HelpersScriptsRunInstructionPostResponse200OutputItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => HelpersScriptsRunOperationPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => HelpersScriptsRunOperationPostBodyOperationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => HelpersScriptsRunScriptViewPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => HelpersScriptsRunScriptViewPostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunScriptViewPostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => HelpersScriptsRunScriptViewPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => HelpersScriptsRunViewPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => HelpersScriptsRunViewPostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunViewPostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => HelpersScriptsRunViewPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => HelpersScriptsScriptSizePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => HelpersScriptsScriptSizePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => HelpersScriptsSimulateOperationPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => HelpersScriptsSimulateOperationPostBodyOperationNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => HelpersScriptsTraceCodePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => HelpersScriptsTraceCodePostBodyOtherContractsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => HelpersScriptsTraceCodePostBodyExtraBigMapsItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => HelpersScriptsTraceCodePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => HelpersScriptsTypecheckCodePostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => HelpersScriptsTypecheckCodePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => HelpersScriptsTypecheckCodePostResponse200TypeMapItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => HelpersScriptsTypecheckDataPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => HelpersScriptsTypecheckDataPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => HelpersValidatorsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => ProtocolsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => VotesBallotListGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => VotesBallotsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => VotesCurrentPeriodGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => VotesCurrentPeriodGetResponse200VotingPeriodNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => VotesListingsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => VotesSuccessorPeriodGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => VotesSuccessorPeriodGetResponse200VotingPeriodNormalizer::class,
+
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Proto\Runtime\Normalizer\ReferenceNormalizer::class,
+    ];
+    protected $normalizersCache = [];
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Proto\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => _021PsQuebecBlockHeaderAlphaFullHeaderNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecBondId::class => _021PsQuebecBondIdNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedAttestation::class => _021PsQuebecInlinedAttestationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestation::class => _021PsQuebecInlinedPreattestationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestationContents::class => _021PsQuebecInlinedPreattestationContentsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class => _021PsQuebecPerBlockVotesNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class => _021PsQuebecScriptedContractsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecScriptedTraceItem::class => _021PsQuebecScriptedTraceItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderShell::class => BlockHeaderShellNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => BlockHeaderMetadataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => BlockHeaderMetadataMaxOperationListLengthItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\NextOperation::class => NextOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\RawBlockHeader::class => RawBlockHeaderNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => SaplingTransactionCiphertextNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\GetResponse200::class => GetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => ContextBigMapsBigMapIdScriptExprNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => ContextConstantsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => ContextConstantsGetResponse200IssuanceWeightsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => ContextConstantsGetResponse200MinimalParticipationRatioNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => ContextConstantsGetResponse200DalParametricNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => ContextConstantsGetResponse200AdaptiveRewardsParamsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => ContextConstantsParametricGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => ContextConstantsParametricGetResponse200IssuanceWeightsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => ContextConstantsParametricGetResponse200MinimalParticipationRatioNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => ContextConstantsParametricGetResponse200DalParametricNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => ContextContractsContractIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => ContextContractsContractIdAllTicketBalancesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => ContextContractsContractIdBigMapGetPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => ContextContractsContractIdEntrypointsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => ContextContractsContractIdEntrypointsGetResponse200UnreachableItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => ContextContractsContractIdEntrypointsGetResponse200EntrypointsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => ContextContractsContractIdScriptGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => ContextContractsContractIdScriptNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => ContextContractsContractIdSingleSaplingGetDiffGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => ContextContractsContractIdStorageNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => ContextContractsContractIdTicketBalancePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => ContextDalPublishedSlotHeadersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => ContextDalShardsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => ContextDelegatesPkhGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => ContextDelegatesPkhGetResponse200ParticipationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => ContextDelegatesPkhGetResponse200ActiveStakingParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => ContextDelegatesPkhGetResponse200DenunciationsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => ContextDelegatesPkhGetResponse200VotingInfoNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => ContextDelegatesPkhGetResponse200ConsensusKeyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => ContextDelegatesPkhGetResponse200ConsensusKeyActiveNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => ContextDelegatesPkhGetResponse200StakersItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => ContextDelegatesPkhActiveStakingParametersGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => ContextDelegatesPkhConsensusKeyGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => ContextDelegatesPkhConsensusKeyGetResponse200ActiveNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => ContextDelegatesPkhConsensusKeyGetResponse200PendingsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => ContextDelegatesPkhDenunciationsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200LevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => ContextDelegatesPkhParticipationGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => ContextDelegatesPkhStakersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => ContextDelegatesPkhVotingInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => ContextDenunciationsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => ContextDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200StaticNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200DynamicNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => ContextIssuanceCurrentYearlyRateExactGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => ContextSaplingSaplingStateIdGetDiffGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => ContextSeedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => ContextSmartRollupsAllInboxGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitmentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitmentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => ContextTotalCurrentlyStakedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => HeaderGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => HeaderProtocolDataGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => HeaderShellGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => HelpersAttestationRightsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => HelpersBakingRightsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => HelpersCurrentLevelGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => HelpersForgeOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => HelpersForgeProtocolDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => HelpersForgeProtocolDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => HelpersForgeBlockHeaderPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => HelpersForgeBlockHeaderPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => HelpersLevelsInCurrentCycleGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => HelpersParseBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => HelpersParseBlockPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => HelpersParseOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => HelpersParseOperationsPostResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => HelpersPreapplyBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => HelpersPreapplyBlockPostBodyProtocolDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => HelpersPreapplyBlockPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => HelpersPreapplyBlockPostResponse200OperationsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemAppliedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => HelpersScriptsEntrypointPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => HelpersScriptsEntrypointPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => HelpersScriptsEntrypointsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => HelpersScriptsEntrypointsPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => HelpersScriptsEntrypointsPostResponse200UnreachableItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => HelpersScriptsEntrypointsPostResponse200EntrypointsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => HelpersScriptsNormalizeDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => HelpersScriptsNormalizeDataPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeDataPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => HelpersScriptsNormalizeDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => HelpersScriptsNormalizeScriptPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => HelpersScriptsNormalizeScriptPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => HelpersScriptsNormalizeStackPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => HelpersScriptsNormalizeStackPostBodyInputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => HelpersScriptsNormalizeStackPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeStackPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => HelpersScriptsNormalizeStackPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => HelpersScriptsNormalizeStackPostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => HelpersScriptsNormalizeTypePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => HelpersScriptsNormalizeTypePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => HelpersScriptsPackDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => HelpersScriptsPackDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => HelpersScriptsRunCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => HelpersScriptsRunCodePostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => HelpersScriptsRunCodePostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => HelpersScriptsRunCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => HelpersScriptsRunInstructionPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => HelpersScriptsRunInstructionPostBodyInputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => HelpersScriptsRunInstructionPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => HelpersScriptsRunInstructionPostBodyBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => HelpersScriptsRunInstructionPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => HelpersScriptsRunInstructionPostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => HelpersScriptsRunOperationPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => HelpersScriptsRunOperationPostBodyOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => HelpersScriptsRunScriptViewPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => HelpersScriptsRunScriptViewPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunScriptViewPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => HelpersScriptsRunScriptViewPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => HelpersScriptsRunViewPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => HelpersScriptsRunViewPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunViewPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => HelpersScriptsRunViewPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => HelpersScriptsScriptSizePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => HelpersScriptsScriptSizePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => HelpersScriptsSimulateOperationPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => HelpersScriptsSimulateOperationPostBodyOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => HelpersScriptsTraceCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => HelpersScriptsTraceCodePostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => HelpersScriptsTraceCodePostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => HelpersScriptsTraceCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => HelpersScriptsTypecheckCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => HelpersScriptsTypecheckCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => HelpersScriptsTypecheckCodePostResponse200TypeMapItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => HelpersScriptsTypecheckDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => HelpersScriptsTypecheckDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => HelpersValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => ProtocolsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => VotesBallotListGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => VotesBallotsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => VotesCurrentPeriodGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => VotesCurrentPeriodGetResponse200VotingPeriodNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => VotesListingsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => VotesSuccessorPeriodGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => VotesSuccessorPeriodGetResponse200VotingPeriodNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Proto\Runtime\Normalizer\ReferenceNormalizer::class,
-        ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Proto\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecBondId::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedAttestation::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestation::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestationContents::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecScriptedTraceItem::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderShell::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => false,
-                \Pezos\Generated\Proto\Model\NextOperation::class => false,
-                \Pezos\Generated\Proto\Model\RawBlockHeader::class => false,
-                \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => false,
-                \Pezos\Generated\Proto\Model\GetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => false,
-                \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
+        return array_key_exists($type, $this->normalizers);
     }
-} else {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Proto\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => _021PsQuebecBlockHeaderAlphaFullHeaderNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecBondId::class => _021PsQuebecBondIdNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedAttestation::class => _021PsQuebecInlinedAttestationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestation::class => _021PsQuebecInlinedPreattestationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestationContents::class => _021PsQuebecInlinedPreattestationContentsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class => _021PsQuebecPerBlockVotesNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class => _021PsQuebecScriptedContractsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\_021PsQuebecScriptedTraceItem::class => _021PsQuebecScriptedTraceItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderShell::class => BlockHeaderShellNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => BlockHeaderMetadataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => BlockHeaderMetadataMaxOperationListLengthItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\NextOperation::class => NextOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\RawBlockHeader::class => RawBlockHeaderNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => SaplingTransactionCiphertextNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\GetResponse200::class => GetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => ContextBigMapsBigMapIdScriptExprNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => ContextConstantsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => ContextConstantsGetResponse200IssuanceWeightsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => ContextConstantsGetResponse200MinimalParticipationRatioNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => ContextConstantsGetResponse200DalParametricNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => ContextConstantsGetResponse200AdaptiveRewardsParamsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => ContextConstantsParametricGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => ContextConstantsParametricGetResponse200IssuanceWeightsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => ContextConstantsParametricGetResponse200MinimalParticipationRatioNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => ContextConstantsParametricGetResponse200DalParametricNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMinNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMaxNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRateNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => ContextContractsContractIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => ContextContractsContractIdAllTicketBalancesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => ContextContractsContractIdBigMapGetPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => ContextContractsContractIdEntrypointsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => ContextContractsContractIdEntrypointsGetResponse200UnreachableItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => ContextContractsContractIdEntrypointsGetResponse200EntrypointsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => ContextContractsContractIdScriptGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => ContextContractsContractIdScriptNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => ContextContractsContractIdSingleSaplingGetDiffGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => ContextContractsContractIdStorageNormalizedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => ContextContractsContractIdTicketBalancePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => ContextDalPublishedSlotHeadersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => ContextDalShardsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => ContextDelegatesPkhGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => ContextDelegatesPkhGetResponse200ParticipationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => ContextDelegatesPkhGetResponse200ActiveStakingParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => ContextDelegatesPkhGetResponse200PendingStakingParametersItemParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => ContextDelegatesPkhGetResponse200DenunciationsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => ContextDelegatesPkhGetResponse200VotingInfoNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => ContextDelegatesPkhGetResponse200ConsensusKeyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => ContextDelegatesPkhGetResponse200ConsensusKeyActiveNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => ContextDelegatesPkhGetResponse200StakersItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => ContextDelegatesPkhActiveStakingParametersGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => ContextDelegatesPkhConsensusKeyGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => ContextDelegatesPkhConsensusKeyGetResponse200ActiveNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => ContextDelegatesPkhConsensusKeyGetResponse200PendingsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => ContextDelegatesPkhDenunciationsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200LevelNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => ContextDelegatesPkhParticipationGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParametersNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => ContextDelegatesPkhStakersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => ContextDelegatesPkhVotingInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => ContextDenunciationsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => ContextDenunciationsGetResponse200ItemMisbehaviourNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200StaticNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => ContextIssuanceCurrentYearlyRateDetailsGetResponse200DynamicNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => ContextIssuanceCurrentYearlyRateExactGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => ContextSaplingSaplingStateIdGetDiffGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => ContextSeedPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => ContextSmartRollupsAllInboxGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitmentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitmentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContentNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => ContextTotalCurrentlyStakedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => HeaderGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => HeaderProtocolDataGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => HeaderShellGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => HelpersAttestationRightsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => HelpersBakingRightsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => HelpersCurrentLevelGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => HelpersForgeOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => HelpersForgeProtocolDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => HelpersForgeProtocolDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => HelpersForgeBlockHeaderPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => HelpersForgeBlockHeaderPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => HelpersLevelsInCurrentCycleGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => HelpersParseBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => HelpersParseBlockPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => HelpersParseOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => HelpersParseOperationsPostResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => HelpersPreapplyBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => HelpersPreapplyBlockPostBodyProtocolDataNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => HelpersPreapplyBlockPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => HelpersPreapplyBlockPostResponse200OperationsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemAppliedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => HelpersScriptsEntrypointPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => HelpersScriptsEntrypointPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => HelpersScriptsEntrypointsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => HelpersScriptsEntrypointsPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => HelpersScriptsEntrypointsPostResponse200UnreachableItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => HelpersScriptsEntrypointsPostResponse200EntrypointsNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => HelpersScriptsNormalizeDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => HelpersScriptsNormalizeDataPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeDataPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => HelpersScriptsNormalizeDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => HelpersScriptsNormalizeScriptPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => HelpersScriptsNormalizeScriptPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => HelpersScriptsNormalizeStackPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => HelpersScriptsNormalizeStackPostBodyInputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => HelpersScriptsNormalizeStackPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => HelpersScriptsNormalizeStackPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => HelpersScriptsNormalizeStackPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => HelpersScriptsNormalizeStackPostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => HelpersScriptsNormalizeTypePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => HelpersScriptsNormalizeTypePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => HelpersScriptsPackDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => HelpersScriptsPackDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => HelpersScriptsRunCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => HelpersScriptsRunCodePostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => HelpersScriptsRunCodePostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => HelpersScriptsRunCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => HelpersScriptsRunInstructionPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => HelpersScriptsRunInstructionPostBodyInputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => HelpersScriptsRunInstructionPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => HelpersScriptsRunInstructionPostBodyBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => HelpersScriptsRunInstructionPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => HelpersScriptsRunInstructionPostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => HelpersScriptsRunOperationPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => HelpersScriptsRunOperationPostBodyOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => HelpersScriptsRunScriptViewPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => HelpersScriptsRunScriptViewPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunScriptViewPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => HelpersScriptsRunScriptViewPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => HelpersScriptsRunViewPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => HelpersScriptsRunViewPostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => HelpersScriptsRunViewPostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => HelpersScriptsRunViewPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => HelpersScriptsScriptSizePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => HelpersScriptsScriptSizePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => HelpersScriptsSimulateOperationPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => HelpersScriptsSimulateOperationPostBodyOperationNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => HelpersScriptsTraceCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => HelpersScriptsTraceCodePostBodyOtherContractsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => HelpersScriptsTraceCodePostBodyExtraBigMapsItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => HelpersScriptsTraceCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => HelpersScriptsTypecheckCodePostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => HelpersScriptsTypecheckCodePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => HelpersScriptsTypecheckCodePostResponse200TypeMapItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => HelpersScriptsTypecheckDataPostBodyNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => HelpersScriptsTypecheckDataPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => HelpersValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => ProtocolsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => VotesBallotListGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => VotesBallotsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => VotesCurrentPeriodGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => VotesCurrentPeriodGetResponse200VotingPeriodNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => VotesListingsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => VotesSuccessorPeriodGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => VotesSuccessorPeriodGetResponse200VotingPeriodNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Proto\Runtime\Normalizer\ReferenceNormalizer::class,
+        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $normalizerClass = $this->normalizers[get_class($data)];
+        $normalizer = $this->getNormalizer($normalizerClass);
+
+        return $normalizer->normalize($data, $format, $context);
+    }
+
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $denormalizerClass = $this->normalizers[$type];
+        $denormalizer = $this->getNormalizer($denormalizerClass);
+
+        return $denormalizer->denormalize($data, $type, $format, $context);
+    }
+
+    private function getNormalizer(string $normalizerClass)
+    {
+        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+    }
+
+    private function initNormalizer(string $normalizerClass)
+    {
+        $normalizer = new $normalizerClass();
+        $normalizer->setNormalizer($this->normalizer);
+        $normalizer->setDenormalizer($this->denormalizer);
+        $this->normalizersCache[$normalizerClass] = $normalizer;
+
+        return $normalizer;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [
+            \Pezos\Generated\Proto\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumBondId::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedAttestation::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestation::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestationContents::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class => false,
+            \Pezos\Generated\Proto\Model\_022PsRiotumScriptedTraceItem::class => false,
+            \Pezos\Generated\Proto\Model\BlockHeaderShell::class => false,
+            \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false,
+            \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => false,
+            \Pezos\Generated\Proto\Model\NextOperation::class => false,
+            \Pezos\Generated\Proto\Model\RawBlockHeader::class => false,
+            \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => false,
+            \Pezos\Generated\Proto\Model\GetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MaxSlashingThreshold::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricMinimalParticipationRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricRewardsRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametricTrapsFraction::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MaxSlashingThreshold::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricRewardsRatio::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametricTrapsFraction::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DalParticipation::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDalParticipationGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => false,
+            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => false,
+            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => false,
+            \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => false,
+            \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => false,
+            \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => false,
+            \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => false,
+            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Proto\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecBondId::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedAttestation::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestation::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecInlinedPreattestationContents::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class => false,
-                \Pezos\Generated\Proto\Model\_021PsQuebecScriptedTraceItem::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderShell::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false,
-                \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => false,
-                \Pezos\Generated\Proto\Model\NextOperation::class => false,
-                \Pezos\Generated\Proto\Model\RawBlockHeader::class => false,
-                \Pezos\Generated\Proto\Model\SaplingTransactionCiphertext::class => false,
-                \Pezos\Generated\Proto\Model\GetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200DalParametric::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200SmartRollupRevealActivationLevelRawData::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParams::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMin::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsIssuanceRatioInitialMax::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200UnreachableItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdEntrypointsGetResponse200Entrypoints::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdStorageNormalizedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextContractsContractIdTicketBalancePostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItemParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycleLevel::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhDenunciationsGetResponse200ItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200Level::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhParticipationGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhPendingStakingParametersGetResponse200ItemParameters::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhStakersGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDelegatesPkhVotingInfoGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextDenunciationsGetResponse200ItemMisbehaviour::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Static::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200Dynamic::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceCurrentYearlyRateExactGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSaplingSaplingStateIdGetDiffGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSeedPostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessages::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsAllInboxGetResponse200OldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemTheirCommitment::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200ItemOurCommitment::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGame::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshot::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200ItemGameInboxSnapshotContent::class => false,
-                \Pezos\Generated\Proto\Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody::class => false,
-                \Pezos\Generated\Proto\Model\ContextTotalCurrentlyStakedGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderProtocolDataGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HeaderShellGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseBlockPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBodyProtocolData::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemAppliedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemRefusedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemOutdatedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchRefusedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200OperationsItemBranchDelayedItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200UnreachableItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsEntrypointsPostResponse200Entrypoints::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeScriptPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyInputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeStackPostResponse200OutputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsNormalizeTypePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsPackDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyInputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostBodyBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunInstructionPostResponse200OutputItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBodyOperation::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsRunViewPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsScriptSizePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBodyOperation::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyOtherContractsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostBodyExtraBigMapsItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostResponse200TypeMapItem::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => false,
-                \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => false,
-                \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesCurrentPeriodGetResponse200VotingPeriod::class => false,
-                \Pezos\Generated\Proto\Model\VotesListingsGetResponse200Item::class => false,
-                \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false,
-                \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
     }
 }

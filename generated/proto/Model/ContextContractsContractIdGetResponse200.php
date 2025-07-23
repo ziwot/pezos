@@ -29,7 +29,7 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
     protected $balance;
     protected $delegate;
     /**
-     * @var _021PsQuebecScriptedContracts
+     * @var _022PsRiotumScriptedContracts
      */
     protected $script;
     /**
@@ -71,12 +71,12 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getScript(): _021PsQuebecScriptedContracts
+    public function getScript(): _022PsRiotumScriptedContracts
     {
         return $this->script;
     }
 
-    public function setScript(_021PsQuebecScriptedContracts $script): self
+    public function setScript(_022PsRiotumScriptedContracts $script): self
     {
         $this->initialized['script'] = true;
         $this->script = $script;

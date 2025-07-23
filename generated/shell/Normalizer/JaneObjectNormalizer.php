@@ -12,7 +12,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,757 +19,428 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    protected $normalizers = [
+        \Pezos\Generated\Shell\Model\BlockHeader::class => BlockHeaderNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\Mempool::class => MempoolNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkVersion::class => NetworkVersionNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\Operation::class => OperationNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\P2pConnectionId::class => P2pConnectionIdNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => P2pPeerPoolEventNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\P2pPointInfo::class => P2pPointInfoNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\P2pStat::class => P2pStatNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => UserActivatedProtocolOverridesItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => UserActivatedUpgradesItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => ChainsChainIdPatchBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200::class => ChainsChainIdActivePeersHeadsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200ActivePeersHeadsItem::class => ChainsChainIdActivePeersHeadsGetResponse200ActivePeersHeadsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200::class => ChainsChainIdDelegatorsContributionInt32PkhGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200ExternalDelegatorsItem::class => ChainsChainIdDelegatorsContributionInt32PkhGetResponse200ExternalDelegatorsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => ChainsChainIdInvalidBlocksGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => ChainsChainIdInvalidBlocksBlockHashDeleteResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => ChainsChainIdInvalidBlocksBlockHashGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => ChainsChainIdIsBootstrappedGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => ChainsChainIdLevelsCabooseGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => ChainsChainIdLevelsCheckpointGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => ChainsChainIdLevelsSavepointGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsGetResponse200Item::class => ChainsChainIdProtocolsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsGetResponse200ItemActivationBlock::class => ChainsChainIdProtocolsGetResponse200ItemActivationBlockNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsProtocolHashGetResponse200::class => ChainsChainIdProtocolsProtocolHashGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsProtocolHashGetResponse200ActivationBlock::class => ChainsChainIdProtocolsProtocolHashGetResponse200ActivationBlockNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => ConfigGetResponse200RpcNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => ConfigGetResponse200P2pNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => ConfigGetResponse200P2pLimitsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => ConfigGetResponse200P2pGreylistingConfigNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => ConfigGetResponse200LogNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => ConfigGetResponse200ShellNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => ConfigGetResponse200ShellPeerValidatorNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => ConfigGetResponse200ShellBlockValidatorNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => ConfigGetResponse200ShellPrevalidatorNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => ConfigHistoryModeGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => ConfigLoggingPutResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => ConfigNetworkDalGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => ConfigNetworkUserActivatedProtocolOverridesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => ConfigNetworkUserActivatedUpgradesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => HealthReadyGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => InjectionBlockPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => InjectionProtocolPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => InjectionProtocolPostBodyComponentsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => MonitorAppliedBlocksGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => MonitorBootstrappedGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => MonitorHeadsChainIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\MonitorReceivedBlocksChainIdGetResponse200::class => MonitorReceivedBlocksChainIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => MonitorValidatedBlocksGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => NetworkConnectionsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => NetworkConnectionsGetResponse200ItemLocalMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => NetworkConnectionsGetResponse200ItemRemoteMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => NetworkConnectionsPeerIdDeleteResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => NetworkConnectionsPeerIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => NetworkConnectionsPeerIdGetResponse200LocalMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => NetworkConnectionsPeerIdGetResponse200RemoteMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200::class => NetworkFullStatGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItem::class => NetworkFullStatGetResponse200IncomingConnectionsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItemLocalMetadata::class => NetworkFullStatGetResponse200IncomingConnectionsItemLocalMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItemRemoteMetadata::class => NetworkFullStatGetResponse200IncomingConnectionsItemRemoteMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItem::class => NetworkFullStatGetResponse200OutgoingConnectionsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItemLocalMetadata::class => NetworkFullStatGetResponse200OutgoingConnectionsItemLocalMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItemRemoteMetadata::class => NetworkFullStatGetResponse200OutgoingConnectionsItemRemoteMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => NetworkGreylistDeleteResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => NetworkGreylistIpsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => NetworkPeersPeerIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => NetworkPeersPeerIdGetResponse200ConnMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => NetworkPeersPeerIdGetResponse200PeerMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => NetworkPeersPeerIdGetResponse200PeerMetadataResponsesNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => NetworkPeersPeerIdGetResponse200PeerMetadataRequestsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertisedNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSentNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => NetworkPeersPeerIdPatchBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => NetworkPeersPeerIdPatchResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => NetworkPeersPeerIdPatchResponse200ConnMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => NetworkPeersPeerIdPatchResponse200PeerMetadataNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => NetworkPeersPeerIdPatchResponse200PeerMetadataResponsesNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => NetworkPeersPeerIdPatchResponse200PeerMetadataRequestsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertisedNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSentNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => NetworkPointsPointGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => NetworkPointsPointPatchBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => NetworkPointsPointPatchResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => NetworkPointsPointPutBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => NetworkPointsPointPutResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => NetworkStatGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ProfilerRegisteredBackendGetResponse200::class => ProfilerRegisteredBackendGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => ProtocolsProtocolHashGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => ProtocolsProtocolHashGetResponse200ComponentsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => StatsGcGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => VersionGetResponse200VersionNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => WorkersBlockValidatorGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => WorkersBlockValidatorGetResponse200PendingRequestsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => WorkersBlockValidatorGetResponse200CurrentRequestNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => WorkersChainValidatorsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsGetResponse200ItemInformationNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => WorkersChainValidatorsChainIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => WorkersChainValidatorsChainIdDdbGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationDbNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationsDbNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDbNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformationNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelinesNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequestNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => WorkersPrevalidatorsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => WorkersPrevalidatorsGetResponse200ItemInformationNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => WorkersPrevalidatorsChainIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => WorkersPrevalidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
+
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Shell\Runtime\Normalizer\ReferenceNormalizer::class,
+    ];
+    protected $normalizersCache = [];
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Shell\Model\BlockHeader::class => BlockHeaderNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\Mempool::class => MempoolNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkVersion::class => NetworkVersionNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\Operation::class => OperationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pConnectionId::class => P2pConnectionIdNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => P2pPeerPoolEventNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pPointInfo::class => P2pPointInfoNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pStat::class => P2pStatNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => UserActivatedProtocolOverridesItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => UserActivatedUpgradesItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => ChainsChainIdPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => ChainsChainIdInvalidBlocksGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => ChainsChainIdInvalidBlocksBlockHashDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => ChainsChainIdInvalidBlocksBlockHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => ChainsChainIdIsBootstrappedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => ChainsChainIdLevelsCabooseGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => ChainsChainIdLevelsCheckpointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => ChainsChainIdLevelsSavepointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => ConfigGetResponse200RpcNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => ConfigGetResponse200P2pNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => ConfigGetResponse200P2pLimitsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => ConfigGetResponse200P2pGreylistingConfigNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => ConfigGetResponse200LogNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => ConfigGetResponse200ShellNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => ConfigGetResponse200ShellPeerValidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => ConfigGetResponse200ShellBlockValidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => ConfigGetResponse200ShellPrevalidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => ConfigHistoryModeGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => ConfigLoggingPutResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => ConfigNetworkDalGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => ConfigNetworkUserActivatedProtocolOverridesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => ConfigNetworkUserActivatedUpgradesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => HealthReadyGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => InjectionBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => InjectionProtocolPostBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => InjectionProtocolPostBodyComponentsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => MonitorAppliedBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => MonitorBootstrappedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => MonitorHeadsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => MonitorValidatedBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => NetworkConnectionsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => NetworkConnectionsGetResponse200ItemLocalMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => NetworkConnectionsGetResponse200ItemRemoteMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => NetworkConnectionsPeerIdDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => NetworkConnectionsPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => NetworkConnectionsPeerIdGetResponse200LocalMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => NetworkConnectionsPeerIdGetResponse200RemoteMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => NetworkGreylistDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => NetworkGreylistIpsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => NetworkPeersPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => NetworkPeersPeerIdGetResponse200ConnMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => NetworkPeersPeerIdGetResponse200PeerMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => NetworkPeersPeerIdGetResponse200PeerMetadataResponsesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => NetworkPeersPeerIdGetResponse200PeerMetadataRequestsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertisedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSentNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => NetworkPeersPeerIdPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => NetworkPeersPeerIdPatchResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => NetworkPeersPeerIdPatchResponse200ConnMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => NetworkPeersPeerIdPatchResponse200PeerMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => NetworkPeersPeerIdPatchResponse200PeerMetadataResponsesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => NetworkPeersPeerIdPatchResponse200PeerMetadataRequestsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertisedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSentNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => NetworkPointsPointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => NetworkPointsPointPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => NetworkPointsPointPatchResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => NetworkPointsPointPutBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => NetworkPointsPointPutResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => NetworkStatGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => ProtocolsProtocolHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => ProtocolsProtocolHashGetResponse200ComponentsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => StatsGcGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => VersionGetResponse200VersionNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => WorkersBlockValidatorGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => WorkersBlockValidatorGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => WorkersBlockValidatorGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => WorkersChainValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => WorkersChainValidatorsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => WorkersChainValidatorsChainIdDdbGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationsDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelinesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => WorkersPrevalidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => WorkersPrevalidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => WorkersPrevalidatorsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => WorkersPrevalidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Shell\Runtime\Normalizer\ReferenceNormalizer::class,
-        ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Shell\Model\BlockHeader::class => false,
-                \Pezos\Generated\Shell\Model\Mempool::class => false,
-                \Pezos\Generated\Shell\Model\NetworkVersion::class => false,
-                \Pezos\Generated\Shell\Model\Operation::class => false,
-                \Pezos\Generated\Shell\Model\P2pConnectionId::class => false,
-                \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => false,
-                \Pezos\Generated\Shell\Model\P2pPointInfo::class => false,
-                \Pezos\Generated\Shell\Model\P2pStat::class => false,
-                \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => false,
-                \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => false,
-                \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => false,
-                \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => false,
-                \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => false,
-                \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\VersionGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
+        return array_key_exists($type, $this->normalizers);
     }
-} else {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Shell\Model\BlockHeader::class => BlockHeaderNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\Mempool::class => MempoolNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkVersion::class => NetworkVersionNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\Operation::class => OperationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pConnectionId::class => P2pConnectionIdNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => P2pPeerPoolEventNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pPointInfo::class => P2pPointInfoNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\P2pStat::class => P2pStatNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => UserActivatedProtocolOverridesItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => UserActivatedUpgradesItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => ChainsChainIdPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => ChainsChainIdInvalidBlocksGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => ChainsChainIdInvalidBlocksBlockHashDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => ChainsChainIdInvalidBlocksBlockHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => ChainsChainIdIsBootstrappedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => ChainsChainIdLevelsCabooseGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => ChainsChainIdLevelsCheckpointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => ChainsChainIdLevelsSavepointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => ConfigGetResponse200RpcNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => ConfigGetResponse200P2pNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => ConfigGetResponse200P2pLimitsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => ConfigGetResponse200P2pGreylistingConfigNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => ConfigGetResponse200LogNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => ConfigGetResponse200ShellNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => ConfigGetResponse200ShellPeerValidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => ConfigGetResponse200ShellBlockValidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => ConfigGetResponse200ShellPrevalidatorNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => ConfigHistoryModeGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => ConfigLoggingPutResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => ConfigNetworkDalGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => ConfigNetworkUserActivatedProtocolOverridesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => ConfigNetworkUserActivatedUpgradesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => HealthReadyGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => InjectionBlockPostBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => InjectionProtocolPostBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => InjectionProtocolPostBodyComponentsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => MonitorAppliedBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => MonitorBootstrappedGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => MonitorHeadsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => MonitorValidatedBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => NetworkConnectionsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => NetworkConnectionsGetResponse200ItemLocalMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => NetworkConnectionsGetResponse200ItemRemoteMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => NetworkConnectionsPeerIdDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => NetworkConnectionsPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => NetworkConnectionsPeerIdGetResponse200LocalMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => NetworkConnectionsPeerIdGetResponse200RemoteMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => NetworkGreylistDeleteResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => NetworkGreylistIpsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => NetworkPeersPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => NetworkPeersPeerIdGetResponse200ConnMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => NetworkPeersPeerIdGetResponse200PeerMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => NetworkPeersPeerIdGetResponse200PeerMetadataResponsesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => NetworkPeersPeerIdGetResponse200PeerMetadataRequestsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertisedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSentNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => NetworkPeersPeerIdPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => NetworkPeersPeerIdPatchResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => NetworkPeersPeerIdPatchResponse200ConnMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => NetworkPeersPeerIdPatchResponse200PeerMetadataNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => NetworkPeersPeerIdPatchResponse200PeerMetadataResponsesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => NetworkPeersPeerIdPatchResponse200PeerMetadataRequestsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResultsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertisedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSentNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceivedNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => NetworkPointsPointGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => NetworkPointsPointPatchBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => NetworkPointsPointPatchResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => NetworkPointsPointPutBodyNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => NetworkPointsPointPutResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => NetworkStatGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => ProtocolsProtocolHashGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => ProtocolsProtocolHashGetResponse200ComponentsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => StatsGcGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => VersionGetResponse200VersionNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => WorkersBlockValidatorGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => WorkersBlockValidatorGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => WorkersBlockValidatorGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => WorkersChainValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => WorkersChainValidatorsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => WorkersChainValidatorsChainIdDdbGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => WorkersChainValidatorsChainIdDdbGetResponse200OperationsDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDbNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelinesNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => WorkersPrevalidatorsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => WorkersPrevalidatorsGetResponse200ItemInformationNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => WorkersPrevalidatorsChainIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItemNormalizer::class,
-
-            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => WorkersPrevalidatorsChainIdGetResponse200CurrentRequestNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Shell\Runtime\Normalizer\ReferenceNormalizer::class,
+        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $normalizerClass = $this->normalizers[get_class($data)];
+        $normalizer = $this->getNormalizer($normalizerClass);
+
+        return $normalizer->normalize($data, $format, $context);
+    }
+
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $denormalizerClass = $this->normalizers[$type];
+        $denormalizer = $this->getNormalizer($denormalizerClass);
+
+        return $denormalizer->denormalize($data, $type, $format, $context);
+    }
+
+    private function getNormalizer(string $normalizerClass)
+    {
+        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+    }
+
+    private function initNormalizer(string $normalizerClass)
+    {
+        $normalizer = new $normalizerClass();
+        $normalizer->setNormalizer($this->normalizer);
+        $normalizer->setDenormalizer($this->denormalizer);
+        $this->normalizersCache[$normalizerClass] = $normalizer;
+
+        return $normalizer;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [
+            \Pezos\Generated\Shell\Model\BlockHeader::class => false,
+            \Pezos\Generated\Shell\Model\Mempool::class => false,
+            \Pezos\Generated\Shell\Model\NetworkVersion::class => false,
+            \Pezos\Generated\Shell\Model\Operation::class => false,
+            \Pezos\Generated\Shell\Model\P2pConnectionId::class => false,
+            \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => false,
+            \Pezos\Generated\Shell\Model\P2pPointInfo::class => false,
+            \Pezos\Generated\Shell\Model\P2pStat::class => false,
+            \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => false,
+            \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200ActivePeersHeadsItem::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200ExternalDelegatorsItem::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsGetResponse200ItemActivationBlock::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsProtocolHashGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ChainsChainIdProtocolsProtocolHashGetResponse200ActivationBlock::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => false,
+            \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => false,
+            \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => false,
+            \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => false,
+            \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => false,
+            \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\MonitorReceivedBlocksChainIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItem::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItemLocalMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200IncomingConnectionsItemRemoteMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItem::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItemLocalMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkFullStatGetResponse200OutgoingConnectionsItemRemoteMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => false,
+            \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => false,
+            \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ProfilerRegisteredBackendGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => false,
+            \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\VersionGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => false,
+            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => false,
+            \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => false,
+            \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => false,
+            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => false,
+            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => false,
+            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => false,
+            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => false,
+            \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => false,
+            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Shell\Model\BlockHeader::class => false,
-                \Pezos\Generated\Shell\Model\Mempool::class => false,
-                \Pezos\Generated\Shell\Model\NetworkVersion::class => false,
-                \Pezos\Generated\Shell\Model\Operation::class => false,
-                \Pezos\Generated\Shell\Model\P2pConnectionId::class => false,
-                \Pezos\Generated\Shell\Model\P2pPeerPoolEvent::class => false,
-                \Pezos\Generated\Shell\Model\P2pPointInfo::class => false,
-                \Pezos\Generated\Shell\Model\P2pStat::class => false,
-                \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => false,
-                \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdIsBootstrappedGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCabooseGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsCheckpointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ChainsChainIdLevelsSavepointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class => false,
-                \Pezos\Generated\Shell\Model\ConfigHistoryModeGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigLoggingPutResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkDalGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\HealthReadyGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\InjectionBlockPostBody::class => false,
-                \Pezos\Generated\Shell\Model\InjectionProtocolPostBody::class => false,
-                \Pezos\Generated\Shell\Model\InjectionProtocolPostBodyComponentsItem::class => false,
-                \Pezos\Generated\Shell\Model\MonitorAppliedBlocksGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorBootstrappedGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\MonitorValidatedBlocksGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemLocalMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsGetResponse200ItemRemoteMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200LocalMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkConnectionsPeerIdGetResponse200RemoteMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkGreylistDeleteResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkGreylistIpsGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200ConnMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataResponses::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataRequests::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataPrevalidatorResults::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataUnadvertised::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisements::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsSent::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200PeerMetadataAdvertisementsReceived::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataResponses::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataRequests::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataPrevalidatorResults::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataUnadvertised::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisements::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsSent::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadataAdvertisementsReceived::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPatchBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPatchResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPutBody::class => false,
-                \Pezos\Generated\Shell\Model\NetworkPointsPointPutResponse200::class => false,
-                \Pezos\Generated\Shell\Model\NetworkStatGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200ComponentsItem::class => false,
-                \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\VersionGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\VersionGetResponse200Version::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersBlockValidatorGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200OperationsDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdDdbGetResponse200BlockHeaderDb::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200ItemPipelines::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200CurrentRequest::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200Item::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsGetResponse200ItemInformation::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200PendingRequestsItem::class => false,
-                \Pezos\Generated\Shell\Model\WorkersPrevalidatorsChainIdGetResponse200CurrentRequest::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
     }
 }

@@ -36,6 +36,10 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
     /**
      * @var int
      */
+    protected $toleratedInactivityPeriod;
+    /**
+     * @var int
+     */
     protected $blocksPerCycle;
     /**
      * @var int
@@ -150,7 +154,7 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
     /**
      * @var int
      */
-    protected $consensusThreshold;
+    protected $consensusThresholdSize;
     /**
      * @var ContextConstantsParametricGetResponse200MinimalParticipationRatio
      */
@@ -166,13 +170,9 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
     /**
      * @var int
      */
-    protected $percentageOfFrozenDepositsSlashedPerDoubleAttestation;
-    /**
-     * @var int
-     */
     protected $maxSlashingPerBlock;
     /**
-     * @var int
+     * @var ContextConstantsParametricGetResponse200MaxSlashingThreshold
      */
     protected $maxSlashingThreshold;
     protected $testnetDictator;
@@ -280,33 +280,25 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
      */
     protected $edgeOfStakingOverDelegation;
     /**
-     * @var int
-     */
-    protected $adaptiveIssuanceLaunchEmaThreshold;
-    /**
      * @var ContextConstantsParametricGetResponse200AdaptiveRewardsParams
      */
     protected $adaptiveRewardsParams;
     /**
      * @var bool
      */
-    protected $adaptiveIssuanceActivationVoteEnable;
-    /**
-     * @var bool
-     */
-    protected $autostakingEnable;
-    /**
-     * @var bool
-     */
-    protected $adaptiveIssuanceForceActivation;
-    /**
-     * @var bool
-     */
-    protected $nsEnable;
-    /**
-     * @var bool
-     */
     protected $directTicketSpendingEnable;
+    /**
+     * @var bool
+     */
+    protected $aggregateAttestation;
+    /**
+     * @var bool
+     */
+    protected $allowTz4DelegateEnable;
+    /**
+     * @var mixed|null
+     */
+    protected $allBakersAttestActivationLevel;
 
     public function getConsensusRightsDelay(): int
     {
@@ -343,6 +335,19 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
     {
         $this->initialized['delegateParametersActivationDelay'] = true;
         $this->delegateParametersActivationDelay = $delegateParametersActivationDelay;
+
+        return $this;
+    }
+
+    public function getToleratedInactivityPeriod(): int
+    {
+        return $this->toleratedInactivityPeriod;
+    }
+
+    public function setToleratedInactivityPeriod(int $toleratedInactivityPeriod): self
+    {
+        $this->initialized['toleratedInactivityPeriod'] = true;
+        $this->toleratedInactivityPeriod = $toleratedInactivityPeriod;
 
         return $this;
     }
@@ -712,15 +717,15 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getConsensusThreshold(): int
+    public function getConsensusThresholdSize(): int
     {
-        return $this->consensusThreshold;
+        return $this->consensusThresholdSize;
     }
 
-    public function setConsensusThreshold(int $consensusThreshold): self
+    public function setConsensusThresholdSize(int $consensusThresholdSize): self
     {
-        $this->initialized['consensusThreshold'] = true;
-        $this->consensusThreshold = $consensusThreshold;
+        $this->initialized['consensusThresholdSize'] = true;
+        $this->consensusThresholdSize = $consensusThresholdSize;
 
         return $this;
     }
@@ -764,19 +769,6 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getPercentageOfFrozenDepositsSlashedPerDoubleAttestation(): int
-    {
-        return $this->percentageOfFrozenDepositsSlashedPerDoubleAttestation;
-    }
-
-    public function setPercentageOfFrozenDepositsSlashedPerDoubleAttestation(int $percentageOfFrozenDepositsSlashedPerDoubleAttestation): self
-    {
-        $this->initialized['percentageOfFrozenDepositsSlashedPerDoubleAttestation'] = true;
-        $this->percentageOfFrozenDepositsSlashedPerDoubleAttestation = $percentageOfFrozenDepositsSlashedPerDoubleAttestation;
-
-        return $this;
-    }
-
     public function getMaxSlashingPerBlock(): int
     {
         return $this->maxSlashingPerBlock;
@@ -790,12 +782,12 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getMaxSlashingThreshold(): int
+    public function getMaxSlashingThreshold(): ContextConstantsParametricGetResponse200MaxSlashingThreshold
     {
         return $this->maxSlashingThreshold;
     }
 
-    public function setMaxSlashingThreshold(int $maxSlashingThreshold): self
+    public function setMaxSlashingThreshold(ContextConstantsParametricGetResponse200MaxSlashingThreshold $maxSlashingThreshold): self
     {
         $this->initialized['maxSlashingThreshold'] = true;
         $this->maxSlashingThreshold = $maxSlashingThreshold;
@@ -1160,19 +1152,6 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getAdaptiveIssuanceLaunchEmaThreshold(): int
-    {
-        return $this->adaptiveIssuanceLaunchEmaThreshold;
-    }
-
-    public function setAdaptiveIssuanceLaunchEmaThreshold(int $adaptiveIssuanceLaunchEmaThreshold): self
-    {
-        $this->initialized['adaptiveIssuanceLaunchEmaThreshold'] = true;
-        $this->adaptiveIssuanceLaunchEmaThreshold = $adaptiveIssuanceLaunchEmaThreshold;
-
-        return $this;
-    }
-
     public function getAdaptiveRewardsParams(): ContextConstantsParametricGetResponse200AdaptiveRewardsParams
     {
         return $this->adaptiveRewardsParams;
@@ -1186,58 +1165,6 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getAdaptiveIssuanceActivationVoteEnable(): bool
-    {
-        return $this->adaptiveIssuanceActivationVoteEnable;
-    }
-
-    public function setAdaptiveIssuanceActivationVoteEnable(bool $adaptiveIssuanceActivationVoteEnable): self
-    {
-        $this->initialized['adaptiveIssuanceActivationVoteEnable'] = true;
-        $this->adaptiveIssuanceActivationVoteEnable = $adaptiveIssuanceActivationVoteEnable;
-
-        return $this;
-    }
-
-    public function getAutostakingEnable(): bool
-    {
-        return $this->autostakingEnable;
-    }
-
-    public function setAutostakingEnable(bool $autostakingEnable): self
-    {
-        $this->initialized['autostakingEnable'] = true;
-        $this->autostakingEnable = $autostakingEnable;
-
-        return $this;
-    }
-
-    public function getAdaptiveIssuanceForceActivation(): bool
-    {
-        return $this->adaptiveIssuanceForceActivation;
-    }
-
-    public function setAdaptiveIssuanceForceActivation(bool $adaptiveIssuanceForceActivation): self
-    {
-        $this->initialized['adaptiveIssuanceForceActivation'] = true;
-        $this->adaptiveIssuanceForceActivation = $adaptiveIssuanceForceActivation;
-
-        return $this;
-    }
-
-    public function getNsEnable(): bool
-    {
-        return $this->nsEnable;
-    }
-
-    public function setNsEnable(bool $nsEnable): self
-    {
-        $this->initialized['nsEnable'] = true;
-        $this->nsEnable = $nsEnable;
-
-        return $this;
-    }
-
     public function getDirectTicketSpendingEnable(): bool
     {
         return $this->directTicketSpendingEnable;
@@ -1247,6 +1174,45 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
     {
         $this->initialized['directTicketSpendingEnable'] = true;
         $this->directTicketSpendingEnable = $directTicketSpendingEnable;
+
+        return $this;
+    }
+
+    public function getAggregateAttestation(): bool
+    {
+        return $this->aggregateAttestation;
+    }
+
+    public function setAggregateAttestation(bool $aggregateAttestation): self
+    {
+        $this->initialized['aggregateAttestation'] = true;
+        $this->aggregateAttestation = $aggregateAttestation;
+
+        return $this;
+    }
+
+    public function getAllowTz4DelegateEnable(): bool
+    {
+        return $this->allowTz4DelegateEnable;
+    }
+
+    public function setAllowTz4DelegateEnable(bool $allowTz4DelegateEnable): self
+    {
+        $this->initialized['allowTz4DelegateEnable'] = true;
+        $this->allowTz4DelegateEnable = $allowTz4DelegateEnable;
+
+        return $this;
+    }
+
+    public function getAllBakersAttestActivationLevel()
+    {
+        return $this->allBakersAttestActivationLevel;
+    }
+
+    public function setAllBakersAttestActivationLevel($allBakersAttestActivationLevel): self
+    {
+        $this->initialized['allBakersAttestActivationLevel'] = true;
+        $this->allBakersAttestActivationLevel = $allBakersAttestActivationLevel;
 
         return $this;
     }

@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,449 +20,236 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('deactivated', $data)) {
-                $object->setDeactivated($data['deactivated']);
-                unset($data['deactivated']);
-            }
-            if (\array_key_exists('is_forbidden', $data)) {
-                $object->setIsForbidden($data['is_forbidden']);
-                unset($data['is_forbidden']);
-            }
-            if (\array_key_exists('participation', $data)) {
-                $object->setParticipation($this->denormalizer->denormalize($data['participation'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class, 'json', $context));
-                unset($data['participation']);
-            }
-            if (\array_key_exists('grace_period', $data)) {
-                $object->setGracePeriod($data['grace_period']);
-                unset($data['grace_period']);
-            }
-            if (\array_key_exists('active_staking_parameters', $data)) {
-                $object->setActiveStakingParameters($this->denormalizer->denormalize($data['active_staking_parameters'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class, 'json', $context));
-                unset($data['active_staking_parameters']);
-            }
-            if (\array_key_exists('pending_staking_parameters', $data)) {
-                $values = [];
-                foreach ($data['pending_staking_parameters'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class, 'json', $context);
-                }
-                $object->setPendingStakingParameters($values);
-                unset($data['pending_staking_parameters']);
-            }
-            if (\array_key_exists('baking_power', $data)) {
-                $object->setBakingPower($data['baking_power']);
-                unset($data['baking_power']);
-            }
-            if (\array_key_exists('total_staked', $data)) {
-                $object->setTotalStaked($data['total_staked']);
-                unset($data['total_staked']);
-            }
-            if (\array_key_exists('total_delegated', $data)) {
-                $object->setTotalDelegated($data['total_delegated']);
-                unset($data['total_delegated']);
-            }
-            if (\array_key_exists('min_delegated_in_current_cycle', $data)) {
-                $object->setMinDelegatedInCurrentCycle($this->denormalizer->denormalize($data['min_delegated_in_current_cycle'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class, 'json', $context));
-                unset($data['min_delegated_in_current_cycle']);
-            }
-            if (\array_key_exists('own_full_balance', $data)) {
-                $object->setOwnFullBalance($data['own_full_balance']);
-                unset($data['own_full_balance']);
-            }
-            if (\array_key_exists('own_staked', $data)) {
-                $object->setOwnStaked($data['own_staked']);
-                unset($data['own_staked']);
-            }
-            if (\array_key_exists('own_delegated', $data)) {
-                $object->setOwnDelegated($data['own_delegated']);
-                unset($data['own_delegated']);
-            }
-            if (\array_key_exists('external_staked', $data)) {
-                $object->setExternalStaked($data['external_staked']);
-                unset($data['external_staked']);
-            }
-            if (\array_key_exists('external_delegated', $data)) {
-                $object->setExternalDelegated($data['external_delegated']);
-                unset($data['external_delegated']);
-            }
-            if (\array_key_exists('total_unstaked_per_cycle', $data)) {
-                $values_1 = [];
-                foreach ($data['total_unstaked_per_cycle'] as $value_1) {
-                    $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class, 'json', $context);
-                }
-                $object->setTotalUnstakedPerCycle($values_1);
-                unset($data['total_unstaked_per_cycle']);
-            }
-            if (\array_key_exists('denunciations', $data)) {
-                $values_2 = [];
-                foreach ($data['denunciations'] as $value_2) {
-                    $values_2[] = $this->denormalizer->denormalize($value_2, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class, 'json', $context);
-                }
-                $object->setDenunciations($values_2);
-                unset($data['denunciations']);
-            }
-            if (\array_key_exists('estimated_shared_pending_slashed_amount', $data)) {
-                $object->setEstimatedSharedPendingSlashedAmount($data['estimated_shared_pending_slashed_amount']);
-                unset($data['estimated_shared_pending_slashed_amount']);
-            }
-            if (\array_key_exists('staking_denominator', $data)) {
-                $object->setStakingDenominator($data['staking_denominator']);
-                unset($data['staking_denominator']);
-            }
-            if (\array_key_exists('current_voting_power', $data)) {
-                $object->setCurrentVotingPower($data['current_voting_power']);
-                unset($data['current_voting_power']);
-            }
-            if (\array_key_exists('voting_power', $data)) {
-                $object->setVotingPower($data['voting_power']);
-                unset($data['voting_power']);
-            }
-            if (\array_key_exists('voting_info', $data)) {
-                $object->setVotingInfo($this->denormalizer->denormalize($data['voting_info'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class, 'json', $context));
-                unset($data['voting_info']);
-            }
-            if (\array_key_exists('consensus_key', $data)) {
-                $object->setConsensusKey($this->denormalizer->denormalize($data['consensus_key'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class, 'json', $context));
-                unset($data['consensus_key']);
-            }
-            if (\array_key_exists('stakers', $data)) {
-                $values_3 = [];
-                foreach ($data['stakers'] as $value_3) {
-                    $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class, 'json', $context);
-                }
-                $object->setStakers($values_3);
-                unset($data['stakers']);
-            }
-            if (\array_key_exists('delegators', $data)) {
-                $values_4 = [];
-                foreach ($data['delegators'] as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $object->setDelegators($values_4);
-                unset($data['delegators']);
-            }
-            foreach ($data as $key => $value_5) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_5;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['deactivated'] = $object->getDeactivated();
-            $data['is_forbidden'] = $object->getIsForbidden();
-            $data['participation'] = $this->normalizer->normalize($object->getParticipation(), 'json', $context);
-            $data['grace_period'] = $object->getGracePeriod();
-            $data['active_staking_parameters'] = $this->normalizer->normalize($object->getActiveStakingParameters(), 'json', $context);
-            $values = [];
-            foreach ($object->getPendingStakingParameters() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['pending_staking_parameters'] = $values;
-            $data['baking_power'] = $object->getBakingPower();
-            $data['total_staked'] = $object->getTotalStaked();
-            $data['total_delegated'] = $object->getTotalDelegated();
-            $data['min_delegated_in_current_cycle'] = $this->normalizer->normalize($object->getMinDelegatedInCurrentCycle(), 'json', $context);
-            $data['own_full_balance'] = $object->getOwnFullBalance();
-            $data['own_staked'] = $object->getOwnStaked();
-            $data['own_delegated'] = $object->getOwnDelegated();
-            $data['external_staked'] = $object->getExternalStaked();
-            $data['external_delegated'] = $object->getExternalDelegated();
-            $values_1 = [];
-            foreach ($object->getTotalUnstakedPerCycle() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
-            }
-            $data['total_unstaked_per_cycle'] = $values_1;
-            $values_2 = [];
-            foreach ($object->getDenunciations() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
-            }
-            $data['denunciations'] = $values_2;
-            $data['estimated_shared_pending_slashed_amount'] = $object->getEstimatedSharedPendingSlashedAmount();
-            $data['staking_denominator'] = $object->getStakingDenominator();
-            $data['current_voting_power'] = $object->getCurrentVotingPower();
-            $data['voting_power'] = $object->getVotingPower();
-            $data['voting_info'] = $this->normalizer->normalize($object->getVotingInfo(), 'json', $context);
-            $data['consensus_key'] = $this->normalizer->normalize($object->getConsensusKey(), 'json', $context);
-            $values_3 = [];
-            foreach ($object->getStakers() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
-            }
-            $data['stakers'] = $values_3;
-            $values_4 = [];
-            foreach ($object->getDelegators() as $value_4) {
-                $values_4[] = $value_4;
-            }
-            $data['delegators'] = $values_4;
-            foreach ($object as $key => $value_5) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_5;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
     }
-} else {
-    class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('deactivated', $data)) {
-                $object->setDeactivated($data['deactivated']);
-                unset($data['deactivated']);
-            }
-            if (\array_key_exists('is_forbidden', $data)) {
-                $object->setIsForbidden($data['is_forbidden']);
-                unset($data['is_forbidden']);
-            }
-            if (\array_key_exists('participation', $data)) {
-                $object->setParticipation($this->denormalizer->denormalize($data['participation'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class, 'json', $context));
-                unset($data['participation']);
-            }
-            if (\array_key_exists('grace_period', $data)) {
-                $object->setGracePeriod($data['grace_period']);
-                unset($data['grace_period']);
-            }
-            if (\array_key_exists('active_staking_parameters', $data)) {
-                $object->setActiveStakingParameters($this->denormalizer->denormalize($data['active_staking_parameters'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class, 'json', $context));
-                unset($data['active_staking_parameters']);
-            }
-            if (\array_key_exists('pending_staking_parameters', $data)) {
-                $values = [];
-                foreach ($data['pending_staking_parameters'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class, 'json', $context);
-                }
-                $object->setPendingStakingParameters($values);
-                unset($data['pending_staking_parameters']);
-            }
-            if (\array_key_exists('baking_power', $data)) {
-                $object->setBakingPower($data['baking_power']);
-                unset($data['baking_power']);
-            }
-            if (\array_key_exists('total_staked', $data)) {
-                $object->setTotalStaked($data['total_staked']);
-                unset($data['total_staked']);
-            }
-            if (\array_key_exists('total_delegated', $data)) {
-                $object->setTotalDelegated($data['total_delegated']);
-                unset($data['total_delegated']);
-            }
-            if (\array_key_exists('min_delegated_in_current_cycle', $data)) {
-                $object->setMinDelegatedInCurrentCycle($this->denormalizer->denormalize($data['min_delegated_in_current_cycle'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class, 'json', $context));
-                unset($data['min_delegated_in_current_cycle']);
-            }
-            if (\array_key_exists('own_full_balance', $data)) {
-                $object->setOwnFullBalance($data['own_full_balance']);
-                unset($data['own_full_balance']);
-            }
-            if (\array_key_exists('own_staked', $data)) {
-                $object->setOwnStaked($data['own_staked']);
-                unset($data['own_staked']);
-            }
-            if (\array_key_exists('own_delegated', $data)) {
-                $object->setOwnDelegated($data['own_delegated']);
-                unset($data['own_delegated']);
-            }
-            if (\array_key_exists('external_staked', $data)) {
-                $object->setExternalStaked($data['external_staked']);
-                unset($data['external_staked']);
-            }
-            if (\array_key_exists('external_delegated', $data)) {
-                $object->setExternalDelegated($data['external_delegated']);
-                unset($data['external_delegated']);
-            }
-            if (\array_key_exists('total_unstaked_per_cycle', $data)) {
-                $values_1 = [];
-                foreach ($data['total_unstaked_per_cycle'] as $value_1) {
-                    $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class, 'json', $context);
-                }
-                $object->setTotalUnstakedPerCycle($values_1);
-                unset($data['total_unstaked_per_cycle']);
-            }
-            if (\array_key_exists('denunciations', $data)) {
-                $values_2 = [];
-                foreach ($data['denunciations'] as $value_2) {
-                    $values_2[] = $this->denormalizer->denormalize($value_2, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class, 'json', $context);
-                }
-                $object->setDenunciations($values_2);
-                unset($data['denunciations']);
-            }
-            if (\array_key_exists('estimated_shared_pending_slashed_amount', $data)) {
-                $object->setEstimatedSharedPendingSlashedAmount($data['estimated_shared_pending_slashed_amount']);
-                unset($data['estimated_shared_pending_slashed_amount']);
-            }
-            if (\array_key_exists('staking_denominator', $data)) {
-                $object->setStakingDenominator($data['staking_denominator']);
-                unset($data['staking_denominator']);
-            }
-            if (\array_key_exists('current_voting_power', $data)) {
-                $object->setCurrentVotingPower($data['current_voting_power']);
-                unset($data['current_voting_power']);
-            }
-            if (\array_key_exists('voting_power', $data)) {
-                $object->setVotingPower($data['voting_power']);
-                unset($data['voting_power']);
-            }
-            if (\array_key_exists('voting_info', $data)) {
-                $object->setVotingInfo($this->denormalizer->denormalize($data['voting_info'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class, 'json', $context));
-                unset($data['voting_info']);
-            }
-            if (\array_key_exists('consensus_key', $data)) {
-                $object->setConsensusKey($this->denormalizer->denormalize($data['consensus_key'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class, 'json', $context));
-                unset($data['consensus_key']);
-            }
-            if (\array_key_exists('stakers', $data)) {
-                $values_3 = [];
-                foreach ($data['stakers'] as $value_3) {
-                    $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class, 'json', $context);
-                }
-                $object->setStakers($values_3);
-                unset($data['stakers']);
-            }
-            if (\array_key_exists('delegators', $data)) {
-                $values_4 = [];
-                foreach ($data['delegators'] as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $object->setDelegators($values_4);
-                unset($data['delegators']);
-            }
-            foreach ($data as $key => $value_5) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_5;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200();
+        if (\array_key_exists('deactivated', $data) && \is_int($data['deactivated'])) {
+            $data['deactivated'] = (bool) $data['deactivated'];
+        }
+        if (\array_key_exists('is_forbidden', $data) && \is_int($data['is_forbidden'])) {
+            $data['is_forbidden'] = (bool) $data['is_forbidden'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['deactivated'] = $object->getDeactivated();
-            $data['is_forbidden'] = $object->getIsForbidden();
-            $data['participation'] = $this->normalizer->normalize($object->getParticipation(), 'json', $context);
-            $data['grace_period'] = $object->getGracePeriod();
-            $data['active_staking_parameters'] = $this->normalizer->normalize($object->getActiveStakingParameters(), 'json', $context);
+        if (\array_key_exists('deactivated', $data)) {
+            $object->setDeactivated($data['deactivated']);
+            unset($data['deactivated']);
+        }
+        if (\array_key_exists('is_forbidden', $data)) {
+            $object->setIsForbidden($data['is_forbidden']);
+            unset($data['is_forbidden']);
+        }
+        if (\array_key_exists('participation', $data)) {
+            $object->setParticipation($this->denormalizer->denormalize($data['participation'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200Participation::class, 'json', $context));
+            unset($data['participation']);
+        }
+        if (\array_key_exists('dal_participation', $data)) {
+            $object->setDalParticipation($this->denormalizer->denormalize($data['dal_participation'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DalParticipation::class, 'json', $context));
+            unset($data['dal_participation']);
+        }
+        if (\array_key_exists('grace_period', $data)) {
+            $object->setGracePeriod($data['grace_period']);
+            unset($data['grace_period']);
+        }
+        if (\array_key_exists('active_staking_parameters', $data)) {
+            $object->setActiveStakingParameters($this->denormalizer->denormalize($data['active_staking_parameters'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ActiveStakingParameters::class, 'json', $context));
+            unset($data['active_staking_parameters']);
+        }
+        if (\array_key_exists('pending_staking_parameters', $data)) {
             $values = [];
-            foreach ($object->getPendingStakingParameters() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            foreach ($data['pending_staking_parameters'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200PendingStakingParametersItem::class, 'json', $context);
             }
-            $data['pending_staking_parameters'] = $values;
-            $data['baking_power'] = $object->getBakingPower();
-            $data['total_staked'] = $object->getTotalStaked();
-            $data['total_delegated'] = $object->getTotalDelegated();
-            $data['min_delegated_in_current_cycle'] = $this->normalizer->normalize($object->getMinDelegatedInCurrentCycle(), 'json', $context);
-            $data['own_full_balance'] = $object->getOwnFullBalance();
-            $data['own_staked'] = $object->getOwnStaked();
-            $data['own_delegated'] = $object->getOwnDelegated();
-            $data['external_staked'] = $object->getExternalStaked();
-            $data['external_delegated'] = $object->getExternalDelegated();
+            $object->setPendingStakingParameters($values);
+            unset($data['pending_staking_parameters']);
+        }
+        if (\array_key_exists('baking_power', $data)) {
+            $object->setBakingPower($data['baking_power']);
+            unset($data['baking_power']);
+        }
+        if (\array_key_exists('total_staked', $data)) {
+            $object->setTotalStaked($data['total_staked']);
+            unset($data['total_staked']);
+        }
+        if (\array_key_exists('total_delegated', $data)) {
+            $object->setTotalDelegated($data['total_delegated']);
+            unset($data['total_delegated']);
+        }
+        if (\array_key_exists('min_delegated_in_current_cycle', $data)) {
+            $object->setMinDelegatedInCurrentCycle($this->denormalizer->denormalize($data['min_delegated_in_current_cycle'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200MinDelegatedInCurrentCycle::class, 'json', $context));
+            unset($data['min_delegated_in_current_cycle']);
+        }
+        if (\array_key_exists('own_full_balance', $data)) {
+            $object->setOwnFullBalance($data['own_full_balance']);
+            unset($data['own_full_balance']);
+        }
+        if (\array_key_exists('own_staked', $data)) {
+            $object->setOwnStaked($data['own_staked']);
+            unset($data['own_staked']);
+        }
+        if (\array_key_exists('own_delegated', $data)) {
+            $object->setOwnDelegated($data['own_delegated']);
+            unset($data['own_delegated']);
+        }
+        if (\array_key_exists('external_staked', $data)) {
+            $object->setExternalStaked($data['external_staked']);
+            unset($data['external_staked']);
+        }
+        if (\array_key_exists('external_delegated', $data)) {
+            $object->setExternalDelegated($data['external_delegated']);
+            unset($data['external_delegated']);
+        }
+        if (\array_key_exists('total_unstaked_per_cycle', $data)) {
             $values_1 = [];
-            foreach ($object->getTotalUnstakedPerCycle() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            foreach ($data['total_unstaked_per_cycle'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200TotalUnstakedPerCycleItem::class, 'json', $context);
             }
-            $data['total_unstaked_per_cycle'] = $values_1;
+            $object->setTotalUnstakedPerCycle($values_1);
+            unset($data['total_unstaked_per_cycle']);
+        }
+        if (\array_key_exists('denunciations', $data)) {
             $values_2 = [];
-            foreach ($object->getDenunciations() as $value_2) {
-                $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+            foreach ($data['denunciations'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200DenunciationsItem::class, 'json', $context);
             }
-            $data['denunciations'] = $values_2;
-            $data['estimated_shared_pending_slashed_amount'] = $object->getEstimatedSharedPendingSlashedAmount();
-            $data['staking_denominator'] = $object->getStakingDenominator();
-            $data['current_voting_power'] = $object->getCurrentVotingPower();
-            $data['voting_power'] = $object->getVotingPower();
-            $data['voting_info'] = $this->normalizer->normalize($object->getVotingInfo(), 'json', $context);
-            $data['consensus_key'] = $this->normalizer->normalize($object->getConsensusKey(), 'json', $context);
+            $object->setDenunciations($values_2);
+            unset($data['denunciations']);
+        }
+        if (\array_key_exists('estimated_shared_pending_slashed_amount', $data)) {
+            $object->setEstimatedSharedPendingSlashedAmount($data['estimated_shared_pending_slashed_amount']);
+            unset($data['estimated_shared_pending_slashed_amount']);
+        }
+        if (\array_key_exists('staking_denominator', $data)) {
+            $object->setStakingDenominator($data['staking_denominator']);
+            unset($data['staking_denominator']);
+        }
+        if (\array_key_exists('current_voting_power', $data)) {
+            $object->setCurrentVotingPower($data['current_voting_power']);
+            unset($data['current_voting_power']);
+        }
+        if (\array_key_exists('voting_power', $data)) {
+            $object->setVotingPower($data['voting_power']);
+            unset($data['voting_power']);
+        }
+        if (\array_key_exists('voting_info', $data)) {
+            $object->setVotingInfo($this->denormalizer->denormalize($data['voting_info'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200VotingInfo::class, 'json', $context));
+            unset($data['voting_info']);
+        }
+        if (\array_key_exists('consensus_key', $data)) {
+            $object->setConsensusKey($this->denormalizer->denormalize($data['consensus_key'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class, 'json', $context));
+            unset($data['consensus_key']);
+        }
+        if (\array_key_exists('stakers', $data)) {
             $values_3 = [];
-            foreach ($object->getStakers() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+            foreach ($data['stakers'] as $value_3) {
+                $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class, 'json', $context);
             }
-            $data['stakers'] = $values_3;
+            $object->setStakers($values_3);
+            unset($data['stakers']);
+        }
+        if (\array_key_exists('delegators', $data)) {
             $values_4 = [];
-            foreach ($object->getDelegators() as $value_4) {
+            foreach ($data['delegators'] as $value_4) {
                 $values_4[] = $value_4;
             }
-            $data['delegators'] = $values_4;
-            foreach ($object as $key => $value_5) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_5;
-                }
+            $object->setDelegators($values_4);
+            unset($data['delegators']);
+        }
+        foreach ($data as $key => $value_5) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_5;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['deactivated'] = $data->getDeactivated();
+        $dataArray['is_forbidden'] = $data->getIsForbidden();
+        $dataArray['participation'] = $this->normalizer->normalize($data->getParticipation(), 'json', $context);
+        if ($data->isInitialized('dalParticipation') && null !== $data->getDalParticipation()) {
+            $dataArray['dal_participation'] = $this->normalizer->normalize($data->getDalParticipation(), 'json', $context);
         }
+        $dataArray['grace_period'] = $data->getGracePeriod();
+        $dataArray['active_staking_parameters'] = $this->normalizer->normalize($data->getActiveStakingParameters(), 'json', $context);
+        $values = [];
+        foreach ($data->getPendingStakingParameters() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
+        }
+        $dataArray['pending_staking_parameters'] = $values;
+        $dataArray['baking_power'] = $data->getBakingPower();
+        $dataArray['total_staked'] = $data->getTotalStaked();
+        $dataArray['total_delegated'] = $data->getTotalDelegated();
+        $dataArray['min_delegated_in_current_cycle'] = $this->normalizer->normalize($data->getMinDelegatedInCurrentCycle(), 'json', $context);
+        $dataArray['own_full_balance'] = $data->getOwnFullBalance();
+        $dataArray['own_staked'] = $data->getOwnStaked();
+        $dataArray['own_delegated'] = $data->getOwnDelegated();
+        $dataArray['external_staked'] = $data->getExternalStaked();
+        $dataArray['external_delegated'] = $data->getExternalDelegated();
+        $values_1 = [];
+        foreach ($data->getTotalUnstakedPerCycle() as $value_1) {
+            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+        }
+        $dataArray['total_unstaked_per_cycle'] = $values_1;
+        $values_2 = [];
+        foreach ($data->getDenunciations() as $value_2) {
+            $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
+        }
+        $dataArray['denunciations'] = $values_2;
+        $dataArray['estimated_shared_pending_slashed_amount'] = $data->getEstimatedSharedPendingSlashedAmount();
+        $dataArray['staking_denominator'] = $data->getStakingDenominator();
+        $dataArray['current_voting_power'] = $data->getCurrentVotingPower();
+        $dataArray['voting_power'] = $data->getVotingPower();
+        $dataArray['voting_info'] = $this->normalizer->normalize($data->getVotingInfo(), 'json', $context);
+        $dataArray['consensus_key'] = $this->normalizer->normalize($data->getConsensusKey(), 'json', $context);
+        $values_3 = [];
+        foreach ($data->getStakers() as $value_3) {
+            $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+        }
+        $dataArray['stakers'] = $values_3;
+        $values_4 = [];
+        foreach ($data->getDelegators() as $value_4) {
+            $values_4[] = $value_4;
+        }
+        $dataArray['delegators'] = $values_4;
+        foreach ($data as $key => $value_5) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_5;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200::class => false];
     }
 }

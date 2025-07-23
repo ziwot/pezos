@@ -20,6 +20,7 @@ class PostLocalBatcherInjection extends \Pezos\Generated\Rollup\Runtime\Client\B
      * @param array[]|null $requestBody
      * @param array        $queryParameters {
      *
+     * @var string $order
      * @var string $drop_duplicate
      *             }
      */
@@ -56,9 +57,10 @@ class PostLocalBatcherInjection extends \Pezos\Generated\Rollup\Runtime\Client\B
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(['drop_duplicate']);
+        $optionsResolver->setDefined(['order', 'drop_duplicate']);
         $optionsResolver->setRequired(['drop_duplicate']);
         $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('order', ['string']);
         $optionsResolver->addAllowedTypes('drop_duplicate', ['string']);
 
         return $optionsResolver;

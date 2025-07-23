@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,149 +20,73 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class VotesSuccessorPeriodGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class VotesSuccessorPeriodGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('voting_period', $data)) {
-                $object->setVotingPeriod($this->denormalizer->denormalize($data['voting_period'], \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class, 'json', $context));
-                unset($data['voting_period']);
-            }
-            if (\array_key_exists('position', $data)) {
-                $object->setPosition($data['position']);
-                unset($data['position']);
-            }
-            if (\array_key_exists('remaining', $data)) {
-                $object->setRemaining($data['remaining']);
-                unset($data['remaining']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['voting_period'] = $this->normalizer->normalize($object->getVotingPeriod(), 'json', $context);
-            $data['position'] = $object->getPosition();
-            $data['remaining'] = $object->getRemaining();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
     }
-} else {
-    class VotesSuccessorPeriodGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('voting_period', $data)) {
-                $object->setVotingPeriod($this->denormalizer->denormalize($data['voting_period'], \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class, 'json', $context));
-                unset($data['voting_period']);
-            }
-            if (\array_key_exists('position', $data)) {
-                $object->setPosition($data['position']);
-                unset($data['position']);
-            }
-            if (\array_key_exists('remaining', $data)) {
-                $object->setRemaining($data['remaining']);
-                unset($data['remaining']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['voting_period'] = $this->normalizer->normalize($object->getVotingPeriod(), 'json', $context);
-            $data['position'] = $object->getPosition();
-            $data['remaining'] = $object->getRemaining();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
+        if (\array_key_exists('voting_period', $data)) {
+            $object->setVotingPeriod($this->denormalizer->denormalize($data['voting_period'], \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod::class, 'json', $context));
+            unset($data['voting_period']);
+        }
+        if (\array_key_exists('position', $data)) {
+            $object->setPosition($data['position']);
+            unset($data['position']);
+        }
+        if (\array_key_exists('remaining', $data)) {
+            $object->setRemaining($data['remaining']);
+            unset($data['remaining']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['voting_period'] = $this->normalizer->normalize($data->getVotingPeriod(), 'json', $context);
+        $dataArray['position'] = $data->getPosition();
+        $dataArray['remaining'] = $data->getRemaining();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200::class => false];
     }
 }

@@ -603,6 +603,16 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    public function getContextDalSkipListCellsOfLevel(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetContextDalSkipListCellsOfLevel(), $fetch);
+    }
+
+    /**
      * Lists all registered delegates by default. The arguments `active`, `inactive`, `with_minimal_stake`, and `without_minimal_stake` allow to enumerate only the delegates that are active, inactive, have at least a minimal stake to participate in consensus and in governance, or do not have such a minimal stake, respectively. Note, setting these arguments to false has no effect.
      *
      * @param array $queryParameters {
@@ -711,6 +721,19 @@ class Client extends Runtime\Client\Client
     public function getContextDelegatesByPkhCurrentVotingPower(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetContextDelegatesByPkhCurrentVotingPower($pkh), $fetch);
+    }
+
+    /**
+     * Returns information about the delegate's participation in the attestation of slots published into the Data Availability Layer (DAL) during the current cycle. The field 'expected_assigned_shards_per_slot' indicates the expected number of shards assigned to the delegate in the cycle per DAL slot. The field 'delegate_attested_dal_slots' represents the number of attested DAL slots which are also attested by the delegate, while 'delegate_attestable_dal_slots' provides the total number of DAL slots attested during the cycle for which the delegate had shards assigned. The 'expected_dal_rewards' field specifies the expected amount of rewards for the delegate based on DAL participation, provided the delegate meets the required participation. Whether this threshold is currently met is determined by the 'sufficient_dal_participation' flag, which is true if currently the delegate has sufficiently participated in attesting DAL slots declared to be attested by the protocol. Note that this flag may evolve during the cycle. Also note, in particular, that if no DAL no DAL slots have been globally attested during the cycle (i.e., when 'delegate_attestable_dal_slots' is zero), the flag is true. The 'denounced' field specifies whether the delegate was denounced for not detecting traps during the current cycle.
+     *
+     * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ContextDelegatesPkhDalParticipationGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getContextDelegatesByPkhDalParticipation(string $pkh, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetContextDelegatesByPkhDalParticipation($pkh), $fetch);
     }
 
     /**
@@ -1208,6 +1231,16 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    public function getContextProtocolFirstLevel(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetContextProtocolFirstLevel(), $fetch);
+    }
+
+    /**
      * Returns the raw context.
      *
      * @param array $queryParameters {
@@ -1682,6 +1715,16 @@ class Client extends Runtime\Client\Client
     public function getHelpersCompleteByPrefix(string $prefix, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetHelpersCompleteByPrefix($prefix), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    public function getHelpersConsecutiveRoundZero(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetHelpersConsecutiveRoundZero(), $fetch);
     }
 
     /**

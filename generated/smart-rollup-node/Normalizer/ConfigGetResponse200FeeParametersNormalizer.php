@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,231 +20,114 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200FeeParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200FeeParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('publish', $data)) {
-                $object->setPublish($this->denormalizer->denormalize($data['publish'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class, 'json', $context));
-                unset($data['publish']);
-            }
-            if (\array_key_exists('add_messages', $data)) {
-                $object->setAddMessages($this->denormalizer->denormalize($data['add_messages'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class, 'json', $context));
-                unset($data['add_messages']);
-            }
-            if (\array_key_exists('cement', $data)) {
-                $object->setCement($this->denormalizer->denormalize($data['cement'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class, 'json', $context));
-                unset($data['cement']);
-            }
-            if (\array_key_exists('timeout', $data)) {
-                $object->setTimeout($this->denormalizer->denormalize($data['timeout'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class, 'json', $context));
-                unset($data['timeout']);
-            }
-            if (\array_key_exists('refute', $data)) {
-                $object->setRefute($this->denormalizer->denormalize($data['refute'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class, 'json', $context));
-                unset($data['refute']);
-            }
-            if (\array_key_exists('recover', $data)) {
-                $object->setRecover($this->denormalizer->denormalize($data['recover'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class, 'json', $context));
-                unset($data['recover']);
-            }
-            if (\array_key_exists('execute_outbox_message', $data)) {
-                $object->setExecuteOutboxMessage($this->denormalizer->denormalize($data['execute_outbox_message'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class, 'json', $context));
-                unset($data['execute_outbox_message']);
-            }
-            if (\array_key_exists('publish_dal_commitment', $data)) {
-                $object->setPublishDalCommitment($this->denormalizer->denormalize($data['publish_dal_commitment'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class, 'json', $context));
-                unset($data['publish_dal_commitment']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('publish') && null !== $object->getPublish()) {
-                $data['publish'] = $this->normalizer->normalize($object->getPublish(), 'json', $context);
-            }
-            if ($object->isInitialized('addMessages') && null !== $object->getAddMessages()) {
-                $data['add_messages'] = $this->normalizer->normalize($object->getAddMessages(), 'json', $context);
-            }
-            if ($object->isInitialized('cement') && null !== $object->getCement()) {
-                $data['cement'] = $this->normalizer->normalize($object->getCement(), 'json', $context);
-            }
-            if ($object->isInitialized('timeout') && null !== $object->getTimeout()) {
-                $data['timeout'] = $this->normalizer->normalize($object->getTimeout(), 'json', $context);
-            }
-            if ($object->isInitialized('refute') && null !== $object->getRefute()) {
-                $data['refute'] = $this->normalizer->normalize($object->getRefute(), 'json', $context);
-            }
-            if ($object->isInitialized('recover') && null !== $object->getRecover()) {
-                $data['recover'] = $this->normalizer->normalize($object->getRecover(), 'json', $context);
-            }
-            if ($object->isInitialized('executeOutboxMessage') && null !== $object->getExecuteOutboxMessage()) {
-                $data['execute_outbox_message'] = $this->normalizer->normalize($object->getExecuteOutboxMessage(), 'json', $context);
-            }
-            if ($object->isInitialized('publishDalCommitment') && null !== $object->getPublishDalCommitment()) {
-                $data['publish_dal_commitment'] = $this->normalizer->normalize($object->getPublishDalCommitment(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
     }
-} else {
-    class ConfigGetResponse200FeeParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('publish', $data)) {
-                $object->setPublish($this->denormalizer->denormalize($data['publish'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class, 'json', $context));
-                unset($data['publish']);
-            }
-            if (\array_key_exists('add_messages', $data)) {
-                $object->setAddMessages($this->denormalizer->denormalize($data['add_messages'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class, 'json', $context));
-                unset($data['add_messages']);
-            }
-            if (\array_key_exists('cement', $data)) {
-                $object->setCement($this->denormalizer->denormalize($data['cement'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class, 'json', $context));
-                unset($data['cement']);
-            }
-            if (\array_key_exists('timeout', $data)) {
-                $object->setTimeout($this->denormalizer->denormalize($data['timeout'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class, 'json', $context));
-                unset($data['timeout']);
-            }
-            if (\array_key_exists('refute', $data)) {
-                $object->setRefute($this->denormalizer->denormalize($data['refute'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class, 'json', $context));
-                unset($data['refute']);
-            }
-            if (\array_key_exists('recover', $data)) {
-                $object->setRecover($this->denormalizer->denormalize($data['recover'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class, 'json', $context));
-                unset($data['recover']);
-            }
-            if (\array_key_exists('execute_outbox_message', $data)) {
-                $object->setExecuteOutboxMessage($this->denormalizer->denormalize($data['execute_outbox_message'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class, 'json', $context));
-                unset($data['execute_outbox_message']);
-            }
-            if (\array_key_exists('publish_dal_commitment', $data)) {
-                $object->setPublishDalCommitment($this->denormalizer->denormalize($data['publish_dal_commitment'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class, 'json', $context));
-                unset($data['publish_dal_commitment']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('publish') && null !== $object->getPublish()) {
-                $data['publish'] = $this->normalizer->normalize($object->getPublish(), 'json', $context);
+        if (\array_key_exists('publish', $data)) {
+            $object->setPublish($this->denormalizer->denormalize($data['publish'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class, 'json', $context));
+            unset($data['publish']);
+        }
+        if (\array_key_exists('add_messages', $data)) {
+            $object->setAddMessages($this->denormalizer->denormalize($data['add_messages'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class, 'json', $context));
+            unset($data['add_messages']);
+        }
+        if (\array_key_exists('cement', $data)) {
+            $object->setCement($this->denormalizer->denormalize($data['cement'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class, 'json', $context));
+            unset($data['cement']);
+        }
+        if (\array_key_exists('timeout', $data)) {
+            $object->setTimeout($this->denormalizer->denormalize($data['timeout'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class, 'json', $context));
+            unset($data['timeout']);
+        }
+        if (\array_key_exists('refute', $data)) {
+            $object->setRefute($this->denormalizer->denormalize($data['refute'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class, 'json', $context));
+            unset($data['refute']);
+        }
+        if (\array_key_exists('recover', $data)) {
+            $object->setRecover($this->denormalizer->denormalize($data['recover'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class, 'json', $context));
+            unset($data['recover']);
+        }
+        if (\array_key_exists('execute_outbox_message', $data)) {
+            $object->setExecuteOutboxMessage($this->denormalizer->denormalize($data['execute_outbox_message'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class, 'json', $context));
+            unset($data['execute_outbox_message']);
+        }
+        if (\array_key_exists('publish_dal_commitment', $data)) {
+            $object->setPublishDalCommitment($this->denormalizer->denormalize($data['publish_dal_commitment'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class, 'json', $context));
+            unset($data['publish_dal_commitment']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('addMessages') && null !== $object->getAddMessages()) {
-                $data['add_messages'] = $this->normalizer->normalize($object->getAddMessages(), 'json', $context);
-            }
-            if ($object->isInitialized('cement') && null !== $object->getCement()) {
-                $data['cement'] = $this->normalizer->normalize($object->getCement(), 'json', $context);
-            }
-            if ($object->isInitialized('timeout') && null !== $object->getTimeout()) {
-                $data['timeout'] = $this->normalizer->normalize($object->getTimeout(), 'json', $context);
-            }
-            if ($object->isInitialized('refute') && null !== $object->getRefute()) {
-                $data['refute'] = $this->normalizer->normalize($object->getRefute(), 'json', $context);
-            }
-            if ($object->isInitialized('recover') && null !== $object->getRecover()) {
-                $data['recover'] = $this->normalizer->normalize($object->getRecover(), 'json', $context);
-            }
-            if ($object->isInitialized('executeOutboxMessage') && null !== $object->getExecuteOutboxMessage()) {
-                $data['execute_outbox_message'] = $this->normalizer->normalize($object->getExecuteOutboxMessage(), 'json', $context);
-            }
-            if ($object->isInitialized('publishDalCommitment') && null !== $object->getPublishDalCommitment()) {
-                $data['publish_dal_commitment'] = $this->normalizer->normalize($object->getPublishDalCommitment(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('publish') && null !== $data->getPublish()) {
+            $dataArray['publish'] = $this->normalizer->normalize($data->getPublish(), 'json', $context);
         }
+        if ($data->isInitialized('addMessages') && null !== $data->getAddMessages()) {
+            $dataArray['add_messages'] = $this->normalizer->normalize($data->getAddMessages(), 'json', $context);
+        }
+        if ($data->isInitialized('cement') && null !== $data->getCement()) {
+            $dataArray['cement'] = $this->normalizer->normalize($data->getCement(), 'json', $context);
+        }
+        if ($data->isInitialized('timeout') && null !== $data->getTimeout()) {
+            $dataArray['timeout'] = $this->normalizer->normalize($data->getTimeout(), 'json', $context);
+        }
+        if ($data->isInitialized('refute') && null !== $data->getRefute()) {
+            $dataArray['refute'] = $this->normalizer->normalize($data->getRefute(), 'json', $context);
+        }
+        if ($data->isInitialized('recover') && null !== $data->getRecover()) {
+            $dataArray['recover'] = $this->normalizer->normalize($data->getRecover(), 'json', $context);
+        }
+        if ($data->isInitialized('executeOutboxMessage') && null !== $data->getExecuteOutboxMessage()) {
+            $dataArray['execute_outbox_message'] = $this->normalizer->normalize($data->getExecuteOutboxMessage(), 'json', $context);
+        }
+        if ($data->isInitialized('publishDalCommitment') && null !== $data->getPublishDalCommitment()) {
+            $dataArray['publish_dal_commitment'] = $this->normalizer->normalize($data->getPublishDalCommitment(), 'json', $context);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false];
     }
 }

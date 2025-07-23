@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Pezos\Tests\Integration\Shell;
 
-use Pezos\Generated\Mempool\Client as MempoolClient;
 use Pezos\Generated\Proto\Client as ProtoClient;
 use Pezos\Generated\Proto\Model\ContextConstantsGetResponse200;
 use Pezos\Generated\Shell\Client as ShellClient;
@@ -16,7 +15,6 @@ class ClientFactoryTest extends TestCase
 {
     private ShellClient $shellClient;
     private ProtoClient $protoClient;
-    private MempoolClient $mempoolClient;
 
     public function setUp(): void
     {
@@ -24,10 +22,6 @@ class ClientFactoryTest extends TestCase
         $this->protoClient = ClientFactory::createProto(
             $_ENV['NODE_URL'],
             '/chains/main/blocks/head',
-        );
-        $this->mempoolClient = ClientFactory::createMempool(
-            $_ENV['NODE_URL'],
-            '/chains/main/mempool',
         );
     }
 
@@ -53,5 +47,12 @@ class ClientFactoryTest extends TestCase
             ContextConstantsGetResponse200::class,
             $response,
         );
+    }
+
+    public function testGetChainsByChainIdBlocks()
+    {
+        $response = $this->protoClient->getContextContractsByContractIdBalance('tz1VSUr8wwNhLAzempoch5d6hLRiTh8Cjcjb');
+
+        self::assertIsInt((int) $response);
     }
 }

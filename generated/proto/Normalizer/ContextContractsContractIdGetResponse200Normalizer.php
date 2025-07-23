@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,171 +20,84 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ContextContractsContractIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContextContractsContractIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('balance', $data)) {
-                $object->setBalance($data['balance']);
-                unset($data['balance']);
-            }
-            if (\array_key_exists('delegate', $data)) {
-                $object->setDelegate($data['delegate']);
-                unset($data['delegate']);
-            }
-            if (\array_key_exists('script', $data)) {
-                $object->setScript($this->denormalizer->denormalize($data['script'], \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class, 'json', $context));
-                unset($data['script']);
-            }
-            if (\array_key_exists('counter', $data)) {
-                $object->setCounter($data['counter']);
-                unset($data['counter']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['balance'] = $object->getBalance();
-            if ($object->isInitialized('delegate') && null !== $object->getDelegate()) {
-                $data['delegate'] = $object->getDelegate();
-            }
-            if ($object->isInitialized('script') && null !== $object->getScript()) {
-                $data['script'] = $this->normalizer->normalize($object->getScript(), 'json', $context);
-            }
-            if ($object->isInitialized('counter') && null !== $object->getCounter()) {
-                $data['counter'] = $object->getCounter();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
     }
-} else {
-    class ContextContractsContractIdGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('balance', $data)) {
-                $object->setBalance($data['balance']);
-                unset($data['balance']);
-            }
-            if (\array_key_exists('delegate', $data)) {
-                $object->setDelegate($data['delegate']);
-                unset($data['delegate']);
-            }
-            if (\array_key_exists('script', $data)) {
-                $object->setScript($this->denormalizer->denormalize($data['script'], \Pezos\Generated\Proto\Model\_021PsQuebecScriptedContracts::class, 'json', $context));
-                unset($data['script']);
-            }
-            if (\array_key_exists('counter', $data)) {
-                $object->setCounter($data['counter']);
-                unset($data['counter']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['balance'] = $object->getBalance();
-            if ($object->isInitialized('delegate') && null !== $object->getDelegate()) {
-                $data['delegate'] = $object->getDelegate();
+        if (\array_key_exists('balance', $data)) {
+            $object->setBalance($data['balance']);
+            unset($data['balance']);
+        }
+        if (\array_key_exists('delegate', $data)) {
+            $object->setDelegate($data['delegate']);
+            unset($data['delegate']);
+        }
+        if (\array_key_exists('script', $data)) {
+            $object->setScript($this->denormalizer->denormalize($data['script'], \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class, 'json', $context));
+            unset($data['script']);
+        }
+        if (\array_key_exists('counter', $data)) {
+            $object->setCounter($data['counter']);
+            unset($data['counter']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('script') && null !== $object->getScript()) {
-                $data['script'] = $this->normalizer->normalize($object->getScript(), 'json', $context);
-            }
-            if ($object->isInitialized('counter') && null !== $object->getCounter()) {
-                $data['counter'] = $object->getCounter();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['balance'] = $data->getBalance();
+        if ($data->isInitialized('delegate') && null !== $data->getDelegate()) {
+            $dataArray['delegate'] = $data->getDelegate();
         }
+        if ($data->isInitialized('script') && null !== $data->getScript()) {
+            $dataArray['script'] = $this->normalizer->normalize($data->getScript(), 'json', $context);
+        }
+        if ($data->isInitialized('counter') && null !== $data->getCounter()) {
+            $dataArray['counter'] = $data->getCounter();
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false];
     }
 }

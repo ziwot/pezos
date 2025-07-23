@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,161 +20,79 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200InjectorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200InjectorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('retention_period', $data)) {
-                $object->setRetentionPeriod($data['retention_period']);
-                unset($data['retention_period']);
-            }
-            if (\array_key_exists('attempts', $data)) {
-                $object->setAttempts($data['attempts']);
-                unset($data['attempts']);
-            }
-            if (\array_key_exists('injection_ttl', $data)) {
-                $object->setInjectionTtl($data['injection_ttl']);
-                unset($data['injection_ttl']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('retentionPeriod') && null !== $object->getRetentionPeriod()) {
-                $data['retention_period'] = $object->getRetentionPeriod();
-            }
-            if ($object->isInitialized('attempts') && null !== $object->getAttempts()) {
-                $data['attempts'] = $object->getAttempts();
-            }
-            if ($object->isInitialized('injectionTtl') && null !== $object->getInjectionTtl()) {
-                $data['injection_ttl'] = $object->getInjectionTtl();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
     }
-} else {
-    class ConfigGetResponse200InjectorNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('retention_period', $data)) {
-                $object->setRetentionPeriod($data['retention_period']);
-                unset($data['retention_period']);
-            }
-            if (\array_key_exists('attempts', $data)) {
-                $object->setAttempts($data['attempts']);
-                unset($data['attempts']);
-            }
-            if (\array_key_exists('injection_ttl', $data)) {
-                $object->setInjectionTtl($data['injection_ttl']);
-                unset($data['injection_ttl']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('retentionPeriod') && null !== $object->getRetentionPeriod()) {
-                $data['retention_period'] = $object->getRetentionPeriod();
+        if (\array_key_exists('retention_period', $data)) {
+            $object->setRetentionPeriod($data['retention_period']);
+            unset($data['retention_period']);
+        }
+        if (\array_key_exists('attempts', $data)) {
+            $object->setAttempts($data['attempts']);
+            unset($data['attempts']);
+        }
+        if (\array_key_exists('injection_ttl', $data)) {
+            $object->setInjectionTtl($data['injection_ttl']);
+            unset($data['injection_ttl']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('attempts') && null !== $object->getAttempts()) {
-                $data['attempts'] = $object->getAttempts();
-            }
-            if ($object->isInitialized('injectionTtl') && null !== $object->getInjectionTtl()) {
-                $data['injection_ttl'] = $object->getInjectionTtl();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('retentionPeriod') && null !== $data->getRetentionPeriod()) {
+            $dataArray['retention_period'] = $data->getRetentionPeriod();
         }
+        if ($data->isInitialized('attempts') && null !== $data->getAttempts()) {
+            $dataArray['attempts'] = $data->getAttempts();
+        }
+        if ($data->isInitialized('injectionTtl') && null !== $data->getInjectionTtl()) {
+            $dataArray['injection_ttl'] = $data->getInjectionTtl();
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false];
     }
 }

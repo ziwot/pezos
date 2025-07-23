@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,261 +20,132 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('data-dir', $data)) {
-                $object->setDataDir($data['data-dir']);
-                unset($data['data-dir']);
-            }
-            if (\array_key_exists('disable-config-validation', $data)) {
-                $object->setDisableConfigValidation($data['disable-config-validation']);
-                unset($data['disable-config-validation']);
-            }
-            if (\array_key_exists('rpc', $data)) {
-                $object->setRpc($this->denormalizer->denormalize($data['rpc'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class, 'json', $context));
-                unset($data['rpc']);
-            }
-            if (\array_key_exists('p2p', $data)) {
-                $object->setP2p($this->denormalizer->denormalize($data['p2p'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class, 'json', $context));
-                unset($data['p2p']);
-            }
-            if (\array_key_exists('log', $data)) {
-                $object->setLog($this->denormalizer->denormalize($data['log'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class, 'json', $context));
-                unset($data['log']);
-            }
-            if (\array_key_exists('internal-events', $data)) {
-                $object->setInternalEvents($data['internal-events']);
-                unset($data['internal-events']);
-            }
-            if (\array_key_exists('shell', $data)) {
-                $object->setShell($this->denormalizer->denormalize($data['shell'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class, 'json', $context));
-                unset($data['shell']);
-            }
-            if (\array_key_exists('network', $data)) {
-                $object->setNetwork($data['network']);
-                unset($data['network']);
-            }
-            if (\array_key_exists('metrics_addr', $data)) {
-                $values = [];
-                foreach ($data['metrics_addr'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMetricsAddr($values);
-                unset($data['metrics_addr']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('dataDir') && null !== $object->getDataDir()) {
-                $data['data-dir'] = $object->getDataDir();
-            }
-            if ($object->isInitialized('disableConfigValidation') && null !== $object->getDisableConfigValidation()) {
-                $data['disable-config-validation'] = $object->getDisableConfigValidation();
-            }
-            if ($object->isInitialized('rpc') && null !== $object->getRpc()) {
-                $data['rpc'] = $this->normalizer->normalize($object->getRpc(), 'json', $context);
-            }
-            if ($object->isInitialized('p2p') && null !== $object->getP2p()) {
-                $data['p2p'] = $this->normalizer->normalize($object->getP2p(), 'json', $context);
-            }
-            if ($object->isInitialized('log') && null !== $object->getLog()) {
-                $data['log'] = $this->normalizer->normalize($object->getLog(), 'json', $context);
-            }
-            if ($object->isInitialized('internalEvents') && null !== $object->getInternalEvents()) {
-                $data['internal-events'] = $object->getInternalEvents();
-            }
-            if ($object->isInitialized('shell') && null !== $object->getShell()) {
-                $data['shell'] = $this->normalizer->normalize($object->getShell(), 'json', $context);
-            }
-            if ($object->isInitialized('network') && null !== $object->getNetwork()) {
-                $data['network'] = $object->getNetwork();
-            }
-            if ($object->isInitialized('metricsAddr') && null !== $object->getMetricsAddr()) {
-                $values = [];
-                foreach ($object->getMetricsAddr() as $value) {
-                    $values[] = $value;
-                }
-                $data['metrics_addr'] = $values;
-            }
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
     }
-} else {
-    class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('data-dir', $data)) {
-                $object->setDataDir($data['data-dir']);
-                unset($data['data-dir']);
-            }
-            if (\array_key_exists('disable-config-validation', $data)) {
-                $object->setDisableConfigValidation($data['disable-config-validation']);
-                unset($data['disable-config-validation']);
-            }
-            if (\array_key_exists('rpc', $data)) {
-                $object->setRpc($this->denormalizer->denormalize($data['rpc'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class, 'json', $context));
-                unset($data['rpc']);
-            }
-            if (\array_key_exists('p2p', $data)) {
-                $object->setP2p($this->denormalizer->denormalize($data['p2p'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class, 'json', $context));
-                unset($data['p2p']);
-            }
-            if (\array_key_exists('log', $data)) {
-                $object->setLog($this->denormalizer->denormalize($data['log'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class, 'json', $context));
-                unset($data['log']);
-            }
-            if (\array_key_exists('internal-events', $data)) {
-                $object->setInternalEvents($data['internal-events']);
-                unset($data['internal-events']);
-            }
-            if (\array_key_exists('shell', $data)) {
-                $object->setShell($this->denormalizer->denormalize($data['shell'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class, 'json', $context));
-                unset($data['shell']);
-            }
-            if (\array_key_exists('network', $data)) {
-                $object->setNetwork($data['network']);
-                unset($data['network']);
-            }
-            if (\array_key_exists('metrics_addr', $data)) {
-                $values = [];
-                foreach ($data['metrics_addr'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMetricsAddr($values);
-                unset($data['metrics_addr']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200();
+        if (\array_key_exists('disable-config-validation', $data) && \is_int($data['disable-config-validation'])) {
+            $data['disable-config-validation'] = (bool) $data['disable-config-validation'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('dataDir') && null !== $object->getDataDir()) {
-                $data['data-dir'] = $object->getDataDir();
+        if (\array_key_exists('data-dir', $data)) {
+            $object->setDataDir($data['data-dir']);
+            unset($data['data-dir']);
+        }
+        if (\array_key_exists('disable-config-validation', $data)) {
+            $object->setDisableConfigValidation($data['disable-config-validation']);
+            unset($data['disable-config-validation']);
+        }
+        if (\array_key_exists('rpc', $data)) {
+            $object->setRpc($this->denormalizer->denormalize($data['rpc'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Rpc::class, 'json', $context));
+            unset($data['rpc']);
+        }
+        if (\array_key_exists('p2p', $data)) {
+            $object->setP2p($this->denormalizer->denormalize($data['p2p'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class, 'json', $context));
+            unset($data['p2p']);
+        }
+        if (\array_key_exists('log', $data)) {
+            $object->setLog($this->denormalizer->denormalize($data['log'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class, 'json', $context));
+            unset($data['log']);
+        }
+        if (\array_key_exists('internal-events', $data)) {
+            $object->setInternalEvents($data['internal-events']);
+            unset($data['internal-events']);
+        }
+        if (\array_key_exists('shell', $data)) {
+            $object->setShell($this->denormalizer->denormalize($data['shell'], \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class, 'json', $context));
+            unset($data['shell']);
+        }
+        if (\array_key_exists('network', $data)) {
+            $object->setNetwork($data['network']);
+            unset($data['network']);
+        }
+        if (\array_key_exists('metrics_addr', $data)) {
+            $values = [];
+            foreach ($data['metrics_addr'] as $value) {
+                $values[] = $value;
             }
-            if ($object->isInitialized('disableConfigValidation') && null !== $object->getDisableConfigValidation()) {
-                $data['disable-config-validation'] = $object->getDisableConfigValidation();
+            $object->setMetricsAddr($values);
+            unset($data['metrics_addr']);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
             }
-            if ($object->isInitialized('rpc') && null !== $object->getRpc()) {
-                $data['rpc'] = $this->normalizer->normalize($object->getRpc(), 'json', $context);
-            }
-            if ($object->isInitialized('p2p') && null !== $object->getP2p()) {
-                $data['p2p'] = $this->normalizer->normalize($object->getP2p(), 'json', $context);
-            }
-            if ($object->isInitialized('log') && null !== $object->getLog()) {
-                $data['log'] = $this->normalizer->normalize($object->getLog(), 'json', $context);
-            }
-            if ($object->isInitialized('internalEvents') && null !== $object->getInternalEvents()) {
-                $data['internal-events'] = $object->getInternalEvents();
-            }
-            if ($object->isInitialized('shell') && null !== $object->getShell()) {
-                $data['shell'] = $this->normalizer->normalize($object->getShell(), 'json', $context);
-            }
-            if ($object->isInitialized('network') && null !== $object->getNetwork()) {
-                $data['network'] = $object->getNetwork();
-            }
-            if ($object->isInitialized('metricsAddr') && null !== $object->getMetricsAddr()) {
-                $values = [];
-                foreach ($object->getMetricsAddr() as $value) {
-                    $values[] = $value;
-                }
-                $data['metrics_addr'] = $values;
-            }
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('dataDir') && null !== $data->getDataDir()) {
+            $dataArray['data-dir'] = $data->getDataDir();
         }
+        if ($data->isInitialized('disableConfigValidation') && null !== $data->getDisableConfigValidation()) {
+            $dataArray['disable-config-validation'] = $data->getDisableConfigValidation();
+        }
+        if ($data->isInitialized('rpc') && null !== $data->getRpc()) {
+            $dataArray['rpc'] = $this->normalizer->normalize($data->getRpc(), 'json', $context);
+        }
+        if ($data->isInitialized('p2p') && null !== $data->getP2p()) {
+            $dataArray['p2p'] = $this->normalizer->normalize($data->getP2p(), 'json', $context);
+        }
+        if ($data->isInitialized('log') && null !== $data->getLog()) {
+            $dataArray['log'] = $this->normalizer->normalize($data->getLog(), 'json', $context);
+        }
+        if ($data->isInitialized('internalEvents') && null !== $data->getInternalEvents()) {
+            $dataArray['internal-events'] = $data->getInternalEvents();
+        }
+        if ($data->isInitialized('shell') && null !== $data->getShell()) {
+            $dataArray['shell'] = $this->normalizer->normalize($data->getShell(), 'json', $context);
+        }
+        if ($data->isInitialized('network') && null !== $data->getNetwork()) {
+            $dataArray['network'] = $data->getNetwork();
+        }
+        if ($data->isInitialized('metricsAddr') && null !== $data->getMetricsAddr()) {
+            $values = [];
+            foreach ($data->getMetricsAddr() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['metrics_addr'] = $values;
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\ConfigGetResponse200::class => false];
     }
 }

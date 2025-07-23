@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,147 +20,72 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200GcParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200GcParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('frequency', $data)) {
-                $object->setFrequency($data['frequency']);
-                unset($data['frequency']);
-            }
-            if (\array_key_exists('context_splitting_period', $data)) {
-                $object->setContextSplittingPeriod($data['context_splitting_period']);
-                unset($data['context_splitting_period']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('frequency') && null !== $object->getFrequency()) {
-                $data['frequency'] = $object->getFrequency();
-            }
-            if ($object->isInitialized('contextSplittingPeriod') && null !== $object->getContextSplittingPeriod()) {
-                $data['context_splitting_period'] = $object->getContextSplittingPeriod();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
     }
-} else {
-    class ConfigGetResponse200GcParametersNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('frequency', $data)) {
-                $object->setFrequency($data['frequency']);
-                unset($data['frequency']);
-            }
-            if (\array_key_exists('context_splitting_period', $data)) {
-                $object->setContextSplittingPeriod($data['context_splitting_period']);
-                unset($data['context_splitting_period']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('frequency') && null !== $object->getFrequency()) {
-                $data['frequency'] = $object->getFrequency();
+        if (\array_key_exists('frequency', $data)) {
+            $object->setFrequency($data['frequency']);
+            unset($data['frequency']);
+        }
+        if (\array_key_exists('context_splitting_period', $data)) {
+            $object->setContextSplittingPeriod($data['context_splitting_period']);
+            unset($data['context_splitting_period']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('contextSplittingPeriod') && null !== $object->getContextSplittingPeriod()) {
-                $data['context_splitting_period'] = $object->getContextSplittingPeriod();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('frequency') && null !== $data->getFrequency()) {
+            $dataArray['frequency'] = $data->getFrequency();
         }
+        if ($data->isInitialized('contextSplittingPeriod') && null !== $data->getContextSplittingPeriod()) {
+            $dataArray['context_splitting_period'] = $data->getContextSplittingPeriod();
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false];
     }
 }

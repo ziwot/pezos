@@ -27,7 +27,7 @@ class ChainsChainIdInvalidBlocksBlockHashGetResponse200 extends \ArrayObject
      */
     protected $level;
     /**
-     * The full list of errors is available with the global RPC `GET errors`.
+     * An error trace. The full list of errors is available with the global RPC `GET errors`.
      */
     protected $errors;
 
@@ -58,7 +58,7 @@ class ChainsChainIdInvalidBlocksBlockHashGetResponse200 extends \ArrayObject
     }
 
     /**
-     * The full list of errors is available with the global RPC `GET errors`.
+     * An error trace. The full list of errors is available with the global RPC `GET errors`.
      */
     public function getErrors()
     {
@@ -66,7 +66,7 @@ class ChainsChainIdInvalidBlocksBlockHashGetResponse200 extends \ArrayObject
     }
 
     /**
-     * The full list of errors is available with the global RPC `GET errors`.
+     * An error trace. The full list of errors is available with the global RPC `GET errors`.
      */
     public function setErrors($errors): self
     {

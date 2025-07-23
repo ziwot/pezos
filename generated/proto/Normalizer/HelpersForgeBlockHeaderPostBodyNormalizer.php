@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,225 +20,111 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class HelpersForgeBlockHeaderPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class HelpersForgeBlockHeaderPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('proto', $data)) {
-                $object->setProto($data['proto']);
-                unset($data['proto']);
-            }
-            if (\array_key_exists('predecessor', $data)) {
-                $object->setPredecessor($data['predecessor']);
-                unset($data['predecessor']);
-            }
-            if (\array_key_exists('timestamp', $data)) {
-                $object->setTimestamp($data['timestamp']);
-                unset($data['timestamp']);
-            }
-            if (\array_key_exists('validation_pass', $data)) {
-                $object->setValidationPass($data['validation_pass']);
-                unset($data['validation_pass']);
-            }
-            if (\array_key_exists('operations_hash', $data)) {
-                $object->setOperationsHash($data['operations_hash']);
-                unset($data['operations_hash']);
-            }
-            if (\array_key_exists('fitness', $data)) {
-                $values = [];
-                foreach ($data['fitness'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setFitness($values);
-                unset($data['fitness']);
-            }
-            if (\array_key_exists('context', $data)) {
-                $object->setContext($data['context']);
-                unset($data['context']);
-            }
-            if (\array_key_exists('protocol_data', $data)) {
-                $object->setProtocolData($data['protocol_data']);
-                unset($data['protocol_data']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['level'] = $object->getLevel();
-            $data['proto'] = $object->getProto();
-            $data['predecessor'] = $object->getPredecessor();
-            $data['timestamp'] = $object->getTimestamp();
-            $data['validation_pass'] = $object->getValidationPass();
-            $data['operations_hash'] = $object->getOperationsHash();
-            $values = [];
-            foreach ($object->getFitness() as $value) {
-                $values[] = $value;
-            }
-            $data['fitness'] = $values;
-            $data['context'] = $object->getContext();
-            $data['protocol_data'] = $object->getProtocolData();
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
     }
-} else {
-    class HelpersForgeBlockHeaderPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('proto', $data)) {
-                $object->setProto($data['proto']);
-                unset($data['proto']);
-            }
-            if (\array_key_exists('predecessor', $data)) {
-                $object->setPredecessor($data['predecessor']);
-                unset($data['predecessor']);
-            }
-            if (\array_key_exists('timestamp', $data)) {
-                $object->setTimestamp($data['timestamp']);
-                unset($data['timestamp']);
-            }
-            if (\array_key_exists('validation_pass', $data)) {
-                $object->setValidationPass($data['validation_pass']);
-                unset($data['validation_pass']);
-            }
-            if (\array_key_exists('operations_hash', $data)) {
-                $object->setOperationsHash($data['operations_hash']);
-                unset($data['operations_hash']);
-            }
-            if (\array_key_exists('fitness', $data)) {
-                $values = [];
-                foreach ($data['fitness'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setFitness($values);
-                unset($data['fitness']);
-            }
-            if (\array_key_exists('context', $data)) {
-                $object->setContext($data['context']);
-                unset($data['context']);
-            }
-            if (\array_key_exists('protocol_data', $data)) {
-                $object->setProtocolData($data['protocol_data']);
-                unset($data['protocol_data']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['level'] = $object->getLevel();
-            $data['proto'] = $object->getProto();
-            $data['predecessor'] = $object->getPredecessor();
-            $data['timestamp'] = $object->getTimestamp();
-            $data['validation_pass'] = $object->getValidationPass();
-            $data['operations_hash'] = $object->getOperationsHash();
+        if (\array_key_exists('level', $data)) {
+            $object->setLevel($data['level']);
+            unset($data['level']);
+        }
+        if (\array_key_exists('proto', $data)) {
+            $object->setProto($data['proto']);
+            unset($data['proto']);
+        }
+        if (\array_key_exists('predecessor', $data)) {
+            $object->setPredecessor($data['predecessor']);
+            unset($data['predecessor']);
+        }
+        if (\array_key_exists('timestamp', $data)) {
+            $object->setTimestamp($data['timestamp']);
+            unset($data['timestamp']);
+        }
+        if (\array_key_exists('validation_pass', $data)) {
+            $object->setValidationPass($data['validation_pass']);
+            unset($data['validation_pass']);
+        }
+        if (\array_key_exists('operations_hash', $data)) {
+            $object->setOperationsHash($data['operations_hash']);
+            unset($data['operations_hash']);
+        }
+        if (\array_key_exists('fitness', $data)) {
             $values = [];
-            foreach ($object->getFitness() as $value) {
+            foreach ($data['fitness'] as $value) {
                 $values[] = $value;
             }
-            $data['fitness'] = $values;
-            $data['context'] = $object->getContext();
-            $data['protocol_data'] = $object->getProtocolData();
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
+            $object->setFitness($values);
+            unset($data['fitness']);
+        }
+        if (\array_key_exists('context', $data)) {
+            $object->setContext($data['context']);
+            unset($data['context']);
+        }
+        if (\array_key_exists('protocol_data', $data)) {
+            $object->setProtocolData($data['protocol_data']);
+            unset($data['protocol_data']);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['level'] = $data->getLevel();
+        $dataArray['proto'] = $data->getProto();
+        $dataArray['predecessor'] = $data->getPredecessor();
+        $dataArray['timestamp'] = $data->getTimestamp();
+        $dataArray['validation_pass'] = $data->getValidationPass();
+        $dataArray['operations_hash'] = $data->getOperationsHash();
+        $values = [];
+        foreach ($data->getFitness() as $value) {
+            $values[] = $value;
         }
+        $dataArray['fitness'] = $values;
+        $dataArray['context'] = $data->getContext();
+        $dataArray['protocol_data'] = $data->getProtocolData();
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false];
     }
 }

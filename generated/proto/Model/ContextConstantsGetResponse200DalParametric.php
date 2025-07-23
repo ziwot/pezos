@@ -42,6 +42,18 @@ class ContextConstantsGetResponse200DalParametric extends \ArrayObject
      */
     protected $attestationThreshold;
     /**
+     * @var ContextConstantsGetResponse200DalParametricMinimalParticipationRatio
+     */
+    protected $minimalParticipationRatio;
+    /**
+     * @var ContextConstantsGetResponse200DalParametricRewardsRatio
+     */
+    protected $rewardsRatio;
+    /**
+     * @var ContextConstantsGetResponse200DalParametricTrapsFraction
+     */
+    protected $trapsFraction;
+    /**
      * @var int
      */
     protected $redundancyFactor;
@@ -119,6 +131,45 @@ class ContextConstantsGetResponse200DalParametric extends \ArrayObject
     {
         $this->initialized['attestationThreshold'] = true;
         $this->attestationThreshold = $attestationThreshold;
+
+        return $this;
+    }
+
+    public function getMinimalParticipationRatio(): ContextConstantsGetResponse200DalParametricMinimalParticipationRatio
+    {
+        return $this->minimalParticipationRatio;
+    }
+
+    public function setMinimalParticipationRatio(ContextConstantsGetResponse200DalParametricMinimalParticipationRatio $minimalParticipationRatio): self
+    {
+        $this->initialized['minimalParticipationRatio'] = true;
+        $this->minimalParticipationRatio = $minimalParticipationRatio;
+
+        return $this;
+    }
+
+    public function getRewardsRatio(): ContextConstantsGetResponse200DalParametricRewardsRatio
+    {
+        return $this->rewardsRatio;
+    }
+
+    public function setRewardsRatio(ContextConstantsGetResponse200DalParametricRewardsRatio $rewardsRatio): self
+    {
+        $this->initialized['rewardsRatio'] = true;
+        $this->rewardsRatio = $rewardsRatio;
+
+        return $this;
+    }
+
+    public function getTrapsFraction(): ContextConstantsGetResponse200DalParametricTrapsFraction
+    {
+        return $this->trapsFraction;
+    }
+
+    public function setTrapsFraction(ContextConstantsGetResponse200DalParametricTrapsFraction $trapsFraction): self
+    {
+        $this->initialized['trapsFraction'] = true;
+        $this->trapsFraction = $trapsFraction;
 
         return $this;
     }

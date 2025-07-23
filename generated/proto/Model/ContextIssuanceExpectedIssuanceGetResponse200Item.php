@@ -55,6 +55,12 @@ class ContextIssuanceExpectedIssuanceGetResponse200Item extends \ArrayObject
      * @var string
      */
     protected $vdfRevelationTip;
+    /**
+     * Decimal representation of a positive big number.
+     *
+     * @var string
+     */
+    protected $dalAttestingRewardPerShard;
 
     public function getCycle(): int
     {
@@ -160,6 +166,25 @@ class ContextIssuanceExpectedIssuanceGetResponse200Item extends \ArrayObject
     {
         $this->initialized['vdfRevelationTip'] = true;
         $this->vdfRevelationTip = $vdfRevelationTip;
+
+        return $this;
+    }
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function getDalAttestingRewardPerShard(): string
+    {
+        return $this->dalAttestingRewardPerShard;
+    }
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function setDalAttestingRewardPerShard(string $dalAttestingRewardPerShard): self
+    {
+        $this->initialized['dalAttestingRewardPerShard'] = true;
+        $this->dalAttestingRewardPerShard = $dalAttestingRewardPerShard;
 
         return $this;
     }

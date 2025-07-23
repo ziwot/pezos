@@ -42,6 +42,18 @@ class ContextConstantsParametricGetResponse200DalParametric extends \ArrayObject
      */
     protected $attestationThreshold;
     /**
+     * @var ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatio
+     */
+    protected $minimalParticipationRatio;
+    /**
+     * @var ContextConstantsParametricGetResponse200DalParametricRewardsRatio
+     */
+    protected $rewardsRatio;
+    /**
+     * @var ContextConstantsParametricGetResponse200DalParametricTrapsFraction
+     */
+    protected $trapsFraction;
+    /**
      * @var int
      */
     protected $redundancyFactor;
@@ -119,6 +131,45 @@ class ContextConstantsParametricGetResponse200DalParametric extends \ArrayObject
     {
         $this->initialized['attestationThreshold'] = true;
         $this->attestationThreshold = $attestationThreshold;
+
+        return $this;
+    }
+
+    public function getMinimalParticipationRatio(): ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatio
+    {
+        return $this->minimalParticipationRatio;
+    }
+
+    public function setMinimalParticipationRatio(ContextConstantsParametricGetResponse200DalParametricMinimalParticipationRatio $minimalParticipationRatio): self
+    {
+        $this->initialized['minimalParticipationRatio'] = true;
+        $this->minimalParticipationRatio = $minimalParticipationRatio;
+
+        return $this;
+    }
+
+    public function getRewardsRatio(): ContextConstantsParametricGetResponse200DalParametricRewardsRatio
+    {
+        return $this->rewardsRatio;
+    }
+
+    public function setRewardsRatio(ContextConstantsParametricGetResponse200DalParametricRewardsRatio $rewardsRatio): self
+    {
+        $this->initialized['rewardsRatio'] = true;
+        $this->rewardsRatio = $rewardsRatio;
+
+        return $this;
+    }
+
+    public function getTrapsFraction(): ContextConstantsParametricGetResponse200DalParametricTrapsFraction
+    {
+        return $this->trapsFraction;
+    }
+
+    public function setTrapsFraction(ContextConstantsParametricGetResponse200DalParametricTrapsFraction $trapsFraction): self
+    {
+        $this->initialized['trapsFraction'] = true;
+        $this->trapsFraction = $trapsFraction;
 
         return $this;
     }

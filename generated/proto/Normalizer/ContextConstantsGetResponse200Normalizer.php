@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,937 +20,500 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('proof_of_work_nonce_size', $data)) {
-                $object->setProofOfWorkNonceSize($data['proof_of_work_nonce_size']);
-                unset($data['proof_of_work_nonce_size']);
-            }
-            if (\array_key_exists('nonce_length', $data)) {
-                $object->setNonceLength($data['nonce_length']);
-                unset($data['nonce_length']);
-            }
-            if (\array_key_exists('max_anon_ops_per_block', $data)) {
-                $object->setMaxAnonOpsPerBlock($data['max_anon_ops_per_block']);
-                unset($data['max_anon_ops_per_block']);
-            }
-            if (\array_key_exists('max_operation_data_length', $data)) {
-                $object->setMaxOperationDataLength($data['max_operation_data_length']);
-                unset($data['max_operation_data_length']);
-            }
-            if (\array_key_exists('max_proposals_per_delegate', $data)) {
-                $object->setMaxProposalsPerDelegate($data['max_proposals_per_delegate']);
-                unset($data['max_proposals_per_delegate']);
-            }
-            if (\array_key_exists('max_micheline_node_count', $data)) {
-                $object->setMaxMichelineNodeCount($data['max_micheline_node_count']);
-                unset($data['max_micheline_node_count']);
-            }
-            if (\array_key_exists('max_micheline_bytes_limit', $data)) {
-                $object->setMaxMichelineBytesLimit($data['max_micheline_bytes_limit']);
-                unset($data['max_micheline_bytes_limit']);
-            }
-            if (\array_key_exists('max_allowed_global_constants_depth', $data)) {
-                $object->setMaxAllowedGlobalConstantsDepth($data['max_allowed_global_constants_depth']);
-                unset($data['max_allowed_global_constants_depth']);
-            }
-            if (\array_key_exists('cache_layout_size', $data)) {
-                $object->setCacheLayoutSize($data['cache_layout_size']);
-                unset($data['cache_layout_size']);
-            }
-            if (\array_key_exists('michelson_maximum_type_size', $data)) {
-                $object->setMichelsonMaximumTypeSize($data['michelson_maximum_type_size']);
-                unset($data['michelson_maximum_type_size']);
-            }
-            if (\array_key_exists('max_slashing_period', $data)) {
-                $object->setMaxSlashingPeriod($data['max_slashing_period']);
-                unset($data['max_slashing_period']);
-            }
-            if (\array_key_exists('smart_rollup_max_wrapped_proof_binary_size', $data)) {
-                $object->setSmartRollupMaxWrappedProofBinarySize($data['smart_rollup_max_wrapped_proof_binary_size']);
-                unset($data['smart_rollup_max_wrapped_proof_binary_size']);
-            }
-            if (\array_key_exists('smart_rollup_message_size_limit', $data)) {
-                $object->setSmartRollupMessageSizeLimit($data['smart_rollup_message_size_limit']);
-                unset($data['smart_rollup_message_size_limit']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_messages_per_level', $data)) {
-                $object->setSmartRollupMaxNumberOfMessagesPerLevel($data['smart_rollup_max_number_of_messages_per_level']);
-                unset($data['smart_rollup_max_number_of_messages_per_level']);
-            }
-            if (\array_key_exists('consensus_rights_delay', $data)) {
-                $object->setConsensusRightsDelay($data['consensus_rights_delay']);
-                unset($data['consensus_rights_delay']);
-            }
-            if (\array_key_exists('blocks_preservation_cycles', $data)) {
-                $object->setBlocksPreservationCycles($data['blocks_preservation_cycles']);
-                unset($data['blocks_preservation_cycles']);
-            }
-            if (\array_key_exists('delegate_parameters_activation_delay', $data)) {
-                $object->setDelegateParametersActivationDelay($data['delegate_parameters_activation_delay']);
-                unset($data['delegate_parameters_activation_delay']);
-            }
-            if (\array_key_exists('blocks_per_cycle', $data)) {
-                $object->setBlocksPerCycle($data['blocks_per_cycle']);
-                unset($data['blocks_per_cycle']);
-            }
-            if (\array_key_exists('blocks_per_commitment', $data)) {
-                $object->setBlocksPerCommitment($data['blocks_per_commitment']);
-                unset($data['blocks_per_commitment']);
-            }
-            if (\array_key_exists('nonce_revelation_threshold', $data)) {
-                $object->setNonceRevelationThreshold($data['nonce_revelation_threshold']);
-                unset($data['nonce_revelation_threshold']);
-            }
-            if (\array_key_exists('cycles_per_voting_period', $data)) {
-                $object->setCyclesPerVotingPeriod($data['cycles_per_voting_period']);
-                unset($data['cycles_per_voting_period']);
-            }
-            if (\array_key_exists('hard_gas_limit_per_operation', $data)) {
-                $object->setHardGasLimitPerOperation($data['hard_gas_limit_per_operation']);
-                unset($data['hard_gas_limit_per_operation']);
-            }
-            if (\array_key_exists('hard_gas_limit_per_block', $data)) {
-                $object->setHardGasLimitPerBlock($data['hard_gas_limit_per_block']);
-                unset($data['hard_gas_limit_per_block']);
-            }
-            if (\array_key_exists('proof_of_work_threshold', $data)) {
-                $object->setProofOfWorkThreshold($data['proof_of_work_threshold']);
-                unset($data['proof_of_work_threshold']);
-            }
-            if (\array_key_exists('minimal_stake', $data)) {
-                $object->setMinimalStake($data['minimal_stake']);
-                unset($data['minimal_stake']);
-            }
-            if (\array_key_exists('minimal_frozen_stake', $data)) {
-                $object->setMinimalFrozenStake($data['minimal_frozen_stake']);
-                unset($data['minimal_frozen_stake']);
-            }
-            if (\array_key_exists('vdf_difficulty', $data)) {
-                $object->setVdfDifficulty($data['vdf_difficulty']);
-                unset($data['vdf_difficulty']);
-            }
-            if (\array_key_exists('origination_size', $data)) {
-                $object->setOriginationSize($data['origination_size']);
-                unset($data['origination_size']);
-            }
-            if (\array_key_exists('issuance_weights', $data)) {
-                $object->setIssuanceWeights($this->denormalizer->denormalize($data['issuance_weights'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class, 'json', $context));
-                unset($data['issuance_weights']);
-            }
-            if (\array_key_exists('cost_per_byte', $data)) {
-                $object->setCostPerByte($data['cost_per_byte']);
-                unset($data['cost_per_byte']);
-            }
-            if (\array_key_exists('hard_storage_limit_per_operation', $data)) {
-                $object->setHardStorageLimitPerOperation($data['hard_storage_limit_per_operation']);
-                unset($data['hard_storage_limit_per_operation']);
-            }
-            if (\array_key_exists('quorum_min', $data)) {
-                $object->setQuorumMin($data['quorum_min']);
-                unset($data['quorum_min']);
-            }
-            if (\array_key_exists('quorum_max', $data)) {
-                $object->setQuorumMax($data['quorum_max']);
-                unset($data['quorum_max']);
-            }
-            if (\array_key_exists('min_proposal_quorum', $data)) {
-                $object->setMinProposalQuorum($data['min_proposal_quorum']);
-                unset($data['min_proposal_quorum']);
-            }
-            if (\array_key_exists('liquidity_baking_subsidy', $data)) {
-                $object->setLiquidityBakingSubsidy($data['liquidity_baking_subsidy']);
-                unset($data['liquidity_baking_subsidy']);
-            }
-            if (\array_key_exists('liquidity_baking_toggle_ema_threshold', $data)) {
-                $object->setLiquidityBakingToggleEmaThreshold($data['liquidity_baking_toggle_ema_threshold']);
-                unset($data['liquidity_baking_toggle_ema_threshold']);
-            }
-            if (\array_key_exists('max_operations_time_to_live', $data)) {
-                $object->setMaxOperationsTimeToLive($data['max_operations_time_to_live']);
-                unset($data['max_operations_time_to_live']);
-            }
-            if (\array_key_exists('minimal_block_delay', $data)) {
-                $object->setMinimalBlockDelay($data['minimal_block_delay']);
-                unset($data['minimal_block_delay']);
-            }
-            if (\array_key_exists('delay_increment_per_round', $data)) {
-                $object->setDelayIncrementPerRound($data['delay_increment_per_round']);
-                unset($data['delay_increment_per_round']);
-            }
-            if (\array_key_exists('consensus_committee_size', $data)) {
-                $object->setConsensusCommitteeSize($data['consensus_committee_size']);
-                unset($data['consensus_committee_size']);
-            }
-            if (\array_key_exists('consensus_threshold', $data)) {
-                $object->setConsensusThreshold($data['consensus_threshold']);
-                unset($data['consensus_threshold']);
-            }
-            if (\array_key_exists('minimal_participation_ratio', $data)) {
-                $object->setMinimalParticipationRatio($this->denormalizer->denormalize($data['minimal_participation_ratio'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class, 'json', $context));
-                unset($data['minimal_participation_ratio']);
-            }
-            if (\array_key_exists('limit_of_delegation_over_baking', $data)) {
-                $object->setLimitOfDelegationOverBaking($data['limit_of_delegation_over_baking']);
-                unset($data['limit_of_delegation_over_baking']);
-            }
-            if (\array_key_exists('percentage_of_frozen_deposits_slashed_per_double_baking', $data)) {
-                $object->setPercentageOfFrozenDepositsSlashedPerDoubleBaking($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
-                unset($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
-            }
-            if (\array_key_exists('percentage_of_frozen_deposits_slashed_per_double_attestation', $data)) {
-                $object->setPercentageOfFrozenDepositsSlashedPerDoubleAttestation($data['percentage_of_frozen_deposits_slashed_per_double_attestation']);
-                unset($data['percentage_of_frozen_deposits_slashed_per_double_attestation']);
-            }
-            if (\array_key_exists('max_slashing_per_block', $data)) {
-                $object->setMaxSlashingPerBlock($data['max_slashing_per_block']);
-                unset($data['max_slashing_per_block']);
-            }
-            if (\array_key_exists('max_slashing_threshold', $data)) {
-                $object->setMaxSlashingThreshold($data['max_slashing_threshold']);
-                unset($data['max_slashing_threshold']);
-            }
-            if (\array_key_exists('testnet_dictator', $data)) {
-                $object->setTestnetDictator($data['testnet_dictator']);
-                unset($data['testnet_dictator']);
-            }
-            if (\array_key_exists('initial_seed', $data)) {
-                $object->setInitialSeed($data['initial_seed']);
-                unset($data['initial_seed']);
-            }
-            if (\array_key_exists('cache_script_size', $data)) {
-                $object->setCacheScriptSize($data['cache_script_size']);
-                unset($data['cache_script_size']);
-            }
-            if (\array_key_exists('cache_stake_distribution_cycles', $data)) {
-                $object->setCacheStakeDistributionCycles($data['cache_stake_distribution_cycles']);
-                unset($data['cache_stake_distribution_cycles']);
-            }
-            if (\array_key_exists('cache_sampler_state_cycles', $data)) {
-                $object->setCacheSamplerStateCycles($data['cache_sampler_state_cycles']);
-                unset($data['cache_sampler_state_cycles']);
-            }
-            if (\array_key_exists('dal_parametric', $data)) {
-                $object->setDalParametric($this->denormalizer->denormalize($data['dal_parametric'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class, 'json', $context));
-                unset($data['dal_parametric']);
-            }
-            if (\array_key_exists('smart_rollup_arith_pvm_enable', $data)) {
-                $object->setSmartRollupArithPvmEnable($data['smart_rollup_arith_pvm_enable']);
-                unset($data['smart_rollup_arith_pvm_enable']);
-            }
-            if (\array_key_exists('smart_rollup_origination_size', $data)) {
-                $object->setSmartRollupOriginationSize($data['smart_rollup_origination_size']);
-                unset($data['smart_rollup_origination_size']);
-            }
-            if (\array_key_exists('smart_rollup_challenge_window_in_blocks', $data)) {
-                $object->setSmartRollupChallengeWindowInBlocks($data['smart_rollup_challenge_window_in_blocks']);
-                unset($data['smart_rollup_challenge_window_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_stake_amount', $data)) {
-                $object->setSmartRollupStakeAmount($data['smart_rollup_stake_amount']);
-                unset($data['smart_rollup_stake_amount']);
-            }
-            if (\array_key_exists('smart_rollup_commitment_period_in_blocks', $data)) {
-                $object->setSmartRollupCommitmentPeriodInBlocks($data['smart_rollup_commitment_period_in_blocks']);
-                unset($data['smart_rollup_commitment_period_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_lookahead_in_blocks', $data)) {
-                $object->setSmartRollupMaxLookaheadInBlocks($data['smart_rollup_max_lookahead_in_blocks']);
-                unset($data['smart_rollup_max_lookahead_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_active_outbox_levels', $data)) {
-                $object->setSmartRollupMaxActiveOutboxLevels($data['smart_rollup_max_active_outbox_levels']);
-                unset($data['smart_rollup_max_active_outbox_levels']);
-            }
-            if (\array_key_exists('smart_rollup_max_outbox_messages_per_level', $data)) {
-                $object->setSmartRollupMaxOutboxMessagesPerLevel($data['smart_rollup_max_outbox_messages_per_level']);
-                unset($data['smart_rollup_max_outbox_messages_per_level']);
-            }
-            if (\array_key_exists('smart_rollup_number_of_sections_in_dissection', $data)) {
-                $object->setSmartRollupNumberOfSectionsInDissection($data['smart_rollup_number_of_sections_in_dissection']);
-                unset($data['smart_rollup_number_of_sections_in_dissection']);
-            }
-            if (\array_key_exists('smart_rollup_timeout_period_in_blocks', $data)) {
-                $object->setSmartRollupTimeoutPeriodInBlocks($data['smart_rollup_timeout_period_in_blocks']);
-                unset($data['smart_rollup_timeout_period_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_cemented_commitments', $data)) {
-                $object->setSmartRollupMaxNumberOfCementedCommitments($data['smart_rollup_max_number_of_cemented_commitments']);
-                unset($data['smart_rollup_max_number_of_cemented_commitments']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_parallel_games', $data)) {
-                $object->setSmartRollupMaxNumberOfParallelGames($data['smart_rollup_max_number_of_parallel_games']);
-                unset($data['smart_rollup_max_number_of_parallel_games']);
-            }
-            if (\array_key_exists('smart_rollup_reveal_activation_level', $data)) {
-                $object->setSmartRollupRevealActivationLevel($this->denormalizer->denormalize($data['smart_rollup_reveal_activation_level'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class, 'json', $context));
-                unset($data['smart_rollup_reveal_activation_level']);
-            }
-            if (\array_key_exists('smart_rollup_private_enable', $data)) {
-                $object->setSmartRollupPrivateEnable($data['smart_rollup_private_enable']);
-                unset($data['smart_rollup_private_enable']);
-            }
-            if (\array_key_exists('smart_rollup_riscv_pvm_enable', $data)) {
-                $object->setSmartRollupRiscvPvmEnable($data['smart_rollup_riscv_pvm_enable']);
-                unset($data['smart_rollup_riscv_pvm_enable']);
-            }
-            if (\array_key_exists('zk_rollup_enable', $data)) {
-                $object->setZkRollupEnable($data['zk_rollup_enable']);
-                unset($data['zk_rollup_enable']);
-            }
-            if (\array_key_exists('zk_rollup_origination_size', $data)) {
-                $object->setZkRollupOriginationSize($data['zk_rollup_origination_size']);
-                unset($data['zk_rollup_origination_size']);
-            }
-            if (\array_key_exists('zk_rollup_min_pending_to_process', $data)) {
-                $object->setZkRollupMinPendingToProcess($data['zk_rollup_min_pending_to_process']);
-                unset($data['zk_rollup_min_pending_to_process']);
-            }
-            if (\array_key_exists('zk_rollup_max_ticket_payload_size', $data)) {
-                $object->setZkRollupMaxTicketPayloadSize($data['zk_rollup_max_ticket_payload_size']);
-                unset($data['zk_rollup_max_ticket_payload_size']);
-            }
-            if (\array_key_exists('global_limit_of_staking_over_baking', $data)) {
-                $object->setGlobalLimitOfStakingOverBaking($data['global_limit_of_staking_over_baking']);
-                unset($data['global_limit_of_staking_over_baking']);
-            }
-            if (\array_key_exists('edge_of_staking_over_delegation', $data)) {
-                $object->setEdgeOfStakingOverDelegation($data['edge_of_staking_over_delegation']);
-                unset($data['edge_of_staking_over_delegation']);
-            }
-            if (\array_key_exists('adaptive_issuance_launch_ema_threshold', $data)) {
-                $object->setAdaptiveIssuanceLaunchEmaThreshold($data['adaptive_issuance_launch_ema_threshold']);
-                unset($data['adaptive_issuance_launch_ema_threshold']);
-            }
-            if (\array_key_exists('adaptive_rewards_params', $data)) {
-                $object->setAdaptiveRewardsParams($this->denormalizer->denormalize($data['adaptive_rewards_params'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class, 'json', $context));
-                unset($data['adaptive_rewards_params']);
-            }
-            if (\array_key_exists('adaptive_issuance_activation_vote_enable', $data)) {
-                $object->setAdaptiveIssuanceActivationVoteEnable($data['adaptive_issuance_activation_vote_enable']);
-                unset($data['adaptive_issuance_activation_vote_enable']);
-            }
-            if (\array_key_exists('autostaking_enable', $data)) {
-                $object->setAutostakingEnable($data['autostaking_enable']);
-                unset($data['autostaking_enable']);
-            }
-            if (\array_key_exists('adaptive_issuance_force_activation', $data)) {
-                $object->setAdaptiveIssuanceForceActivation($data['adaptive_issuance_force_activation']);
-                unset($data['adaptive_issuance_force_activation']);
-            }
-            if (\array_key_exists('ns_enable', $data)) {
-                $object->setNsEnable($data['ns_enable']);
-                unset($data['ns_enable']);
-            }
-            if (\array_key_exists('direct_ticket_spending_enable', $data)) {
-                $object->setDirectTicketSpendingEnable($data['direct_ticket_spending_enable']);
-                unset($data['direct_ticket_spending_enable']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['proof_of_work_nonce_size'] = $object->getProofOfWorkNonceSize();
-            $data['nonce_length'] = $object->getNonceLength();
-            $data['max_anon_ops_per_block'] = $object->getMaxAnonOpsPerBlock();
-            $data['max_operation_data_length'] = $object->getMaxOperationDataLength();
-            $data['max_proposals_per_delegate'] = $object->getMaxProposalsPerDelegate();
-            $data['max_micheline_node_count'] = $object->getMaxMichelineNodeCount();
-            $data['max_micheline_bytes_limit'] = $object->getMaxMichelineBytesLimit();
-            $data['max_allowed_global_constants_depth'] = $object->getMaxAllowedGlobalConstantsDepth();
-            $data['cache_layout_size'] = $object->getCacheLayoutSize();
-            $data['michelson_maximum_type_size'] = $object->getMichelsonMaximumTypeSize();
-            $data['max_slashing_period'] = $object->getMaxSlashingPeriod();
-            $data['smart_rollup_max_wrapped_proof_binary_size'] = $object->getSmartRollupMaxWrappedProofBinarySize();
-            $data['smart_rollup_message_size_limit'] = $object->getSmartRollupMessageSizeLimit();
-            $data['smart_rollup_max_number_of_messages_per_level'] = $object->getSmartRollupMaxNumberOfMessagesPerLevel();
-            $data['consensus_rights_delay'] = $object->getConsensusRightsDelay();
-            $data['blocks_preservation_cycles'] = $object->getBlocksPreservationCycles();
-            $data['delegate_parameters_activation_delay'] = $object->getDelegateParametersActivationDelay();
-            $data['blocks_per_cycle'] = $object->getBlocksPerCycle();
-            $data['blocks_per_commitment'] = $object->getBlocksPerCommitment();
-            $data['nonce_revelation_threshold'] = $object->getNonceRevelationThreshold();
-            $data['cycles_per_voting_period'] = $object->getCyclesPerVotingPeriod();
-            $data['hard_gas_limit_per_operation'] = $object->getHardGasLimitPerOperation();
-            $data['hard_gas_limit_per_block'] = $object->getHardGasLimitPerBlock();
-            $data['proof_of_work_threshold'] = $object->getProofOfWorkThreshold();
-            $data['minimal_stake'] = $object->getMinimalStake();
-            $data['minimal_frozen_stake'] = $object->getMinimalFrozenStake();
-            $data['vdf_difficulty'] = $object->getVdfDifficulty();
-            $data['origination_size'] = $object->getOriginationSize();
-            $data['issuance_weights'] = $this->normalizer->normalize($object->getIssuanceWeights(), 'json', $context);
-            $data['cost_per_byte'] = $object->getCostPerByte();
-            $data['hard_storage_limit_per_operation'] = $object->getHardStorageLimitPerOperation();
-            $data['quorum_min'] = $object->getQuorumMin();
-            $data['quorum_max'] = $object->getQuorumMax();
-            $data['min_proposal_quorum'] = $object->getMinProposalQuorum();
-            $data['liquidity_baking_subsidy'] = $object->getLiquidityBakingSubsidy();
-            $data['liquidity_baking_toggle_ema_threshold'] = $object->getLiquidityBakingToggleEmaThreshold();
-            $data['max_operations_time_to_live'] = $object->getMaxOperationsTimeToLive();
-            $data['minimal_block_delay'] = $object->getMinimalBlockDelay();
-            $data['delay_increment_per_round'] = $object->getDelayIncrementPerRound();
-            $data['consensus_committee_size'] = $object->getConsensusCommitteeSize();
-            $data['consensus_threshold'] = $object->getConsensusThreshold();
-            $data['minimal_participation_ratio'] = $this->normalizer->normalize($object->getMinimalParticipationRatio(), 'json', $context);
-            $data['limit_of_delegation_over_baking'] = $object->getLimitOfDelegationOverBaking();
-            $data['percentage_of_frozen_deposits_slashed_per_double_baking'] = $object->getPercentageOfFrozenDepositsSlashedPerDoubleBaking();
-            $data['percentage_of_frozen_deposits_slashed_per_double_attestation'] = $object->getPercentageOfFrozenDepositsSlashedPerDoubleAttestation();
-            $data['max_slashing_per_block'] = $object->getMaxSlashingPerBlock();
-            $data['max_slashing_threshold'] = $object->getMaxSlashingThreshold();
-            if ($object->isInitialized('testnetDictator') && null !== $object->getTestnetDictator()) {
-                $data['testnet_dictator'] = $object->getTestnetDictator();
-            }
-            if ($object->isInitialized('initialSeed') && null !== $object->getInitialSeed()) {
-                $data['initial_seed'] = $object->getInitialSeed();
-            }
-            $data['cache_script_size'] = $object->getCacheScriptSize();
-            $data['cache_stake_distribution_cycles'] = $object->getCacheStakeDistributionCycles();
-            $data['cache_sampler_state_cycles'] = $object->getCacheSamplerStateCycles();
-            $data['dal_parametric'] = $this->normalizer->normalize($object->getDalParametric(), 'json', $context);
-            $data['smart_rollup_arith_pvm_enable'] = $object->getSmartRollupArithPvmEnable();
-            $data['smart_rollup_origination_size'] = $object->getSmartRollupOriginationSize();
-            $data['smart_rollup_challenge_window_in_blocks'] = $object->getSmartRollupChallengeWindowInBlocks();
-            $data['smart_rollup_stake_amount'] = $object->getSmartRollupStakeAmount();
-            $data['smart_rollup_commitment_period_in_blocks'] = $object->getSmartRollupCommitmentPeriodInBlocks();
-            $data['smart_rollup_max_lookahead_in_blocks'] = $object->getSmartRollupMaxLookaheadInBlocks();
-            $data['smart_rollup_max_active_outbox_levels'] = $object->getSmartRollupMaxActiveOutboxLevels();
-            $data['smart_rollup_max_outbox_messages_per_level'] = $object->getSmartRollupMaxOutboxMessagesPerLevel();
-            $data['smart_rollup_number_of_sections_in_dissection'] = $object->getSmartRollupNumberOfSectionsInDissection();
-            $data['smart_rollup_timeout_period_in_blocks'] = $object->getSmartRollupTimeoutPeriodInBlocks();
-            $data['smart_rollup_max_number_of_cemented_commitments'] = $object->getSmartRollupMaxNumberOfCementedCommitments();
-            $data['smart_rollup_max_number_of_parallel_games'] = $object->getSmartRollupMaxNumberOfParallelGames();
-            $data['smart_rollup_reveal_activation_level'] = $this->normalizer->normalize($object->getSmartRollupRevealActivationLevel(), 'json', $context);
-            $data['smart_rollup_private_enable'] = $object->getSmartRollupPrivateEnable();
-            $data['smart_rollup_riscv_pvm_enable'] = $object->getSmartRollupRiscvPvmEnable();
-            $data['zk_rollup_enable'] = $object->getZkRollupEnable();
-            $data['zk_rollup_origination_size'] = $object->getZkRollupOriginationSize();
-            $data['zk_rollup_min_pending_to_process'] = $object->getZkRollupMinPendingToProcess();
-            $data['zk_rollup_max_ticket_payload_size'] = $object->getZkRollupMaxTicketPayloadSize();
-            $data['global_limit_of_staking_over_baking'] = $object->getGlobalLimitOfStakingOverBaking();
-            $data['edge_of_staking_over_delegation'] = $object->getEdgeOfStakingOverDelegation();
-            $data['adaptive_issuance_launch_ema_threshold'] = $object->getAdaptiveIssuanceLaunchEmaThreshold();
-            $data['adaptive_rewards_params'] = $this->normalizer->normalize($object->getAdaptiveRewardsParams(), 'json', $context);
-            $data['adaptive_issuance_activation_vote_enable'] = $object->getAdaptiveIssuanceActivationVoteEnable();
-            $data['autostaking_enable'] = $object->getAutostakingEnable();
-            $data['adaptive_issuance_force_activation'] = $object->getAdaptiveIssuanceForceActivation();
-            $data['ns_enable'] = $object->getNsEnable();
-            $data['direct_ticket_spending_enable'] = $object->getDirectTicketSpendingEnable();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
     }
-} else {
-    class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('proof_of_work_nonce_size', $data)) {
-                $object->setProofOfWorkNonceSize($data['proof_of_work_nonce_size']);
-                unset($data['proof_of_work_nonce_size']);
-            }
-            if (\array_key_exists('nonce_length', $data)) {
-                $object->setNonceLength($data['nonce_length']);
-                unset($data['nonce_length']);
-            }
-            if (\array_key_exists('max_anon_ops_per_block', $data)) {
-                $object->setMaxAnonOpsPerBlock($data['max_anon_ops_per_block']);
-                unset($data['max_anon_ops_per_block']);
-            }
-            if (\array_key_exists('max_operation_data_length', $data)) {
-                $object->setMaxOperationDataLength($data['max_operation_data_length']);
-                unset($data['max_operation_data_length']);
-            }
-            if (\array_key_exists('max_proposals_per_delegate', $data)) {
-                $object->setMaxProposalsPerDelegate($data['max_proposals_per_delegate']);
-                unset($data['max_proposals_per_delegate']);
-            }
-            if (\array_key_exists('max_micheline_node_count', $data)) {
-                $object->setMaxMichelineNodeCount($data['max_micheline_node_count']);
-                unset($data['max_micheline_node_count']);
-            }
-            if (\array_key_exists('max_micheline_bytes_limit', $data)) {
-                $object->setMaxMichelineBytesLimit($data['max_micheline_bytes_limit']);
-                unset($data['max_micheline_bytes_limit']);
-            }
-            if (\array_key_exists('max_allowed_global_constants_depth', $data)) {
-                $object->setMaxAllowedGlobalConstantsDepth($data['max_allowed_global_constants_depth']);
-                unset($data['max_allowed_global_constants_depth']);
-            }
-            if (\array_key_exists('cache_layout_size', $data)) {
-                $object->setCacheLayoutSize($data['cache_layout_size']);
-                unset($data['cache_layout_size']);
-            }
-            if (\array_key_exists('michelson_maximum_type_size', $data)) {
-                $object->setMichelsonMaximumTypeSize($data['michelson_maximum_type_size']);
-                unset($data['michelson_maximum_type_size']);
-            }
-            if (\array_key_exists('max_slashing_period', $data)) {
-                $object->setMaxSlashingPeriod($data['max_slashing_period']);
-                unset($data['max_slashing_period']);
-            }
-            if (\array_key_exists('smart_rollup_max_wrapped_proof_binary_size', $data)) {
-                $object->setSmartRollupMaxWrappedProofBinarySize($data['smart_rollup_max_wrapped_proof_binary_size']);
-                unset($data['smart_rollup_max_wrapped_proof_binary_size']);
-            }
-            if (\array_key_exists('smart_rollup_message_size_limit', $data)) {
-                $object->setSmartRollupMessageSizeLimit($data['smart_rollup_message_size_limit']);
-                unset($data['smart_rollup_message_size_limit']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_messages_per_level', $data)) {
-                $object->setSmartRollupMaxNumberOfMessagesPerLevel($data['smart_rollup_max_number_of_messages_per_level']);
-                unset($data['smart_rollup_max_number_of_messages_per_level']);
-            }
-            if (\array_key_exists('consensus_rights_delay', $data)) {
-                $object->setConsensusRightsDelay($data['consensus_rights_delay']);
-                unset($data['consensus_rights_delay']);
-            }
-            if (\array_key_exists('blocks_preservation_cycles', $data)) {
-                $object->setBlocksPreservationCycles($data['blocks_preservation_cycles']);
-                unset($data['blocks_preservation_cycles']);
-            }
-            if (\array_key_exists('delegate_parameters_activation_delay', $data)) {
-                $object->setDelegateParametersActivationDelay($data['delegate_parameters_activation_delay']);
-                unset($data['delegate_parameters_activation_delay']);
-            }
-            if (\array_key_exists('blocks_per_cycle', $data)) {
-                $object->setBlocksPerCycle($data['blocks_per_cycle']);
-                unset($data['blocks_per_cycle']);
-            }
-            if (\array_key_exists('blocks_per_commitment', $data)) {
-                $object->setBlocksPerCommitment($data['blocks_per_commitment']);
-                unset($data['blocks_per_commitment']);
-            }
-            if (\array_key_exists('nonce_revelation_threshold', $data)) {
-                $object->setNonceRevelationThreshold($data['nonce_revelation_threshold']);
-                unset($data['nonce_revelation_threshold']);
-            }
-            if (\array_key_exists('cycles_per_voting_period', $data)) {
-                $object->setCyclesPerVotingPeriod($data['cycles_per_voting_period']);
-                unset($data['cycles_per_voting_period']);
-            }
-            if (\array_key_exists('hard_gas_limit_per_operation', $data)) {
-                $object->setHardGasLimitPerOperation($data['hard_gas_limit_per_operation']);
-                unset($data['hard_gas_limit_per_operation']);
-            }
-            if (\array_key_exists('hard_gas_limit_per_block', $data)) {
-                $object->setHardGasLimitPerBlock($data['hard_gas_limit_per_block']);
-                unset($data['hard_gas_limit_per_block']);
-            }
-            if (\array_key_exists('proof_of_work_threshold', $data)) {
-                $object->setProofOfWorkThreshold($data['proof_of_work_threshold']);
-                unset($data['proof_of_work_threshold']);
-            }
-            if (\array_key_exists('minimal_stake', $data)) {
-                $object->setMinimalStake($data['minimal_stake']);
-                unset($data['minimal_stake']);
-            }
-            if (\array_key_exists('minimal_frozen_stake', $data)) {
-                $object->setMinimalFrozenStake($data['minimal_frozen_stake']);
-                unset($data['minimal_frozen_stake']);
-            }
-            if (\array_key_exists('vdf_difficulty', $data)) {
-                $object->setVdfDifficulty($data['vdf_difficulty']);
-                unset($data['vdf_difficulty']);
-            }
-            if (\array_key_exists('origination_size', $data)) {
-                $object->setOriginationSize($data['origination_size']);
-                unset($data['origination_size']);
-            }
-            if (\array_key_exists('issuance_weights', $data)) {
-                $object->setIssuanceWeights($this->denormalizer->denormalize($data['issuance_weights'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class, 'json', $context));
-                unset($data['issuance_weights']);
-            }
-            if (\array_key_exists('cost_per_byte', $data)) {
-                $object->setCostPerByte($data['cost_per_byte']);
-                unset($data['cost_per_byte']);
-            }
-            if (\array_key_exists('hard_storage_limit_per_operation', $data)) {
-                $object->setHardStorageLimitPerOperation($data['hard_storage_limit_per_operation']);
-                unset($data['hard_storage_limit_per_operation']);
-            }
-            if (\array_key_exists('quorum_min', $data)) {
-                $object->setQuorumMin($data['quorum_min']);
-                unset($data['quorum_min']);
-            }
-            if (\array_key_exists('quorum_max', $data)) {
-                $object->setQuorumMax($data['quorum_max']);
-                unset($data['quorum_max']);
-            }
-            if (\array_key_exists('min_proposal_quorum', $data)) {
-                $object->setMinProposalQuorum($data['min_proposal_quorum']);
-                unset($data['min_proposal_quorum']);
-            }
-            if (\array_key_exists('liquidity_baking_subsidy', $data)) {
-                $object->setLiquidityBakingSubsidy($data['liquidity_baking_subsidy']);
-                unset($data['liquidity_baking_subsidy']);
-            }
-            if (\array_key_exists('liquidity_baking_toggle_ema_threshold', $data)) {
-                $object->setLiquidityBakingToggleEmaThreshold($data['liquidity_baking_toggle_ema_threshold']);
-                unset($data['liquidity_baking_toggle_ema_threshold']);
-            }
-            if (\array_key_exists('max_operations_time_to_live', $data)) {
-                $object->setMaxOperationsTimeToLive($data['max_operations_time_to_live']);
-                unset($data['max_operations_time_to_live']);
-            }
-            if (\array_key_exists('minimal_block_delay', $data)) {
-                $object->setMinimalBlockDelay($data['minimal_block_delay']);
-                unset($data['minimal_block_delay']);
-            }
-            if (\array_key_exists('delay_increment_per_round', $data)) {
-                $object->setDelayIncrementPerRound($data['delay_increment_per_round']);
-                unset($data['delay_increment_per_round']);
-            }
-            if (\array_key_exists('consensus_committee_size', $data)) {
-                $object->setConsensusCommitteeSize($data['consensus_committee_size']);
-                unset($data['consensus_committee_size']);
-            }
-            if (\array_key_exists('consensus_threshold', $data)) {
-                $object->setConsensusThreshold($data['consensus_threshold']);
-                unset($data['consensus_threshold']);
-            }
-            if (\array_key_exists('minimal_participation_ratio', $data)) {
-                $object->setMinimalParticipationRatio($this->denormalizer->denormalize($data['minimal_participation_ratio'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class, 'json', $context));
-                unset($data['minimal_participation_ratio']);
-            }
-            if (\array_key_exists('limit_of_delegation_over_baking', $data)) {
-                $object->setLimitOfDelegationOverBaking($data['limit_of_delegation_over_baking']);
-                unset($data['limit_of_delegation_over_baking']);
-            }
-            if (\array_key_exists('percentage_of_frozen_deposits_slashed_per_double_baking', $data)) {
-                $object->setPercentageOfFrozenDepositsSlashedPerDoubleBaking($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
-                unset($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
-            }
-            if (\array_key_exists('percentage_of_frozen_deposits_slashed_per_double_attestation', $data)) {
-                $object->setPercentageOfFrozenDepositsSlashedPerDoubleAttestation($data['percentage_of_frozen_deposits_slashed_per_double_attestation']);
-                unset($data['percentage_of_frozen_deposits_slashed_per_double_attestation']);
-            }
-            if (\array_key_exists('max_slashing_per_block', $data)) {
-                $object->setMaxSlashingPerBlock($data['max_slashing_per_block']);
-                unset($data['max_slashing_per_block']);
-            }
-            if (\array_key_exists('max_slashing_threshold', $data)) {
-                $object->setMaxSlashingThreshold($data['max_slashing_threshold']);
-                unset($data['max_slashing_threshold']);
-            }
-            if (\array_key_exists('testnet_dictator', $data)) {
-                $object->setTestnetDictator($data['testnet_dictator']);
-                unset($data['testnet_dictator']);
-            }
-            if (\array_key_exists('initial_seed', $data)) {
-                $object->setInitialSeed($data['initial_seed']);
-                unset($data['initial_seed']);
-            }
-            if (\array_key_exists('cache_script_size', $data)) {
-                $object->setCacheScriptSize($data['cache_script_size']);
-                unset($data['cache_script_size']);
-            }
-            if (\array_key_exists('cache_stake_distribution_cycles', $data)) {
-                $object->setCacheStakeDistributionCycles($data['cache_stake_distribution_cycles']);
-                unset($data['cache_stake_distribution_cycles']);
-            }
-            if (\array_key_exists('cache_sampler_state_cycles', $data)) {
-                $object->setCacheSamplerStateCycles($data['cache_sampler_state_cycles']);
-                unset($data['cache_sampler_state_cycles']);
-            }
-            if (\array_key_exists('dal_parametric', $data)) {
-                $object->setDalParametric($this->denormalizer->denormalize($data['dal_parametric'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class, 'json', $context));
-                unset($data['dal_parametric']);
-            }
-            if (\array_key_exists('smart_rollup_arith_pvm_enable', $data)) {
-                $object->setSmartRollupArithPvmEnable($data['smart_rollup_arith_pvm_enable']);
-                unset($data['smart_rollup_arith_pvm_enable']);
-            }
-            if (\array_key_exists('smart_rollup_origination_size', $data)) {
-                $object->setSmartRollupOriginationSize($data['smart_rollup_origination_size']);
-                unset($data['smart_rollup_origination_size']);
-            }
-            if (\array_key_exists('smart_rollup_challenge_window_in_blocks', $data)) {
-                $object->setSmartRollupChallengeWindowInBlocks($data['smart_rollup_challenge_window_in_blocks']);
-                unset($data['smart_rollup_challenge_window_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_stake_amount', $data)) {
-                $object->setSmartRollupStakeAmount($data['smart_rollup_stake_amount']);
-                unset($data['smart_rollup_stake_amount']);
-            }
-            if (\array_key_exists('smart_rollup_commitment_period_in_blocks', $data)) {
-                $object->setSmartRollupCommitmentPeriodInBlocks($data['smart_rollup_commitment_period_in_blocks']);
-                unset($data['smart_rollup_commitment_period_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_lookahead_in_blocks', $data)) {
-                $object->setSmartRollupMaxLookaheadInBlocks($data['smart_rollup_max_lookahead_in_blocks']);
-                unset($data['smart_rollup_max_lookahead_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_active_outbox_levels', $data)) {
-                $object->setSmartRollupMaxActiveOutboxLevels($data['smart_rollup_max_active_outbox_levels']);
-                unset($data['smart_rollup_max_active_outbox_levels']);
-            }
-            if (\array_key_exists('smart_rollup_max_outbox_messages_per_level', $data)) {
-                $object->setSmartRollupMaxOutboxMessagesPerLevel($data['smart_rollup_max_outbox_messages_per_level']);
-                unset($data['smart_rollup_max_outbox_messages_per_level']);
-            }
-            if (\array_key_exists('smart_rollup_number_of_sections_in_dissection', $data)) {
-                $object->setSmartRollupNumberOfSectionsInDissection($data['smart_rollup_number_of_sections_in_dissection']);
-                unset($data['smart_rollup_number_of_sections_in_dissection']);
-            }
-            if (\array_key_exists('smart_rollup_timeout_period_in_blocks', $data)) {
-                $object->setSmartRollupTimeoutPeriodInBlocks($data['smart_rollup_timeout_period_in_blocks']);
-                unset($data['smart_rollup_timeout_period_in_blocks']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_cemented_commitments', $data)) {
-                $object->setSmartRollupMaxNumberOfCementedCommitments($data['smart_rollup_max_number_of_cemented_commitments']);
-                unset($data['smart_rollup_max_number_of_cemented_commitments']);
-            }
-            if (\array_key_exists('smart_rollup_max_number_of_parallel_games', $data)) {
-                $object->setSmartRollupMaxNumberOfParallelGames($data['smart_rollup_max_number_of_parallel_games']);
-                unset($data['smart_rollup_max_number_of_parallel_games']);
-            }
-            if (\array_key_exists('smart_rollup_reveal_activation_level', $data)) {
-                $object->setSmartRollupRevealActivationLevel($this->denormalizer->denormalize($data['smart_rollup_reveal_activation_level'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class, 'json', $context));
-                unset($data['smart_rollup_reveal_activation_level']);
-            }
-            if (\array_key_exists('smart_rollup_private_enable', $data)) {
-                $object->setSmartRollupPrivateEnable($data['smart_rollup_private_enable']);
-                unset($data['smart_rollup_private_enable']);
-            }
-            if (\array_key_exists('smart_rollup_riscv_pvm_enable', $data)) {
-                $object->setSmartRollupRiscvPvmEnable($data['smart_rollup_riscv_pvm_enable']);
-                unset($data['smart_rollup_riscv_pvm_enable']);
-            }
-            if (\array_key_exists('zk_rollup_enable', $data)) {
-                $object->setZkRollupEnable($data['zk_rollup_enable']);
-                unset($data['zk_rollup_enable']);
-            }
-            if (\array_key_exists('zk_rollup_origination_size', $data)) {
-                $object->setZkRollupOriginationSize($data['zk_rollup_origination_size']);
-                unset($data['zk_rollup_origination_size']);
-            }
-            if (\array_key_exists('zk_rollup_min_pending_to_process', $data)) {
-                $object->setZkRollupMinPendingToProcess($data['zk_rollup_min_pending_to_process']);
-                unset($data['zk_rollup_min_pending_to_process']);
-            }
-            if (\array_key_exists('zk_rollup_max_ticket_payload_size', $data)) {
-                $object->setZkRollupMaxTicketPayloadSize($data['zk_rollup_max_ticket_payload_size']);
-                unset($data['zk_rollup_max_ticket_payload_size']);
-            }
-            if (\array_key_exists('global_limit_of_staking_over_baking', $data)) {
-                $object->setGlobalLimitOfStakingOverBaking($data['global_limit_of_staking_over_baking']);
-                unset($data['global_limit_of_staking_over_baking']);
-            }
-            if (\array_key_exists('edge_of_staking_over_delegation', $data)) {
-                $object->setEdgeOfStakingOverDelegation($data['edge_of_staking_over_delegation']);
-                unset($data['edge_of_staking_over_delegation']);
-            }
-            if (\array_key_exists('adaptive_issuance_launch_ema_threshold', $data)) {
-                $object->setAdaptiveIssuanceLaunchEmaThreshold($data['adaptive_issuance_launch_ema_threshold']);
-                unset($data['adaptive_issuance_launch_ema_threshold']);
-            }
-            if (\array_key_exists('adaptive_rewards_params', $data)) {
-                $object->setAdaptiveRewardsParams($this->denormalizer->denormalize($data['adaptive_rewards_params'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class, 'json', $context));
-                unset($data['adaptive_rewards_params']);
-            }
-            if (\array_key_exists('adaptive_issuance_activation_vote_enable', $data)) {
-                $object->setAdaptiveIssuanceActivationVoteEnable($data['adaptive_issuance_activation_vote_enable']);
-                unset($data['adaptive_issuance_activation_vote_enable']);
-            }
-            if (\array_key_exists('autostaking_enable', $data)) {
-                $object->setAutostakingEnable($data['autostaking_enable']);
-                unset($data['autostaking_enable']);
-            }
-            if (\array_key_exists('adaptive_issuance_force_activation', $data)) {
-                $object->setAdaptiveIssuanceForceActivation($data['adaptive_issuance_force_activation']);
-                unset($data['adaptive_issuance_force_activation']);
-            }
-            if (\array_key_exists('ns_enable', $data)) {
-                $object->setNsEnable($data['ns_enable']);
-                unset($data['ns_enable']);
-            }
-            if (\array_key_exists('direct_ticket_spending_enable', $data)) {
-                $object->setDirectTicketSpendingEnable($data['direct_ticket_spending_enable']);
-                unset($data['direct_ticket_spending_enable']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200();
+        if (\array_key_exists('smart_rollup_arith_pvm_enable', $data) && \is_int($data['smart_rollup_arith_pvm_enable'])) {
+            $data['smart_rollup_arith_pvm_enable'] = (bool) $data['smart_rollup_arith_pvm_enable'];
+        }
+        if (\array_key_exists('smart_rollup_private_enable', $data) && \is_int($data['smart_rollup_private_enable'])) {
+            $data['smart_rollup_private_enable'] = (bool) $data['smart_rollup_private_enable'];
+        }
+        if (\array_key_exists('smart_rollup_riscv_pvm_enable', $data) && \is_int($data['smart_rollup_riscv_pvm_enable'])) {
+            $data['smart_rollup_riscv_pvm_enable'] = (bool) $data['smart_rollup_riscv_pvm_enable'];
+        }
+        if (\array_key_exists('zk_rollup_enable', $data) && \is_int($data['zk_rollup_enable'])) {
+            $data['zk_rollup_enable'] = (bool) $data['zk_rollup_enable'];
+        }
+        if (\array_key_exists('direct_ticket_spending_enable', $data) && \is_int($data['direct_ticket_spending_enable'])) {
+            $data['direct_ticket_spending_enable'] = (bool) $data['direct_ticket_spending_enable'];
+        }
+        if (\array_key_exists('aggregate_attestation', $data) && \is_int($data['aggregate_attestation'])) {
+            $data['aggregate_attestation'] = (bool) $data['aggregate_attestation'];
+        }
+        if (\array_key_exists('allow_tz4_delegate_enable', $data) && \is_int($data['allow_tz4_delegate_enable'])) {
+            $data['allow_tz4_delegate_enable'] = (bool) $data['allow_tz4_delegate_enable'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['proof_of_work_nonce_size'] = $object->getProofOfWorkNonceSize();
-            $data['nonce_length'] = $object->getNonceLength();
-            $data['max_anon_ops_per_block'] = $object->getMaxAnonOpsPerBlock();
-            $data['max_operation_data_length'] = $object->getMaxOperationDataLength();
-            $data['max_proposals_per_delegate'] = $object->getMaxProposalsPerDelegate();
-            $data['max_micheline_node_count'] = $object->getMaxMichelineNodeCount();
-            $data['max_micheline_bytes_limit'] = $object->getMaxMichelineBytesLimit();
-            $data['max_allowed_global_constants_depth'] = $object->getMaxAllowedGlobalConstantsDepth();
-            $data['cache_layout_size'] = $object->getCacheLayoutSize();
-            $data['michelson_maximum_type_size'] = $object->getMichelsonMaximumTypeSize();
-            $data['max_slashing_period'] = $object->getMaxSlashingPeriod();
-            $data['smart_rollup_max_wrapped_proof_binary_size'] = $object->getSmartRollupMaxWrappedProofBinarySize();
-            $data['smart_rollup_message_size_limit'] = $object->getSmartRollupMessageSizeLimit();
-            $data['smart_rollup_max_number_of_messages_per_level'] = $object->getSmartRollupMaxNumberOfMessagesPerLevel();
-            $data['consensus_rights_delay'] = $object->getConsensusRightsDelay();
-            $data['blocks_preservation_cycles'] = $object->getBlocksPreservationCycles();
-            $data['delegate_parameters_activation_delay'] = $object->getDelegateParametersActivationDelay();
-            $data['blocks_per_cycle'] = $object->getBlocksPerCycle();
-            $data['blocks_per_commitment'] = $object->getBlocksPerCommitment();
-            $data['nonce_revelation_threshold'] = $object->getNonceRevelationThreshold();
-            $data['cycles_per_voting_period'] = $object->getCyclesPerVotingPeriod();
-            $data['hard_gas_limit_per_operation'] = $object->getHardGasLimitPerOperation();
-            $data['hard_gas_limit_per_block'] = $object->getHardGasLimitPerBlock();
-            $data['proof_of_work_threshold'] = $object->getProofOfWorkThreshold();
-            $data['minimal_stake'] = $object->getMinimalStake();
-            $data['minimal_frozen_stake'] = $object->getMinimalFrozenStake();
-            $data['vdf_difficulty'] = $object->getVdfDifficulty();
-            $data['origination_size'] = $object->getOriginationSize();
-            $data['issuance_weights'] = $this->normalizer->normalize($object->getIssuanceWeights(), 'json', $context);
-            $data['cost_per_byte'] = $object->getCostPerByte();
-            $data['hard_storage_limit_per_operation'] = $object->getHardStorageLimitPerOperation();
-            $data['quorum_min'] = $object->getQuorumMin();
-            $data['quorum_max'] = $object->getQuorumMax();
-            $data['min_proposal_quorum'] = $object->getMinProposalQuorum();
-            $data['liquidity_baking_subsidy'] = $object->getLiquidityBakingSubsidy();
-            $data['liquidity_baking_toggle_ema_threshold'] = $object->getLiquidityBakingToggleEmaThreshold();
-            $data['max_operations_time_to_live'] = $object->getMaxOperationsTimeToLive();
-            $data['minimal_block_delay'] = $object->getMinimalBlockDelay();
-            $data['delay_increment_per_round'] = $object->getDelayIncrementPerRound();
-            $data['consensus_committee_size'] = $object->getConsensusCommitteeSize();
-            $data['consensus_threshold'] = $object->getConsensusThreshold();
-            $data['minimal_participation_ratio'] = $this->normalizer->normalize($object->getMinimalParticipationRatio(), 'json', $context);
-            $data['limit_of_delegation_over_baking'] = $object->getLimitOfDelegationOverBaking();
-            $data['percentage_of_frozen_deposits_slashed_per_double_baking'] = $object->getPercentageOfFrozenDepositsSlashedPerDoubleBaking();
-            $data['percentage_of_frozen_deposits_slashed_per_double_attestation'] = $object->getPercentageOfFrozenDepositsSlashedPerDoubleAttestation();
-            $data['max_slashing_per_block'] = $object->getMaxSlashingPerBlock();
-            $data['max_slashing_threshold'] = $object->getMaxSlashingThreshold();
-            if ($object->isInitialized('testnetDictator') && null !== $object->getTestnetDictator()) {
-                $data['testnet_dictator'] = $object->getTestnetDictator();
+        if (\array_key_exists('proof_of_work_nonce_size', $data)) {
+            $object->setProofOfWorkNonceSize($data['proof_of_work_nonce_size']);
+            unset($data['proof_of_work_nonce_size']);
+        }
+        if (\array_key_exists('nonce_length', $data)) {
+            $object->setNonceLength($data['nonce_length']);
+            unset($data['nonce_length']);
+        }
+        if (\array_key_exists('max_anon_ops_per_block', $data)) {
+            $object->setMaxAnonOpsPerBlock($data['max_anon_ops_per_block']);
+            unset($data['max_anon_ops_per_block']);
+        }
+        if (\array_key_exists('max_operation_data_length', $data)) {
+            $object->setMaxOperationDataLength($data['max_operation_data_length']);
+            unset($data['max_operation_data_length']);
+        }
+        if (\array_key_exists('max_proposals_per_delegate', $data)) {
+            $object->setMaxProposalsPerDelegate($data['max_proposals_per_delegate']);
+            unset($data['max_proposals_per_delegate']);
+        }
+        if (\array_key_exists('max_micheline_node_count', $data)) {
+            $object->setMaxMichelineNodeCount($data['max_micheline_node_count']);
+            unset($data['max_micheline_node_count']);
+        }
+        if (\array_key_exists('max_micheline_bytes_limit', $data)) {
+            $object->setMaxMichelineBytesLimit($data['max_micheline_bytes_limit']);
+            unset($data['max_micheline_bytes_limit']);
+        }
+        if (\array_key_exists('max_allowed_global_constants_depth', $data)) {
+            $object->setMaxAllowedGlobalConstantsDepth($data['max_allowed_global_constants_depth']);
+            unset($data['max_allowed_global_constants_depth']);
+        }
+        if (\array_key_exists('cache_layout_size', $data)) {
+            $object->setCacheLayoutSize($data['cache_layout_size']);
+            unset($data['cache_layout_size']);
+        }
+        if (\array_key_exists('michelson_maximum_type_size', $data)) {
+            $object->setMichelsonMaximumTypeSize($data['michelson_maximum_type_size']);
+            unset($data['michelson_maximum_type_size']);
+        }
+        if (\array_key_exists('denunciation_period', $data)) {
+            $object->setDenunciationPeriod($data['denunciation_period']);
+            unset($data['denunciation_period']);
+        }
+        if (\array_key_exists('slashing_delay', $data)) {
+            $object->setSlashingDelay($data['slashing_delay']);
+            unset($data['slashing_delay']);
+        }
+        if (\array_key_exists('smart_rollup_max_wrapped_proof_binary_size', $data)) {
+            $object->setSmartRollupMaxWrappedProofBinarySize($data['smart_rollup_max_wrapped_proof_binary_size']);
+            unset($data['smart_rollup_max_wrapped_proof_binary_size']);
+        }
+        if (\array_key_exists('smart_rollup_message_size_limit', $data)) {
+            $object->setSmartRollupMessageSizeLimit($data['smart_rollup_message_size_limit']);
+            unset($data['smart_rollup_message_size_limit']);
+        }
+        if (\array_key_exists('smart_rollup_max_number_of_messages_per_level', $data)) {
+            $object->setSmartRollupMaxNumberOfMessagesPerLevel($data['smart_rollup_max_number_of_messages_per_level']);
+            unset($data['smart_rollup_max_number_of_messages_per_level']);
+        }
+        if (\array_key_exists('consensus_rights_delay', $data)) {
+            $object->setConsensusRightsDelay($data['consensus_rights_delay']);
+            unset($data['consensus_rights_delay']);
+        }
+        if (\array_key_exists('blocks_preservation_cycles', $data)) {
+            $object->setBlocksPreservationCycles($data['blocks_preservation_cycles']);
+            unset($data['blocks_preservation_cycles']);
+        }
+        if (\array_key_exists('delegate_parameters_activation_delay', $data)) {
+            $object->setDelegateParametersActivationDelay($data['delegate_parameters_activation_delay']);
+            unset($data['delegate_parameters_activation_delay']);
+        }
+        if (\array_key_exists('tolerated_inactivity_period', $data)) {
+            $object->setToleratedInactivityPeriod($data['tolerated_inactivity_period']);
+            unset($data['tolerated_inactivity_period']);
+        }
+        if (\array_key_exists('blocks_per_cycle', $data)) {
+            $object->setBlocksPerCycle($data['blocks_per_cycle']);
+            unset($data['blocks_per_cycle']);
+        }
+        if (\array_key_exists('blocks_per_commitment', $data)) {
+            $object->setBlocksPerCommitment($data['blocks_per_commitment']);
+            unset($data['blocks_per_commitment']);
+        }
+        if (\array_key_exists('nonce_revelation_threshold', $data)) {
+            $object->setNonceRevelationThreshold($data['nonce_revelation_threshold']);
+            unset($data['nonce_revelation_threshold']);
+        }
+        if (\array_key_exists('cycles_per_voting_period', $data)) {
+            $object->setCyclesPerVotingPeriod($data['cycles_per_voting_period']);
+            unset($data['cycles_per_voting_period']);
+        }
+        if (\array_key_exists('hard_gas_limit_per_operation', $data)) {
+            $object->setHardGasLimitPerOperation($data['hard_gas_limit_per_operation']);
+            unset($data['hard_gas_limit_per_operation']);
+        }
+        if (\array_key_exists('hard_gas_limit_per_block', $data)) {
+            $object->setHardGasLimitPerBlock($data['hard_gas_limit_per_block']);
+            unset($data['hard_gas_limit_per_block']);
+        }
+        if (\array_key_exists('proof_of_work_threshold', $data)) {
+            $object->setProofOfWorkThreshold($data['proof_of_work_threshold']);
+            unset($data['proof_of_work_threshold']);
+        }
+        if (\array_key_exists('minimal_stake', $data)) {
+            $object->setMinimalStake($data['minimal_stake']);
+            unset($data['minimal_stake']);
+        }
+        if (\array_key_exists('minimal_frozen_stake', $data)) {
+            $object->setMinimalFrozenStake($data['minimal_frozen_stake']);
+            unset($data['minimal_frozen_stake']);
+        }
+        if (\array_key_exists('vdf_difficulty', $data)) {
+            $object->setVdfDifficulty($data['vdf_difficulty']);
+            unset($data['vdf_difficulty']);
+        }
+        if (\array_key_exists('origination_size', $data)) {
+            $object->setOriginationSize($data['origination_size']);
+            unset($data['origination_size']);
+        }
+        if (\array_key_exists('issuance_weights', $data)) {
+            $object->setIssuanceWeights($this->denormalizer->denormalize($data['issuance_weights'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class, 'json', $context));
+            unset($data['issuance_weights']);
+        }
+        if (\array_key_exists('cost_per_byte', $data)) {
+            $object->setCostPerByte($data['cost_per_byte']);
+            unset($data['cost_per_byte']);
+        }
+        if (\array_key_exists('hard_storage_limit_per_operation', $data)) {
+            $object->setHardStorageLimitPerOperation($data['hard_storage_limit_per_operation']);
+            unset($data['hard_storage_limit_per_operation']);
+        }
+        if (\array_key_exists('quorum_min', $data)) {
+            $object->setQuorumMin($data['quorum_min']);
+            unset($data['quorum_min']);
+        }
+        if (\array_key_exists('quorum_max', $data)) {
+            $object->setQuorumMax($data['quorum_max']);
+            unset($data['quorum_max']);
+        }
+        if (\array_key_exists('min_proposal_quorum', $data)) {
+            $object->setMinProposalQuorum($data['min_proposal_quorum']);
+            unset($data['min_proposal_quorum']);
+        }
+        if (\array_key_exists('liquidity_baking_subsidy', $data)) {
+            $object->setLiquidityBakingSubsidy($data['liquidity_baking_subsidy']);
+            unset($data['liquidity_baking_subsidy']);
+        }
+        if (\array_key_exists('liquidity_baking_toggle_ema_threshold', $data)) {
+            $object->setLiquidityBakingToggleEmaThreshold($data['liquidity_baking_toggle_ema_threshold']);
+            unset($data['liquidity_baking_toggle_ema_threshold']);
+        }
+        if (\array_key_exists('max_operations_time_to_live', $data)) {
+            $object->setMaxOperationsTimeToLive($data['max_operations_time_to_live']);
+            unset($data['max_operations_time_to_live']);
+        }
+        if (\array_key_exists('minimal_block_delay', $data)) {
+            $object->setMinimalBlockDelay($data['minimal_block_delay']);
+            unset($data['minimal_block_delay']);
+        }
+        if (\array_key_exists('delay_increment_per_round', $data)) {
+            $object->setDelayIncrementPerRound($data['delay_increment_per_round']);
+            unset($data['delay_increment_per_round']);
+        }
+        if (\array_key_exists('consensus_committee_size', $data)) {
+            $object->setConsensusCommitteeSize($data['consensus_committee_size']);
+            unset($data['consensus_committee_size']);
+        }
+        if (\array_key_exists('consensus_threshold_size', $data)) {
+            $object->setConsensusThresholdSize($data['consensus_threshold_size']);
+            unset($data['consensus_threshold_size']);
+        }
+        if (\array_key_exists('minimal_participation_ratio', $data)) {
+            $object->setMinimalParticipationRatio($this->denormalizer->denormalize($data['minimal_participation_ratio'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MinimalParticipationRatio::class, 'json', $context));
+            unset($data['minimal_participation_ratio']);
+        }
+        if (\array_key_exists('limit_of_delegation_over_baking', $data)) {
+            $object->setLimitOfDelegationOverBaking($data['limit_of_delegation_over_baking']);
+            unset($data['limit_of_delegation_over_baking']);
+        }
+        if (\array_key_exists('percentage_of_frozen_deposits_slashed_per_double_baking', $data)) {
+            $object->setPercentageOfFrozenDepositsSlashedPerDoubleBaking($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
+            unset($data['percentage_of_frozen_deposits_slashed_per_double_baking']);
+        }
+        if (\array_key_exists('max_slashing_per_block', $data)) {
+            $object->setMaxSlashingPerBlock($data['max_slashing_per_block']);
+            unset($data['max_slashing_per_block']);
+        }
+        if (\array_key_exists('max_slashing_threshold', $data)) {
+            $object->setMaxSlashingThreshold($this->denormalizer->denormalize($data['max_slashing_threshold'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200MaxSlashingThreshold::class, 'json', $context));
+            unset($data['max_slashing_threshold']);
+        }
+        if (\array_key_exists('testnet_dictator', $data)) {
+            $object->setTestnetDictator($data['testnet_dictator']);
+            unset($data['testnet_dictator']);
+        }
+        if (\array_key_exists('initial_seed', $data)) {
+            $object->setInitialSeed($data['initial_seed']);
+            unset($data['initial_seed']);
+        }
+        if (\array_key_exists('cache_script_size', $data)) {
+            $object->setCacheScriptSize($data['cache_script_size']);
+            unset($data['cache_script_size']);
+        }
+        if (\array_key_exists('cache_stake_distribution_cycles', $data)) {
+            $object->setCacheStakeDistributionCycles($data['cache_stake_distribution_cycles']);
+            unset($data['cache_stake_distribution_cycles']);
+        }
+        if (\array_key_exists('cache_sampler_state_cycles', $data)) {
+            $object->setCacheSamplerStateCycles($data['cache_sampler_state_cycles']);
+            unset($data['cache_sampler_state_cycles']);
+        }
+        if (\array_key_exists('dal_parametric', $data)) {
+            $object->setDalParametric($this->denormalizer->denormalize($data['dal_parametric'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric::class, 'json', $context));
+            unset($data['dal_parametric']);
+        }
+        if (\array_key_exists('smart_rollup_arith_pvm_enable', $data)) {
+            $object->setSmartRollupArithPvmEnable($data['smart_rollup_arith_pvm_enable']);
+            unset($data['smart_rollup_arith_pvm_enable']);
+        }
+        if (\array_key_exists('smart_rollup_origination_size', $data)) {
+            $object->setSmartRollupOriginationSize($data['smart_rollup_origination_size']);
+            unset($data['smart_rollup_origination_size']);
+        }
+        if (\array_key_exists('smart_rollup_challenge_window_in_blocks', $data)) {
+            $object->setSmartRollupChallengeWindowInBlocks($data['smart_rollup_challenge_window_in_blocks']);
+            unset($data['smart_rollup_challenge_window_in_blocks']);
+        }
+        if (\array_key_exists('smart_rollup_stake_amount', $data)) {
+            $object->setSmartRollupStakeAmount($data['smart_rollup_stake_amount']);
+            unset($data['smart_rollup_stake_amount']);
+        }
+        if (\array_key_exists('smart_rollup_commitment_period_in_blocks', $data)) {
+            $object->setSmartRollupCommitmentPeriodInBlocks($data['smart_rollup_commitment_period_in_blocks']);
+            unset($data['smart_rollup_commitment_period_in_blocks']);
+        }
+        if (\array_key_exists('smart_rollup_max_lookahead_in_blocks', $data)) {
+            $object->setSmartRollupMaxLookaheadInBlocks($data['smart_rollup_max_lookahead_in_blocks']);
+            unset($data['smart_rollup_max_lookahead_in_blocks']);
+        }
+        if (\array_key_exists('smart_rollup_max_active_outbox_levels', $data)) {
+            $object->setSmartRollupMaxActiveOutboxLevels($data['smart_rollup_max_active_outbox_levels']);
+            unset($data['smart_rollup_max_active_outbox_levels']);
+        }
+        if (\array_key_exists('smart_rollup_max_outbox_messages_per_level', $data)) {
+            $object->setSmartRollupMaxOutboxMessagesPerLevel($data['smart_rollup_max_outbox_messages_per_level']);
+            unset($data['smart_rollup_max_outbox_messages_per_level']);
+        }
+        if (\array_key_exists('smart_rollup_number_of_sections_in_dissection', $data)) {
+            $object->setSmartRollupNumberOfSectionsInDissection($data['smart_rollup_number_of_sections_in_dissection']);
+            unset($data['smart_rollup_number_of_sections_in_dissection']);
+        }
+        if (\array_key_exists('smart_rollup_timeout_period_in_blocks', $data)) {
+            $object->setSmartRollupTimeoutPeriodInBlocks($data['smart_rollup_timeout_period_in_blocks']);
+            unset($data['smart_rollup_timeout_period_in_blocks']);
+        }
+        if (\array_key_exists('smart_rollup_max_number_of_cemented_commitments', $data)) {
+            $object->setSmartRollupMaxNumberOfCementedCommitments($data['smart_rollup_max_number_of_cemented_commitments']);
+            unset($data['smart_rollup_max_number_of_cemented_commitments']);
+        }
+        if (\array_key_exists('smart_rollup_max_number_of_parallel_games', $data)) {
+            $object->setSmartRollupMaxNumberOfParallelGames($data['smart_rollup_max_number_of_parallel_games']);
+            unset($data['smart_rollup_max_number_of_parallel_games']);
+        }
+        if (\array_key_exists('smart_rollup_reveal_activation_level', $data)) {
+            $object->setSmartRollupRevealActivationLevel($this->denormalizer->denormalize($data['smart_rollup_reveal_activation_level'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200SmartRollupRevealActivationLevel::class, 'json', $context));
+            unset($data['smart_rollup_reveal_activation_level']);
+        }
+        if (\array_key_exists('smart_rollup_private_enable', $data)) {
+            $object->setSmartRollupPrivateEnable($data['smart_rollup_private_enable']);
+            unset($data['smart_rollup_private_enable']);
+        }
+        if (\array_key_exists('smart_rollup_riscv_pvm_enable', $data)) {
+            $object->setSmartRollupRiscvPvmEnable($data['smart_rollup_riscv_pvm_enable']);
+            unset($data['smart_rollup_riscv_pvm_enable']);
+        }
+        if (\array_key_exists('zk_rollup_enable', $data)) {
+            $object->setZkRollupEnable($data['zk_rollup_enable']);
+            unset($data['zk_rollup_enable']);
+        }
+        if (\array_key_exists('zk_rollup_origination_size', $data)) {
+            $object->setZkRollupOriginationSize($data['zk_rollup_origination_size']);
+            unset($data['zk_rollup_origination_size']);
+        }
+        if (\array_key_exists('zk_rollup_min_pending_to_process', $data)) {
+            $object->setZkRollupMinPendingToProcess($data['zk_rollup_min_pending_to_process']);
+            unset($data['zk_rollup_min_pending_to_process']);
+        }
+        if (\array_key_exists('zk_rollup_max_ticket_payload_size', $data)) {
+            $object->setZkRollupMaxTicketPayloadSize($data['zk_rollup_max_ticket_payload_size']);
+            unset($data['zk_rollup_max_ticket_payload_size']);
+        }
+        if (\array_key_exists('global_limit_of_staking_over_baking', $data)) {
+            $object->setGlobalLimitOfStakingOverBaking($data['global_limit_of_staking_over_baking']);
+            unset($data['global_limit_of_staking_over_baking']);
+        }
+        if (\array_key_exists('edge_of_staking_over_delegation', $data)) {
+            $object->setEdgeOfStakingOverDelegation($data['edge_of_staking_over_delegation']);
+            unset($data['edge_of_staking_over_delegation']);
+        }
+        if (\array_key_exists('adaptive_rewards_params', $data)) {
+            $object->setAdaptiveRewardsParams($this->denormalizer->denormalize($data['adaptive_rewards_params'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams::class, 'json', $context));
+            unset($data['adaptive_rewards_params']);
+        }
+        if (\array_key_exists('direct_ticket_spending_enable', $data)) {
+            $object->setDirectTicketSpendingEnable($data['direct_ticket_spending_enable']);
+            unset($data['direct_ticket_spending_enable']);
+        }
+        if (\array_key_exists('aggregate_attestation', $data)) {
+            $object->setAggregateAttestation($data['aggregate_attestation']);
+            unset($data['aggregate_attestation']);
+        }
+        if (\array_key_exists('allow_tz4_delegate_enable', $data)) {
+            $object->setAllowTz4DelegateEnable($data['allow_tz4_delegate_enable']);
+            unset($data['allow_tz4_delegate_enable']);
+        }
+        if (\array_key_exists('all_bakers_attest_activation_level', $data) && $data['all_bakers_attest_activation_level'] !== null) {
+            $object->setAllBakersAttestActivationLevel($data['all_bakers_attest_activation_level']);
+            unset($data['all_bakers_attest_activation_level']);
+        } elseif (\array_key_exists('all_bakers_attest_activation_level', $data) && $data['all_bakers_attest_activation_level'] === null) {
+            $object->setAllBakersAttestActivationLevel(null);
+        }
+        if (\array_key_exists('issuance_modification_delay', $data)) {
+            $object->setIssuanceModificationDelay($data['issuance_modification_delay']);
+            unset($data['issuance_modification_delay']);
+        }
+        if (\array_key_exists('consensus_key_activation_delay', $data)) {
+            $object->setConsensusKeyActivationDelay($data['consensus_key_activation_delay']);
+            unset($data['consensus_key_activation_delay']);
+        }
+        if (\array_key_exists('unstake_finalization_delay', $data)) {
+            $object->setUnstakeFinalizationDelay($data['unstake_finalization_delay']);
+            unset($data['unstake_finalization_delay']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('initialSeed') && null !== $object->getInitialSeed()) {
-                $data['initial_seed'] = $object->getInitialSeed();
-            }
-            $data['cache_script_size'] = $object->getCacheScriptSize();
-            $data['cache_stake_distribution_cycles'] = $object->getCacheStakeDistributionCycles();
-            $data['cache_sampler_state_cycles'] = $object->getCacheSamplerStateCycles();
-            $data['dal_parametric'] = $this->normalizer->normalize($object->getDalParametric(), 'json', $context);
-            $data['smart_rollup_arith_pvm_enable'] = $object->getSmartRollupArithPvmEnable();
-            $data['smart_rollup_origination_size'] = $object->getSmartRollupOriginationSize();
-            $data['smart_rollup_challenge_window_in_blocks'] = $object->getSmartRollupChallengeWindowInBlocks();
-            $data['smart_rollup_stake_amount'] = $object->getSmartRollupStakeAmount();
-            $data['smart_rollup_commitment_period_in_blocks'] = $object->getSmartRollupCommitmentPeriodInBlocks();
-            $data['smart_rollup_max_lookahead_in_blocks'] = $object->getSmartRollupMaxLookaheadInBlocks();
-            $data['smart_rollup_max_active_outbox_levels'] = $object->getSmartRollupMaxActiveOutboxLevels();
-            $data['smart_rollup_max_outbox_messages_per_level'] = $object->getSmartRollupMaxOutboxMessagesPerLevel();
-            $data['smart_rollup_number_of_sections_in_dissection'] = $object->getSmartRollupNumberOfSectionsInDissection();
-            $data['smart_rollup_timeout_period_in_blocks'] = $object->getSmartRollupTimeoutPeriodInBlocks();
-            $data['smart_rollup_max_number_of_cemented_commitments'] = $object->getSmartRollupMaxNumberOfCementedCommitments();
-            $data['smart_rollup_max_number_of_parallel_games'] = $object->getSmartRollupMaxNumberOfParallelGames();
-            $data['smart_rollup_reveal_activation_level'] = $this->normalizer->normalize($object->getSmartRollupRevealActivationLevel(), 'json', $context);
-            $data['smart_rollup_private_enable'] = $object->getSmartRollupPrivateEnable();
-            $data['smart_rollup_riscv_pvm_enable'] = $object->getSmartRollupRiscvPvmEnable();
-            $data['zk_rollup_enable'] = $object->getZkRollupEnable();
-            $data['zk_rollup_origination_size'] = $object->getZkRollupOriginationSize();
-            $data['zk_rollup_min_pending_to_process'] = $object->getZkRollupMinPendingToProcess();
-            $data['zk_rollup_max_ticket_payload_size'] = $object->getZkRollupMaxTicketPayloadSize();
-            $data['global_limit_of_staking_over_baking'] = $object->getGlobalLimitOfStakingOverBaking();
-            $data['edge_of_staking_over_delegation'] = $object->getEdgeOfStakingOverDelegation();
-            $data['adaptive_issuance_launch_ema_threshold'] = $object->getAdaptiveIssuanceLaunchEmaThreshold();
-            $data['adaptive_rewards_params'] = $this->normalizer->normalize($object->getAdaptiveRewardsParams(), 'json', $context);
-            $data['adaptive_issuance_activation_vote_enable'] = $object->getAdaptiveIssuanceActivationVoteEnable();
-            $data['autostaking_enable'] = $object->getAutostakingEnable();
-            $data['adaptive_issuance_force_activation'] = $object->getAdaptiveIssuanceForceActivation();
-            $data['ns_enable'] = $object->getNsEnable();
-            $data['direct_ticket_spending_enable'] = $object->getDirectTicketSpendingEnable();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['proof_of_work_nonce_size'] = $data->getProofOfWorkNonceSize();
+        $dataArray['nonce_length'] = $data->getNonceLength();
+        $dataArray['max_anon_ops_per_block'] = $data->getMaxAnonOpsPerBlock();
+        $dataArray['max_operation_data_length'] = $data->getMaxOperationDataLength();
+        $dataArray['max_proposals_per_delegate'] = $data->getMaxProposalsPerDelegate();
+        $dataArray['max_micheline_node_count'] = $data->getMaxMichelineNodeCount();
+        $dataArray['max_micheline_bytes_limit'] = $data->getMaxMichelineBytesLimit();
+        $dataArray['max_allowed_global_constants_depth'] = $data->getMaxAllowedGlobalConstantsDepth();
+        $dataArray['cache_layout_size'] = $data->getCacheLayoutSize();
+        $dataArray['michelson_maximum_type_size'] = $data->getMichelsonMaximumTypeSize();
+        $dataArray['denunciation_period'] = $data->getDenunciationPeriod();
+        $dataArray['slashing_delay'] = $data->getSlashingDelay();
+        $dataArray['smart_rollup_max_wrapped_proof_binary_size'] = $data->getSmartRollupMaxWrappedProofBinarySize();
+        $dataArray['smart_rollup_message_size_limit'] = $data->getSmartRollupMessageSizeLimit();
+        $dataArray['smart_rollup_max_number_of_messages_per_level'] = $data->getSmartRollupMaxNumberOfMessagesPerLevel();
+        $dataArray['consensus_rights_delay'] = $data->getConsensusRightsDelay();
+        $dataArray['blocks_preservation_cycles'] = $data->getBlocksPreservationCycles();
+        $dataArray['delegate_parameters_activation_delay'] = $data->getDelegateParametersActivationDelay();
+        $dataArray['tolerated_inactivity_period'] = $data->getToleratedInactivityPeriod();
+        $dataArray['blocks_per_cycle'] = $data->getBlocksPerCycle();
+        $dataArray['blocks_per_commitment'] = $data->getBlocksPerCommitment();
+        $dataArray['nonce_revelation_threshold'] = $data->getNonceRevelationThreshold();
+        $dataArray['cycles_per_voting_period'] = $data->getCyclesPerVotingPeriod();
+        $dataArray['hard_gas_limit_per_operation'] = $data->getHardGasLimitPerOperation();
+        $dataArray['hard_gas_limit_per_block'] = $data->getHardGasLimitPerBlock();
+        $dataArray['proof_of_work_threshold'] = $data->getProofOfWorkThreshold();
+        $dataArray['minimal_stake'] = $data->getMinimalStake();
+        $dataArray['minimal_frozen_stake'] = $data->getMinimalFrozenStake();
+        $dataArray['vdf_difficulty'] = $data->getVdfDifficulty();
+        $dataArray['origination_size'] = $data->getOriginationSize();
+        $dataArray['issuance_weights'] = $this->normalizer->normalize($data->getIssuanceWeights(), 'json', $context);
+        $dataArray['cost_per_byte'] = $data->getCostPerByte();
+        $dataArray['hard_storage_limit_per_operation'] = $data->getHardStorageLimitPerOperation();
+        $dataArray['quorum_min'] = $data->getQuorumMin();
+        $dataArray['quorum_max'] = $data->getQuorumMax();
+        $dataArray['min_proposal_quorum'] = $data->getMinProposalQuorum();
+        $dataArray['liquidity_baking_subsidy'] = $data->getLiquidityBakingSubsidy();
+        $dataArray['liquidity_baking_toggle_ema_threshold'] = $data->getLiquidityBakingToggleEmaThreshold();
+        $dataArray['max_operations_time_to_live'] = $data->getMaxOperationsTimeToLive();
+        $dataArray['minimal_block_delay'] = $data->getMinimalBlockDelay();
+        $dataArray['delay_increment_per_round'] = $data->getDelayIncrementPerRound();
+        $dataArray['consensus_committee_size'] = $data->getConsensusCommitteeSize();
+        $dataArray['consensus_threshold_size'] = $data->getConsensusThresholdSize();
+        $dataArray['minimal_participation_ratio'] = $this->normalizer->normalize($data->getMinimalParticipationRatio(), 'json', $context);
+        $dataArray['limit_of_delegation_over_baking'] = $data->getLimitOfDelegationOverBaking();
+        $dataArray['percentage_of_frozen_deposits_slashed_per_double_baking'] = $data->getPercentageOfFrozenDepositsSlashedPerDoubleBaking();
+        $dataArray['max_slashing_per_block'] = $data->getMaxSlashingPerBlock();
+        $dataArray['max_slashing_threshold'] = $this->normalizer->normalize($data->getMaxSlashingThreshold(), 'json', $context);
+        if ($data->isInitialized('testnetDictator') && null !== $data->getTestnetDictator()) {
+            $dataArray['testnet_dictator'] = $data->getTestnetDictator();
         }
+        if ($data->isInitialized('initialSeed') && null !== $data->getInitialSeed()) {
+            $dataArray['initial_seed'] = $data->getInitialSeed();
+        }
+        $dataArray['cache_script_size'] = $data->getCacheScriptSize();
+        $dataArray['cache_stake_distribution_cycles'] = $data->getCacheStakeDistributionCycles();
+        $dataArray['cache_sampler_state_cycles'] = $data->getCacheSamplerStateCycles();
+        $dataArray['dal_parametric'] = $this->normalizer->normalize($data->getDalParametric(), 'json', $context);
+        $dataArray['smart_rollup_arith_pvm_enable'] = $data->getSmartRollupArithPvmEnable();
+        $dataArray['smart_rollup_origination_size'] = $data->getSmartRollupOriginationSize();
+        $dataArray['smart_rollup_challenge_window_in_blocks'] = $data->getSmartRollupChallengeWindowInBlocks();
+        $dataArray['smart_rollup_stake_amount'] = $data->getSmartRollupStakeAmount();
+        $dataArray['smart_rollup_commitment_period_in_blocks'] = $data->getSmartRollupCommitmentPeriodInBlocks();
+        $dataArray['smart_rollup_max_lookahead_in_blocks'] = $data->getSmartRollupMaxLookaheadInBlocks();
+        $dataArray['smart_rollup_max_active_outbox_levels'] = $data->getSmartRollupMaxActiveOutboxLevels();
+        $dataArray['smart_rollup_max_outbox_messages_per_level'] = $data->getSmartRollupMaxOutboxMessagesPerLevel();
+        $dataArray['smart_rollup_number_of_sections_in_dissection'] = $data->getSmartRollupNumberOfSectionsInDissection();
+        $dataArray['smart_rollup_timeout_period_in_blocks'] = $data->getSmartRollupTimeoutPeriodInBlocks();
+        $dataArray['smart_rollup_max_number_of_cemented_commitments'] = $data->getSmartRollupMaxNumberOfCementedCommitments();
+        $dataArray['smart_rollup_max_number_of_parallel_games'] = $data->getSmartRollupMaxNumberOfParallelGames();
+        $dataArray['smart_rollup_reveal_activation_level'] = $this->normalizer->normalize($data->getSmartRollupRevealActivationLevel(), 'json', $context);
+        $dataArray['smart_rollup_private_enable'] = $data->getSmartRollupPrivateEnable();
+        $dataArray['smart_rollup_riscv_pvm_enable'] = $data->getSmartRollupRiscvPvmEnable();
+        $dataArray['zk_rollup_enable'] = $data->getZkRollupEnable();
+        $dataArray['zk_rollup_origination_size'] = $data->getZkRollupOriginationSize();
+        $dataArray['zk_rollup_min_pending_to_process'] = $data->getZkRollupMinPendingToProcess();
+        $dataArray['zk_rollup_max_ticket_payload_size'] = $data->getZkRollupMaxTicketPayloadSize();
+        $dataArray['global_limit_of_staking_over_baking'] = $data->getGlobalLimitOfStakingOverBaking();
+        $dataArray['edge_of_staking_over_delegation'] = $data->getEdgeOfStakingOverDelegation();
+        $dataArray['adaptive_rewards_params'] = $this->normalizer->normalize($data->getAdaptiveRewardsParams(), 'json', $context);
+        $dataArray['direct_ticket_spending_enable'] = $data->getDirectTicketSpendingEnable();
+        $dataArray['aggregate_attestation'] = $data->getAggregateAttestation();
+        $dataArray['allow_tz4_delegate_enable'] = $data->getAllowTz4DelegateEnable();
+        $dataArray['all_bakers_attest_activation_level'] = $data->getAllBakersAttestActivationLevel();
+        $dataArray['issuance_modification_delay'] = $data->getIssuanceModificationDelay();
+        $dataArray['consensus_key_activation_delay'] = $data->getConsensusKeyActivationDelay();
+        $dataArray['unstake_finalization_delay'] = $data->getUnstakeFinalizationDelay();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200::class => false];
     }
 }

@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,179 +20,93 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ContextConstantsGetResponse200IssuanceWeightsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContextConstantsGetResponse200IssuanceWeightsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('base_total_issued_per_minute', $data)) {
-                $object->setBaseTotalIssuedPerMinute($data['base_total_issued_per_minute']);
-                unset($data['base_total_issued_per_minute']);
-            }
-            if (\array_key_exists('baking_reward_fixed_portion_weight', $data)) {
-                $object->setBakingRewardFixedPortionWeight($data['baking_reward_fixed_portion_weight']);
-                unset($data['baking_reward_fixed_portion_weight']);
-            }
-            if (\array_key_exists('baking_reward_bonus_weight', $data)) {
-                $object->setBakingRewardBonusWeight($data['baking_reward_bonus_weight']);
-                unset($data['baking_reward_bonus_weight']);
-            }
-            if (\array_key_exists('attesting_reward_weight', $data)) {
-                $object->setAttestingRewardWeight($data['attesting_reward_weight']);
-                unset($data['attesting_reward_weight']);
-            }
-            if (\array_key_exists('seed_nonce_revelation_tip_weight', $data)) {
-                $object->setSeedNonceRevelationTipWeight($data['seed_nonce_revelation_tip_weight']);
-                unset($data['seed_nonce_revelation_tip_weight']);
-            }
-            if (\array_key_exists('vdf_revelation_tip_weight', $data)) {
-                $object->setVdfRevelationTipWeight($data['vdf_revelation_tip_weight']);
-                unset($data['vdf_revelation_tip_weight']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['base_total_issued_per_minute'] = $object->getBaseTotalIssuedPerMinute();
-            $data['baking_reward_fixed_portion_weight'] = $object->getBakingRewardFixedPortionWeight();
-            $data['baking_reward_bonus_weight'] = $object->getBakingRewardBonusWeight();
-            $data['attesting_reward_weight'] = $object->getAttestingRewardWeight();
-            $data['seed_nonce_revelation_tip_weight'] = $object->getSeedNonceRevelationTipWeight();
-            $data['vdf_revelation_tip_weight'] = $object->getVdfRevelationTipWeight();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
     }
-} else {
-    class ContextConstantsGetResponse200IssuanceWeightsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('base_total_issued_per_minute', $data)) {
-                $object->setBaseTotalIssuedPerMinute($data['base_total_issued_per_minute']);
-                unset($data['base_total_issued_per_minute']);
-            }
-            if (\array_key_exists('baking_reward_fixed_portion_weight', $data)) {
-                $object->setBakingRewardFixedPortionWeight($data['baking_reward_fixed_portion_weight']);
-                unset($data['baking_reward_fixed_portion_weight']);
-            }
-            if (\array_key_exists('baking_reward_bonus_weight', $data)) {
-                $object->setBakingRewardBonusWeight($data['baking_reward_bonus_weight']);
-                unset($data['baking_reward_bonus_weight']);
-            }
-            if (\array_key_exists('attesting_reward_weight', $data)) {
-                $object->setAttestingRewardWeight($data['attesting_reward_weight']);
-                unset($data['attesting_reward_weight']);
-            }
-            if (\array_key_exists('seed_nonce_revelation_tip_weight', $data)) {
-                $object->setSeedNonceRevelationTipWeight($data['seed_nonce_revelation_tip_weight']);
-                unset($data['seed_nonce_revelation_tip_weight']);
-            }
-            if (\array_key_exists('vdf_revelation_tip_weight', $data)) {
-                $object->setVdfRevelationTipWeight($data['vdf_revelation_tip_weight']);
-                unset($data['vdf_revelation_tip_weight']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['base_total_issued_per_minute'] = $object->getBaseTotalIssuedPerMinute();
-            $data['baking_reward_fixed_portion_weight'] = $object->getBakingRewardFixedPortionWeight();
-            $data['baking_reward_bonus_weight'] = $object->getBakingRewardBonusWeight();
-            $data['attesting_reward_weight'] = $object->getAttestingRewardWeight();
-            $data['seed_nonce_revelation_tip_weight'] = $object->getSeedNonceRevelationTipWeight();
-            $data['vdf_revelation_tip_weight'] = $object->getVdfRevelationTipWeight();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
+        if (\array_key_exists('base_total_issued_per_minute', $data)) {
+            $object->setBaseTotalIssuedPerMinute($data['base_total_issued_per_minute']);
+            unset($data['base_total_issued_per_minute']);
+        }
+        if (\array_key_exists('baking_reward_fixed_portion_weight', $data)) {
+            $object->setBakingRewardFixedPortionWeight($data['baking_reward_fixed_portion_weight']);
+            unset($data['baking_reward_fixed_portion_weight']);
+        }
+        if (\array_key_exists('baking_reward_bonus_weight', $data)) {
+            $object->setBakingRewardBonusWeight($data['baking_reward_bonus_weight']);
+            unset($data['baking_reward_bonus_weight']);
+        }
+        if (\array_key_exists('attesting_reward_weight', $data)) {
+            $object->setAttestingRewardWeight($data['attesting_reward_weight']);
+            unset($data['attesting_reward_weight']);
+        }
+        if (\array_key_exists('seed_nonce_revelation_tip_weight', $data)) {
+            $object->setSeedNonceRevelationTipWeight($data['seed_nonce_revelation_tip_weight']);
+            unset($data['seed_nonce_revelation_tip_weight']);
+        }
+        if (\array_key_exists('vdf_revelation_tip_weight', $data)) {
+            $object->setVdfRevelationTipWeight($data['vdf_revelation_tip_weight']);
+            unset($data['vdf_revelation_tip_weight']);
+        }
+        if (\array_key_exists('dal_rewards_weight', $data)) {
+            $object->setDalRewardsWeight($data['dal_rewards_weight']);
+            unset($data['dal_rewards_weight']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['base_total_issued_per_minute'] = $data->getBaseTotalIssuedPerMinute();
+        $dataArray['baking_reward_fixed_portion_weight'] = $data->getBakingRewardFixedPortionWeight();
+        $dataArray['baking_reward_bonus_weight'] = $data->getBakingRewardBonusWeight();
+        $dataArray['attesting_reward_weight'] = $data->getAttestingRewardWeight();
+        $dataArray['seed_nonce_revelation_tip_weight'] = $data->getSeedNonceRevelationTipWeight();
+        $dataArray['vdf_revelation_tip_weight'] = $data->getVdfRevelationTipWeight();
+        $dataArray['dal_rewards_weight'] = $data->getDalRewardsWeight();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\ContextConstantsGetResponse200IssuanceWeights::class => false];
     }
 }

@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,299 +20,160 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p();
-            if (\array_key_exists('expected-proof-of-work', $data) && \is_int($data['expected-proof-of-work'])) {
-                $data['expected-proof-of-work'] = (float) $data['expected-proof-of-work'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('expected-proof-of-work', $data)) {
-                $object->setExpectedProofOfWork($data['expected-proof-of-work']);
-                unset($data['expected-proof-of-work']);
-            }
-            if (\array_key_exists('bootstrap-peers', $data)) {
-                $values = [];
-                foreach ($data['bootstrap-peers'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setBootstrapPeers($values);
-                unset($data['bootstrap-peers']);
-            }
-            if (\array_key_exists('listen-addr', $data)) {
-                $object->setListenAddr($data['listen-addr']);
-                unset($data['listen-addr']);
-            }
-            if (\array_key_exists('advertised-net-port', $data)) {
-                $object->setAdvertisedNetPort($data['advertised-net-port']);
-                unset($data['advertised-net-port']);
-            }
-            if (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] !== null) {
-                $object->setDiscoveryAddr($data['discovery-addr']);
-                unset($data['discovery-addr']);
-            } elseif (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] === null) {
-                $object->setDiscoveryAddr(null);
-            }
-            if (\array_key_exists('private-mode', $data)) {
-                $object->setPrivateMode($data['private-mode']);
-                unset($data['private-mode']);
-            }
-            if (\array_key_exists('limits', $data)) {
-                $object->setLimits($this->denormalizer->denormalize($data['limits'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class, 'json', $context));
-                unset($data['limits']);
-            }
-            if (\array_key_exists('disable_mempool', $data)) {
-                $object->setDisableMempool($data['disable_mempool']);
-                unset($data['disable_mempool']);
-            }
-            if (\array_key_exists('enable_testchain', $data)) {
-                $object->setEnableTestchain($data['enable_testchain']);
-                unset($data['enable_testchain']);
-            }
-            if (\array_key_exists('greylisting_config', $data)) {
-                $object->setGreylistingConfig($this->denormalizer->denormalize($data['greylisting_config'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class, 'json', $context));
-                unset($data['greylisting_config']);
-            }
-            if (\array_key_exists('disable_peer_discovery', $data)) {
-                $object->setDisablePeerDiscovery($data['disable_peer_discovery']);
-                unset($data['disable_peer_discovery']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('expectedProofOfWork') && null !== $object->getExpectedProofOfWork()) {
-                $data['expected-proof-of-work'] = $object->getExpectedProofOfWork();
-            }
-            if ($object->isInitialized('bootstrapPeers') && null !== $object->getBootstrapPeers()) {
-                $values = [];
-                foreach ($object->getBootstrapPeers() as $value) {
-                    $values[] = $value;
-                }
-                $data['bootstrap-peers'] = $values;
-            }
-            if ($object->isInitialized('listenAddr') && null !== $object->getListenAddr()) {
-                $data['listen-addr'] = $object->getListenAddr();
-            }
-            if ($object->isInitialized('advertisedNetPort') && null !== $object->getAdvertisedNetPort()) {
-                $data['advertised-net-port'] = $object->getAdvertisedNetPort();
-            }
-            if ($object->isInitialized('discoveryAddr') && null !== $object->getDiscoveryAddr()) {
-                $data['discovery-addr'] = $object->getDiscoveryAddr();
-            }
-            if ($object->isInitialized('privateMode') && null !== $object->getPrivateMode()) {
-                $data['private-mode'] = $object->getPrivateMode();
-            }
-            if ($object->isInitialized('limits') && null !== $object->getLimits()) {
-                $data['limits'] = $this->normalizer->normalize($object->getLimits(), 'json', $context);
-            }
-            if ($object->isInitialized('disableMempool') && null !== $object->getDisableMempool()) {
-                $data['disable_mempool'] = $object->getDisableMempool();
-            }
-            if ($object->isInitialized('enableTestchain') && null !== $object->getEnableTestchain()) {
-                $data['enable_testchain'] = $object->getEnableTestchain();
-            }
-            if ($object->isInitialized('greylistingConfig') && null !== $object->getGreylistingConfig()) {
-                $data['greylisting_config'] = $this->normalizer->normalize($object->getGreylistingConfig(), 'json', $context);
-            }
-            if ($object->isInitialized('disablePeerDiscovery') && null !== $object->getDisablePeerDiscovery()) {
-                $data['disable_peer_discovery'] = $object->getDisablePeerDiscovery();
-            }
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
     }
-} else {
-    class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p();
-            if (\array_key_exists('expected-proof-of-work', $data) && \is_int($data['expected-proof-of-work'])) {
-                $data['expected-proof-of-work'] = (float) $data['expected-proof-of-work'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('expected-proof-of-work', $data)) {
-                $object->setExpectedProofOfWork($data['expected-proof-of-work']);
-                unset($data['expected-proof-of-work']);
-            }
-            if (\array_key_exists('bootstrap-peers', $data)) {
-                $values = [];
-                foreach ($data['bootstrap-peers'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setBootstrapPeers($values);
-                unset($data['bootstrap-peers']);
-            }
-            if (\array_key_exists('listen-addr', $data)) {
-                $object->setListenAddr($data['listen-addr']);
-                unset($data['listen-addr']);
-            }
-            if (\array_key_exists('advertised-net-port', $data)) {
-                $object->setAdvertisedNetPort($data['advertised-net-port']);
-                unset($data['advertised-net-port']);
-            }
-            if (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] !== null) {
-                $object->setDiscoveryAddr($data['discovery-addr']);
-                unset($data['discovery-addr']);
-            } elseif (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] === null) {
-                $object->setDiscoveryAddr(null);
-            }
-            if (\array_key_exists('private-mode', $data)) {
-                $object->setPrivateMode($data['private-mode']);
-                unset($data['private-mode']);
-            }
-            if (\array_key_exists('limits', $data)) {
-                $object->setLimits($this->denormalizer->denormalize($data['limits'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class, 'json', $context));
-                unset($data['limits']);
-            }
-            if (\array_key_exists('disable_mempool', $data)) {
-                $object->setDisableMempool($data['disable_mempool']);
-                unset($data['disable_mempool']);
-            }
-            if (\array_key_exists('enable_testchain', $data)) {
-                $object->setEnableTestchain($data['enable_testchain']);
-                unset($data['enable_testchain']);
-            }
-            if (\array_key_exists('greylisting_config', $data)) {
-                $object->setGreylistingConfig($this->denormalizer->denormalize($data['greylisting_config'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class, 'json', $context));
-                unset($data['greylisting_config']);
-            }
-            if (\array_key_exists('disable_peer_discovery', $data)) {
-                $object->setDisablePeerDiscovery($data['disable_peer_discovery']);
-                unset($data['disable_peer_discovery']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p();
+        if (\array_key_exists('expected-proof-of-work', $data) && \is_int($data['expected-proof-of-work'])) {
+            $data['expected-proof-of-work'] = (float) $data['expected-proof-of-work'];
+        }
+        if (\array_key_exists('private-mode', $data) && \is_int($data['private-mode'])) {
+            $data['private-mode'] = (bool) $data['private-mode'];
+        }
+        if (\array_key_exists('disable_mempool', $data) && \is_int($data['disable_mempool'])) {
+            $data['disable_mempool'] = (bool) $data['disable_mempool'];
+        }
+        if (\array_key_exists('enable_testchain', $data) && \is_int($data['enable_testchain'])) {
+            $data['enable_testchain'] = (bool) $data['enable_testchain'];
+        }
+        if (\array_key_exists('disable_peer_discovery', $data) && \is_int($data['disable_peer_discovery'])) {
+            $data['disable_peer_discovery'] = (bool) $data['disable_peer_discovery'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('expectedProofOfWork') && null !== $object->getExpectedProofOfWork()) {
-                $data['expected-proof-of-work'] = $object->getExpectedProofOfWork();
+        if (\array_key_exists('expected-proof-of-work', $data)) {
+            $object->setExpectedProofOfWork($data['expected-proof-of-work']);
+            unset($data['expected-proof-of-work']);
+        }
+        if (\array_key_exists('bootstrap-peers', $data)) {
+            $values = [];
+            foreach ($data['bootstrap-peers'] as $value) {
+                $values[] = $value;
             }
-            if ($object->isInitialized('bootstrapPeers') && null !== $object->getBootstrapPeers()) {
-                $values = [];
-                foreach ($object->getBootstrapPeers() as $value) {
-                    $values[] = $value;
-                }
-                $data['bootstrap-peers'] = $values;
+            $object->setBootstrapPeers($values);
+            unset($data['bootstrap-peers']);
+        }
+        if (\array_key_exists('listen-addr', $data)) {
+            $object->setListenAddr($data['listen-addr']);
+            unset($data['listen-addr']);
+        }
+        if (\array_key_exists('advertised-net-port', $data)) {
+            $object->setAdvertisedNetPort($data['advertised-net-port']);
+            unset($data['advertised-net-port']);
+        }
+        if (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] !== null) {
+            $object->setDiscoveryAddr($data['discovery-addr']);
+            unset($data['discovery-addr']);
+        } elseif (\array_key_exists('discovery-addr', $data) && $data['discovery-addr'] === null) {
+            $object->setDiscoveryAddr(null);
+        }
+        if (\array_key_exists('private-mode', $data)) {
+            $object->setPrivateMode($data['private-mode']);
+            unset($data['private-mode']);
+        }
+        if (\array_key_exists('limits', $data)) {
+            $object->setLimits($this->denormalizer->denormalize($data['limits'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class, 'json', $context));
+            unset($data['limits']);
+        }
+        if (\array_key_exists('disable_mempool', $data)) {
+            $object->setDisableMempool($data['disable_mempool']);
+            unset($data['disable_mempool']);
+        }
+        if (\array_key_exists('enable_testchain', $data)) {
+            $object->setEnableTestchain($data['enable_testchain']);
+            unset($data['enable_testchain']);
+        }
+        if (\array_key_exists('greylisting_config', $data)) {
+            $object->setGreylistingConfig($this->denormalizer->denormalize($data['greylisting_config'], \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig::class, 'json', $context));
+            unset($data['greylisting_config']);
+        }
+        if (\array_key_exists('disable_peer_discovery', $data)) {
+            $object->setDisablePeerDiscovery($data['disable_peer_discovery']);
+            unset($data['disable_peer_discovery']);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
             }
-            if ($object->isInitialized('listenAddr') && null !== $object->getListenAddr()) {
-                $data['listen-addr'] = $object->getListenAddr();
-            }
-            if ($object->isInitialized('advertisedNetPort') && null !== $object->getAdvertisedNetPort()) {
-                $data['advertised-net-port'] = $object->getAdvertisedNetPort();
-            }
-            if ($object->isInitialized('discoveryAddr') && null !== $object->getDiscoveryAddr()) {
-                $data['discovery-addr'] = $object->getDiscoveryAddr();
-            }
-            if ($object->isInitialized('privateMode') && null !== $object->getPrivateMode()) {
-                $data['private-mode'] = $object->getPrivateMode();
-            }
-            if ($object->isInitialized('limits') && null !== $object->getLimits()) {
-                $data['limits'] = $this->normalizer->normalize($object->getLimits(), 'json', $context);
-            }
-            if ($object->isInitialized('disableMempool') && null !== $object->getDisableMempool()) {
-                $data['disable_mempool'] = $object->getDisableMempool();
-            }
-            if ($object->isInitialized('enableTestchain') && null !== $object->getEnableTestchain()) {
-                $data['enable_testchain'] = $object->getEnableTestchain();
-            }
-            if ($object->isInitialized('greylistingConfig') && null !== $object->getGreylistingConfig()) {
-                $data['greylisting_config'] = $this->normalizer->normalize($object->getGreylistingConfig(), 'json', $context);
-            }
-            if ($object->isInitialized('disablePeerDiscovery') && null !== $object->getDisablePeerDiscovery()) {
-                $data['disable_peer_discovery'] = $object->getDisablePeerDiscovery();
-            }
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('expectedProofOfWork') && null !== $data->getExpectedProofOfWork()) {
+            $dataArray['expected-proof-of-work'] = $data->getExpectedProofOfWork();
         }
+        if ($data->isInitialized('bootstrapPeers') && null !== $data->getBootstrapPeers()) {
+            $values = [];
+            foreach ($data->getBootstrapPeers() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['bootstrap-peers'] = $values;
+        }
+        if ($data->isInitialized('listenAddr') && null !== $data->getListenAddr()) {
+            $dataArray['listen-addr'] = $data->getListenAddr();
+        }
+        if ($data->isInitialized('advertisedNetPort') && null !== $data->getAdvertisedNetPort()) {
+            $dataArray['advertised-net-port'] = $data->getAdvertisedNetPort();
+        }
+        if ($data->isInitialized('discoveryAddr') && null !== $data->getDiscoveryAddr()) {
+            $dataArray['discovery-addr'] = $data->getDiscoveryAddr();
+        }
+        if ($data->isInitialized('privateMode') && null !== $data->getPrivateMode()) {
+            $dataArray['private-mode'] = $data->getPrivateMode();
+        }
+        if ($data->isInitialized('limits') && null !== $data->getLimits()) {
+            $dataArray['limits'] = $this->normalizer->normalize($data->getLimits(), 'json', $context);
+        }
+        if ($data->isInitialized('disableMempool') && null !== $data->getDisableMempool()) {
+            $dataArray['disable_mempool'] = $data->getDisableMempool();
+        }
+        if ($data->isInitialized('enableTestchain') && null !== $data->getEnableTestchain()) {
+            $dataArray['enable_testchain'] = $data->getEnableTestchain();
+        }
+        if ($data->isInitialized('greylistingConfig') && null !== $data->getGreylistingConfig()) {
+            $dataArray['greylisting_config'] = $this->normalizer->normalize($data->getGreylistingConfig(), 'json', $context);
+        }
+        if ($data->isInitialized('disablePeerDiscovery') && null !== $data->getDisablePeerDiscovery()) {
+            $dataArray['disable_peer_discovery'] = $data->getDisablePeerDiscovery();
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2p::class => false];
     }
 }

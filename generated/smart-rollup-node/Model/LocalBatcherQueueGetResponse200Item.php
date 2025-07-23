@@ -21,11 +21,36 @@ class LocalBatcherQueueGetResponse200Item extends \ArrayObject
     {
         return array_key_exists($property, $this->initialized);
     }
+    /**
+     * Decimal representation of a positive big number.
+     *
+     * @var string
+     */
+    protected $order;
     protected $id;
     /**
      * @var LocalBatcherQueueGetResponse200ItemMessage
      */
     protected $message;
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function getOrder(): string
+    {
+        return $this->order;
+    }
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function setOrder(string $order): self
+    {
+        $this->initialized['order'] = true;
+        $this->order = $order;
+
+        return $this;
+    }
 
     public function getId()
     {

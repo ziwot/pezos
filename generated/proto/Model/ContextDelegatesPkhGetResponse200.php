@@ -34,6 +34,10 @@ class ContextDelegatesPkhGetResponse200 extends \ArrayObject
      */
     protected $participation;
     /**
+     * @var ContextDelegatesPkhGetResponse200DalParticipation
+     */
+    protected $dalParticipation;
+    /**
      * @var int
      */
     protected $gracePeriod;
@@ -181,6 +185,19 @@ class ContextDelegatesPkhGetResponse200 extends \ArrayObject
     {
         $this->initialized['participation'] = true;
         $this->participation = $participation;
+
+        return $this;
+    }
+
+    public function getDalParticipation(): ContextDelegatesPkhGetResponse200DalParticipation
+    {
+        return $this->dalParticipation;
+    }
+
+    public function setDalParticipation(ContextDelegatesPkhGetResponse200DalParticipation $dalParticipation): self
+    {
+        $this->initialized['dalParticipation'] = true;
+        $this->dalParticipation = $dalParticipation;
 
         return $this;
     }

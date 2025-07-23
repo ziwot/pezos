@@ -22,36 +22,17 @@ class LocalBatcherQueueGetResponse200ItemMessage extends \ArrayObject
         return array_key_exists($property, $this->initialized);
     }
     /**
-     * Decimal representation of a big number.
-     *
-     * @var string
-     */
-    protected $counter;
-    /**
      * A hex encoded smart rollup message.
      *
      * @var string
      */
     protected $content;
-
     /**
-     * Decimal representation of a big number.
+     * Decimal representation of a positive big number.
+     *
+     * @var string
      */
-    public function getCounter(): string
-    {
-        return $this->counter;
-    }
-
-    /**
-     * Decimal representation of a big number.
-     */
-    public function setCounter(string $counter): self
-    {
-        $this->initialized['counter'] = true;
-        $this->counter = $counter;
-
-        return $this;
-    }
+    protected $counter;
 
     /**
      * A hex encoded smart rollup message.
@@ -68,6 +49,25 @@ class LocalBatcherQueueGetResponse200ItemMessage extends \ArrayObject
     {
         $this->initialized['content'] = true;
         $this->content = $content;
+
+        return $this;
+    }
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function getCounter(): string
+    {
+        return $this->counter;
+    }
+
+    /**
+     * Decimal representation of a positive big number.
+     */
+    public function setCounter(string $counter): self
+    {
+        $this->initialized['counter'] = true;
+        $this->counter = $counter;
 
         return $this;
     }

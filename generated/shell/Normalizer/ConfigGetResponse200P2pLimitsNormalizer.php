@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,495 +20,246 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('connection-timeout', $data)) {
-                $object->setConnectionTimeout($data['connection-timeout']);
-                unset($data['connection-timeout']);
-            }
-            if (\array_key_exists('authentication-timeout', $data)) {
-                $object->setAuthenticationTimeout($data['authentication-timeout']);
-                unset($data['authentication-timeout']);
-            }
-            if (\array_key_exists('min-connections', $data)) {
-                $object->setMinConnections($data['min-connections']);
-                unset($data['min-connections']);
-            }
-            if (\array_key_exists('expected-connections', $data)) {
-                $object->setExpectedConnections($data['expected-connections']);
-                unset($data['expected-connections']);
-            }
-            if (\array_key_exists('max-connections', $data)) {
-                $object->setMaxConnections($data['max-connections']);
-                unset($data['max-connections']);
-            }
-            if (\array_key_exists('backlog', $data)) {
-                $object->setBacklog($data['backlog']);
-                unset($data['backlog']);
-            }
-            if (\array_key_exists('max-incoming-connections', $data)) {
-                $object->setMaxIncomingConnections($data['max-incoming-connections']);
-                unset($data['max-incoming-connections']);
-            }
-            if (\array_key_exists('max-download-speed', $data)) {
-                $object->setMaxDownloadSpeed($data['max-download-speed']);
-                unset($data['max-download-speed']);
-            }
-            if (\array_key_exists('max-upload-speed', $data)) {
-                $object->setMaxUploadSpeed($data['max-upload-speed']);
-                unset($data['max-upload-speed']);
-            }
-            if (\array_key_exists('swap-linger', $data) && $data['swap-linger'] !== null) {
-                $object->setSwapLinger($data['swap-linger']);
-                unset($data['swap-linger']);
-            } elseif (\array_key_exists('swap-linger', $data) && $data['swap-linger'] === null) {
-                $object->setSwapLinger(null);
-            }
-            if (\array_key_exists('binary-chunks-size', $data)) {
-                $object->setBinaryChunksSize($data['binary-chunks-size']);
-                unset($data['binary-chunks-size']);
-            }
-            if (\array_key_exists('read-buffer-size', $data)) {
-                $object->setReadBufferSize($data['read-buffer-size']);
-                unset($data['read-buffer-size']);
-            }
-            if (\array_key_exists('read-queue-size', $data)) {
-                $object->setReadQueueSize($data['read-queue-size']);
-                unset($data['read-queue-size']);
-            }
-            if (\array_key_exists('write-queue-size', $data)) {
-                $object->setWriteQueueSize($data['write-queue-size']);
-                unset($data['write-queue-size']);
-            }
-            if (\array_key_exists('incoming-app-message-queue-size', $data)) {
-                $object->setIncomingAppMessageQueueSize($data['incoming-app-message-queue-size']);
-                unset($data['incoming-app-message-queue-size']);
-            }
-            if (\array_key_exists('incoming-message-queue-size', $data)) {
-                $object->setIncomingMessageQueueSize($data['incoming-message-queue-size']);
-                unset($data['incoming-message-queue-size']);
-            }
-            if (\array_key_exists('outgoing-message-queue-size', $data)) {
-                $object->setOutgoingMessageQueueSize($data['outgoing-message-queue-size']);
-                unset($data['outgoing-message-queue-size']);
-            }
-            if (\array_key_exists('max_known_points', $data)) {
-                $values = [];
-                foreach ($data['max_known_points'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMaxKnownPoints($values);
-                unset($data['max_known_points']);
-            }
-            if (\array_key_exists('max_known_peer_ids', $data)) {
-                $values_1 = [];
-                foreach ($data['max_known_peer_ids'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setMaxKnownPeerIds($values_1);
-                unset($data['max_known_peer_ids']);
-            }
-            if (\array_key_exists('peer_greylist_size', $data)) {
-                $object->setPeerGreylistSize($data['peer_greylist_size']);
-                unset($data['peer_greylist_size']);
-            }
-            if (\array_key_exists('ip_greylist_size_in_kilobytes', $data)) {
-                $object->setIpGreylistSizeInKilobytes($data['ip_greylist_size_in_kilobytes']);
-                unset($data['ip_greylist_size_in_kilobytes']);
-            }
-            if (\array_key_exists('ip_greylist_cleanup_delay', $data)) {
-                $object->setIpGreylistCleanupDelay($data['ip_greylist_cleanup_delay']);
-                unset($data['ip_greylist_cleanup_delay']);
-            }
-            if (\array_key_exists('greylist-timeout', $data)) {
-                $object->setGreylistTimeout($data['greylist-timeout']);
-                unset($data['greylist-timeout']);
-            }
-            if (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] !== null) {
-                $object->setMaintenanceIdleTime($data['maintenance-idle-time']);
-                unset($data['maintenance-idle-time']);
-            } elseif (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] === null) {
-                $object->setMaintenanceIdleTime(null);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('connectionTimeout') && null !== $object->getConnectionTimeout()) {
-                $data['connection-timeout'] = $object->getConnectionTimeout();
-            }
-            if ($object->isInitialized('authenticationTimeout') && null !== $object->getAuthenticationTimeout()) {
-                $data['authentication-timeout'] = $object->getAuthenticationTimeout();
-            }
-            if ($object->isInitialized('minConnections') && null !== $object->getMinConnections()) {
-                $data['min-connections'] = $object->getMinConnections();
-            }
-            if ($object->isInitialized('expectedConnections') && null !== $object->getExpectedConnections()) {
-                $data['expected-connections'] = $object->getExpectedConnections();
-            }
-            if ($object->isInitialized('maxConnections') && null !== $object->getMaxConnections()) {
-                $data['max-connections'] = $object->getMaxConnections();
-            }
-            if ($object->isInitialized('backlog') && null !== $object->getBacklog()) {
-                $data['backlog'] = $object->getBacklog();
-            }
-            if ($object->isInitialized('maxIncomingConnections') && null !== $object->getMaxIncomingConnections()) {
-                $data['max-incoming-connections'] = $object->getMaxIncomingConnections();
-            }
-            if ($object->isInitialized('maxDownloadSpeed') && null !== $object->getMaxDownloadSpeed()) {
-                $data['max-download-speed'] = $object->getMaxDownloadSpeed();
-            }
-            if ($object->isInitialized('maxUploadSpeed') && null !== $object->getMaxUploadSpeed()) {
-                $data['max-upload-speed'] = $object->getMaxUploadSpeed();
-            }
-            if ($object->isInitialized('swapLinger') && null !== $object->getSwapLinger()) {
-                $data['swap-linger'] = $object->getSwapLinger();
-            }
-            if ($object->isInitialized('binaryChunksSize') && null !== $object->getBinaryChunksSize()) {
-                $data['binary-chunks-size'] = $object->getBinaryChunksSize();
-            }
-            if ($object->isInitialized('readBufferSize') && null !== $object->getReadBufferSize()) {
-                $data['read-buffer-size'] = $object->getReadBufferSize();
-            }
-            if ($object->isInitialized('readQueueSize') && null !== $object->getReadQueueSize()) {
-                $data['read-queue-size'] = $object->getReadQueueSize();
-            }
-            if ($object->isInitialized('writeQueueSize') && null !== $object->getWriteQueueSize()) {
-                $data['write-queue-size'] = $object->getWriteQueueSize();
-            }
-            if ($object->isInitialized('incomingAppMessageQueueSize') && null !== $object->getIncomingAppMessageQueueSize()) {
-                $data['incoming-app-message-queue-size'] = $object->getIncomingAppMessageQueueSize();
-            }
-            if ($object->isInitialized('incomingMessageQueueSize') && null !== $object->getIncomingMessageQueueSize()) {
-                $data['incoming-message-queue-size'] = $object->getIncomingMessageQueueSize();
-            }
-            if ($object->isInitialized('outgoingMessageQueueSize') && null !== $object->getOutgoingMessageQueueSize()) {
-                $data['outgoing-message-queue-size'] = $object->getOutgoingMessageQueueSize();
-            }
-            if ($object->isInitialized('maxKnownPoints') && null !== $object->getMaxKnownPoints()) {
-                $values = [];
-                foreach ($object->getMaxKnownPoints() as $value) {
-                    $values[] = $value;
-                }
-                $data['max_known_points'] = $values;
-            }
-            if ($object->isInitialized('maxKnownPeerIds') && null !== $object->getMaxKnownPeerIds()) {
-                $values_1 = [];
-                foreach ($object->getMaxKnownPeerIds() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['max_known_peer_ids'] = $values_1;
-            }
-            if ($object->isInitialized('peerGreylistSize') && null !== $object->getPeerGreylistSize()) {
-                $data['peer_greylist_size'] = $object->getPeerGreylistSize();
-            }
-            if ($object->isInitialized('ipGreylistSizeInKilobytes') && null !== $object->getIpGreylistSizeInKilobytes()) {
-                $data['ip_greylist_size_in_kilobytes'] = $object->getIpGreylistSizeInKilobytes();
-            }
-            if ($object->isInitialized('ipGreylistCleanupDelay') && null !== $object->getIpGreylistCleanupDelay()) {
-                $data['ip_greylist_cleanup_delay'] = $object->getIpGreylistCleanupDelay();
-            }
-            if ($object->isInitialized('greylistTimeout') && null !== $object->getGreylistTimeout()) {
-                $data['greylist-timeout'] = $object->getGreylistTimeout();
-            }
-            if ($object->isInitialized('maintenanceIdleTime') && null !== $object->getMaintenanceIdleTime()) {
-                $data['maintenance-idle-time'] = $object->getMaintenanceIdleTime();
-            }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
     }
-} else {
-    class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('connection-timeout', $data)) {
-                $object->setConnectionTimeout($data['connection-timeout']);
-                unset($data['connection-timeout']);
-            }
-            if (\array_key_exists('authentication-timeout', $data)) {
-                $object->setAuthenticationTimeout($data['authentication-timeout']);
-                unset($data['authentication-timeout']);
-            }
-            if (\array_key_exists('min-connections', $data)) {
-                $object->setMinConnections($data['min-connections']);
-                unset($data['min-connections']);
-            }
-            if (\array_key_exists('expected-connections', $data)) {
-                $object->setExpectedConnections($data['expected-connections']);
-                unset($data['expected-connections']);
-            }
-            if (\array_key_exists('max-connections', $data)) {
-                $object->setMaxConnections($data['max-connections']);
-                unset($data['max-connections']);
-            }
-            if (\array_key_exists('backlog', $data)) {
-                $object->setBacklog($data['backlog']);
-                unset($data['backlog']);
-            }
-            if (\array_key_exists('max-incoming-connections', $data)) {
-                $object->setMaxIncomingConnections($data['max-incoming-connections']);
-                unset($data['max-incoming-connections']);
-            }
-            if (\array_key_exists('max-download-speed', $data)) {
-                $object->setMaxDownloadSpeed($data['max-download-speed']);
-                unset($data['max-download-speed']);
-            }
-            if (\array_key_exists('max-upload-speed', $data)) {
-                $object->setMaxUploadSpeed($data['max-upload-speed']);
-                unset($data['max-upload-speed']);
-            }
-            if (\array_key_exists('swap-linger', $data) && $data['swap-linger'] !== null) {
-                $object->setSwapLinger($data['swap-linger']);
-                unset($data['swap-linger']);
-            } elseif (\array_key_exists('swap-linger', $data) && $data['swap-linger'] === null) {
-                $object->setSwapLinger(null);
-            }
-            if (\array_key_exists('binary-chunks-size', $data)) {
-                $object->setBinaryChunksSize($data['binary-chunks-size']);
-                unset($data['binary-chunks-size']);
-            }
-            if (\array_key_exists('read-buffer-size', $data)) {
-                $object->setReadBufferSize($data['read-buffer-size']);
-                unset($data['read-buffer-size']);
-            }
-            if (\array_key_exists('read-queue-size', $data)) {
-                $object->setReadQueueSize($data['read-queue-size']);
-                unset($data['read-queue-size']);
-            }
-            if (\array_key_exists('write-queue-size', $data)) {
-                $object->setWriteQueueSize($data['write-queue-size']);
-                unset($data['write-queue-size']);
-            }
-            if (\array_key_exists('incoming-app-message-queue-size', $data)) {
-                $object->setIncomingAppMessageQueueSize($data['incoming-app-message-queue-size']);
-                unset($data['incoming-app-message-queue-size']);
-            }
-            if (\array_key_exists('incoming-message-queue-size', $data)) {
-                $object->setIncomingMessageQueueSize($data['incoming-message-queue-size']);
-                unset($data['incoming-message-queue-size']);
-            }
-            if (\array_key_exists('outgoing-message-queue-size', $data)) {
-                $object->setOutgoingMessageQueueSize($data['outgoing-message-queue-size']);
-                unset($data['outgoing-message-queue-size']);
-            }
-            if (\array_key_exists('max_known_points', $data)) {
-                $values = [];
-                foreach ($data['max_known_points'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMaxKnownPoints($values);
-                unset($data['max_known_points']);
-            }
-            if (\array_key_exists('max_known_peer_ids', $data)) {
-                $values_1 = [];
-                foreach ($data['max_known_peer_ids'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setMaxKnownPeerIds($values_1);
-                unset($data['max_known_peer_ids']);
-            }
-            if (\array_key_exists('peer_greylist_size', $data)) {
-                $object->setPeerGreylistSize($data['peer_greylist_size']);
-                unset($data['peer_greylist_size']);
-            }
-            if (\array_key_exists('ip_greylist_size_in_kilobytes', $data)) {
-                $object->setIpGreylistSizeInKilobytes($data['ip_greylist_size_in_kilobytes']);
-                unset($data['ip_greylist_size_in_kilobytes']);
-            }
-            if (\array_key_exists('ip_greylist_cleanup_delay', $data)) {
-                $object->setIpGreylistCleanupDelay($data['ip_greylist_cleanup_delay']);
-                unset($data['ip_greylist_cleanup_delay']);
-            }
-            if (\array_key_exists('greylist-timeout', $data)) {
-                $object->setGreylistTimeout($data['greylist-timeout']);
-                unset($data['greylist-timeout']);
-            }
-            if (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] !== null) {
-                $object->setMaintenanceIdleTime($data['maintenance-idle-time']);
-                unset($data['maintenance-idle-time']);
-            } elseif (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] === null) {
-                $object->setMaintenanceIdleTime(null);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('connectionTimeout') && null !== $object->getConnectionTimeout()) {
-                $data['connection-timeout'] = $object->getConnectionTimeout();
+        if (\array_key_exists('connection-timeout', $data)) {
+            $object->setConnectionTimeout($data['connection-timeout']);
+            unset($data['connection-timeout']);
+        }
+        if (\array_key_exists('authentication-timeout', $data)) {
+            $object->setAuthenticationTimeout($data['authentication-timeout']);
+            unset($data['authentication-timeout']);
+        }
+        if (\array_key_exists('min-connections', $data)) {
+            $object->setMinConnections($data['min-connections']);
+            unset($data['min-connections']);
+        }
+        if (\array_key_exists('expected-connections', $data)) {
+            $object->setExpectedConnections($data['expected-connections']);
+            unset($data['expected-connections']);
+        }
+        if (\array_key_exists('max-connections', $data)) {
+            $object->setMaxConnections($data['max-connections']);
+            unset($data['max-connections']);
+        }
+        if (\array_key_exists('backlog', $data)) {
+            $object->setBacklog($data['backlog']);
+            unset($data['backlog']);
+        }
+        if (\array_key_exists('max-incoming-connections', $data)) {
+            $object->setMaxIncomingConnections($data['max-incoming-connections']);
+            unset($data['max-incoming-connections']);
+        }
+        if (\array_key_exists('max-download-speed', $data)) {
+            $object->setMaxDownloadSpeed($data['max-download-speed']);
+            unset($data['max-download-speed']);
+        }
+        if (\array_key_exists('max-upload-speed', $data)) {
+            $object->setMaxUploadSpeed($data['max-upload-speed']);
+            unset($data['max-upload-speed']);
+        }
+        if (\array_key_exists('swap-linger', $data) && $data['swap-linger'] !== null) {
+            $object->setSwapLinger($data['swap-linger']);
+            unset($data['swap-linger']);
+        } elseif (\array_key_exists('swap-linger', $data) && $data['swap-linger'] === null) {
+            $object->setSwapLinger(null);
+        }
+        if (\array_key_exists('binary-chunks-size', $data)) {
+            $object->setBinaryChunksSize($data['binary-chunks-size']);
+            unset($data['binary-chunks-size']);
+        }
+        if (\array_key_exists('read-buffer-size', $data)) {
+            $object->setReadBufferSize($data['read-buffer-size']);
+            unset($data['read-buffer-size']);
+        }
+        if (\array_key_exists('read-queue-size', $data)) {
+            $object->setReadQueueSize($data['read-queue-size']);
+            unset($data['read-queue-size']);
+        }
+        if (\array_key_exists('write-queue-size', $data)) {
+            $object->setWriteQueueSize($data['write-queue-size']);
+            unset($data['write-queue-size']);
+        }
+        if (\array_key_exists('incoming-app-message-queue-size', $data)) {
+            $object->setIncomingAppMessageQueueSize($data['incoming-app-message-queue-size']);
+            unset($data['incoming-app-message-queue-size']);
+        }
+        if (\array_key_exists('incoming-message-queue-size', $data)) {
+            $object->setIncomingMessageQueueSize($data['incoming-message-queue-size']);
+            unset($data['incoming-message-queue-size']);
+        }
+        if (\array_key_exists('outgoing-message-queue-size', $data)) {
+            $object->setOutgoingMessageQueueSize($data['outgoing-message-queue-size']);
+            unset($data['outgoing-message-queue-size']);
+        }
+        if (\array_key_exists('max_known_points', $data)) {
+            $values = [];
+            foreach ($data['max_known_points'] as $value) {
+                $values[] = $value;
             }
-            if ($object->isInitialized('authenticationTimeout') && null !== $object->getAuthenticationTimeout()) {
-                $data['authentication-timeout'] = $object->getAuthenticationTimeout();
+            $object->setMaxKnownPoints($values);
+            unset($data['max_known_points']);
+        }
+        if (\array_key_exists('max_known_peer_ids', $data)) {
+            $values_1 = [];
+            foreach ($data['max_known_peer_ids'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            if ($object->isInitialized('minConnections') && null !== $object->getMinConnections()) {
-                $data['min-connections'] = $object->getMinConnections();
+            $object->setMaxKnownPeerIds($values_1);
+            unset($data['max_known_peer_ids']);
+        }
+        if (\array_key_exists('peer_greylist_size', $data)) {
+            $object->setPeerGreylistSize($data['peer_greylist_size']);
+            unset($data['peer_greylist_size']);
+        }
+        if (\array_key_exists('ip_greylist_size_in_kilobytes', $data)) {
+            $object->setIpGreylistSizeInKilobytes($data['ip_greylist_size_in_kilobytes']);
+            unset($data['ip_greylist_size_in_kilobytes']);
+        }
+        if (\array_key_exists('ip_greylist_cleanup_delay', $data)) {
+            $object->setIpGreylistCleanupDelay($data['ip_greylist_cleanup_delay']);
+            unset($data['ip_greylist_cleanup_delay']);
+        }
+        if (\array_key_exists('greylist-timeout', $data)) {
+            $object->setGreylistTimeout($data['greylist-timeout']);
+            unset($data['greylist-timeout']);
+        }
+        if (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] !== null) {
+            $object->setMaintenanceIdleTime($data['maintenance-idle-time']);
+            unset($data['maintenance-idle-time']);
+        } elseif (\array_key_exists('maintenance-idle-time', $data) && $data['maintenance-idle-time'] === null) {
+            $object->setMaintenanceIdleTime(null);
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_2;
             }
-            if ($object->isInitialized('expectedConnections') && null !== $object->getExpectedConnections()) {
-                $data['expected-connections'] = $object->getExpectedConnections();
-            }
-            if ($object->isInitialized('maxConnections') && null !== $object->getMaxConnections()) {
-                $data['max-connections'] = $object->getMaxConnections();
-            }
-            if ($object->isInitialized('backlog') && null !== $object->getBacklog()) {
-                $data['backlog'] = $object->getBacklog();
-            }
-            if ($object->isInitialized('maxIncomingConnections') && null !== $object->getMaxIncomingConnections()) {
-                $data['max-incoming-connections'] = $object->getMaxIncomingConnections();
-            }
-            if ($object->isInitialized('maxDownloadSpeed') && null !== $object->getMaxDownloadSpeed()) {
-                $data['max-download-speed'] = $object->getMaxDownloadSpeed();
-            }
-            if ($object->isInitialized('maxUploadSpeed') && null !== $object->getMaxUploadSpeed()) {
-                $data['max-upload-speed'] = $object->getMaxUploadSpeed();
-            }
-            if ($object->isInitialized('swapLinger') && null !== $object->getSwapLinger()) {
-                $data['swap-linger'] = $object->getSwapLinger();
-            }
-            if ($object->isInitialized('binaryChunksSize') && null !== $object->getBinaryChunksSize()) {
-                $data['binary-chunks-size'] = $object->getBinaryChunksSize();
-            }
-            if ($object->isInitialized('readBufferSize') && null !== $object->getReadBufferSize()) {
-                $data['read-buffer-size'] = $object->getReadBufferSize();
-            }
-            if ($object->isInitialized('readQueueSize') && null !== $object->getReadQueueSize()) {
-                $data['read-queue-size'] = $object->getReadQueueSize();
-            }
-            if ($object->isInitialized('writeQueueSize') && null !== $object->getWriteQueueSize()) {
-                $data['write-queue-size'] = $object->getWriteQueueSize();
-            }
-            if ($object->isInitialized('incomingAppMessageQueueSize') && null !== $object->getIncomingAppMessageQueueSize()) {
-                $data['incoming-app-message-queue-size'] = $object->getIncomingAppMessageQueueSize();
-            }
-            if ($object->isInitialized('incomingMessageQueueSize') && null !== $object->getIncomingMessageQueueSize()) {
-                $data['incoming-message-queue-size'] = $object->getIncomingMessageQueueSize();
-            }
-            if ($object->isInitialized('outgoingMessageQueueSize') && null !== $object->getOutgoingMessageQueueSize()) {
-                $data['outgoing-message-queue-size'] = $object->getOutgoingMessageQueueSize();
-            }
-            if ($object->isInitialized('maxKnownPoints') && null !== $object->getMaxKnownPoints()) {
-                $values = [];
-                foreach ($object->getMaxKnownPoints() as $value) {
-                    $values[] = $value;
-                }
-                $data['max_known_points'] = $values;
-            }
-            if ($object->isInitialized('maxKnownPeerIds') && null !== $object->getMaxKnownPeerIds()) {
-                $values_1 = [];
-                foreach ($object->getMaxKnownPeerIds() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['max_known_peer_ids'] = $values_1;
-            }
-            if ($object->isInitialized('peerGreylistSize') && null !== $object->getPeerGreylistSize()) {
-                $data['peer_greylist_size'] = $object->getPeerGreylistSize();
-            }
-            if ($object->isInitialized('ipGreylistSizeInKilobytes') && null !== $object->getIpGreylistSizeInKilobytes()) {
-                $data['ip_greylist_size_in_kilobytes'] = $object->getIpGreylistSizeInKilobytes();
-            }
-            if ($object->isInitialized('ipGreylistCleanupDelay') && null !== $object->getIpGreylistCleanupDelay()) {
-                $data['ip_greylist_cleanup_delay'] = $object->getIpGreylistCleanupDelay();
-            }
-            if ($object->isInitialized('greylistTimeout') && null !== $object->getGreylistTimeout()) {
-                $data['greylist-timeout'] = $object->getGreylistTimeout();
-            }
-            if ($object->isInitialized('maintenanceIdleTime') && null !== $object->getMaintenanceIdleTime()) {
-                $data['maintenance-idle-time'] = $object->getMaintenanceIdleTime();
-            }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('connectionTimeout') && null !== $data->getConnectionTimeout()) {
+            $dataArray['connection-timeout'] = $data->getConnectionTimeout();
         }
+        if ($data->isInitialized('authenticationTimeout') && null !== $data->getAuthenticationTimeout()) {
+            $dataArray['authentication-timeout'] = $data->getAuthenticationTimeout();
+        }
+        if ($data->isInitialized('minConnections') && null !== $data->getMinConnections()) {
+            $dataArray['min-connections'] = $data->getMinConnections();
+        }
+        if ($data->isInitialized('expectedConnections') && null !== $data->getExpectedConnections()) {
+            $dataArray['expected-connections'] = $data->getExpectedConnections();
+        }
+        if ($data->isInitialized('maxConnections') && null !== $data->getMaxConnections()) {
+            $dataArray['max-connections'] = $data->getMaxConnections();
+        }
+        if ($data->isInitialized('backlog') && null !== $data->getBacklog()) {
+            $dataArray['backlog'] = $data->getBacklog();
+        }
+        if ($data->isInitialized('maxIncomingConnections') && null !== $data->getMaxIncomingConnections()) {
+            $dataArray['max-incoming-connections'] = $data->getMaxIncomingConnections();
+        }
+        if ($data->isInitialized('maxDownloadSpeed') && null !== $data->getMaxDownloadSpeed()) {
+            $dataArray['max-download-speed'] = $data->getMaxDownloadSpeed();
+        }
+        if ($data->isInitialized('maxUploadSpeed') && null !== $data->getMaxUploadSpeed()) {
+            $dataArray['max-upload-speed'] = $data->getMaxUploadSpeed();
+        }
+        if ($data->isInitialized('swapLinger') && null !== $data->getSwapLinger()) {
+            $dataArray['swap-linger'] = $data->getSwapLinger();
+        }
+        if ($data->isInitialized('binaryChunksSize') && null !== $data->getBinaryChunksSize()) {
+            $dataArray['binary-chunks-size'] = $data->getBinaryChunksSize();
+        }
+        if ($data->isInitialized('readBufferSize') && null !== $data->getReadBufferSize()) {
+            $dataArray['read-buffer-size'] = $data->getReadBufferSize();
+        }
+        if ($data->isInitialized('readQueueSize') && null !== $data->getReadQueueSize()) {
+            $dataArray['read-queue-size'] = $data->getReadQueueSize();
+        }
+        if ($data->isInitialized('writeQueueSize') && null !== $data->getWriteQueueSize()) {
+            $dataArray['write-queue-size'] = $data->getWriteQueueSize();
+        }
+        if ($data->isInitialized('incomingAppMessageQueueSize') && null !== $data->getIncomingAppMessageQueueSize()) {
+            $dataArray['incoming-app-message-queue-size'] = $data->getIncomingAppMessageQueueSize();
+        }
+        if ($data->isInitialized('incomingMessageQueueSize') && null !== $data->getIncomingMessageQueueSize()) {
+            $dataArray['incoming-message-queue-size'] = $data->getIncomingMessageQueueSize();
+        }
+        if ($data->isInitialized('outgoingMessageQueueSize') && null !== $data->getOutgoingMessageQueueSize()) {
+            $dataArray['outgoing-message-queue-size'] = $data->getOutgoingMessageQueueSize();
+        }
+        if ($data->isInitialized('maxKnownPoints') && null !== $data->getMaxKnownPoints()) {
+            $values = [];
+            foreach ($data->getMaxKnownPoints() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['max_known_points'] = $values;
+        }
+        if ($data->isInitialized('maxKnownPeerIds') && null !== $data->getMaxKnownPeerIds()) {
+            $values_1 = [];
+            foreach ($data->getMaxKnownPeerIds() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['max_known_peer_ids'] = $values_1;
+        }
+        if ($data->isInitialized('peerGreylistSize') && null !== $data->getPeerGreylistSize()) {
+            $dataArray['peer_greylist_size'] = $data->getPeerGreylistSize();
+        }
+        if ($data->isInitialized('ipGreylistSizeInKilobytes') && null !== $data->getIpGreylistSizeInKilobytes()) {
+            $dataArray['ip_greylist_size_in_kilobytes'] = $data->getIpGreylistSizeInKilobytes();
+        }
+        if ($data->isInitialized('ipGreylistCleanupDelay') && null !== $data->getIpGreylistCleanupDelay()) {
+            $dataArray['ip_greylist_cleanup_delay'] = $data->getIpGreylistCleanupDelay();
+        }
+        if ($data->isInitialized('greylistTimeout') && null !== $data->getGreylistTimeout()) {
+            $dataArray['greylist-timeout'] = $data->getGreylistTimeout();
+        }
+        if ($data->isInitialized('maintenanceIdleTime') && null !== $data->getMaintenanceIdleTime()) {
+            $dataArray['maintenance-idle-time'] = $data->getMaintenanceIdleTime();
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_2;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits::class => false];
     }
 }

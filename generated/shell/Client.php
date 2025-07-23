@@ -26,6 +26,19 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * The heads of all active peers.
+     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ChainsChainIdActivePeersHeadsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getChainsByChainIdActivePeersHead(string $chainId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetChainsByChainIdActivePeersHead($chainId), $fetch);
+    }
+
+    /**
      * Lists block hashes from '<chain>', up to the last checkpoint, sorted with decreasing fitness. Without arguments it returns the head of the chain. Optional arguments allow to return the list of predecessors of a given block or of a set of blocks.
      *
      * @param string $chainId         A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
@@ -56,6 +69,20 @@ class Client extends Runtime\Client\Client
     public function getChainsByChainIdChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetChainsByChainIdChainId($chainId), $fetch);
+    }
+
+    /**
+     * A breakdown of all the contributions to the delegation portion of the baking power of the given delegate for the given cycle.
+     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param string $pkh     A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getChainsByChainIdDelegatorsContributionByInt32ByPkh(string $chainId, string $int32, string $pkh, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetChainsByChainIdDelegatorsContributionByInt32ByPkh($chainId, $int32, $pkh), $fetch);
     }
 
     /**
@@ -149,6 +176,33 @@ class Client extends Runtime\Client\Client
     public function getChainsByChainIdLevelsSavepoint(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetChainsByChainIdLevelsSavepoint($chainId), $fetch);
+    }
+
+    /**
+     * Lists protocols of the chain.
+     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ChainsChainIdProtocolsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getChainsByChainIdProtocols(string $chainId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetChainsByChainIdProtocols($chainId), $fetch);
+    }
+
+    /**
+     * Information about a protocol of the chain.
+     *
+     * @param string $chainId      A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param string $protocolHash Protocol_hash (Base58Check-encoded)
+     * @param string $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ChainsChainIdProtocolsProtocolHashGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getChainsByChainIdProtocolByProtocolHash(string $chainId, string $protocolHash, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetChainsByChainIdProtocolByProtocolHash($chainId, $protocolHash), $fetch);
     }
 
     /**
@@ -370,6 +424,19 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Monitor all newly received blocks that are not yet known by the store.
+     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\MonitorReceivedBlocksChainIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getMonitorReceivedBlockByChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetMonitorReceivedBlockByChainId($chainId), $fetch);
+    }
+
+    /**
      * Monitor all blocks that were successfully validated by the node but are not applied nor stored yet, disregarding whether they are going to be selected as the new head or not.
      *
      * @param array $queryParameters {
@@ -427,6 +494,16 @@ class Client extends Runtime\Client\Client
     public function getNetworkConnectionByPeerId(string $peerId, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetNetworkConnectionByPeerId($peerId), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\NetworkFullStatGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getNetworkFullStat(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetNetworkFullStat(), $fetch);
     }
 
     /**
@@ -653,6 +730,16 @@ class Client extends Runtime\Client\Client
     public function getNetworkStat(string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetNetworkStat(), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\ProfilerRegisteredBackendGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getProfilerRegisteredBackend(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetProfilerRegisteredBackend(), $fetch);
     }
 
     /**

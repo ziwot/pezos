@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,223 +20,110 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class GlobalMonitorBlocksGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class GlobalMonitorBlocksGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('block_hash', $data)) {
-                $object->setBlockHash($data['block_hash']);
-                unset($data['block_hash']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('predecessor', $data)) {
-                $object->setPredecessor($data['predecessor']);
-                unset($data['predecessor']);
-            }
-            if (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] !== null) {
-                $object->setCommitmentHash($data['commitment_hash']);
-                unset($data['commitment_hash']);
-            } elseif (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] === null) {
-                $object->setCommitmentHash(null);
-            }
-            if (\array_key_exists('previous_commitment_hash', $data)) {
-                $object->setPreviousCommitmentHash($data['previous_commitment_hash']);
-                unset($data['previous_commitment_hash']);
-            }
-            if (\array_key_exists('context', $data)) {
-                $object->setContext($data['context']);
-                unset($data['context']);
-            }
-            if (\array_key_exists('inbox_witness', $data)) {
-                $object->setInboxWitness($data['inbox_witness']);
-                unset($data['inbox_witness']);
-            }
-            if (\array_key_exists('inbox_hash', $data)) {
-                $object->setInboxHash($data['inbox_hash']);
-                unset($data['inbox_hash']);
-            }
-            if (\array_key_exists('initial_tick', $data)) {
-                $object->setInitialTick($data['initial_tick']);
-                unset($data['initial_tick']);
-            }
-            if (\array_key_exists('num_ticks', $data)) {
-                $object->setNumTicks($data['num_ticks']);
-                unset($data['num_ticks']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['block_hash'] = $object->getBlockHash();
-            $data['level'] = $object->getLevel();
-            $data['predecessor'] = $object->getPredecessor();
-            $data['commitment_hash'] = $object->getCommitmentHash();
-            $data['previous_commitment_hash'] = $object->getPreviousCommitmentHash();
-            $data['context'] = $object->getContext();
-            $data['inbox_witness'] = $object->getInboxWitness();
-            $data['inbox_hash'] = $object->getInboxHash();
-            $data['initial_tick'] = $object->getInitialTick();
-            $data['num_ticks'] = $object->getNumTicks();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
     }
-} else {
-    class GlobalMonitorBlocksGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('block_hash', $data)) {
-                $object->setBlockHash($data['block_hash']);
-                unset($data['block_hash']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('predecessor', $data)) {
-                $object->setPredecessor($data['predecessor']);
-                unset($data['predecessor']);
-            }
-            if (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] !== null) {
-                $object->setCommitmentHash($data['commitment_hash']);
-                unset($data['commitment_hash']);
-            } elseif (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] === null) {
-                $object->setCommitmentHash(null);
-            }
-            if (\array_key_exists('previous_commitment_hash', $data)) {
-                $object->setPreviousCommitmentHash($data['previous_commitment_hash']);
-                unset($data['previous_commitment_hash']);
-            }
-            if (\array_key_exists('context', $data)) {
-                $object->setContext($data['context']);
-                unset($data['context']);
-            }
-            if (\array_key_exists('inbox_witness', $data)) {
-                $object->setInboxWitness($data['inbox_witness']);
-                unset($data['inbox_witness']);
-            }
-            if (\array_key_exists('inbox_hash', $data)) {
-                $object->setInboxHash($data['inbox_hash']);
-                unset($data['inbox_hash']);
-            }
-            if (\array_key_exists('initial_tick', $data)) {
-                $object->setInitialTick($data['initial_tick']);
-                unset($data['initial_tick']);
-            }
-            if (\array_key_exists('num_ticks', $data)) {
-                $object->setNumTicks($data['num_ticks']);
-                unset($data['num_ticks']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['block_hash'] = $object->getBlockHash();
-            $data['level'] = $object->getLevel();
-            $data['predecessor'] = $object->getPredecessor();
-            $data['commitment_hash'] = $object->getCommitmentHash();
-            $data['previous_commitment_hash'] = $object->getPreviousCommitmentHash();
-            $data['context'] = $object->getContext();
-            $data['inbox_witness'] = $object->getInboxWitness();
-            $data['inbox_hash'] = $object->getInboxHash();
-            $data['initial_tick'] = $object->getInitialTick();
-            $data['num_ticks'] = $object->getNumTicks();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
+        if (\array_key_exists('block_hash', $data)) {
+            $object->setBlockHash($data['block_hash']);
+            unset($data['block_hash']);
+        }
+        if (\array_key_exists('level', $data)) {
+            $object->setLevel($data['level']);
+            unset($data['level']);
+        }
+        if (\array_key_exists('predecessor', $data)) {
+            $object->setPredecessor($data['predecessor']);
+            unset($data['predecessor']);
+        }
+        if (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] !== null) {
+            $object->setCommitmentHash($data['commitment_hash']);
+            unset($data['commitment_hash']);
+        } elseif (\array_key_exists('commitment_hash', $data) && $data['commitment_hash'] === null) {
+            $object->setCommitmentHash(null);
+        }
+        if (\array_key_exists('previous_commitment_hash', $data)) {
+            $object->setPreviousCommitmentHash($data['previous_commitment_hash']);
+            unset($data['previous_commitment_hash']);
+        }
+        if (\array_key_exists('context', $data)) {
+            $object->setContext($data['context']);
+            unset($data['context']);
+        }
+        if (\array_key_exists('inbox_witness', $data)) {
+            $object->setInboxWitness($data['inbox_witness']);
+            unset($data['inbox_witness']);
+        }
+        if (\array_key_exists('inbox_hash', $data)) {
+            $object->setInboxHash($data['inbox_hash']);
+            unset($data['inbox_hash']);
+        }
+        if (\array_key_exists('initial_tick', $data)) {
+            $object->setInitialTick($data['initial_tick']);
+            unset($data['initial_tick']);
+        }
+        if (\array_key_exists('num_ticks', $data)) {
+            $object->setNumTicks($data['num_ticks']);
+            unset($data['num_ticks']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['block_hash'] = $data->getBlockHash();
+        $dataArray['level'] = $data->getLevel();
+        $dataArray['predecessor'] = $data->getPredecessor();
+        $dataArray['commitment_hash'] = $data->getCommitmentHash();
+        $dataArray['previous_commitment_hash'] = $data->getPreviousCommitmentHash();
+        $dataArray['context'] = $data->getContext();
+        $dataArray['inbox_witness'] = $data->getInboxWitness();
+        $dataArray['inbox_hash'] = $data->getInboxHash();
+        $dataArray['initial_tick'] = $data->getInitialTick();
+        $dataArray['num_ticks'] = $data->getNumTicks();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false];
     }
 }

@@ -41,6 +41,12 @@ class ConfigGetResponse200Log extends \ArrayObject
      * Fine-grained logging instructions. Same format as described in `octez-node run --help`, DEBUG section. In the example below, sections 'p2p' and all sections starting by 'client' will have their messages logged up to the debug level, whereas the rest of log sections will be logged up to the notice level.
      */
     protected $rules;
+    /**
+     * When `true`, advertises the level of an event in addition to its contents.
+     *
+     * @var bool
+     */
+    protected $advertisesLevel;
 
     /**
      * Output for the logging function. Either 'stdout', 'stderr' or the name of a log file .
@@ -114,6 +120,25 @@ class ConfigGetResponse200Log extends \ArrayObject
     {
         $this->initialized['rules'] = true;
         $this->rules = $rules;
+
+        return $this;
+    }
+
+    /**
+     * When `true`, advertises the level of an event in addition to its contents.
+     */
+    public function getAdvertisesLevel(): bool
+    {
+        return $this->advertisesLevel;
+    }
+
+    /**
+     * When `true`, advertises the level of an event in addition to its contents.
+     */
+    public function setAdvertisesLevel(bool $advertisesLevel): self
+    {
+        $this->initialized['advertisesLevel'] = true;
+        $this->advertisesLevel = $advertisesLevel;
 
         return $this;
     }

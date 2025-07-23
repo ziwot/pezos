@@ -27,7 +27,7 @@ class HelpersScriptsTraceCodePostResponse200 extends \ArrayObject
      */
     protected $operations;
     /**
-     * @var list<_021PsQuebecScriptedTraceItem>
+     * @var list<_022PsRiotumScriptedTraceItem>
      */
     protected $trace;
     /**
@@ -68,7 +68,7 @@ class HelpersScriptsTraceCodePostResponse200 extends \ArrayObject
     }
 
     /**
-     * @return list<_021PsQuebecScriptedTraceItem>
+     * @return list<_022PsRiotumScriptedTraceItem>
      */
     public function getTrace(): array
     {
@@ -76,7 +76,7 @@ class HelpersScriptsTraceCodePostResponse200 extends \ArrayObject
     }
 
     /**
-     * @param list<_021PsQuebecScriptedTraceItem> $trace
+     * @param list<_022PsRiotumScriptedTraceItem> $trace
      */
     public function setTrace(array $trace): self
     {

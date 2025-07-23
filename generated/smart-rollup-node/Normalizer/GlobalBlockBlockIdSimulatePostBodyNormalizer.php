@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,219 +20,108 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class GlobalBlockBlockIdSimulatePostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class GlobalBlockBlockIdSimulatePostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('messages', $data)) {
-                $values = [];
-                foreach ($data['messages'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMessages($values);
-                unset($data['messages']);
-            }
-            if (\array_key_exists('reveal_pages', $data)) {
-                $values_1 = [];
-                foreach ($data['reveal_pages'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setRevealPages($values_1);
-                unset($data['reveal_pages']);
-            }
-            if (\array_key_exists('insight_requests', $data)) {
-                $values_2 = [];
-                foreach ($data['insight_requests'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setInsightRequests($values_2);
-                unset($data['insight_requests']);
-            }
-            if (\array_key_exists('log_kernel_debug_file', $data)) {
-                $object->setLogKernelDebugFile($data['log_kernel_debug_file']);
-                unset($data['log_kernel_debug_file']);
-            }
-            foreach ($data as $key => $value_3) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_3;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $values = [];
-            foreach ($object->getMessages() as $value) {
-                $values[] = $value;
-            }
-            $data['messages'] = $values;
-            if ($object->isInitialized('revealPages') && null !== $object->getRevealPages()) {
-                $values_1 = [];
-                foreach ($object->getRevealPages() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['reveal_pages'] = $values_1;
-            }
-            if ($object->isInitialized('insightRequests') && null !== $object->getInsightRequests()) {
-                $values_2 = [];
-                foreach ($object->getInsightRequests() as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $data['insight_requests'] = $values_2;
-            }
-            if ($object->isInitialized('logKernelDebugFile') && null !== $object->getLogKernelDebugFile()) {
-                $data['log_kernel_debug_file'] = $object->getLogKernelDebugFile();
-            }
-            foreach ($object as $key => $value_3) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_3;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
     }
-} else {
-    class GlobalBlockBlockIdSimulatePostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('messages', $data)) {
-                $values = [];
-                foreach ($data['messages'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setMessages($values);
-                unset($data['messages']);
-            }
-            if (\array_key_exists('reveal_pages', $data)) {
-                $values_1 = [];
-                foreach ($data['reveal_pages'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setRevealPages($values_1);
-                unset($data['reveal_pages']);
-            }
-            if (\array_key_exists('insight_requests', $data)) {
-                $values_2 = [];
-                foreach ($data['insight_requests'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setInsightRequests($values_2);
-                unset($data['insight_requests']);
-            }
-            if (\array_key_exists('log_kernel_debug_file', $data)) {
-                $object->setLogKernelDebugFile($data['log_kernel_debug_file']);
-                unset($data['log_kernel_debug_file']);
-            }
-            foreach ($data as $key => $value_3) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_3;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
+        if (\array_key_exists('messages', $data)) {
             $values = [];
-            foreach ($object->getMessages() as $value) {
+            foreach ($data['messages'] as $value) {
                 $values[] = $value;
             }
-            $data['messages'] = $values;
-            if ($object->isInitialized('revealPages') && null !== $object->getRevealPages()) {
-                $values_1 = [];
-                foreach ($object->getRevealPages() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['reveal_pages'] = $values_1;
+            $object->setMessages($values);
+            unset($data['messages']);
+        }
+        if (\array_key_exists('reveal_pages', $data)) {
+            $values_1 = [];
+            foreach ($data['reveal_pages'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            if ($object->isInitialized('insightRequests') && null !== $object->getInsightRequests()) {
-                $values_2 = [];
-                foreach ($object->getInsightRequests() as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $data['insight_requests'] = $values_2;
+            $object->setRevealPages($values_1);
+            unset($data['reveal_pages']);
+        }
+        if (\array_key_exists('insight_requests', $data)) {
+            $values_2 = [];
+            foreach ($data['insight_requests'] as $value_2) {
+                $values_2[] = $value_2;
             }
-            if ($object->isInitialized('logKernelDebugFile') && null !== $object->getLogKernelDebugFile()) {
-                $data['log_kernel_debug_file'] = $object->getLogKernelDebugFile();
+            $object->setInsightRequests($values_2);
+            unset($data['insight_requests']);
+        }
+        if (\array_key_exists('log_kernel_debug_file', $data)) {
+            $object->setLogKernelDebugFile($data['log_kernel_debug_file']);
+            unset($data['log_kernel_debug_file']);
+        }
+        foreach ($data as $key => $value_3) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_3;
             }
-            foreach ($object as $key => $value_3) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_3;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $values = [];
+        foreach ($data->getMessages() as $value) {
+            $values[] = $value;
         }
+        $dataArray['messages'] = $values;
+        if ($data->isInitialized('revealPages') && null !== $data->getRevealPages()) {
+            $values_1 = [];
+            foreach ($data->getRevealPages() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['reveal_pages'] = $values_1;
+        }
+        if ($data->isInitialized('insightRequests') && null !== $data->getInsightRequests()) {
+            $values_2 = [];
+            foreach ($data->getInsightRequests() as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $dataArray['insight_requests'] = $values_2;
+        }
+        if ($data->isInitialized('logKernelDebugFile') && null !== $data->getLogKernelDebugFile()) {
+            $dataArray['log_kernel_debug_file'] = $data->getLogKernelDebugFile();
+        }
+        foreach ($data as $key => $value_3) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_3;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false];
     }
 }

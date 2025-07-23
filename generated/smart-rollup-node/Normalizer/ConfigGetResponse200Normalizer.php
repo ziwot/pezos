@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,571 +20,290 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200();
-            if (\array_key_exists('reconnection_delay', $data) && \is_int($data['reconnection_delay'])) {
-                $data['reconnection_delay'] = (float) $data['reconnection_delay'];
-            }
-            if (\array_key_exists('l1_rpc_timeout', $data) && \is_int($data['l1_rpc_timeout'])) {
-                $data['l1_rpc_timeout'] = (float) $data['l1_rpc_timeout'];
-            }
-            if (\array_key_exists('loop_retry_delay', $data) && \is_int($data['loop_retry_delay'])) {
-                $data['loop_retry_delay'] = (float) $data['loop_retry_delay'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('smart-rollup-address', $data)) {
-                $object->setSmartRollupAddress($data['smart-rollup-address']);
-                unset($data['smart-rollup-address']);
-            }
-            if (\array_key_exists('boot-sector', $data)) {
-                $object->setBootSector($data['boot-sector']);
-                unset($data['boot-sector']);
-            }
-            if (\array_key_exists('smart-rollup-node-operator', $data)) {
-                $object->setSmartRollupNodeOperator($this->denormalizer->denormalize($data['smart-rollup-node-operator'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class, 'json', $context));
-                unset($data['smart-rollup-node-operator']);
-            }
-            if (\array_key_exists('rpc-addr', $data)) {
-                $object->setRpcAddr($data['rpc-addr']);
-                unset($data['rpc-addr']);
-            }
-            if (\array_key_exists('rpc-port', $data)) {
-                $object->setRpcPort($data['rpc-port']);
-                unset($data['rpc-port']);
-            }
-            if (\array_key_exists('acl', $data)) {
-                $values = [];
-                foreach ($data['acl'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setAcl($values);
-                unset($data['acl']);
-            }
-            if (\array_key_exists('metrics-addr', $data)) {
-                $object->setMetricsAddr($data['metrics-addr']);
-                unset($data['metrics-addr']);
-            }
-            if (\array_key_exists('performance-metrics', $data)) {
-                $object->setPerformanceMetrics($data['performance-metrics']);
-                unset($data['performance-metrics']);
-            }
-            if (\array_key_exists('reconnection_delay', $data)) {
-                $object->setReconnectionDelay($data['reconnection_delay']);
-                unset($data['reconnection_delay']);
-            }
-            if (\array_key_exists('fee-parameters', $data)) {
-                $object->setFeeParameters($this->denormalizer->denormalize($data['fee-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class, 'json', $context));
-                unset($data['fee-parameters']);
-            }
-            if (\array_key_exists('mode', $data)) {
-                $object->setMode($data['mode']);
-                unset($data['mode']);
-            }
-            if (\array_key_exists('loser-mode', $data)) {
-                $values_1 = [];
-                foreach ($data['loser-mode'] as $value_1) {
-                    $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class, 'json', $context);
-                }
-                $object->setLoserMode($values_1);
-                unset($data['loser-mode']);
-            }
-            if (\array_key_exists('unsafe-pvm-patches', $data)) {
-                $values_2 = [];
-                foreach ($data['unsafe-pvm-patches'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setUnsafePvmPatches($values_2);
-                unset($data['unsafe-pvm-patches']);
-            }
-            if (\array_key_exists('execute-outbox-messages-filter', $data)) {
-                $values_3 = [];
-                foreach ($data['execute-outbox-messages-filter'] as $value_3) {
-                    $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class, 'json', $context);
-                }
-                $object->setExecuteOutboxMessagesFilter($values_3);
-                unset($data['execute-outbox-messages-filter']);
-            }
-            if (\array_key_exists('DAL node endpoint', $data)) {
-                $object->setDALNodeEndpoint($data['DAL node endpoint']);
-                unset($data['DAL node endpoint']);
-            }
-            if (\array_key_exists('dac-observer-client', $data)) {
-                $object->setDacObserverClient($data['dac-observer-client']);
-                unset($data['dac-observer-client']);
-            }
-            if (\array_key_exists('dac-timeout', $data)) {
-                $object->setDacTimeout($data['dac-timeout']);
-                unset($data['dac-timeout']);
-            }
-            if (\array_key_exists('pre-images-endpoint', $data)) {
-                $object->setPreImagesEndpoint($data['pre-images-endpoint']);
-                unset($data['pre-images-endpoint']);
-            }
-            if (\array_key_exists('batcher', $data)) {
-                $object->setBatcher($this->denormalizer->denormalize($data['batcher'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class, 'json', $context));
-                unset($data['batcher']);
-            }
-            if (\array_key_exists('injector', $data)) {
-                $object->setInjector($this->denormalizer->denormalize($data['injector'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class, 'json', $context));
-                unset($data['injector']);
-            }
-            if (\array_key_exists('l1_blocks_cache_size', $data)) {
-                $object->setL1BlocksCacheSize($data['l1_blocks_cache_size']);
-                unset($data['l1_blocks_cache_size']);
-            }
-            if (\array_key_exists('l2_blocks_cache_size', $data)) {
-                $object->setL2BlocksCacheSize($data['l2_blocks_cache_size']);
-                unset($data['l2_blocks_cache_size']);
-            }
-            if (\array_key_exists('prefetch_blocks', $data)) {
-                $object->setPrefetchBlocks($data['prefetch_blocks']);
-                unset($data['prefetch_blocks']);
-            }
-            if (\array_key_exists('l1_rpc_timeout', $data)) {
-                $object->setL1RpcTimeout($data['l1_rpc_timeout']);
-                unset($data['l1_rpc_timeout']);
-            }
-            if (\array_key_exists('loop_retry_delay', $data)) {
-                $object->setLoopRetryDelay($data['loop_retry_delay']);
-                unset($data['loop_retry_delay']);
-            }
-            if (\array_key_exists('index_buffer_size', $data)) {
-                $object->setIndexBufferSize($data['index_buffer_size']);
-                unset($data['index_buffer_size']);
-            }
-            if (\array_key_exists('irmin_cache_size', $data)) {
-                $object->setIrminCacheSize($data['irmin_cache_size']);
-                unset($data['irmin_cache_size']);
-            }
-            if (\array_key_exists('log-kernel-debug', $data)) {
-                $object->setLogKernelDebug($data['log-kernel-debug']);
-                unset($data['log-kernel-debug']);
-            }
-            if (\array_key_exists('no-degraded', $data)) {
-                $object->setNoDegraded($data['no-degraded']);
-                unset($data['no-degraded']);
-            }
-            if (\array_key_exists('gc-parameters', $data)) {
-                $object->setGcParameters($this->denormalizer->denormalize($data['gc-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class, 'json', $context));
-                unset($data['gc-parameters']);
-            }
-            if (\array_key_exists('history-mode', $data)) {
-                $object->setHistoryMode($data['history-mode']);
-                unset($data['history-mode']);
-            }
-            if (\array_key_exists('cors', $data)) {
-                $object->setCors($this->denormalizer->denormalize($data['cors'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class, 'json', $context));
-                unset($data['cors']);
-            }
-            if (\array_key_exists('bail-on-disagree', $data)) {
-                $object->setBailOnDisagree($data['bail-on-disagree']);
-                unset($data['bail-on-disagree']);
-            }
-            foreach ($data as $key => $value_4) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_4;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['smart-rollup-address'] = $object->getSmartRollupAddress();
-            if ($object->isInitialized('bootSector') && null !== $object->getBootSector()) {
-                $data['boot-sector'] = $object->getBootSector();
-            }
-            $data['smart-rollup-node-operator'] = $this->normalizer->normalize($object->getSmartRollupNodeOperator(), 'json', $context);
-            $data['rpc-addr'] = $object->getRpcAddr();
-            $data['rpc-port'] = $object->getRpcPort();
-            $values = [];
-            foreach ($object->getAcl() as $value) {
-                $values[] = $value;
-            }
-            $data['acl'] = $values;
-            if ($object->isInitialized('metricsAddr') && null !== $object->getMetricsAddr()) {
-                $data['metrics-addr'] = $object->getMetricsAddr();
-            }
-            $data['performance-metrics'] = $object->getPerformanceMetrics();
-            $data['reconnection_delay'] = $object->getReconnectionDelay();
-            $data['fee-parameters'] = $this->normalizer->normalize($object->getFeeParameters(), 'json', $context);
-            $data['mode'] = $object->getMode();
-            $values_1 = [];
-            foreach ($object->getLoserMode() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
-            }
-            $data['loser-mode'] = $values_1;
-            $values_2 = [];
-            foreach ($object->getUnsafePvmPatches() as $value_2) {
-                $values_2[] = $value_2;
-            }
-            $data['unsafe-pvm-patches'] = $values_2;
-            $values_3 = [];
-            foreach ($object->getExecuteOutboxMessagesFilter() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
-            }
-            $data['execute-outbox-messages-filter'] = $values_3;
-            if ($object->isInitialized('dALNodeEndpoint') && null !== $object->getDALNodeEndpoint()) {
-                $data['DAL node endpoint'] = $object->getDALNodeEndpoint();
-            }
-            if ($object->isInitialized('dacObserverClient') && null !== $object->getDacObserverClient()) {
-                $data['dac-observer-client'] = $object->getDacObserverClient();
-            }
-            if ($object->isInitialized('dacTimeout') && null !== $object->getDacTimeout()) {
-                $data['dac-timeout'] = $object->getDacTimeout();
-            }
-            if ($object->isInitialized('preImagesEndpoint') && null !== $object->getPreImagesEndpoint()) {
-                $data['pre-images-endpoint'] = $object->getPreImagesEndpoint();
-            }
-            $data['batcher'] = $this->normalizer->normalize($object->getBatcher(), 'json', $context);
-            $data['injector'] = $this->normalizer->normalize($object->getInjector(), 'json', $context);
-            $data['l1_blocks_cache_size'] = $object->getL1BlocksCacheSize();
-            $data['l2_blocks_cache_size'] = $object->getL2BlocksCacheSize();
-            if ($object->isInitialized('prefetchBlocks') && null !== $object->getPrefetchBlocks()) {
-                $data['prefetch_blocks'] = $object->getPrefetchBlocks();
-            }
-            $data['l1_rpc_timeout'] = $object->getL1RpcTimeout();
-            $data['loop_retry_delay'] = $object->getLoopRetryDelay();
-            if ($object->isInitialized('indexBufferSize') && null !== $object->getIndexBufferSize()) {
-                $data['index_buffer_size'] = $object->getIndexBufferSize();
-            }
-            if ($object->isInitialized('irminCacheSize') && null !== $object->getIrminCacheSize()) {
-                $data['irmin_cache_size'] = $object->getIrminCacheSize();
-            }
-            $data['log-kernel-debug'] = $object->getLogKernelDebug();
-            $data['no-degraded'] = $object->getNoDegraded();
-            $data['gc-parameters'] = $this->normalizer->normalize($object->getGcParameters(), 'json', $context);
-            if ($object->isInitialized('historyMode') && null !== $object->getHistoryMode()) {
-                $data['history-mode'] = $object->getHistoryMode();
-            }
-            $data['cors'] = $this->normalizer->normalize($object->getCors(), 'json', $context);
-            $data['bail-on-disagree'] = $object->getBailOnDisagree();
-            foreach ($object as $key => $value_4) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_4;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
     }
-} else {
-    class ConfigGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200();
-            if (\array_key_exists('reconnection_delay', $data) && \is_int($data['reconnection_delay'])) {
-                $data['reconnection_delay'] = (float) $data['reconnection_delay'];
-            }
-            if (\array_key_exists('l1_rpc_timeout', $data) && \is_int($data['l1_rpc_timeout'])) {
-                $data['l1_rpc_timeout'] = (float) $data['l1_rpc_timeout'];
-            }
-            if (\array_key_exists('loop_retry_delay', $data) && \is_int($data['loop_retry_delay'])) {
-                $data['loop_retry_delay'] = (float) $data['loop_retry_delay'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('smart-rollup-address', $data)) {
-                $object->setSmartRollupAddress($data['smart-rollup-address']);
-                unset($data['smart-rollup-address']);
-            }
-            if (\array_key_exists('boot-sector', $data)) {
-                $object->setBootSector($data['boot-sector']);
-                unset($data['boot-sector']);
-            }
-            if (\array_key_exists('smart-rollup-node-operator', $data)) {
-                $object->setSmartRollupNodeOperator($this->denormalizer->denormalize($data['smart-rollup-node-operator'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class, 'json', $context));
-                unset($data['smart-rollup-node-operator']);
-            }
-            if (\array_key_exists('rpc-addr', $data)) {
-                $object->setRpcAddr($data['rpc-addr']);
-                unset($data['rpc-addr']);
-            }
-            if (\array_key_exists('rpc-port', $data)) {
-                $object->setRpcPort($data['rpc-port']);
-                unset($data['rpc-port']);
-            }
-            if (\array_key_exists('acl', $data)) {
-                $values = [];
-                foreach ($data['acl'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setAcl($values);
-                unset($data['acl']);
-            }
-            if (\array_key_exists('metrics-addr', $data)) {
-                $object->setMetricsAddr($data['metrics-addr']);
-                unset($data['metrics-addr']);
-            }
-            if (\array_key_exists('performance-metrics', $data)) {
-                $object->setPerformanceMetrics($data['performance-metrics']);
-                unset($data['performance-metrics']);
-            }
-            if (\array_key_exists('reconnection_delay', $data)) {
-                $object->setReconnectionDelay($data['reconnection_delay']);
-                unset($data['reconnection_delay']);
-            }
-            if (\array_key_exists('fee-parameters', $data)) {
-                $object->setFeeParameters($this->denormalizer->denormalize($data['fee-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class, 'json', $context));
-                unset($data['fee-parameters']);
-            }
-            if (\array_key_exists('mode', $data)) {
-                $object->setMode($data['mode']);
-                unset($data['mode']);
-            }
-            if (\array_key_exists('loser-mode', $data)) {
-                $values_1 = [];
-                foreach ($data['loser-mode'] as $value_1) {
-                    $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class, 'json', $context);
-                }
-                $object->setLoserMode($values_1);
-                unset($data['loser-mode']);
-            }
-            if (\array_key_exists('unsafe-pvm-patches', $data)) {
-                $values_2 = [];
-                foreach ($data['unsafe-pvm-patches'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setUnsafePvmPatches($values_2);
-                unset($data['unsafe-pvm-patches']);
-            }
-            if (\array_key_exists('execute-outbox-messages-filter', $data)) {
-                $values_3 = [];
-                foreach ($data['execute-outbox-messages-filter'] as $value_3) {
-                    $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class, 'json', $context);
-                }
-                $object->setExecuteOutboxMessagesFilter($values_3);
-                unset($data['execute-outbox-messages-filter']);
-            }
-            if (\array_key_exists('DAL node endpoint', $data)) {
-                $object->setDALNodeEndpoint($data['DAL node endpoint']);
-                unset($data['DAL node endpoint']);
-            }
-            if (\array_key_exists('dac-observer-client', $data)) {
-                $object->setDacObserverClient($data['dac-observer-client']);
-                unset($data['dac-observer-client']);
-            }
-            if (\array_key_exists('dac-timeout', $data)) {
-                $object->setDacTimeout($data['dac-timeout']);
-                unset($data['dac-timeout']);
-            }
-            if (\array_key_exists('pre-images-endpoint', $data)) {
-                $object->setPreImagesEndpoint($data['pre-images-endpoint']);
-                unset($data['pre-images-endpoint']);
-            }
-            if (\array_key_exists('batcher', $data)) {
-                $object->setBatcher($this->denormalizer->denormalize($data['batcher'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class, 'json', $context));
-                unset($data['batcher']);
-            }
-            if (\array_key_exists('injector', $data)) {
-                $object->setInjector($this->denormalizer->denormalize($data['injector'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class, 'json', $context));
-                unset($data['injector']);
-            }
-            if (\array_key_exists('l1_blocks_cache_size', $data)) {
-                $object->setL1BlocksCacheSize($data['l1_blocks_cache_size']);
-                unset($data['l1_blocks_cache_size']);
-            }
-            if (\array_key_exists('l2_blocks_cache_size', $data)) {
-                $object->setL2BlocksCacheSize($data['l2_blocks_cache_size']);
-                unset($data['l2_blocks_cache_size']);
-            }
-            if (\array_key_exists('prefetch_blocks', $data)) {
-                $object->setPrefetchBlocks($data['prefetch_blocks']);
-                unset($data['prefetch_blocks']);
-            }
-            if (\array_key_exists('l1_rpc_timeout', $data)) {
-                $object->setL1RpcTimeout($data['l1_rpc_timeout']);
-                unset($data['l1_rpc_timeout']);
-            }
-            if (\array_key_exists('loop_retry_delay', $data)) {
-                $object->setLoopRetryDelay($data['loop_retry_delay']);
-                unset($data['loop_retry_delay']);
-            }
-            if (\array_key_exists('index_buffer_size', $data)) {
-                $object->setIndexBufferSize($data['index_buffer_size']);
-                unset($data['index_buffer_size']);
-            }
-            if (\array_key_exists('irmin_cache_size', $data)) {
-                $object->setIrminCacheSize($data['irmin_cache_size']);
-                unset($data['irmin_cache_size']);
-            }
-            if (\array_key_exists('log-kernel-debug', $data)) {
-                $object->setLogKernelDebug($data['log-kernel-debug']);
-                unset($data['log-kernel-debug']);
-            }
-            if (\array_key_exists('no-degraded', $data)) {
-                $object->setNoDegraded($data['no-degraded']);
-                unset($data['no-degraded']);
-            }
-            if (\array_key_exists('gc-parameters', $data)) {
-                $object->setGcParameters($this->denormalizer->denormalize($data['gc-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class, 'json', $context));
-                unset($data['gc-parameters']);
-            }
-            if (\array_key_exists('history-mode', $data)) {
-                $object->setHistoryMode($data['history-mode']);
-                unset($data['history-mode']);
-            }
-            if (\array_key_exists('cors', $data)) {
-                $object->setCors($this->denormalizer->denormalize($data['cors'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class, 'json', $context));
-                unset($data['cors']);
-            }
-            if (\array_key_exists('bail-on-disagree', $data)) {
-                $object->setBailOnDisagree($data['bail-on-disagree']);
-                unset($data['bail-on-disagree']);
-            }
-            foreach ($data as $key => $value_4) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_4;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200();
+        if (\array_key_exists('reconnection_delay', $data) && \is_int($data['reconnection_delay'])) {
+            $data['reconnection_delay'] = (float) $data['reconnection_delay'];
+        }
+        if (\array_key_exists('l1_rpc_timeout', $data) && \is_int($data['l1_rpc_timeout'])) {
+            $data['l1_rpc_timeout'] = (float) $data['l1_rpc_timeout'];
+        }
+        if (\array_key_exists('loop_retry_delay', $data) && \is_int($data['loop_retry_delay'])) {
+            $data['loop_retry_delay'] = (float) $data['loop_retry_delay'];
+        }
+        if (\array_key_exists('performance-metrics', $data) && \is_int($data['performance-metrics'])) {
+            $data['performance-metrics'] = (bool) $data['performance-metrics'];
+        }
+        if (\array_key_exists('log-kernel-debug', $data) && \is_int($data['log-kernel-debug'])) {
+            $data['log-kernel-debug'] = (bool) $data['log-kernel-debug'];
+        }
+        if (\array_key_exists('unsafe-disable-wasm-kernel-checks', $data) && \is_int($data['unsafe-disable-wasm-kernel-checks'])) {
+            $data['unsafe-disable-wasm-kernel-checks'] = (bool) $data['unsafe-disable-wasm-kernel-checks'];
+        }
+        if (\array_key_exists('no-degraded', $data) && \is_int($data['no-degraded'])) {
+            $data['no-degraded'] = (bool) $data['no-degraded'];
+        }
+        if (\array_key_exists('bail-on-disagree', $data) && \is_int($data['bail-on-disagree'])) {
+            $data['bail-on-disagree'] = (bool) $data['bail-on-disagree'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['smart-rollup-address'] = $object->getSmartRollupAddress();
-            if ($object->isInitialized('bootSector') && null !== $object->getBootSector()) {
-                $data['boot-sector'] = $object->getBootSector();
-            }
-            $data['smart-rollup-node-operator'] = $this->normalizer->normalize($object->getSmartRollupNodeOperator(), 'json', $context);
-            $data['rpc-addr'] = $object->getRpcAddr();
-            $data['rpc-port'] = $object->getRpcPort();
+        if (\array_key_exists('smart-rollup-address', $data)) {
+            $object->setSmartRollupAddress($data['smart-rollup-address']);
+            unset($data['smart-rollup-address']);
+        }
+        if (\array_key_exists('boot-sector', $data)) {
+            $object->setBootSector($data['boot-sector']);
+            unset($data['boot-sector']);
+        }
+        if (\array_key_exists('smart-rollup-node-operator', $data)) {
+            $object->setSmartRollupNodeOperator($this->denormalizer->denormalize($data['smart-rollup-node-operator'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class, 'json', $context));
+            unset($data['smart-rollup-node-operator']);
+        }
+        if (\array_key_exists('rpc-addr', $data)) {
+            $object->setRpcAddr($data['rpc-addr']);
+            unset($data['rpc-addr']);
+        }
+        if (\array_key_exists('rpc-port', $data)) {
+            $object->setRpcPort($data['rpc-port']);
+            unset($data['rpc-port']);
+        }
+        if (\array_key_exists('acl', $data)) {
             $values = [];
-            foreach ($object->getAcl() as $value) {
+            foreach ($data['acl'] as $value) {
                 $values[] = $value;
             }
-            $data['acl'] = $values;
-            if ($object->isInitialized('metricsAddr') && null !== $object->getMetricsAddr()) {
-                $data['metrics-addr'] = $object->getMetricsAddr();
-            }
-            $data['performance-metrics'] = $object->getPerformanceMetrics();
-            $data['reconnection_delay'] = $object->getReconnectionDelay();
-            $data['fee-parameters'] = $this->normalizer->normalize($object->getFeeParameters(), 'json', $context);
-            $data['mode'] = $object->getMode();
+            $object->setAcl($values);
+            unset($data['acl']);
+        }
+        if (\array_key_exists('metrics-addr', $data)) {
+            $object->setMetricsAddr($data['metrics-addr']);
+            unset($data['metrics-addr']);
+        }
+        if (\array_key_exists('performance-metrics', $data)) {
+            $object->setPerformanceMetrics($data['performance-metrics']);
+            unset($data['performance-metrics']);
+        }
+        if (\array_key_exists('reconnection_delay', $data)) {
+            $object->setReconnectionDelay($data['reconnection_delay']);
+            unset($data['reconnection_delay']);
+        }
+        if (\array_key_exists('fee-parameters', $data)) {
+            $object->setFeeParameters($this->denormalizer->denormalize($data['fee-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class, 'json', $context));
+            unset($data['fee-parameters']);
+        }
+        if (\array_key_exists('mode', $data)) {
+            $object->setMode($data['mode']);
+            unset($data['mode']);
+        }
+        if (\array_key_exists('loser-mode', $data)) {
             $values_1 = [];
-            foreach ($object->getLoserMode() as $value_1) {
-                $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+            foreach ($data['loser-mode'] as $value_1) {
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class, 'json', $context);
             }
-            $data['loser-mode'] = $values_1;
+            $object->setLoserMode($values_1);
+            unset($data['loser-mode']);
+        }
+        if (\array_key_exists('unsafe-pvm-patches', $data)) {
             $values_2 = [];
-            foreach ($object->getUnsafePvmPatches() as $value_2) {
+            foreach ($data['unsafe-pvm-patches'] as $value_2) {
                 $values_2[] = $value_2;
             }
-            $data['unsafe-pvm-patches'] = $values_2;
+            $object->setUnsafePvmPatches($values_2);
+            unset($data['unsafe-pvm-patches']);
+        }
+        if (\array_key_exists('execute-outbox-messages-filter', $data)) {
             $values_3 = [];
-            foreach ($object->getExecuteOutboxMessagesFilter() as $value_3) {
-                $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+            foreach ($data['execute-outbox-messages-filter'] as $value_3) {
+                $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class, 'json', $context);
             }
-            $data['execute-outbox-messages-filter'] = $values_3;
-            if ($object->isInitialized('dALNodeEndpoint') && null !== $object->getDALNodeEndpoint()) {
-                $data['DAL node endpoint'] = $object->getDALNodeEndpoint();
+            $object->setExecuteOutboxMessagesFilter($values_3);
+            unset($data['execute-outbox-messages-filter']);
+        }
+        if (\array_key_exists('DAL node endpoint', $data)) {
+            $object->setDALNodeEndpoint($data['DAL node endpoint']);
+            unset($data['DAL node endpoint']);
+        }
+        if (\array_key_exists('pre-images-endpoint', $data)) {
+            $object->setPreImagesEndpoint($data['pre-images-endpoint']);
+            unset($data['pre-images-endpoint']);
+        }
+        if (\array_key_exists('batcher', $data)) {
+            $object->setBatcher($this->denormalizer->denormalize($data['batcher'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class, 'json', $context));
+            unset($data['batcher']);
+        }
+        if (\array_key_exists('injector', $data)) {
+            $object->setInjector($this->denormalizer->denormalize($data['injector'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class, 'json', $context));
+            unset($data['injector']);
+        }
+        if (\array_key_exists('l1_blocks_cache_size', $data)) {
+            $object->setL1BlocksCacheSize($data['l1_blocks_cache_size']);
+            unset($data['l1_blocks_cache_size']);
+        }
+        if (\array_key_exists('l2_blocks_cache_size', $data)) {
+            $object->setL2BlocksCacheSize($data['l2_blocks_cache_size']);
+            unset($data['l2_blocks_cache_size']);
+        }
+        if (\array_key_exists('prefetch_blocks', $data)) {
+            $object->setPrefetchBlocks($data['prefetch_blocks']);
+            unset($data['prefetch_blocks']);
+        }
+        if (\array_key_exists('l1_rpc_timeout', $data)) {
+            $object->setL1RpcTimeout($data['l1_rpc_timeout']);
+            unset($data['l1_rpc_timeout']);
+        }
+        if (\array_key_exists('loop_retry_delay', $data)) {
+            $object->setLoopRetryDelay($data['loop_retry_delay']);
+            unset($data['loop_retry_delay']);
+        }
+        if (\array_key_exists('index_buffer_size', $data)) {
+            $object->setIndexBufferSize($data['index_buffer_size']);
+            unset($data['index_buffer_size']);
+        }
+        if (\array_key_exists('irmin_cache_size', $data)) {
+            $object->setIrminCacheSize($data['irmin_cache_size']);
+            unset($data['irmin_cache_size']);
+        }
+        if (\array_key_exists('log-kernel-debug', $data)) {
+            $object->setLogKernelDebug($data['log-kernel-debug']);
+            unset($data['log-kernel-debug']);
+        }
+        if (\array_key_exists('unsafe-disable-wasm-kernel-checks', $data)) {
+            $object->setUnsafeDisableWasmKernelChecks($data['unsafe-disable-wasm-kernel-checks']);
+            unset($data['unsafe-disable-wasm-kernel-checks']);
+        }
+        if (\array_key_exists('no-degraded', $data)) {
+            $object->setNoDegraded($data['no-degraded']);
+            unset($data['no-degraded']);
+        }
+        if (\array_key_exists('gc-parameters', $data)) {
+            $object->setGcParameters($this->denormalizer->denormalize($data['gc-parameters'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class, 'json', $context));
+            unset($data['gc-parameters']);
+        }
+        if (\array_key_exists('history-mode', $data)) {
+            $object->setHistoryMode($data['history-mode']);
+            unset($data['history-mode']);
+        }
+        if (\array_key_exists('cors', $data)) {
+            $object->setCors($this->denormalizer->denormalize($data['cors'], \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class, 'json', $context));
+            unset($data['cors']);
+        }
+        if (\array_key_exists('bail-on-disagree', $data)) {
+            $object->setBailOnDisagree($data['bail-on-disagree']);
+            unset($data['bail-on-disagree']);
+        }
+        foreach ($data as $key => $value_4) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_4;
             }
-            if ($object->isInitialized('dacObserverClient') && null !== $object->getDacObserverClient()) {
-                $data['dac-observer-client'] = $object->getDacObserverClient();
-            }
-            if ($object->isInitialized('dacTimeout') && null !== $object->getDacTimeout()) {
-                $data['dac-timeout'] = $object->getDacTimeout();
-            }
-            if ($object->isInitialized('preImagesEndpoint') && null !== $object->getPreImagesEndpoint()) {
-                $data['pre-images-endpoint'] = $object->getPreImagesEndpoint();
-            }
-            $data['batcher'] = $this->normalizer->normalize($object->getBatcher(), 'json', $context);
-            $data['injector'] = $this->normalizer->normalize($object->getInjector(), 'json', $context);
-            $data['l1_blocks_cache_size'] = $object->getL1BlocksCacheSize();
-            $data['l2_blocks_cache_size'] = $object->getL2BlocksCacheSize();
-            if ($object->isInitialized('prefetchBlocks') && null !== $object->getPrefetchBlocks()) {
-                $data['prefetch_blocks'] = $object->getPrefetchBlocks();
-            }
-            $data['l1_rpc_timeout'] = $object->getL1RpcTimeout();
-            $data['loop_retry_delay'] = $object->getLoopRetryDelay();
-            if ($object->isInitialized('indexBufferSize') && null !== $object->getIndexBufferSize()) {
-                $data['index_buffer_size'] = $object->getIndexBufferSize();
-            }
-            if ($object->isInitialized('irminCacheSize') && null !== $object->getIrminCacheSize()) {
-                $data['irmin_cache_size'] = $object->getIrminCacheSize();
-            }
-            $data['log-kernel-debug'] = $object->getLogKernelDebug();
-            $data['no-degraded'] = $object->getNoDegraded();
-            $data['gc-parameters'] = $this->normalizer->normalize($object->getGcParameters(), 'json', $context);
-            if ($object->isInitialized('historyMode') && null !== $object->getHistoryMode()) {
-                $data['history-mode'] = $object->getHistoryMode();
-            }
-            $data['cors'] = $this->normalizer->normalize($object->getCors(), 'json', $context);
-            $data['bail-on-disagree'] = $object->getBailOnDisagree();
-            foreach ($object as $key => $value_4) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_4;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['smart-rollup-address'] = $data->getSmartRollupAddress();
+        if ($data->isInitialized('bootSector') && null !== $data->getBootSector()) {
+            $dataArray['boot-sector'] = $data->getBootSector();
         }
+        $dataArray['smart-rollup-node-operator'] = $this->normalizer->normalize($data->getSmartRollupNodeOperator(), 'json', $context);
+        $dataArray['rpc-addr'] = $data->getRpcAddr();
+        $dataArray['rpc-port'] = $data->getRpcPort();
+        $values = [];
+        foreach ($data->getAcl() as $value) {
+            $values[] = $value;
+        }
+        $dataArray['acl'] = $values;
+        if ($data->isInitialized('metricsAddr') && null !== $data->getMetricsAddr()) {
+            $dataArray['metrics-addr'] = $data->getMetricsAddr();
+        }
+        $dataArray['performance-metrics'] = $data->getPerformanceMetrics();
+        $dataArray['reconnection_delay'] = $data->getReconnectionDelay();
+        $dataArray['fee-parameters'] = $this->normalizer->normalize($data->getFeeParameters(), 'json', $context);
+        $dataArray['mode'] = $data->getMode();
+        $values_1 = [];
+        foreach ($data->getLoserMode() as $value_1) {
+            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+        }
+        $dataArray['loser-mode'] = $values_1;
+        $values_2 = [];
+        foreach ($data->getUnsafePvmPatches() as $value_2) {
+            $values_2[] = $value_2;
+        }
+        $dataArray['unsafe-pvm-patches'] = $values_2;
+        $values_3 = [];
+        foreach ($data->getExecuteOutboxMessagesFilter() as $value_3) {
+            $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
+        }
+        $dataArray['execute-outbox-messages-filter'] = $values_3;
+        if ($data->isInitialized('dALNodeEndpoint') && null !== $data->getDALNodeEndpoint()) {
+            $dataArray['DAL node endpoint'] = $data->getDALNodeEndpoint();
+        }
+        if ($data->isInitialized('preImagesEndpoint') && null !== $data->getPreImagesEndpoint()) {
+            $dataArray['pre-images-endpoint'] = $data->getPreImagesEndpoint();
+        }
+        $dataArray['batcher'] = $this->normalizer->normalize($data->getBatcher(), 'json', $context);
+        $dataArray['injector'] = $this->normalizer->normalize($data->getInjector(), 'json', $context);
+        $dataArray['l1_blocks_cache_size'] = $data->getL1BlocksCacheSize();
+        $dataArray['l2_blocks_cache_size'] = $data->getL2BlocksCacheSize();
+        if ($data->isInitialized('prefetchBlocks') && null !== $data->getPrefetchBlocks()) {
+            $dataArray['prefetch_blocks'] = $data->getPrefetchBlocks();
+        }
+        $dataArray['l1_rpc_timeout'] = $data->getL1RpcTimeout();
+        $dataArray['loop_retry_delay'] = $data->getLoopRetryDelay();
+        if ($data->isInitialized('indexBufferSize') && null !== $data->getIndexBufferSize()) {
+            $dataArray['index_buffer_size'] = $data->getIndexBufferSize();
+        }
+        if ($data->isInitialized('irminCacheSize') && null !== $data->getIrminCacheSize()) {
+            $dataArray['irmin_cache_size'] = $data->getIrminCacheSize();
+        }
+        $dataArray['log-kernel-debug'] = $data->getLogKernelDebug();
+        $dataArray['unsafe-disable-wasm-kernel-checks'] = $data->getUnsafeDisableWasmKernelChecks();
+        $dataArray['no-degraded'] = $data->getNoDegraded();
+        $dataArray['gc-parameters'] = $this->normalizer->normalize($data->getGcParameters(), 'json', $context);
+        if ($data->isInitialized('historyMode') && null !== $data->getHistoryMode()) {
+            $dataArray['history-mode'] = $data->getHistoryMode();
+        }
+        $dataArray['cors'] = $this->normalizer->normalize($data->getCors(), 'json', $context);
+        $dataArray['bail-on-disagree'] = $data->getBailOnDisagree();
+        foreach ($data as $key => $value_4) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_4;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false];
     }
 }

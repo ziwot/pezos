@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,383 +20,193 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class NetworkPeersPeerIdPatchResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class NetworkPeersPeerIdPatchResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200();
-            if (\array_key_exists('score', $data) && \is_int($data['score'])) {
-                $data['score'] = (float) $data['score'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('score', $data)) {
-                $object->setScore($data['score']);
-                unset($data['score']);
-            }
-            if (\array_key_exists('trusted', $data)) {
-                $object->setTrusted($data['trusted']);
-                unset($data['trusted']);
-            }
-            if (\array_key_exists('conn_metadata', $data)) {
-                $object->setConnMetadata($this->denormalizer->denormalize($data['conn_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class, 'json', $context));
-                unset($data['conn_metadata']);
-            }
-            if (\array_key_exists('peer_metadata', $data)) {
-                $object->setPeerMetadata($this->denormalizer->denormalize($data['peer_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class, 'json', $context));
-                unset($data['peer_metadata']);
-            }
-            if (\array_key_exists('state', $data)) {
-                $object->setState($data['state']);
-                unset($data['state']);
-            }
-            if (\array_key_exists('reachable_at', $data)) {
-                $object->setReachableAt($this->denormalizer->denormalize($data['reachable_at'], \Pezos\Generated\Shell\Model\P2pConnectionId::class, 'json', $context));
-                unset($data['reachable_at']);
-            }
-            if (\array_key_exists('stat', $data)) {
-                $object->setStat($this->denormalizer->denormalize($data['stat'], \Pezos\Generated\Shell\Model\P2pStat::class, 'json', $context));
-                unset($data['stat']);
-            }
-            if (\array_key_exists('last_failed_connection', $data)) {
-                $values = [];
-                foreach ($data['last_failed_connection'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setLastFailedConnection($values);
-                unset($data['last_failed_connection']);
-            }
-            if (\array_key_exists('last_rejected_connection', $data)) {
-                $values_1 = [];
-                foreach ($data['last_rejected_connection'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setLastRejectedConnection($values_1);
-                unset($data['last_rejected_connection']);
-            }
-            if (\array_key_exists('last_established_connection', $data)) {
-                $values_2 = [];
-                foreach ($data['last_established_connection'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setLastEstablishedConnection($values_2);
-                unset($data['last_established_connection']);
-            }
-            if (\array_key_exists('last_disconnection', $data)) {
-                $values_3 = [];
-                foreach ($data['last_disconnection'] as $value_3) {
-                    $values_3[] = $value_3;
-                }
-                $object->setLastDisconnection($values_3);
-                unset($data['last_disconnection']);
-            }
-            if (\array_key_exists('last_seen', $data)) {
-                $values_4 = [];
-                foreach ($data['last_seen'] as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $object->setLastSeen($values_4);
-                unset($data['last_seen']);
-            }
-            if (\array_key_exists('last_miss', $data)) {
-                $values_5 = [];
-                foreach ($data['last_miss'] as $value_5) {
-                    $values_5[] = $value_5;
-                }
-                $object->setLastMiss($values_5);
-                unset($data['last_miss']);
-            }
-            foreach ($data as $key => $value_6) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_6;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['score'] = $object->getScore();
-            $data['trusted'] = $object->getTrusted();
-            if ($object->isInitialized('connMetadata') && null !== $object->getConnMetadata()) {
-                $data['conn_metadata'] = $this->normalizer->normalize($object->getConnMetadata(), 'json', $context);
-            }
-            $data['peer_metadata'] = $this->normalizer->normalize($object->getPeerMetadata(), 'json', $context);
-            $data['state'] = $object->getState();
-            if ($object->isInitialized('reachableAt') && null !== $object->getReachableAt()) {
-                $data['reachable_at'] = $this->normalizer->normalize($object->getReachableAt(), 'json', $context);
-            }
-            $data['stat'] = $this->normalizer->normalize($object->getStat(), 'json', $context);
-            if ($object->isInitialized('lastFailedConnection') && null !== $object->getLastFailedConnection()) {
-                $values = [];
-                foreach ($object->getLastFailedConnection() as $value) {
-                    $values[] = $value;
-                }
-                $data['last_failed_connection'] = $values;
-            }
-            if ($object->isInitialized('lastRejectedConnection') && null !== $object->getLastRejectedConnection()) {
-                $values_1 = [];
-                foreach ($object->getLastRejectedConnection() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['last_rejected_connection'] = $values_1;
-            }
-            if ($object->isInitialized('lastEstablishedConnection') && null !== $object->getLastEstablishedConnection()) {
-                $values_2 = [];
-                foreach ($object->getLastEstablishedConnection() as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $data['last_established_connection'] = $values_2;
-            }
-            if ($object->isInitialized('lastDisconnection') && null !== $object->getLastDisconnection()) {
-                $values_3 = [];
-                foreach ($object->getLastDisconnection() as $value_3) {
-                    $values_3[] = $value_3;
-                }
-                $data['last_disconnection'] = $values_3;
-            }
-            if ($object->isInitialized('lastSeen') && null !== $object->getLastSeen()) {
-                $values_4 = [];
-                foreach ($object->getLastSeen() as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $data['last_seen'] = $values_4;
-            }
-            if ($object->isInitialized('lastMiss') && null !== $object->getLastMiss()) {
-                $values_5 = [];
-                foreach ($object->getLastMiss() as $value_5) {
-                    $values_5[] = $value_5;
-                }
-                $data['last_miss'] = $values_5;
-            }
-            foreach ($object as $key => $value_6) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_6;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
     }
-} else {
-    class NetworkPeersPeerIdPatchResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200();
-            if (\array_key_exists('score', $data) && \is_int($data['score'])) {
-                $data['score'] = (float) $data['score'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('score', $data)) {
-                $object->setScore($data['score']);
-                unset($data['score']);
-            }
-            if (\array_key_exists('trusted', $data)) {
-                $object->setTrusted($data['trusted']);
-                unset($data['trusted']);
-            }
-            if (\array_key_exists('conn_metadata', $data)) {
-                $object->setConnMetadata($this->denormalizer->denormalize($data['conn_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class, 'json', $context));
-                unset($data['conn_metadata']);
-            }
-            if (\array_key_exists('peer_metadata', $data)) {
-                $object->setPeerMetadata($this->denormalizer->denormalize($data['peer_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class, 'json', $context));
-                unset($data['peer_metadata']);
-            }
-            if (\array_key_exists('state', $data)) {
-                $object->setState($data['state']);
-                unset($data['state']);
-            }
-            if (\array_key_exists('reachable_at', $data)) {
-                $object->setReachableAt($this->denormalizer->denormalize($data['reachable_at'], \Pezos\Generated\Shell\Model\P2pConnectionId::class, 'json', $context));
-                unset($data['reachable_at']);
-            }
-            if (\array_key_exists('stat', $data)) {
-                $object->setStat($this->denormalizer->denormalize($data['stat'], \Pezos\Generated\Shell\Model\P2pStat::class, 'json', $context));
-                unset($data['stat']);
-            }
-            if (\array_key_exists('last_failed_connection', $data)) {
-                $values = [];
-                foreach ($data['last_failed_connection'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setLastFailedConnection($values);
-                unset($data['last_failed_connection']);
-            }
-            if (\array_key_exists('last_rejected_connection', $data)) {
-                $values_1 = [];
-                foreach ($data['last_rejected_connection'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setLastRejectedConnection($values_1);
-                unset($data['last_rejected_connection']);
-            }
-            if (\array_key_exists('last_established_connection', $data)) {
-                $values_2 = [];
-                foreach ($data['last_established_connection'] as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $object->setLastEstablishedConnection($values_2);
-                unset($data['last_established_connection']);
-            }
-            if (\array_key_exists('last_disconnection', $data)) {
-                $values_3 = [];
-                foreach ($data['last_disconnection'] as $value_3) {
-                    $values_3[] = $value_3;
-                }
-                $object->setLastDisconnection($values_3);
-                unset($data['last_disconnection']);
-            }
-            if (\array_key_exists('last_seen', $data)) {
-                $values_4 = [];
-                foreach ($data['last_seen'] as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $object->setLastSeen($values_4);
-                unset($data['last_seen']);
-            }
-            if (\array_key_exists('last_miss', $data)) {
-                $values_5 = [];
-                foreach ($data['last_miss'] as $value_5) {
-                    $values_5[] = $value_5;
-                }
-                $object->setLastMiss($values_5);
-                unset($data['last_miss']);
-            }
-            foreach ($data as $key => $value_6) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_6;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200();
+        if (\array_key_exists('score', $data) && \is_int($data['score'])) {
+            $data['score'] = (float) $data['score'];
+        }
+        if (\array_key_exists('trusted', $data) && \is_int($data['trusted'])) {
+            $data['trusted'] = (bool) $data['trusted'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['score'] = $object->getScore();
-            $data['trusted'] = $object->getTrusted();
-            if ($object->isInitialized('connMetadata') && null !== $object->getConnMetadata()) {
-                $data['conn_metadata'] = $this->normalizer->normalize($object->getConnMetadata(), 'json', $context);
+        if (\array_key_exists('score', $data)) {
+            $object->setScore($data['score']);
+            unset($data['score']);
+        }
+        if (\array_key_exists('trusted', $data)) {
+            $object->setTrusted($data['trusted']);
+            unset($data['trusted']);
+        }
+        if (\array_key_exists('conn_metadata', $data)) {
+            $object->setConnMetadata($this->denormalizer->denormalize($data['conn_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200ConnMetadata::class, 'json', $context));
+            unset($data['conn_metadata']);
+        }
+        if (\array_key_exists('peer_metadata', $data)) {
+            $object->setPeerMetadata($this->denormalizer->denormalize($data['peer_metadata'], \Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200PeerMetadata::class, 'json', $context));
+            unset($data['peer_metadata']);
+        }
+        if (\array_key_exists('state', $data)) {
+            $object->setState($data['state']);
+            unset($data['state']);
+        }
+        if (\array_key_exists('reachable_at', $data)) {
+            $object->setReachableAt($this->denormalizer->denormalize($data['reachable_at'], \Pezos\Generated\Shell\Model\P2pConnectionId::class, 'json', $context));
+            unset($data['reachable_at']);
+        }
+        if (\array_key_exists('stat', $data)) {
+            $object->setStat($this->denormalizer->denormalize($data['stat'], \Pezos\Generated\Shell\Model\P2pStat::class, 'json', $context));
+            unset($data['stat']);
+        }
+        if (\array_key_exists('last_failed_connection', $data)) {
+            $values = [];
+            foreach ($data['last_failed_connection'] as $value) {
+                $values[] = $value;
             }
-            $data['peer_metadata'] = $this->normalizer->normalize($object->getPeerMetadata(), 'json', $context);
-            $data['state'] = $object->getState();
-            if ($object->isInitialized('reachableAt') && null !== $object->getReachableAt()) {
-                $data['reachable_at'] = $this->normalizer->normalize($object->getReachableAt(), 'json', $context);
+            $object->setLastFailedConnection($values);
+            unset($data['last_failed_connection']);
+        }
+        if (\array_key_exists('last_rejected_connection', $data)) {
+            $values_1 = [];
+            foreach ($data['last_rejected_connection'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            $data['stat'] = $this->normalizer->normalize($object->getStat(), 'json', $context);
-            if ($object->isInitialized('lastFailedConnection') && null !== $object->getLastFailedConnection()) {
-                $values = [];
-                foreach ($object->getLastFailedConnection() as $value) {
-                    $values[] = $value;
-                }
-                $data['last_failed_connection'] = $values;
+            $object->setLastRejectedConnection($values_1);
+            unset($data['last_rejected_connection']);
+        }
+        if (\array_key_exists('last_established_connection', $data)) {
+            $values_2 = [];
+            foreach ($data['last_established_connection'] as $value_2) {
+                $values_2[] = $value_2;
             }
-            if ($object->isInitialized('lastRejectedConnection') && null !== $object->getLastRejectedConnection()) {
-                $values_1 = [];
-                foreach ($object->getLastRejectedConnection() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['last_rejected_connection'] = $values_1;
+            $object->setLastEstablishedConnection($values_2);
+            unset($data['last_established_connection']);
+        }
+        if (\array_key_exists('last_disconnection', $data)) {
+            $values_3 = [];
+            foreach ($data['last_disconnection'] as $value_3) {
+                $values_3[] = $value_3;
             }
-            if ($object->isInitialized('lastEstablishedConnection') && null !== $object->getLastEstablishedConnection()) {
-                $values_2 = [];
-                foreach ($object->getLastEstablishedConnection() as $value_2) {
-                    $values_2[] = $value_2;
-                }
-                $data['last_established_connection'] = $values_2;
+            $object->setLastDisconnection($values_3);
+            unset($data['last_disconnection']);
+        }
+        if (\array_key_exists('last_seen', $data)) {
+            $values_4 = [];
+            foreach ($data['last_seen'] as $value_4) {
+                $values_4[] = $value_4;
             }
-            if ($object->isInitialized('lastDisconnection') && null !== $object->getLastDisconnection()) {
-                $values_3 = [];
-                foreach ($object->getLastDisconnection() as $value_3) {
-                    $values_3[] = $value_3;
-                }
-                $data['last_disconnection'] = $values_3;
+            $object->setLastSeen($values_4);
+            unset($data['last_seen']);
+        }
+        if (\array_key_exists('last_miss', $data)) {
+            $values_5 = [];
+            foreach ($data['last_miss'] as $value_5) {
+                $values_5[] = $value_5;
             }
-            if ($object->isInitialized('lastSeen') && null !== $object->getLastSeen()) {
-                $values_4 = [];
-                foreach ($object->getLastSeen() as $value_4) {
-                    $values_4[] = $value_4;
-                }
-                $data['last_seen'] = $values_4;
+            $object->setLastMiss($values_5);
+            unset($data['last_miss']);
+        }
+        foreach ($data as $key => $value_6) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_6;
             }
-            if ($object->isInitialized('lastMiss') && null !== $object->getLastMiss()) {
-                $values_5 = [];
-                foreach ($object->getLastMiss() as $value_5) {
-                    $values_5[] = $value_5;
-                }
-                $data['last_miss'] = $values_5;
-            }
-            foreach ($object as $key => $value_6) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_6;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['score'] = $data->getScore();
+        $dataArray['trusted'] = $data->getTrusted();
+        if ($data->isInitialized('connMetadata') && null !== $data->getConnMetadata()) {
+            $dataArray['conn_metadata'] = $this->normalizer->normalize($data->getConnMetadata(), 'json', $context);
         }
+        $dataArray['peer_metadata'] = $this->normalizer->normalize($data->getPeerMetadata(), 'json', $context);
+        $dataArray['state'] = $data->getState();
+        if ($data->isInitialized('reachableAt') && null !== $data->getReachableAt()) {
+            $dataArray['reachable_at'] = $this->normalizer->normalize($data->getReachableAt(), 'json', $context);
+        }
+        $dataArray['stat'] = $this->normalizer->normalize($data->getStat(), 'json', $context);
+        if ($data->isInitialized('lastFailedConnection') && null !== $data->getLastFailedConnection()) {
+            $values = [];
+            foreach ($data->getLastFailedConnection() as $value) {
+                $values[] = $value;
+            }
+            $dataArray['last_failed_connection'] = $values;
+        }
+        if ($data->isInitialized('lastRejectedConnection') && null !== $data->getLastRejectedConnection()) {
+            $values_1 = [];
+            foreach ($data->getLastRejectedConnection() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['last_rejected_connection'] = $values_1;
+        }
+        if ($data->isInitialized('lastEstablishedConnection') && null !== $data->getLastEstablishedConnection()) {
+            $values_2 = [];
+            foreach ($data->getLastEstablishedConnection() as $value_2) {
+                $values_2[] = $value_2;
+            }
+            $dataArray['last_established_connection'] = $values_2;
+        }
+        if ($data->isInitialized('lastDisconnection') && null !== $data->getLastDisconnection()) {
+            $values_3 = [];
+            foreach ($data->getLastDisconnection() as $value_3) {
+                $values_3[] = $value_3;
+            }
+            $dataArray['last_disconnection'] = $values_3;
+        }
+        if ($data->isInitialized('lastSeen') && null !== $data->getLastSeen()) {
+            $values_4 = [];
+            foreach ($data->getLastSeen() as $value_4) {
+                $values_4[] = $value_4;
+            }
+            $dataArray['last_seen'] = $values_4;
+        }
+        if ($data->isInitialized('lastMiss') && null !== $data->getLastMiss()) {
+            $values_5 = [];
+            foreach ($data->getLastMiss() as $value_5) {
+                $values_5[] = $value_5;
+            }
+            $dataArray['last_miss'] = $values_5;
+        }
+        foreach ($data as $key => $value_6) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_6;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\NetworkPeersPeerIdPatchResponse200::class => false];
     }
 }

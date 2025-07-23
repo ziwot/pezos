@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,185 +20,91 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class HelpersScriptsRunCodePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class HelpersScriptsRunCodePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('storage', $data)) {
-                $object->setStorage($data['storage']);
-                unset($data['storage']);
-            }
-            if (\array_key_exists('operations', $data)) {
-                $values = [];
-                foreach ($data['operations'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setOperations($values);
-                unset($data['operations']);
-            }
-            if (\array_key_exists('lazy_storage_diff', $data)) {
-                $values_1 = [];
-                foreach ($data['lazy_storage_diff'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setLazyStorageDiff($values_1);
-                unset($data['lazy_storage_diff']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['storage'] = $object->getStorage();
-            $values = [];
-            foreach ($object->getOperations() as $value) {
-                $values[] = $value;
-            }
-            $data['operations'] = $values;
-            if ($object->isInitialized('lazyStorageDiff') && null !== $object->getLazyStorageDiff()) {
-                $values_1 = [];
-                foreach ($object->getLazyStorageDiff() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['lazy_storage_diff'] = $values_1;
-            }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
     }
-} else {
-    class HelpersScriptsRunCodePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('storage', $data)) {
-                $object->setStorage($data['storage']);
-                unset($data['storage']);
-            }
-            if (\array_key_exists('operations', $data)) {
-                $values = [];
-                foreach ($data['operations'] as $value) {
-                    $values[] = $value;
-                }
-                $object->setOperations($values);
-                unset($data['operations']);
-            }
-            if (\array_key_exists('lazy_storage_diff', $data)) {
-                $values_1 = [];
-                foreach ($data['lazy_storage_diff'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setLazyStorageDiff($values_1);
-                unset($data['lazy_storage_diff']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['storage'] = $object->getStorage();
+        if (\array_key_exists('storage', $data)) {
+            $object->setStorage($data['storage']);
+            unset($data['storage']);
+        }
+        if (\array_key_exists('operations', $data)) {
             $values = [];
-            foreach ($object->getOperations() as $value) {
+            foreach ($data['operations'] as $value) {
                 $values[] = $value;
             }
-            $data['operations'] = $values;
-            if ($object->isInitialized('lazyStorageDiff') && null !== $object->getLazyStorageDiff()) {
-                $values_1 = [];
-                foreach ($object->getLazyStorageDiff() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['lazy_storage_diff'] = $values_1;
+            $object->setOperations($values);
+            unset($data['operations']);
+        }
+        if (\array_key_exists('lazy_storage_diff', $data)) {
+            $values_1 = [];
+            foreach ($data['lazy_storage_diff'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
+            $object->setLazyStorageDiff($values_1);
+            unset($data['lazy_storage_diff']);
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_2;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['storage'] = $data->getStorage();
+        $values = [];
+        foreach ($data->getOperations() as $value) {
+            $values[] = $value;
         }
+        $dataArray['operations'] = $values;
+        if ($data->isInitialized('lazyStorageDiff') && null !== $data->getLazyStorageDiff()) {
+            $values_1 = [];
+            foreach ($data->getLazyStorageDiff() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['lazy_storage_diff'] = $values_1;
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_2;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200::class => false];
     }
 }

@@ -19,7 +19,9 @@ class DeleteAdminInjectorQueue extends \Pezos\Generated\Rollup\Runtime\Client\Ba
      *
      * @param array $queryParameters {
      *
-     * @var string $tag A kind of operation for the injector.
+     * @var string $order_below
+     * @var string $tag a kind of operation for the injector
+     * @var string $drop_no_order
      *             }
      */
     public function __construct(array $queryParameters = [])
@@ -50,10 +52,12 @@ class DeleteAdminInjectorQueue extends \Pezos\Generated\Rollup\Runtime\Client\Ba
     protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
     {
         $optionsResolver = parent::getQueryOptionsResolver();
-        $optionsResolver->setDefined(['tag']);
-        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefined(['order_below', 'tag', 'drop_no_order']);
+        $optionsResolver->setRequired(['drop_no_order']);
         $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('order_below', ['string']);
         $optionsResolver->addAllowedTypes('tag', ['string']);
+        $optionsResolver->addAllowedTypes('drop_no_order', ['string']);
 
         return $optionsResolver;
     }

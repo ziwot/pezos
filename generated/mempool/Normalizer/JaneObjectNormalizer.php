@@ -12,7 +12,6 @@ namespace Pezos\Generated\Mempool\Normalizer;
 
 use Pezos\Generated\Mempool\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Mempool\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,223 +19,110 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    protected $normalizers = [
+        \Pezos\Generated\Mempool\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => _022PsRiotumBlockHeaderAlphaFullHeaderNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedAttestation::class => _022PsRiotumInlinedAttestationNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestation::class => _022PsRiotumInlinedPreattestationNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestationContents::class => _022PsRiotumInlinedPreattestationContentsNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\_022PsRiotumScriptedContracts::class => _022PsRiotumScriptedContractsNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => MonitorOperationsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => PendingOperationsGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => PendingOperationsGetResponse200ValidatedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => PendingOperationsGetResponse200RefusedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => PendingOperationsGetResponse200OutdatedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => PendingOperationsGetResponse200BranchRefusedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => PendingOperationsGetResponse200BranchDelayedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => PendingOperationsGetResponse200UnprocessedItemNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => RequestOperationsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => RequestOperationsPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => UnbanAllOperationsPostBodyNormalizer::class,
+
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Mempool\Runtime\Normalizer\ReferenceNormalizer::class,
+    ];
+    protected $normalizersCache = [];
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Mempool\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => _021PsQuebecBlockHeaderAlphaFullHeaderNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedAttestation::class => _021PsQuebecInlinedAttestationNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestation::class => _021PsQuebecInlinedPreattestationNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestationContents::class => _021PsQuebecInlinedPreattestationContentsNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\_021PsQuebecScriptedContracts::class => _021PsQuebecScriptedContractsNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => MonitorOperationsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => PendingOperationsGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => PendingOperationsGetResponse200ValidatedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => PendingOperationsGetResponse200RefusedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => PendingOperationsGetResponse200OutdatedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => PendingOperationsGetResponse200BranchRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => PendingOperationsGetResponse200BranchDelayedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => PendingOperationsGetResponse200UnprocessedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => RequestOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => RequestOperationsPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => UnbanAllOperationsPostBodyNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Mempool\Runtime\Normalizer\ReferenceNormalizer::class,
-        ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Mempool\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedAttestation::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestation::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestationContents::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecScriptedContracts::class => false,
-                \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => false,
-                \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => false,
-                \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => false,
-                \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
+        return array_key_exists($type, $this->normalizers);
     }
-} else {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Mempool\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => _021PsQuebecBlockHeaderAlphaFullHeaderNormalizer::class,
+        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+    }
 
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedAttestation::class => _021PsQuebecInlinedAttestationNormalizer::class,
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $normalizerClass = $this->normalizers[get_class($data)];
+        $normalizer = $this->getNormalizer($normalizerClass);
 
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestation::class => _021PsQuebecInlinedPreattestationNormalizer::class,
+        return $normalizer->normalize($data, $format, $context);
+    }
 
-            \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestationContents::class => _021PsQuebecInlinedPreattestationContentsNormalizer::class,
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $denormalizerClass = $this->normalizers[$type];
+        $denormalizer = $this->getNormalizer($denormalizerClass);
 
-            \Pezos\Generated\Mempool\Model\_021PsQuebecScriptedContracts::class => _021PsQuebecScriptedContractsNormalizer::class,
+        return $denormalizer->denormalize($data, $type, $format, $context);
+    }
 
-            \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => MonitorOperationsGetResponse200ItemNormalizer::class,
+    private function getNormalizer(string $normalizerClass)
+    {
+        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+    }
 
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => PendingOperationsGetResponse200Normalizer::class,
+    private function initNormalizer(string $normalizerClass)
+    {
+        $normalizer = new $normalizerClass();
+        $normalizer->setNormalizer($this->normalizer);
+        $normalizer->setDenormalizer($this->denormalizer);
+        $this->normalizersCache[$normalizerClass] = $normalizer;
 
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => PendingOperationsGetResponse200ValidatedItemNormalizer::class,
+        return $normalizer;
+    }
 
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => PendingOperationsGetResponse200RefusedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => PendingOperationsGetResponse200OutdatedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => PendingOperationsGetResponse200BranchRefusedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => PendingOperationsGetResponse200BranchDelayedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => PendingOperationsGetResponse200UnprocessedItemNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => RequestOperationsPostBodyNormalizer::class,
-
-            \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => RequestOperationsPostResponse200Normalizer::class,
-
-            \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => UnbanAllOperationsPostBodyNormalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Mempool\Runtime\Normalizer\ReferenceNormalizer::class,
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [
+            \Pezos\Generated\Mempool\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => false,
+            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedAttestation::class => false,
+            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestation::class => false,
+            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestationContents::class => false,
+            \Pezos\Generated\Mempool\Model\_022PsRiotumScriptedContracts::class => false,
+            \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => false,
+            \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => false,
+            \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => false,
+            \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => false,
+            \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => false,
+            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Mempool\Model\_021PsQuebecBlockHeaderAlphaFullHeader::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedAttestation::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestation::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecInlinedPreattestationContents::class => false,
-                \Pezos\Generated\Mempool\Model\_021PsQuebecScriptedContracts::class => false,
-                \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200RefusedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200OutdatedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchRefusedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200BranchDelayedItem::class => false,
-                \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200UnprocessedItem::class => false,
-                \Pezos\Generated\Mempool\Model\RequestOperationsPostBody::class => false,
-                \Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200::class => false,
-                \Pezos\Generated\Mempool\Model\UnbanAllOperationsPostBody::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
     }
 }

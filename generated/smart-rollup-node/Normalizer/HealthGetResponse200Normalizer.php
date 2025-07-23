@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,191 +20,100 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class HealthGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class HealthGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\HealthGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('healthy', $data)) {
-                $object->setHealthy($data['healthy']);
-                unset($data['healthy']);
-            }
-            if (\array_key_exists('degraded', $data)) {
-                $object->setDegraded($data['degraded']);
-                unset($data['degraded']);
-            }
-            if (\array_key_exists('l1', $data)) {
-                $object->setL1($this->denormalizer->denormalize($data['l1'], \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class, 'json', $context));
-                unset($data['l1']);
-            }
-            if (\array_key_exists('active_workers', $data)) {
-                $values = [];
-                foreach ($data['active_workers'] as $value) {
-                    $values_1 = [];
-                    foreach ($value as $value_1) {
-                        $values_1[] = $value_1;
-                    }
-                    $values[] = $values_1;
-                }
-                $object->setActiveWorkers($values);
-                unset($data['active_workers']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['healthy'] = $object->getHealthy();
-            $data['degraded'] = $object->getDegraded();
-            $data['l1'] = $this->normalizer->normalize($object->getL1(), 'json', $context);
-            $values = [];
-            foreach ($object->getActiveWorkers() as $value) {
-                $values_1 = [];
-                foreach ($value as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $values[] = $values_1;
-            }
-            $data['active_workers'] = $values;
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
     }
-} else {
-    class HealthGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\HealthGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\HealthGetResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('healthy', $data)) {
-                $object->setHealthy($data['healthy']);
-                unset($data['healthy']);
-            }
-            if (\array_key_exists('degraded', $data)) {
-                $object->setDegraded($data['degraded']);
-                unset($data['degraded']);
-            }
-            if (\array_key_exists('l1', $data)) {
-                $object->setL1($this->denormalizer->denormalize($data['l1'], \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class, 'json', $context));
-                unset($data['l1']);
-            }
-            if (\array_key_exists('active_workers', $data)) {
-                $values = [];
-                foreach ($data['active_workers'] as $value) {
-                    $values_1 = [];
-                    foreach ($value as $value_1) {
-                        $values_1[] = $value_1;
-                    }
-                    $values[] = $values_1;
-                }
-                $object->setActiveWorkers($values);
-                unset($data['active_workers']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\HealthGetResponse200();
+        if (\array_key_exists('healthy', $data) && \is_int($data['healthy'])) {
+            $data['healthy'] = (bool) $data['healthy'];
+        }
+        if (\array_key_exists('degraded', $data) && \is_int($data['degraded'])) {
+            $data['degraded'] = (bool) $data['degraded'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['healthy'] = $object->getHealthy();
-            $data['degraded'] = $object->getDegraded();
-            $data['l1'] = $this->normalizer->normalize($object->getL1(), 'json', $context);
+        if (\array_key_exists('healthy', $data)) {
+            $object->setHealthy($data['healthy']);
+            unset($data['healthy']);
+        }
+        if (\array_key_exists('degraded', $data)) {
+            $object->setDegraded($data['degraded']);
+            unset($data['degraded']);
+        }
+        if (\array_key_exists('l1', $data)) {
+            $object->setL1($this->denormalizer->denormalize($data['l1'], \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class, 'json', $context));
+            unset($data['l1']);
+        }
+        if (\array_key_exists('active_workers', $data)) {
             $values = [];
-            foreach ($object->getActiveWorkers() as $value) {
+            foreach ($data['active_workers'] as $value) {
                 $values_1 = [];
                 foreach ($value as $value_1) {
                     $values_1[] = $value_1;
                 }
                 $values[] = $values_1;
             }
-            $data['active_workers'] = $values;
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
+            $object->setActiveWorkers($values);
+            unset($data['active_workers']);
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_2;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['healthy'] = $data->getHealthy();
+        $dataArray['degraded'] = $data->getDegraded();
+        $dataArray['l1'] = $this->normalizer->normalize($data->getL1(), 'json', $context);
+        $values = [];
+        foreach ($data->getActiveWorkers() as $value) {
+            $values_1 = [];
+            foreach ($value as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $values[] = $values_1;
         }
+        $dataArray['active_workers'] = $values;
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_2;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false];
     }
 }

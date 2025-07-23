@@ -12,7 +12,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -20,439 +19,221 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+    protected $normalizers = [
+        \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => AdminInjectorQueuesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => AdminInjectorQueuesTotalGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => AdminInjectorQueuesTotalGetResponse200InjectorsItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => ConfigGetResponse200SmartRollupNodeOperatorNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => ConfigGetResponse200FeeParametersNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => ConfigGetResponse200FeeParametersPublishNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => ConfigGetResponse200FeeParametersAddMessagesNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => ConfigGetResponse200FeeParametersCementNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => ConfigGetResponse200FeeParametersTimeoutNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => ConfigGetResponse200FeeParametersRefuteNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => ConfigGetResponse200FeeParametersRecoverNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => ConfigGetResponse200FeeParametersExecuteOutboxMessageNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => ConfigGetResponse200FeeParametersPublishDalCommitmentNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => ConfigGetResponse200LoserModeItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransactionNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => ConfigGetResponse200BatcherNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => ConfigGetResponse200InjectorNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => ConfigGetResponse200GcParametersNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => ConfigGetResponse200CorsNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => GlobalBlockBlockIdGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => GlobalBlockBlockIdGetResponse200InboxNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContentNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => GlobalBlockBlockIdGetResponse200CommitmentNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => GlobalBlockBlockIdDalProcessedSlotsGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => GlobalBlockBlockIdDalSlotHeadersGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item::class => GlobalBlockBlockIdDurableWasm200ValuesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => GlobalBlockBlockIdInboxGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => GlobalBlockBlockIdOutboxGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => GlobalBlockBlockIdOutboxLevelMessagesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => GlobalBlockBlockIdSimulatePostBodyNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => GlobalBlockBlockIdSimulatePostResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => GlobalBlockBlockIdSimulatePostResponse200OutputItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => GlobalMonitorBlocksGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => HealthGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => HealthGetResponse200L1Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => HealthGetResponse200L1LastSeenHeadNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => LocalBatcherQueueGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => LocalBatcherQueueGetResponse200ItemMessageNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => LocalDalInjectedOperationsStatusesGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => LocalDalSlotIndicesPostBodyNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => LocalGcInfoGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => LocalOutboxPendingExecutableGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingExecutableGetResponse200ItemMessagesItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => LocalOutboxPendingUnexecutableGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => StatsOcamlGcGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
+
+        \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Rollup\Runtime\Normalizer\ReferenceNormalizer::class,
+    ];
+    protected $normalizersCache = [];
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => AdminInjectorQueuesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => AdminInjectorQueuesTotalGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => AdminInjectorQueuesTotalGetResponse200InjectorsItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => ConfigGetResponse200SmartRollupNodeOperatorNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => ConfigGetResponse200FeeParametersNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => ConfigGetResponse200FeeParametersPublishNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => ConfigGetResponse200FeeParametersAddMessagesNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => ConfigGetResponse200FeeParametersCementNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => ConfigGetResponse200FeeParametersTimeoutNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => ConfigGetResponse200FeeParametersRefuteNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => ConfigGetResponse200FeeParametersRecoverNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => ConfigGetResponse200FeeParametersExecuteOutboxMessageNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => ConfigGetResponse200FeeParametersPublishDalCommitmentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => ConfigGetResponse200LoserModeItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransactionNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => ConfigGetResponse200BatcherNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => ConfigGetResponse200InjectorNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => ConfigGetResponse200GcParametersNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => ConfigGetResponse200CorsNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => GlobalBlockBlockIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => GlobalBlockBlockIdGetResponse200InboxNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => GlobalBlockBlockIdGetResponse200CommitmentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => GlobalBlockBlockIdDalProcessedSlotsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => GlobalBlockBlockIdDalSlotHeadersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => GlobalBlockBlockIdInboxGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => GlobalBlockBlockIdOutboxGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => GlobalBlockBlockIdOutboxLevelMessagesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => GlobalBlockBlockIdSimulatePostBodyNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => GlobalBlockBlockIdSimulatePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => GlobalBlockBlockIdSimulatePostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => GlobalMonitorBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => HealthGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => HealthGetResponse200L1Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => HealthGetResponse200L1LastSeenHeadNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => LocalBatcherQueueGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => LocalBatcherQueueGetResponse200ItemMessageNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => LocalDalInjectedOperationsStatusesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => LocalDalSlotIndicesPostBodyNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => LocalGcInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => LocalOutboxPendingExecutableGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingExecutableGetResponse200ItemMessagesItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => LocalOutboxPendingUnexecutableGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => StatsOcamlGcGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Rollup\Runtime\Normalizer\ReferenceNormalizer::class,
-        ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => false,
-                \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => false,
-                \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => false,
-                \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => false,
-                \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
+        return array_key_exists($type, $this->normalizers);
     }
-} else {
-    class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-        protected $normalizers = [
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => AdminInjectorQueuesGetResponse200ItemNormalizer::class,
+        return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
+    }
 
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => AdminInjectorQueuesTotalGetResponse200Normalizer::class,
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $normalizerClass = $this->normalizers[get_class($data)];
+        $normalizer = $this->getNormalizer($normalizerClass);
 
-            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => AdminInjectorQueuesTotalGetResponse200InjectorsItemNormalizer::class,
+        return $normalizer->normalize($data, $format, $context);
+    }
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => ConfigGetResponse200Normalizer::class,
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        $denormalizerClass = $this->normalizers[$type];
+        $denormalizer = $this->getNormalizer($denormalizerClass);
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => ConfigGetResponse200SmartRollupNodeOperatorNormalizer::class,
+        return $denormalizer->denormalize($data, $type, $format, $context);
+    }
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => ConfigGetResponse200FeeParametersNormalizer::class,
+    private function getNormalizer(string $normalizerClass)
+    {
+        return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
+    }
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => ConfigGetResponse200FeeParametersPublishNormalizer::class,
+    private function initNormalizer(string $normalizerClass)
+    {
+        $normalizer = new $normalizerClass();
+        $normalizer->setNormalizer($this->normalizer);
+        $normalizer->setDenormalizer($this->denormalizer);
+        $this->normalizersCache[$normalizerClass] = $normalizer;
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => ConfigGetResponse200FeeParametersAddMessagesNormalizer::class,
+        return $normalizer;
+    }
 
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => ConfigGetResponse200FeeParametersCementNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => ConfigGetResponse200FeeParametersTimeoutNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => ConfigGetResponse200FeeParametersRefuteNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => ConfigGetResponse200FeeParametersRecoverNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => ConfigGetResponse200FeeParametersExecuteOutboxMessageNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => ConfigGetResponse200FeeParametersPublishDalCommitmentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => ConfigGetResponse200LoserModeItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransactionNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => ConfigGetResponse200BatcherNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => ConfigGetResponse200InjectorNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => ConfigGetResponse200GcParametersNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => ConfigGetResponse200CorsNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => GlobalBlockBlockIdGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => GlobalBlockBlockIdGetResponse200InboxNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => GlobalBlockBlockIdGetResponse200CommitmentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => GlobalBlockBlockIdDalProcessedSlotsGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => GlobalBlockBlockIdDalSlotHeadersGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => GlobalBlockBlockIdInboxGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContentNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => GlobalBlockBlockIdOutboxGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => GlobalBlockBlockIdOutboxLevelMessagesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => GlobalBlockBlockIdSimulatePostBodyNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => GlobalBlockBlockIdSimulatePostResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => GlobalBlockBlockIdSimulatePostResponse200OutputItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => GlobalMonitorBlocksGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => HealthGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => HealthGetResponse200L1Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => HealthGetResponse200L1LastSeenHeadNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => LocalBatcherQueueGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => LocalBatcherQueueGetResponse200ItemMessageNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => LocalDalInjectedOperationsStatusesGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => LocalDalSlotIndicesPostBodyNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => LocalGcInfoGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => LocalOutboxPendingExecutableGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingExecutableGetResponse200ItemMessagesItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => LocalOutboxPendingUnexecutableGetResponse200ItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItemNormalizer::class,
-
-            \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => StatsOcamlGcGetResponse200Normalizer::class,
-
-            \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => VersionGetResponse200Normalizer::class,
-
-            \Jane\Component\JsonSchemaRuntime\Reference::class => \Pezos\Generated\Rollup\Runtime\Normalizer\ReferenceNormalizer::class,
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [
+            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false,
+            \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => false,
+            \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => false,
+            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => false,
+            \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => false,
+            \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => false,
+            \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => false,
+            \Jane\Component\JsonSchemaRuntime\Reference::class => false,
         ];
-        protected $normalizersCache = [];
-
-        public function supportsDenormalization($data, $type, $format = null, array $context = []): bool
-        {
-            return array_key_exists($type, $this->normalizers);
-        }
-
-        public function supportsNormalization($data, $format = null, array $context = []): bool
-        {
-            return is_object($data) && array_key_exists(get_class($data), $this->normalizers);
-        }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $normalizerClass = $this->normalizers[get_class($object)];
-            $normalizer = $this->getNormalizer($normalizerClass);
-
-            return $normalizer->normalize($object, $format, $context);
-        }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            $denormalizerClass = $this->normalizers[$type];
-            $denormalizer = $this->getNormalizer($denormalizerClass);
-
-            return $denormalizer->denormalize($data, $type, $format, $context);
-        }
-
-        private function getNormalizer(string $normalizerClass)
-        {
-            return $this->normalizersCache[$normalizerClass] ?? $this->initNormalizer($normalizerClass);
-        }
-
-        private function initNormalizer(string $normalizerClass)
-        {
-            $normalizer = new $normalizerClass();
-            $normalizer->setNormalizer($this->normalizer);
-            $normalizer->setDenormalizer($this->denormalizer);
-            $this->normalizersCache[$normalizerClass] = $normalizer;
-
-            return $normalizer;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\AdminInjectorQueuesTotalGetResponse200InjectorsItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200SmartRollupNodeOperator::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParameters::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublish::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersAddMessages::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersCement::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersTimeout::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRefute::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Injector::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200GcParameters::class => false,
-                \Pezos\Generated\Rollup\Model\ConfigGetResponse200Cors::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Inbox::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessages::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200OldLevelsMessagesContent::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostBody::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => false,
-                \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => false,
-                \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => false,
-                \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class => false,
-                \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => false,
-                \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => false,
-                \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200ItemMessagesItem::class => false,
-                \Pezos\Generated\Rollup\Model\StatsOcamlGcGetResponse200::class => false,
-                \Pezos\Generated\Rollup\Model\VersionGetResponse200::class => false,
-                \Jane\Component\JsonSchemaRuntime\Reference::class => false,
-            ];
-        }
     }
 }

@@ -100,16 +100,6 @@ class ConfigGetResponse200 extends \ArrayObject
     /**
      * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
      */
-    protected $dacObserverClient;
-    /**
-     * Decimal representation of a big number.
-     *
-     * @var string
-     */
-    protected $dacTimeout;
-    /**
-     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
-     */
     protected $preImagesEndpoint;
     /**
      * @var ConfigGetResponse200Batcher
@@ -153,6 +143,10 @@ class ConfigGetResponse200 extends \ArrayObject
      * @var bool
      */
     protected $logKernelDebug;
+    /**
+     * @var bool
+     */
+    protected $unsafeDisableWasmKernelChecks;
     /**
      * @var bool
      */
@@ -472,44 +466,6 @@ class ConfigGetResponse200 extends \ArrayObject
     /**
      * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
      */
-    public function getDacObserverClient()
-    {
-        return $this->dacObserverClient;
-    }
-
-    /**
-     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
-     */
-    public function setDacObserverClient($dacObserverClient): self
-    {
-        $this->initialized['dacObserverClient'] = true;
-        $this->dacObserverClient = $dacObserverClient;
-
-        return $this;
-    }
-
-    /**
-     * Decimal representation of a big number.
-     */
-    public function getDacTimeout(): string
-    {
-        return $this->dacTimeout;
-    }
-
-    /**
-     * Decimal representation of a big number.
-     */
-    public function setDacTimeout(string $dacTimeout): self
-    {
-        $this->initialized['dacTimeout'] = true;
-        $this->dacTimeout = $dacTimeout;
-
-        return $this;
-    }
-
-    /**
-     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
-     */
     public function getPreImagesEndpoint()
     {
         return $this->preImagesEndpoint;
@@ -658,6 +614,19 @@ class ConfigGetResponse200 extends \ArrayObject
     {
         $this->initialized['logKernelDebug'] = true;
         $this->logKernelDebug = $logKernelDebug;
+
+        return $this;
+    }
+
+    public function getUnsafeDisableWasmKernelChecks(): bool
+    {
+        return $this->unsafeDisableWasmKernelChecks;
+    }
+
+    public function setUnsafeDisableWasmKernelChecks(bool $unsafeDisableWasmKernelChecks): self
+    {
+        $this->initialized['unsafeDisableWasmKernelChecks'] = true;
+        $this->unsafeDisableWasmKernelChecks = $unsafeDisableWasmKernelChecks;
 
         return $this;
     }

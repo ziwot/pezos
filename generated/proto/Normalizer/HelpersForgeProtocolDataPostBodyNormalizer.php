@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,181 +20,89 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class HelpersForgeProtocolDataPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class HelpersForgeProtocolDataPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('payload_hash', $data)) {
-                $object->setPayloadHash($data['payload_hash']);
-                unset($data['payload_hash']);
-            }
-            if (\array_key_exists('payload_round', $data)) {
-                $object->setPayloadRound($data['payload_round']);
-                unset($data['payload_round']);
-            }
-            if (\array_key_exists('nonce_hash', $data)) {
-                $object->setNonceHash($data['nonce_hash']);
-                unset($data['nonce_hash']);
-            }
-            if (\array_key_exists('proof_of_work_nonce', $data)) {
-                $object->setProofOfWorkNonce($data['proof_of_work_nonce']);
-                unset($data['proof_of_work_nonce']);
-            }
-            if (\array_key_exists('per_block_votes', $data)) {
-                $object->setPerBlockVotes($this->denormalizer->denormalize($data['per_block_votes'], \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class, 'json', $context));
-                unset($data['per_block_votes']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['payload_hash'] = $object->getPayloadHash();
-            $data['payload_round'] = $object->getPayloadRound();
-            if ($object->isInitialized('nonceHash') && null !== $object->getNonceHash()) {
-                $data['nonce_hash'] = $object->getNonceHash();
-            }
-            if ($object->isInitialized('proofOfWorkNonce') && null !== $object->getProofOfWorkNonce()) {
-                $data['proof_of_work_nonce'] = $object->getProofOfWorkNonce();
-            }
-            if ($object->isInitialized('perBlockVotes') && null !== $object->getPerBlockVotes()) {
-                $data['per_block_votes'] = $this->normalizer->normalize($object->getPerBlockVotes(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
     }
-} else {
-    class HelpersForgeProtocolDataPostBodyNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('payload_hash', $data)) {
-                $object->setPayloadHash($data['payload_hash']);
-                unset($data['payload_hash']);
-            }
-            if (\array_key_exists('payload_round', $data)) {
-                $object->setPayloadRound($data['payload_round']);
-                unset($data['payload_round']);
-            }
-            if (\array_key_exists('nonce_hash', $data)) {
-                $object->setNonceHash($data['nonce_hash']);
-                unset($data['nonce_hash']);
-            }
-            if (\array_key_exists('proof_of_work_nonce', $data)) {
-                $object->setProofOfWorkNonce($data['proof_of_work_nonce']);
-                unset($data['proof_of_work_nonce']);
-            }
-            if (\array_key_exists('per_block_votes', $data)) {
-                $object->setPerBlockVotes($this->denormalizer->denormalize($data['per_block_votes'], \Pezos\Generated\Proto\Model\_021PsQuebecPerBlockVotes::class, 'json', $context));
-                unset($data['per_block_votes']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['payload_hash'] = $object->getPayloadHash();
-            $data['payload_round'] = $object->getPayloadRound();
-            if ($object->isInitialized('nonceHash') && null !== $object->getNonceHash()) {
-                $data['nonce_hash'] = $object->getNonceHash();
+        if (\array_key_exists('payload_hash', $data)) {
+            $object->setPayloadHash($data['payload_hash']);
+            unset($data['payload_hash']);
+        }
+        if (\array_key_exists('payload_round', $data)) {
+            $object->setPayloadRound($data['payload_round']);
+            unset($data['payload_round']);
+        }
+        if (\array_key_exists('nonce_hash', $data)) {
+            $object->setNonceHash($data['nonce_hash']);
+            unset($data['nonce_hash']);
+        }
+        if (\array_key_exists('proof_of_work_nonce', $data)) {
+            $object->setProofOfWorkNonce($data['proof_of_work_nonce']);
+            unset($data['proof_of_work_nonce']);
+        }
+        if (\array_key_exists('per_block_votes', $data)) {
+            $object->setPerBlockVotes($this->denormalizer->denormalize($data['per_block_votes'], \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class, 'json', $context));
+            unset($data['per_block_votes']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('proofOfWorkNonce') && null !== $object->getProofOfWorkNonce()) {
-                $data['proof_of_work_nonce'] = $object->getProofOfWorkNonce();
-            }
-            if ($object->isInitialized('perBlockVotes') && null !== $object->getPerBlockVotes()) {
-                $data['per_block_votes'] = $this->normalizer->normalize($object->getPerBlockVotes(), 'json', $context);
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['payload_hash'] = $data->getPayloadHash();
+        $dataArray['payload_round'] = $data->getPayloadRound();
+        if ($data->isInitialized('nonceHash') && null !== $data->getNonceHash()) {
+            $dataArray['nonce_hash'] = $data->getNonceHash();
         }
+        if ($data->isInitialized('proofOfWorkNonce') && null !== $data->getProofOfWorkNonce()) {
+            $dataArray['proof_of_work_nonce'] = $data->getProofOfWorkNonce();
+        }
+        if ($data->isInitialized('perBlockVotes') && null !== $data->getPerBlockVotes()) {
+            $dataArray['per_block_votes'] = $this->normalizer->normalize($data->getPerBlockVotes(), 'json', $context);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false];
     }
 }

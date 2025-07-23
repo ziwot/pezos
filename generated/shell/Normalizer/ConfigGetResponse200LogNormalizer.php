@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,175 +20,99 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200LogNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200LogNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Log();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('output', $data)) {
-                $object->setOutput($data['output']);
-                unset($data['output']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('colors', $data)) {
-                $object->setColors($data['colors']);
-                unset($data['colors']);
-            }
-            if (\array_key_exists('rules', $data)) {
-                $object->setRules($data['rules']);
-                unset($data['rules']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('output') && null !== $object->getOutput()) {
-                $data['output'] = $object->getOutput();
-            }
-            if ($object->isInitialized('level') && null !== $object->getLevel()) {
-                $data['level'] = $object->getLevel();
-            }
-            if ($object->isInitialized('colors') && null !== $object->getColors()) {
-                $data['colors'] = $object->getColors();
-            }
-            if ($object->isInitialized('rules') && null !== $object->getRules()) {
-                $data['rules'] = $object->getRules();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
     }
-} else {
-    class ConfigGetResponse200LogNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Log();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('output', $data)) {
-                $object->setOutput($data['output']);
-                unset($data['output']);
-            }
-            if (\array_key_exists('level', $data)) {
-                $object->setLevel($data['level']);
-                unset($data['level']);
-            }
-            if (\array_key_exists('colors', $data)) {
-                $object->setColors($data['colors']);
-                unset($data['colors']);
-            }
-            if (\array_key_exists('rules', $data)) {
-                $object->setRules($data['rules']);
-                unset($data['rules']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Log();
+        if (\array_key_exists('colors', $data) && \is_int($data['colors'])) {
+            $data['colors'] = (bool) $data['colors'];
+        }
+        if (\array_key_exists('advertises_level', $data) && \is_int($data['advertises_level'])) {
+            $data['advertises_level'] = (bool) $data['advertises_level'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('output') && null !== $object->getOutput()) {
-                $data['output'] = $object->getOutput();
+        if (\array_key_exists('output', $data)) {
+            $object->setOutput($data['output']);
+            unset($data['output']);
+        }
+        if (\array_key_exists('level', $data)) {
+            $object->setLevel($data['level']);
+            unset($data['level']);
+        }
+        if (\array_key_exists('colors', $data)) {
+            $object->setColors($data['colors']);
+            unset($data['colors']);
+        }
+        if (\array_key_exists('rules', $data)) {
+            $object->setRules($data['rules']);
+            unset($data['rules']);
+        }
+        if (\array_key_exists('advertises_level', $data)) {
+            $object->setAdvertisesLevel($data['advertises_level']);
+            unset($data['advertises_level']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('level') && null !== $object->getLevel()) {
-                $data['level'] = $object->getLevel();
-            }
-            if ($object->isInitialized('colors') && null !== $object->getColors()) {
-                $data['colors'] = $object->getColors();
-            }
-            if ($object->isInitialized('rules') && null !== $object->getRules()) {
-                $data['rules'] = $object->getRules();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('output') && null !== $data->getOutput()) {
+            $dataArray['output'] = $data->getOutput();
         }
+        if ($data->isInitialized('level') && null !== $data->getLevel()) {
+            $dataArray['level'] = $data->getLevel();
+        }
+        if ($data->isInitialized('colors') && null !== $data->getColors()) {
+            $dataArray['colors'] = $data->getColors();
+        }
+        if ($data->isInitialized('rules') && null !== $data->getRules()) {
+            $dataArray['rules'] = $data->getRules();
+        }
+        if ($data->isInitialized('advertisesLevel') && null !== $data->getAdvertisesLevel()) {
+            $dataArray['advertises_level'] = $data->getAdvertisesLevel();
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Log::class => false];
     }
 }

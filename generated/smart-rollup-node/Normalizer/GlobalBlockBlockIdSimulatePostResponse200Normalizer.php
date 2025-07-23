@@ -13,7 +13,6 @@ namespace Pezos\Generated\Rollup\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Rollup\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Rollup\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,215 +20,106 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class GlobalBlockBlockIdSimulatePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class GlobalBlockBlockIdSimulatePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('state_hash', $data)) {
-                $object->setStateHash($data['state_hash']);
-                unset($data['state_hash']);
-            }
-            if (\array_key_exists('status', $data)) {
-                $object->setStatus($data['status']);
-                unset($data['status']);
-            }
-            if (\array_key_exists('output', $data)) {
-                $values = [];
-                foreach ($data['output'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class, 'json', $context);
-                }
-                $object->setOutput($values);
-                unset($data['output']);
-            }
-            if (\array_key_exists('inbox_level', $data)) {
-                $object->setInboxLevel($data['inbox_level']);
-                unset($data['inbox_level']);
-            }
-            if (\array_key_exists('num_ticks', $data)) {
-                $object->setNumTicks($data['num_ticks']);
-                unset($data['num_ticks']);
-            }
-            if (\array_key_exists('insights', $data)) {
-                $values_1 = [];
-                foreach ($data['insights'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setInsights($values_1);
-                unset($data['insights']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['state_hash'] = $object->getStateHash();
-            $data['status'] = $object->getStatus();
-            $values = [];
-            foreach ($object->getOutput() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['output'] = $values;
-            $data['inbox_level'] = $object->getInboxLevel();
-            $data['num_ticks'] = $object->getNumTicks();
-            if ($object->isInitialized('insights') && null !== $object->getInsights()) {
-                $values_1 = [];
-                foreach ($object->getInsights() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['insights'] = $values_1;
-            }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
     }
-} else {
-    class GlobalBlockBlockIdSimulatePostResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('state_hash', $data)) {
-                $object->setStateHash($data['state_hash']);
-                unset($data['state_hash']);
-            }
-            if (\array_key_exists('status', $data)) {
-                $object->setStatus($data['status']);
-                unset($data['status']);
-            }
-            if (\array_key_exists('output', $data)) {
-                $values = [];
-                foreach ($data['output'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class, 'json', $context);
-                }
-                $object->setOutput($values);
-                unset($data['output']);
-            }
-            if (\array_key_exists('inbox_level', $data)) {
-                $object->setInboxLevel($data['inbox_level']);
-                unset($data['inbox_level']);
-            }
-            if (\array_key_exists('num_ticks', $data)) {
-                $object->setNumTicks($data['num_ticks']);
-                unset($data['num_ticks']);
-            }
-            if (\array_key_exists('insights', $data)) {
-                $values_1 = [];
-                foreach ($data['insights'] as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $object->setInsights($values_1);
-                unset($data['insights']);
-            }
-            foreach ($data as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_2;
-                }
-            }
-
+        $object = new \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['state_hash'] = $object->getStateHash();
-            $data['status'] = $object->getStatus();
+        if (\array_key_exists('state_hash', $data)) {
+            $object->setStateHash($data['state_hash']);
+            unset($data['state_hash']);
+        }
+        if (\array_key_exists('status', $data)) {
+            $object->setStatus($data['status']);
+            unset($data['status']);
+        }
+        if (\array_key_exists('output', $data)) {
             $values = [];
-            foreach ($object->getOutput() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            foreach ($data['output'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class, 'json', $context);
             }
-            $data['output'] = $values;
-            $data['inbox_level'] = $object->getInboxLevel();
-            $data['num_ticks'] = $object->getNumTicks();
-            if ($object->isInitialized('insights') && null !== $object->getInsights()) {
-                $values_1 = [];
-                foreach ($object->getInsights() as $value_1) {
-                    $values_1[] = $value_1;
-                }
-                $data['insights'] = $values_1;
+            $object->setOutput($values);
+            unset($data['output']);
+        }
+        if (\array_key_exists('inbox_level', $data)) {
+            $object->setInboxLevel($data['inbox_level']);
+            unset($data['inbox_level']);
+        }
+        if (\array_key_exists('num_ticks', $data)) {
+            $object->setNumTicks($data['num_ticks']);
+            unset($data['num_ticks']);
+        }
+        if (\array_key_exists('insights', $data)) {
+            $values_1 = [];
+            foreach ($data['insights'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            foreach ($object as $key => $value_2) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_2;
-                }
+            $object->setInsights($values_1);
+            unset($data['insights']);
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_2;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['state_hash'] = $data->getStateHash();
+        $dataArray['status'] = $data->getStatus();
+        $values = [];
+        foreach ($data->getOutput() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
+        $dataArray['output'] = $values;
+        $dataArray['inbox_level'] = $data->getInboxLevel();
+        $dataArray['num_ticks'] = $data->getNumTicks();
+        if ($data->isInitialized('insights') && null !== $data->getInsights()) {
+            $values_1 = [];
+            foreach ($data->getInsights() as $value_1) {
+                $values_1[] = $value_1;
+            }
+            $dataArray['insights'] = $values_1;
+        }
+        foreach ($data as $key => $value_2) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_2;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false];
     }
 }

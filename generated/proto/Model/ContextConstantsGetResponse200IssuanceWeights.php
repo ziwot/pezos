@@ -47,6 +47,10 @@ class ContextConstantsGetResponse200IssuanceWeights extends \ArrayObject
      * @var int
      */
     protected $vdfRevelationTipWeight;
+    /**
+     * @var int
+     */
+    protected $dalRewardsWeight;
 
     /**
      * Decimal representation of a positive big number.
@@ -128,6 +132,19 @@ class ContextConstantsGetResponse200IssuanceWeights extends \ArrayObject
     {
         $this->initialized['vdfRevelationTipWeight'] = true;
         $this->vdfRevelationTipWeight = $vdfRevelationTipWeight;
+
+        return $this;
+    }
+
+    public function getDalRewardsWeight(): int
+    {
+        return $this->dalRewardsWeight;
+    }
+
+    public function setDalRewardsWeight(int $dalRewardsWeight): self
+    {
+        $this->initialized['dalRewardsWeight'] = true;
+        $this->dalRewardsWeight = $dalRewardsWeight;
 
         return $this;
     }

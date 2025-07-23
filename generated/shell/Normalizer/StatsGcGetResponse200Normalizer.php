@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,307 +20,152 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class StatsGcGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class StatsGcGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\StatsGcGetResponse200();
-            if (\array_key_exists('minor_words', $data) && \is_int($data['minor_words'])) {
-                $data['minor_words'] = (float) $data['minor_words'];
-            }
-            if (\array_key_exists('promoted_words', $data) && \is_int($data['promoted_words'])) {
-                $data['promoted_words'] = (float) $data['promoted_words'];
-            }
-            if (\array_key_exists('major_words', $data) && \is_int($data['major_words'])) {
-                $data['major_words'] = (float) $data['major_words'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('minor_words', $data)) {
-                $object->setMinorWords($data['minor_words']);
-                unset($data['minor_words']);
-            }
-            if (\array_key_exists('promoted_words', $data)) {
-                $object->setPromotedWords($data['promoted_words']);
-                unset($data['promoted_words']);
-            }
-            if (\array_key_exists('major_words', $data)) {
-                $object->setMajorWords($data['major_words']);
-                unset($data['major_words']);
-            }
-            if (\array_key_exists('minor_collections', $data)) {
-                $object->setMinorCollections($data['minor_collections']);
-                unset($data['minor_collections']);
-            }
-            if (\array_key_exists('major_collections', $data)) {
-                $object->setMajorCollections($data['major_collections']);
-                unset($data['major_collections']);
-            }
-            if (\array_key_exists('forced_major_collections', $data)) {
-                $object->setForcedMajorCollections($data['forced_major_collections']);
-                unset($data['forced_major_collections']);
-            }
-            if (\array_key_exists('heap_words', $data)) {
-                $object->setHeapWords($data['heap_words']);
-                unset($data['heap_words']);
-            }
-            if (\array_key_exists('heap_chunks', $data)) {
-                $object->setHeapChunks($data['heap_chunks']);
-                unset($data['heap_chunks']);
-            }
-            if (\array_key_exists('live_words', $data)) {
-                $object->setLiveWords($data['live_words']);
-                unset($data['live_words']);
-            }
-            if (\array_key_exists('live_blocks', $data)) {
-                $object->setLiveBlocks($data['live_blocks']);
-                unset($data['live_blocks']);
-            }
-            if (\array_key_exists('free_words', $data)) {
-                $object->setFreeWords($data['free_words']);
-                unset($data['free_words']);
-            }
-            if (\array_key_exists('free_blocks', $data)) {
-                $object->setFreeBlocks($data['free_blocks']);
-                unset($data['free_blocks']);
-            }
-            if (\array_key_exists('largest_free', $data)) {
-                $object->setLargestFree($data['largest_free']);
-                unset($data['largest_free']);
-            }
-            if (\array_key_exists('fragments', $data)) {
-                $object->setFragments($data['fragments']);
-                unset($data['fragments']);
-            }
-            if (\array_key_exists('compactions', $data)) {
-                $object->setCompactions($data['compactions']);
-                unset($data['compactions']);
-            }
-            if (\array_key_exists('top_heap_words', $data)) {
-                $object->setTopHeapWords($data['top_heap_words']);
-                unset($data['top_heap_words']);
-            }
-            if (\array_key_exists('stack_size', $data)) {
-                $object->setStackSize($data['stack_size']);
-                unset($data['stack_size']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['minor_words'] = $object->getMinorWords();
-            $data['promoted_words'] = $object->getPromotedWords();
-            $data['major_words'] = $object->getMajorWords();
-            $data['minor_collections'] = $object->getMinorCollections();
-            $data['major_collections'] = $object->getMajorCollections();
-            $data['forced_major_collections'] = $object->getForcedMajorCollections();
-            $data['heap_words'] = $object->getHeapWords();
-            $data['heap_chunks'] = $object->getHeapChunks();
-            $data['live_words'] = $object->getLiveWords();
-            $data['live_blocks'] = $object->getLiveBlocks();
-            $data['free_words'] = $object->getFreeWords();
-            $data['free_blocks'] = $object->getFreeBlocks();
-            $data['largest_free'] = $object->getLargestFree();
-            $data['fragments'] = $object->getFragments();
-            $data['compactions'] = $object->getCompactions();
-            $data['top_heap_words'] = $object->getTopHeapWords();
-            $data['stack_size'] = $object->getStackSize();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
     }
-} else {
-    class StatsGcGetResponse200Normalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\StatsGcGetResponse200::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\StatsGcGetResponse200();
-            if (\array_key_exists('minor_words', $data) && \is_int($data['minor_words'])) {
-                $data['minor_words'] = (float) $data['minor_words'];
-            }
-            if (\array_key_exists('promoted_words', $data) && \is_int($data['promoted_words'])) {
-                $data['promoted_words'] = (float) $data['promoted_words'];
-            }
-            if (\array_key_exists('major_words', $data) && \is_int($data['major_words'])) {
-                $data['major_words'] = (float) $data['major_words'];
-            }
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('minor_words', $data)) {
-                $object->setMinorWords($data['minor_words']);
-                unset($data['minor_words']);
-            }
-            if (\array_key_exists('promoted_words', $data)) {
-                $object->setPromotedWords($data['promoted_words']);
-                unset($data['promoted_words']);
-            }
-            if (\array_key_exists('major_words', $data)) {
-                $object->setMajorWords($data['major_words']);
-                unset($data['major_words']);
-            }
-            if (\array_key_exists('minor_collections', $data)) {
-                $object->setMinorCollections($data['minor_collections']);
-                unset($data['minor_collections']);
-            }
-            if (\array_key_exists('major_collections', $data)) {
-                $object->setMajorCollections($data['major_collections']);
-                unset($data['major_collections']);
-            }
-            if (\array_key_exists('forced_major_collections', $data)) {
-                $object->setForcedMajorCollections($data['forced_major_collections']);
-                unset($data['forced_major_collections']);
-            }
-            if (\array_key_exists('heap_words', $data)) {
-                $object->setHeapWords($data['heap_words']);
-                unset($data['heap_words']);
-            }
-            if (\array_key_exists('heap_chunks', $data)) {
-                $object->setHeapChunks($data['heap_chunks']);
-                unset($data['heap_chunks']);
-            }
-            if (\array_key_exists('live_words', $data)) {
-                $object->setLiveWords($data['live_words']);
-                unset($data['live_words']);
-            }
-            if (\array_key_exists('live_blocks', $data)) {
-                $object->setLiveBlocks($data['live_blocks']);
-                unset($data['live_blocks']);
-            }
-            if (\array_key_exists('free_words', $data)) {
-                $object->setFreeWords($data['free_words']);
-                unset($data['free_words']);
-            }
-            if (\array_key_exists('free_blocks', $data)) {
-                $object->setFreeBlocks($data['free_blocks']);
-                unset($data['free_blocks']);
-            }
-            if (\array_key_exists('largest_free', $data)) {
-                $object->setLargestFree($data['largest_free']);
-                unset($data['largest_free']);
-            }
-            if (\array_key_exists('fragments', $data)) {
-                $object->setFragments($data['fragments']);
-                unset($data['fragments']);
-            }
-            if (\array_key_exists('compactions', $data)) {
-                $object->setCompactions($data['compactions']);
-                unset($data['compactions']);
-            }
-            if (\array_key_exists('top_heap_words', $data)) {
-                $object->setTopHeapWords($data['top_heap_words']);
-                unset($data['top_heap_words']);
-            }
-            if (\array_key_exists('stack_size', $data)) {
-                $object->setStackSize($data['stack_size']);
-                unset($data['stack_size']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\StatsGcGetResponse200();
+        if (\array_key_exists('minor_words', $data) && \is_int($data['minor_words'])) {
+            $data['minor_words'] = (float) $data['minor_words'];
+        }
+        if (\array_key_exists('promoted_words', $data) && \is_int($data['promoted_words'])) {
+            $data['promoted_words'] = (float) $data['promoted_words'];
+        }
+        if (\array_key_exists('major_words', $data) && \is_int($data['major_words'])) {
+            $data['major_words'] = (float) $data['major_words'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['minor_words'] = $object->getMinorWords();
-            $data['promoted_words'] = $object->getPromotedWords();
-            $data['major_words'] = $object->getMajorWords();
-            $data['minor_collections'] = $object->getMinorCollections();
-            $data['major_collections'] = $object->getMajorCollections();
-            $data['forced_major_collections'] = $object->getForcedMajorCollections();
-            $data['heap_words'] = $object->getHeapWords();
-            $data['heap_chunks'] = $object->getHeapChunks();
-            $data['live_words'] = $object->getLiveWords();
-            $data['live_blocks'] = $object->getLiveBlocks();
-            $data['free_words'] = $object->getFreeWords();
-            $data['free_blocks'] = $object->getFreeBlocks();
-            $data['largest_free'] = $object->getLargestFree();
-            $data['fragments'] = $object->getFragments();
-            $data['compactions'] = $object->getCompactions();
-            $data['top_heap_words'] = $object->getTopHeapWords();
-            $data['stack_size'] = $object->getStackSize();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
+        if (\array_key_exists('minor_words', $data)) {
+            $object->setMinorWords($data['minor_words']);
+            unset($data['minor_words']);
+        }
+        if (\array_key_exists('promoted_words', $data)) {
+            $object->setPromotedWords($data['promoted_words']);
+            unset($data['promoted_words']);
+        }
+        if (\array_key_exists('major_words', $data)) {
+            $object->setMajorWords($data['major_words']);
+            unset($data['major_words']);
+        }
+        if (\array_key_exists('minor_collections', $data)) {
+            $object->setMinorCollections($data['minor_collections']);
+            unset($data['minor_collections']);
+        }
+        if (\array_key_exists('major_collections', $data)) {
+            $object->setMajorCollections($data['major_collections']);
+            unset($data['major_collections']);
+        }
+        if (\array_key_exists('forced_major_collections', $data)) {
+            $object->setForcedMajorCollections($data['forced_major_collections']);
+            unset($data['forced_major_collections']);
+        }
+        if (\array_key_exists('heap_words', $data)) {
+            $object->setHeapWords($data['heap_words']);
+            unset($data['heap_words']);
+        }
+        if (\array_key_exists('heap_chunks', $data)) {
+            $object->setHeapChunks($data['heap_chunks']);
+            unset($data['heap_chunks']);
+        }
+        if (\array_key_exists('live_words', $data)) {
+            $object->setLiveWords($data['live_words']);
+            unset($data['live_words']);
+        }
+        if (\array_key_exists('live_blocks', $data)) {
+            $object->setLiveBlocks($data['live_blocks']);
+            unset($data['live_blocks']);
+        }
+        if (\array_key_exists('free_words', $data)) {
+            $object->setFreeWords($data['free_words']);
+            unset($data['free_words']);
+        }
+        if (\array_key_exists('free_blocks', $data)) {
+            $object->setFreeBlocks($data['free_blocks']);
+            unset($data['free_blocks']);
+        }
+        if (\array_key_exists('largest_free', $data)) {
+            $object->setLargestFree($data['largest_free']);
+            unset($data['largest_free']);
+        }
+        if (\array_key_exists('fragments', $data)) {
+            $object->setFragments($data['fragments']);
+            unset($data['fragments']);
+        }
+        if (\array_key_exists('compactions', $data)) {
+            $object->setCompactions($data['compactions']);
+            unset($data['compactions']);
+        }
+        if (\array_key_exists('top_heap_words', $data)) {
+            $object->setTopHeapWords($data['top_heap_words']);
+            unset($data['top_heap_words']);
+        }
+        if (\array_key_exists('stack_size', $data)) {
+            $object->setStackSize($data['stack_size']);
+            unset($data['stack_size']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['minor_words'] = $data->getMinorWords();
+        $dataArray['promoted_words'] = $data->getPromotedWords();
+        $dataArray['major_words'] = $data->getMajorWords();
+        $dataArray['minor_collections'] = $data->getMinorCollections();
+        $dataArray['major_collections'] = $data->getMajorCollections();
+        $dataArray['forced_major_collections'] = $data->getForcedMajorCollections();
+        $dataArray['heap_words'] = $data->getHeapWords();
+        $dataArray['heap_chunks'] = $data->getHeapChunks();
+        $dataArray['live_words'] = $data->getLiveWords();
+        $dataArray['live_blocks'] = $data->getLiveBlocks();
+        $dataArray['free_words'] = $data->getFreeWords();
+        $dataArray['free_blocks'] = $data->getFreeBlocks();
+        $dataArray['largest_free'] = $data->getLargestFree();
+        $dataArray['fragments'] = $data->getFragments();
+        $dataArray['compactions'] = $data->getCompactions();
+        $dataArray['top_heap_words'] = $data->getTopHeapWords();
+        $dataArray['stack_size'] = $data->getStackSize();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\StatsGcGetResponse200::class => false];
     }
 }

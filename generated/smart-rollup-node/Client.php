@@ -13,6 +13,24 @@ namespace Pezos\Generated\Rollup;
 class Client extends Runtime\Client\Client
 {
     /**
+     * Clear operation queues of injectors.
+     *
+     * @param array $queryParameters {
+     *
+     * @var string $order_below
+     * @var string $drop_no_order
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    public function deleteAdminBatcherQueue(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\DeleteAdminBatcherQueue($queryParameters), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
      * @return \Psr\Http\Message\ResponseInterface|null
@@ -27,7 +45,9 @@ class Client extends Runtime\Client\Client
      *
      * @param array $queryParameters {
      *
-     * @var string $tag A kind of operation for the injector.
+     * @var string $order_below
+     * @var string $tag a kind of operation for the injector
+     * @var string $drop_no_order
      *             }
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
@@ -112,6 +132,19 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Commitment status of the rollup state which will include content of this block.
+     *
+     * @param string $blockId an L1 block identifier
+     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return \Psr\Http\Message\ResponseInterface|null
+     */
+    public function getGlobalBlockByBlockIdCommittedStatus(string $blockId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGlobalBlockByBlockIdCommittedStatus($blockId), $fetch);
+    }
+
+    /**
      * Data availability processed slots and their statuses.
      *
      * @param string $blockId an L1 block identifier
@@ -189,6 +222,24 @@ class Client extends Runtime\Client\Client
     public function getGlobalBlockByBlockIdDurableWasm200Value(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetGlobalBlockByBlockIdDurableWasm200Value($blockId, $queryParameters), $fetch);
+    }
+
+    /**
+     * Retrieve values directly under a given key from PVM durable storage. PVM state is taken with respect to the specified block level.
+     *
+     * @param string $blockId         an L1 block identifier
+     * @param array  $queryParameters {
+     *
+     * @var string $key
+     *             }
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     */
+    public function getGlobalBlockByBlockIdDurableWasm200Values(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGlobalBlockByBlockIdDurableWasm200Values($blockId, $queryParameters), $fetch);
     }
 
     /**
@@ -454,6 +505,7 @@ class Client extends Runtime\Client\Client
      * @param array[]|null $requestBody
      * @param array        $queryParameters {
      *
+     * @var string $order
      * @var string $drop_duplicate
      *             }
      *

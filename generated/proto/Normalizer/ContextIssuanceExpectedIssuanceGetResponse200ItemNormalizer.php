@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,179 +20,93 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('cycle', $data)) {
-                $object->setCycle($data['cycle']);
-                unset($data['cycle']);
-            }
-            if (\array_key_exists('baking_reward_fixed_portion', $data)) {
-                $object->setBakingRewardFixedPortion($data['baking_reward_fixed_portion']);
-                unset($data['baking_reward_fixed_portion']);
-            }
-            if (\array_key_exists('baking_reward_bonus_per_slot', $data)) {
-                $object->setBakingRewardBonusPerSlot($data['baking_reward_bonus_per_slot']);
-                unset($data['baking_reward_bonus_per_slot']);
-            }
-            if (\array_key_exists('attesting_reward_per_slot', $data)) {
-                $object->setAttestingRewardPerSlot($data['attesting_reward_per_slot']);
-                unset($data['attesting_reward_per_slot']);
-            }
-            if (\array_key_exists('seed_nonce_revelation_tip', $data)) {
-                $object->setSeedNonceRevelationTip($data['seed_nonce_revelation_tip']);
-                unset($data['seed_nonce_revelation_tip']);
-            }
-            if (\array_key_exists('vdf_revelation_tip', $data)) {
-                $object->setVdfRevelationTip($data['vdf_revelation_tip']);
-                unset($data['vdf_revelation_tip']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['cycle'] = $object->getCycle();
-            $data['baking_reward_fixed_portion'] = $object->getBakingRewardFixedPortion();
-            $data['baking_reward_bonus_per_slot'] = $object->getBakingRewardBonusPerSlot();
-            $data['attesting_reward_per_slot'] = $object->getAttestingRewardPerSlot();
-            $data['seed_nonce_revelation_tip'] = $object->getSeedNonceRevelationTip();
-            $data['vdf_revelation_tip'] = $object->getVdfRevelationTip();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
     }
-} else {
-    class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('cycle', $data)) {
-                $object->setCycle($data['cycle']);
-                unset($data['cycle']);
-            }
-            if (\array_key_exists('baking_reward_fixed_portion', $data)) {
-                $object->setBakingRewardFixedPortion($data['baking_reward_fixed_portion']);
-                unset($data['baking_reward_fixed_portion']);
-            }
-            if (\array_key_exists('baking_reward_bonus_per_slot', $data)) {
-                $object->setBakingRewardBonusPerSlot($data['baking_reward_bonus_per_slot']);
-                unset($data['baking_reward_bonus_per_slot']);
-            }
-            if (\array_key_exists('attesting_reward_per_slot', $data)) {
-                $object->setAttestingRewardPerSlot($data['attesting_reward_per_slot']);
-                unset($data['attesting_reward_per_slot']);
-            }
-            if (\array_key_exists('seed_nonce_revelation_tip', $data)) {
-                $object->setSeedNonceRevelationTip($data['seed_nonce_revelation_tip']);
-                unset($data['seed_nonce_revelation_tip']);
-            }
-            if (\array_key_exists('vdf_revelation_tip', $data)) {
-                $object->setVdfRevelationTip($data['vdf_revelation_tip']);
-                unset($data['vdf_revelation_tip']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['cycle'] = $object->getCycle();
-            $data['baking_reward_fixed_portion'] = $object->getBakingRewardFixedPortion();
-            $data['baking_reward_bonus_per_slot'] = $object->getBakingRewardBonusPerSlot();
-            $data['attesting_reward_per_slot'] = $object->getAttestingRewardPerSlot();
-            $data['seed_nonce_revelation_tip'] = $object->getSeedNonceRevelationTip();
-            $data['vdf_revelation_tip'] = $object->getVdfRevelationTip();
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
+        if (\array_key_exists('cycle', $data)) {
+            $object->setCycle($data['cycle']);
+            unset($data['cycle']);
+        }
+        if (\array_key_exists('baking_reward_fixed_portion', $data)) {
+            $object->setBakingRewardFixedPortion($data['baking_reward_fixed_portion']);
+            unset($data['baking_reward_fixed_portion']);
+        }
+        if (\array_key_exists('baking_reward_bonus_per_slot', $data)) {
+            $object->setBakingRewardBonusPerSlot($data['baking_reward_bonus_per_slot']);
+            unset($data['baking_reward_bonus_per_slot']);
+        }
+        if (\array_key_exists('attesting_reward_per_slot', $data)) {
+            $object->setAttestingRewardPerSlot($data['attesting_reward_per_slot']);
+            unset($data['attesting_reward_per_slot']);
+        }
+        if (\array_key_exists('seed_nonce_revelation_tip', $data)) {
+            $object->setSeedNonceRevelationTip($data['seed_nonce_revelation_tip']);
+            unset($data['seed_nonce_revelation_tip']);
+        }
+        if (\array_key_exists('vdf_revelation_tip', $data)) {
+            $object->setVdfRevelationTip($data['vdf_revelation_tip']);
+            unset($data['vdf_revelation_tip']);
+        }
+        if (\array_key_exists('dal_attesting_reward_per_shard', $data)) {
+            $object->setDalAttestingRewardPerShard($data['dal_attesting_reward_per_shard']);
+            unset($data['dal_attesting_reward_per_shard']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['cycle'] = $data->getCycle();
+        $dataArray['baking_reward_fixed_portion'] = $data->getBakingRewardFixedPortion();
+        $dataArray['baking_reward_bonus_per_slot'] = $data->getBakingRewardBonusPerSlot();
+        $dataArray['attesting_reward_per_slot'] = $data->getAttestingRewardPerSlot();
+        $dataArray['seed_nonce_revelation_tip'] = $data->getSeedNonceRevelationTip();
+        $dataArray['vdf_revelation_tip'] = $data->getVdfRevelationTip();
+        $dataArray['dal_attesting_reward_per_shard'] = $data->getDalAttestingRewardPerShard();
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
         }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item::class => false];
     }
 }

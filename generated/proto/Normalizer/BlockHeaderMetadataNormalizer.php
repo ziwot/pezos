@@ -13,7 +13,6 @@ namespace Pezos\Generated\Proto\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Proto\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Proto\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,205 +20,101 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class BlockHeaderMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class BlockHeaderMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\BlockHeaderMetadata();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('protocol', $data)) {
-                $object->setProtocol($data['protocol']);
-                unset($data['protocol']);
-            }
-            if (\array_key_exists('next_protocol', $data)) {
-                $object->setNextProtocol($data['next_protocol']);
-                unset($data['next_protocol']);
-            }
-            if (\array_key_exists('test_chain_status', $data)) {
-                $object->setTestChainStatus($data['test_chain_status']);
-                unset($data['test_chain_status']);
-            }
-            if (\array_key_exists('max_operations_ttl', $data)) {
-                $object->setMaxOperationsTtl($data['max_operations_ttl']);
-                unset($data['max_operations_ttl']);
-            }
-            if (\array_key_exists('max_operation_data_length', $data)) {
-                $object->setMaxOperationDataLength($data['max_operation_data_length']);
-                unset($data['max_operation_data_length']);
-            }
-            if (\array_key_exists('max_block_header_length', $data)) {
-                $object->setMaxBlockHeaderLength($data['max_block_header_length']);
-                unset($data['max_block_header_length']);
-            }
-            if (\array_key_exists('max_operation_list_length', $data)) {
-                $values = [];
-                foreach ($data['max_operation_list_length'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class, 'json', $context);
-                }
-                $object->setMaxOperationListLength($values);
-                unset($data['max_operation_list_length']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            $data['protocol'] = $object->getProtocol();
-            $data['next_protocol'] = $object->getNextProtocol();
-            $data['test_chain_status'] = $object->getTestChainStatus();
-            $data['max_operations_ttl'] = $object->getMaxOperationsTtl();
-            $data['max_operation_data_length'] = $object->getMaxOperationDataLength();
-            $data['max_block_header_length'] = $object->getMaxBlockHeaderLength();
-            $values = [];
-            foreach ($object->getMaxOperationListLength() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
-            }
-            $data['max_operation_list_length'] = $values;
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false];
-        }
+        return $type === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
     }
-} else {
-    class BlockHeaderMetadataNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Proto\Model\BlockHeaderMetadata();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('protocol', $data)) {
-                $object->setProtocol($data['protocol']);
-                unset($data['protocol']);
-            }
-            if (\array_key_exists('next_protocol', $data)) {
-                $object->setNextProtocol($data['next_protocol']);
-                unset($data['next_protocol']);
-            }
-            if (\array_key_exists('test_chain_status', $data)) {
-                $object->setTestChainStatus($data['test_chain_status']);
-                unset($data['test_chain_status']);
-            }
-            if (\array_key_exists('max_operations_ttl', $data)) {
-                $object->setMaxOperationsTtl($data['max_operations_ttl']);
-                unset($data['max_operations_ttl']);
-            }
-            if (\array_key_exists('max_operation_data_length', $data)) {
-                $object->setMaxOperationDataLength($data['max_operation_data_length']);
-                unset($data['max_operation_data_length']);
-            }
-            if (\array_key_exists('max_block_header_length', $data)) {
-                $object->setMaxBlockHeaderLength($data['max_block_header_length']);
-                unset($data['max_block_header_length']);
-            }
-            if (\array_key_exists('max_operation_list_length', $data)) {
-                $values = [];
-                foreach ($data['max_operation_list_length'] as $value) {
-                    $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class, 'json', $context);
-                }
-                $object->setMaxOperationListLength($values);
-                unset($data['max_operation_list_length']);
-            }
-            foreach ($data as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value_1;
-                }
-            }
-
+        $object = new \Pezos\Generated\Proto\Model\BlockHeaderMetadata();
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            $data['protocol'] = $object->getProtocol();
-            $data['next_protocol'] = $object->getNextProtocol();
-            $data['test_chain_status'] = $object->getTestChainStatus();
-            $data['max_operations_ttl'] = $object->getMaxOperationsTtl();
-            $data['max_operation_data_length'] = $object->getMaxOperationDataLength();
-            $data['max_block_header_length'] = $object->getMaxBlockHeaderLength();
+        if (\array_key_exists('protocol', $data)) {
+            $object->setProtocol($data['protocol']);
+            unset($data['protocol']);
+        }
+        if (\array_key_exists('next_protocol', $data)) {
+            $object->setNextProtocol($data['next_protocol']);
+            unset($data['next_protocol']);
+        }
+        if (\array_key_exists('test_chain_status', $data)) {
+            $object->setTestChainStatus($data['test_chain_status']);
+            unset($data['test_chain_status']);
+        }
+        if (\array_key_exists('max_operations_ttl', $data)) {
+            $object->setMaxOperationsTtl($data['max_operations_ttl']);
+            unset($data['max_operations_ttl']);
+        }
+        if (\array_key_exists('max_operation_data_length', $data)) {
+            $object->setMaxOperationDataLength($data['max_operation_data_length']);
+            unset($data['max_operation_data_length']);
+        }
+        if (\array_key_exists('max_block_header_length', $data)) {
+            $object->setMaxBlockHeaderLength($data['max_block_header_length']);
+            unset($data['max_block_header_length']);
+        }
+        if (\array_key_exists('max_operation_list_length', $data)) {
             $values = [];
-            foreach ($object->getMaxOperationListLength() as $value) {
-                $values[] = $this->normalizer->normalize($value, 'json', $context);
+            foreach ($data['max_operation_list_length'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class, 'json', $context);
             }
-            $data['max_operation_list_length'] = $values;
-            foreach ($object as $key => $value_1) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value_1;
-                }
+            $object->setMaxOperationListLength($values);
+            unset($data['max_operation_list_length']);
+        }
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value_1;
             }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        $dataArray['protocol'] = $data->getProtocol();
+        $dataArray['next_protocol'] = $data->getNextProtocol();
+        $dataArray['test_chain_status'] = $data->getTestChainStatus();
+        $dataArray['max_operations_ttl'] = $data->getMaxOperationsTtl();
+        $dataArray['max_operation_data_length'] = $data->getMaxOperationDataLength();
+        $dataArray['max_block_header_length'] = $data->getMaxBlockHeaderLength();
+        $values = [];
+        foreach ($data->getMaxOperationListLength() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
+        $dataArray['max_operation_list_length'] = $values;
+        foreach ($data as $key => $value_1) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value_1;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false];
     }
 }

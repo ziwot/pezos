@@ -13,7 +13,6 @@ namespace Pezos\Generated\Shell\Normalizer;
 use Jane\Component\JsonSchemaRuntime\Reference;
 use Pezos\Generated\Shell\Runtime\Normalizer\CheckArray;
 use Pezos\Generated\Shell\Runtime\Normalizer\ValidatorTrait;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -21,217 +20,110 @@ use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-if (!class_exists(Kernel::class) or (Kernel::MAJOR_VERSION >= 7 or Kernel::MAJOR_VERSION === 6 and Kernel::MINOR_VERSION === 4)) {
-    class ConfigGetResponse200ShellNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+class ConfigGetResponse200ShellNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+{
+    use DenormalizerAwareTrait;
+    use NormalizerAwareTrait;
+    use CheckArray;
+    use ValidatorTrait;
+
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
-
-        public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
-        }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
-        }
-
-        public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('peer_validator', $data)) {
-                $object->setPeerValidator($this->denormalizer->denormalize($data['peer_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class, 'json', $context));
-                unset($data['peer_validator']);
-            }
-            if (\array_key_exists('block_validator', $data)) {
-                $object->setBlockValidator($this->denormalizer->denormalize($data['block_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class, 'json', $context));
-                unset($data['block_validator']);
-            }
-            if (\array_key_exists('prevalidator', $data)) {
-                $object->setPrevalidator($this->denormalizer->denormalize($data['prevalidator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class, 'json', $context));
-                unset($data['prevalidator']);
-            }
-            if (\array_key_exists('chain_validator', $data)) {
-                $object->setChainValidator($data['chain_validator']);
-                unset($data['chain_validator']);
-            }
-            if (\array_key_exists('history_mode', $data)) {
-                $object->setHistoryMode($data['history_mode']);
-                unset($data['history_mode']);
-            }
-            if (\array_key_exists('disable_context_pruning', $data)) {
-                $object->setDisableContextPruning($data['disable_context_pruning']);
-                unset($data['disable_context_pruning']);
-            }
-            if (\array_key_exists('storage_maintenance_delay', $data)) {
-                $object->setStorageMaintenanceDelay($data['storage_maintenance_delay']);
-                unset($data['storage_maintenance_delay']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
-            return $object;
-        }
-
-        public function normalize(mixed $object, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
-        {
-            $data = [];
-            if ($object->isInitialized('peerValidator') && null !== $object->getPeerValidator()) {
-                $data['peer_validator'] = $this->normalizer->normalize($object->getPeerValidator(), 'json', $context);
-            }
-            if ($object->isInitialized('blockValidator') && null !== $object->getBlockValidator()) {
-                $data['block_validator'] = $this->normalizer->normalize($object->getBlockValidator(), 'json', $context);
-            }
-            if ($object->isInitialized('prevalidator') && null !== $object->getPrevalidator()) {
-                $data['prevalidator'] = $this->normalizer->normalize($object->getPrevalidator(), 'json', $context);
-            }
-            if ($object->isInitialized('chainValidator') && null !== $object->getChainValidator()) {
-                $data['chain_validator'] = $object->getChainValidator();
-            }
-            if ($object->isInitialized('historyMode') && null !== $object->getHistoryMode()) {
-                $data['history_mode'] = $object->getHistoryMode();
-            }
-            if ($object->isInitialized('disableContextPruning') && null !== $object->getDisableContextPruning()) {
-                $data['disable_context_pruning'] = $object->getDisableContextPruning();
-            }
-            if ($object->isInitialized('storageMaintenanceDelay') && null !== $object->getStorageMaintenanceDelay()) {
-                $data['storage_maintenance_delay'] = $object->getStorageMaintenanceDelay();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
-        }
-
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false];
-        }
+        return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
     }
-} else {
-    class ConfigGetResponse200ShellNormalizer implements DenormalizerInterface, NormalizerInterface, DenormalizerAwareInterface, NormalizerAwareInterface
+
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
-        use DenormalizerAwareTrait;
-        use NormalizerAwareTrait;
-        use CheckArray;
-        use ValidatorTrait;
+        return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
+    }
 
-        public function supportsDenormalization($data, $type, ?string $format = null, array $context = []): bool
-        {
-            return $type === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
+    {
+        if (isset($data['$ref'])) {
+            return new Reference($data['$ref'], $context['document-origin']);
         }
-
-        public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
-        {
-            return is_object($data) && get_class($data) === \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class;
+        if (isset($data['$recursiveRef'])) {
+            return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-
-        public function denormalize($data, $type, $format = null, array $context = [])
-        {
-            if (isset($data['$ref'])) {
-                return new Reference($data['$ref'], $context['document-origin']);
-            }
-            if (isset($data['$recursiveRef'])) {
-                return new Reference($data['$recursiveRef'], $context['document-origin']);
-            }
-            $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell();
-            if (null === $data || false === \is_array($data)) {
-                return $object;
-            }
-            if (\array_key_exists('peer_validator', $data)) {
-                $object->setPeerValidator($this->denormalizer->denormalize($data['peer_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class, 'json', $context));
-                unset($data['peer_validator']);
-            }
-            if (\array_key_exists('block_validator', $data)) {
-                $object->setBlockValidator($this->denormalizer->denormalize($data['block_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class, 'json', $context));
-                unset($data['block_validator']);
-            }
-            if (\array_key_exists('prevalidator', $data)) {
-                $object->setPrevalidator($this->denormalizer->denormalize($data['prevalidator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class, 'json', $context));
-                unset($data['prevalidator']);
-            }
-            if (\array_key_exists('chain_validator', $data)) {
-                $object->setChainValidator($data['chain_validator']);
-                unset($data['chain_validator']);
-            }
-            if (\array_key_exists('history_mode', $data)) {
-                $object->setHistoryMode($data['history_mode']);
-                unset($data['history_mode']);
-            }
-            if (\array_key_exists('disable_context_pruning', $data)) {
-                $object->setDisableContextPruning($data['disable_context_pruning']);
-                unset($data['disable_context_pruning']);
-            }
-            if (\array_key_exists('storage_maintenance_delay', $data)) {
-                $object->setStorageMaintenanceDelay($data['storage_maintenance_delay']);
-                unset($data['storage_maintenance_delay']);
-            }
-            foreach ($data as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $object[$key] = $value;
-                }
-            }
-
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell();
+        if (\array_key_exists('disable_context_pruning', $data) && \is_int($data['disable_context_pruning'])) {
+            $data['disable_context_pruning'] = (bool) $data['disable_context_pruning'];
+        }
+        if (null === $data || false === \is_array($data)) {
             return $object;
         }
-
-        /**
-         * @return array|string|int|float|bool|\ArrayObject|null
-         */
-        public function normalize($object, $format = null, array $context = [])
-        {
-            $data = [];
-            if ($object->isInitialized('peerValidator') && null !== $object->getPeerValidator()) {
-                $data['peer_validator'] = $this->normalizer->normalize($object->getPeerValidator(), 'json', $context);
+        if (\array_key_exists('peer_validator', $data)) {
+            $object->setPeerValidator($this->denormalizer->denormalize($data['peer_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class, 'json', $context));
+            unset($data['peer_validator']);
+        }
+        if (\array_key_exists('block_validator', $data)) {
+            $object->setBlockValidator($this->denormalizer->denormalize($data['block_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator::class, 'json', $context));
+            unset($data['block_validator']);
+        }
+        if (\array_key_exists('prevalidator', $data)) {
+            $object->setPrevalidator($this->denormalizer->denormalize($data['prevalidator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator::class, 'json', $context));
+            unset($data['prevalidator']);
+        }
+        if (\array_key_exists('chain_validator', $data)) {
+            $object->setChainValidator($data['chain_validator']);
+            unset($data['chain_validator']);
+        }
+        if (\array_key_exists('history_mode', $data)) {
+            $object->setHistoryMode($data['history_mode']);
+            unset($data['history_mode']);
+        }
+        if (\array_key_exists('disable_context_pruning', $data)) {
+            $object->setDisableContextPruning($data['disable_context_pruning']);
+            unset($data['disable_context_pruning']);
+        }
+        if (\array_key_exists('storage_maintenance_delay', $data)) {
+            $object->setStorageMaintenanceDelay($data['storage_maintenance_delay']);
+            unset($data['storage_maintenance_delay']);
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $object[$key] = $value;
             }
-            if ($object->isInitialized('blockValidator') && null !== $object->getBlockValidator()) {
-                $data['block_validator'] = $this->normalizer->normalize($object->getBlockValidator(), 'json', $context);
-            }
-            if ($object->isInitialized('prevalidator') && null !== $object->getPrevalidator()) {
-                $data['prevalidator'] = $this->normalizer->normalize($object->getPrevalidator(), 'json', $context);
-            }
-            if ($object->isInitialized('chainValidator') && null !== $object->getChainValidator()) {
-                $data['chain_validator'] = $object->getChainValidator();
-            }
-            if ($object->isInitialized('historyMode') && null !== $object->getHistoryMode()) {
-                $data['history_mode'] = $object->getHistoryMode();
-            }
-            if ($object->isInitialized('disableContextPruning') && null !== $object->getDisableContextPruning()) {
-                $data['disable_context_pruning'] = $object->getDisableContextPruning();
-            }
-            if ($object->isInitialized('storageMaintenanceDelay') && null !== $object->getStorageMaintenanceDelay()) {
-                $data['storage_maintenance_delay'] = $object->getStorageMaintenanceDelay();
-            }
-            foreach ($object as $key => $value) {
-                if (preg_match('/.*/', (string) $key)) {
-                    $data[$key] = $value;
-                }
-            }
-
-            return $data;
         }
 
-        public function getSupportedTypes(?string $format = null): array
-        {
-            return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false];
+        return $object;
+    }
+
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array|string|int|float|bool|\ArrayObject|null
+    {
+        $dataArray = [];
+        if ($data->isInitialized('peerValidator') && null !== $data->getPeerValidator()) {
+            $dataArray['peer_validator'] = $this->normalizer->normalize($data->getPeerValidator(), 'json', $context);
         }
+        if ($data->isInitialized('blockValidator') && null !== $data->getBlockValidator()) {
+            $dataArray['block_validator'] = $this->normalizer->normalize($data->getBlockValidator(), 'json', $context);
+        }
+        if ($data->isInitialized('prevalidator') && null !== $data->getPrevalidator()) {
+            $dataArray['prevalidator'] = $this->normalizer->normalize($data->getPrevalidator(), 'json', $context);
+        }
+        if ($data->isInitialized('chainValidator') && null !== $data->getChainValidator()) {
+            $dataArray['chain_validator'] = $data->getChainValidator();
+        }
+        if ($data->isInitialized('historyMode') && null !== $data->getHistoryMode()) {
+            $dataArray['history_mode'] = $data->getHistoryMode();
+        }
+        if ($data->isInitialized('disableContextPruning') && null !== $data->getDisableContextPruning()) {
+            $dataArray['disable_context_pruning'] = $data->getDisableContextPruning();
+        }
+        if ($data->isInitialized('storageMaintenanceDelay') && null !== $data->getStorageMaintenanceDelay()) {
+            $dataArray['storage_maintenance_delay'] = $data->getStorageMaintenanceDelay();
+        }
+        foreach ($data as $key => $value) {
+            if (preg_match('/.*/', (string) $key)) {
+                $dataArray[$key] = $value;
+            }
+        }
+
+        return $dataArray;
+    }
+
+    public function getSupportedTypes(?string $format = null): array
+    {
+        return [\Pezos\Generated\Shell\Model\ConfigGetResponse200Shell::class => false];
     }
 }

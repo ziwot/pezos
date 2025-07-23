@@ -32,7 +32,7 @@ class HelpersForgeProtocolDataPostBody extends \ArrayObject
      */
     protected $proofOfWorkNonce;
     /**
-     * @var _021PsQuebecPerBlockVotes
+     * @var _022PsRiotumPerBlockVotes
      */
     protected $perBlockVotes;
 
@@ -88,12 +88,12 @@ class HelpersForgeProtocolDataPostBody extends \ArrayObject
         return $this;
     }
 
-    public function getPerBlockVotes(): _021PsQuebecPerBlockVotes
+    public function getPerBlockVotes(): _022PsRiotumPerBlockVotes
     {
         return $this->perBlockVotes;
     }
 
-    public function setPerBlockVotes(_021PsQuebecPerBlockVotes $perBlockVotes): self
+    public function setPerBlockVotes(_022PsRiotumPerBlockVotes $perBlockVotes): self
     {
         $this->initialized['perBlockVotes'] = true;
         $this->perBlockVotes = $perBlockVotes;
