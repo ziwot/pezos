@@ -17,10 +17,9 @@ class GetDescribe extends \Pezos\Generated\Rollup\Runtime\Client\BaseEndpoint im
     /**
      * RPCs documentation and input/output schema.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $recurse
-     *             }
+     * @param array{
+     *    "recurse": string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetDescribe extends \Pezos\Generated\Rollup\Runtime\Client\BaseEndpoint im
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

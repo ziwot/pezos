@@ -17,7 +17,7 @@ class GetLevelsByInt32SlotsByIntStatus extends \Pezos\Generated\Dal\Runtime\Clie
     protected $int;
 
     /**
-     * Return the status for the given slot.
+     * Return the status for the given slot. For operator nodes only.
      */
     public function __construct(string $int32, string $int)
     {
@@ -52,10 +52,10 @@ class GetLevelsByInt32SlotsByIntStatus extends \Pezos\Generated\Dal\Runtime\Clie
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

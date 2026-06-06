@@ -17,10 +17,9 @@ class PostHelpersParseOperations extends \Pezos\Generated\Proto\Runtime\Client\B
     /**
      * Parse operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     *             }
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Proto\Model\HelpersParseOperationsPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class PostHelpersParseOperations extends \Pezos\Generated\Proto\Runtime\Client\B
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersParseOperationsPostResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersParseOperationsPostResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

@@ -17,12 +17,11 @@ class PostInjectionBlock extends \Pezos\Generated\Shell\Runtime\Client\BaseEndpo
     /**
      * Inject a block in the node and broadcast it. The `operations` embedded in `blockHeader` might be pre-validated using a contextual RPCs from the latest block (e.g. '/blocks/head/context/preapply'). Returns the ID of the block. By default, the RPC will wait for the block to be validated before answering. If ?async is true, the function returns immediately. Otherwise, the block will be validated before the result is returned. If ?force is true, it will be injected even on non strictly increasing fitness. An optional ?chain parameter can be used to specify whether to inject on the test chain or the main chain.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $async
-     * @var string $force
-     * @var string $chain A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     *             }
+     * @param array{
+     *    "async"?: string,
+     *    "force"?: string,
+     *    "chain"?: string, //A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Shell\Model\InjectionBlockPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -74,10 +73,10 @@ class PostInjectionBlock extends \Pezos\Generated\Shell\Runtime\Client\BaseEndpo
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

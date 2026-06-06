@@ -17,10 +17,9 @@ class PostInjectionProtocol extends \Pezos\Generated\Shell\Runtime\Client\BaseEn
     /**
      * Inject a protocol in node. Returns the ID of the protocol. If ?async is true, the function returns immediately. Otherwise, the protocol will be validated before the result is returned.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $async
-     *             }
+     * @param array{
+     *    "async"?: string,
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Shell\Model\InjectionProtocolPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class PostInjectionProtocol extends \Pezos\Generated\Shell\Runtime\Client\BaseEn
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

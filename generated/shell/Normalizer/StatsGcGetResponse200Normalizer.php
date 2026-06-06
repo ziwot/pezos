@@ -39,13 +39,16 @@ class StatsGcGetResponse200Normalizer implements DenormalizerInterface, Normaliz
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\StatsGcGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\StatsGcGetResponse200();
         if (\array_key_exists('minor_words', $data) && \is_int($data['minor_words'])) {
             $data['minor_words'] = (float) $data['minor_words'];
         }
@@ -54,9 +57,6 @@ class StatsGcGetResponse200Normalizer implements DenormalizerInterface, Normaliz
         }
         if (\array_key_exists('major_words', $data) && \is_int($data['major_words'])) {
             $data['major_words'] = (float) $data['major_words'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('minor_words', $data)) {
             $object->setMinorWords($data['minor_words']);

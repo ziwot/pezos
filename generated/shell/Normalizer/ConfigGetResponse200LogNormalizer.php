@@ -39,21 +39,21 @@ class ConfigGetResponse200LogNormalizer implements DenormalizerInterface, Normal
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Log();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Log();
         if (\array_key_exists('colors', $data) && \is_int($data['colors'])) {
             $data['colors'] = (bool) $data['colors'];
         }
         if (\array_key_exists('advertises_level', $data) && \is_int($data['advertises_level'])) {
             $data['advertises_level'] = (bool) $data['advertises_level'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('output', $data)) {
             $object->setOutput($data['output']);

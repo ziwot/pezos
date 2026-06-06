@@ -21,13 +21,12 @@ class GetHelpersAttestationRights extends \Pezos\Generated\Proto\Runtime\Client\
      * Parameter `consensus_key` can be used to restrict the results to the given consensus_keys.
      * Returns the smallest attestation slots and the attestation power. Also returns the minimal timestamp that corresponds to attestation at the given level. The timestamps are omitted for levels in the past, and are only estimates for levels higher that the next block's, based on the hypothesis that all predecessor blocks were baked at the first round.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $cycle A cycle integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "cycle"?: string, //A cycle integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -75,10 +74,10 @@ class GetHelpersAttestationRights extends \Pezos\Generated\Proto\Runtime\Client\
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersAttestationRightsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

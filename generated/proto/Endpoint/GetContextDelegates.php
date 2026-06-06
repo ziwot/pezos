@@ -17,13 +17,12 @@ class GetContextDelegates extends \Pezos\Generated\Proto\Runtime\Client\BaseEndp
     /**
      * Lists all registered delegates by default. The arguments `active`, `inactive`, `with_minimal_stake`, and `without_minimal_stake` allow to enumerate only the delegates that are active, inactive, have at least a minimal stake to participate in consensus and in governance, or do not have such a minimal stake, respectively. Note, setting these arguments to false has no effect.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $active
-     * @var string $inactive
-     * @var string $with_minimal_stake
-     * @var string $without_minimal_stake
-     *             }
+     * @param array{
+     *    "active"?: string,
+     *    "inactive"?: string,
+     *    "with_minimal_stake"?: string,
+     *    "without_minimal_stake"?: string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -71,10 +70,10 @@ class GetContextDelegates extends \Pezos\Generated\Proto\Runtime\Client\BaseEndp
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

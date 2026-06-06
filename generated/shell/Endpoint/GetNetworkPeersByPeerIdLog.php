@@ -18,11 +18,10 @@ class GetNetworkPeersByPeerIdLog extends \Pezos\Generated\Shell\Runtime\Client\B
     /**
      * Monitor network events related to a given peer.
      *
-     * @param string $peerId          A cryptographic node identity (Base58Check-encoded)
-     * @param array  $queryParameters {
-     *
-     * @var string $monitor
-     *             }
+     * @param string $peerId A cryptographic node identity (Base58Check-encoded)
+     * @param array{
+     *    "monitor"?: string,
+     * } $queryParameters
      */
     public function __construct(string $peerId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetNetworkPeersByPeerIdLog extends \Pezos\Generated\Shell\Runtime\Client\B
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Shell\\Model\\P2pPeerPoolEvent[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Shell\Model\P2pPeerPoolEvent[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

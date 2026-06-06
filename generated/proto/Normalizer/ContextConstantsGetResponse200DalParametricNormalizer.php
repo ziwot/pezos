@@ -39,21 +39,21 @@ class ContextConstantsGetResponse200DalParametricNormalizer implements Denormali
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200DalParametric();
         if (\array_key_exists('feature_enable', $data) && \is_int($data['feature_enable'])) {
             $data['feature_enable'] = (bool) $data['feature_enable'];
         }
         if (\array_key_exists('incentives_enable', $data) && \is_int($data['incentives_enable'])) {
             $data['incentives_enable'] = (bool) $data['incentives_enable'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('feature_enable', $data)) {
             $object->setFeatureEnable($data['feature_enable']);

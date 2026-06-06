@@ -18,7 +18,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postBanOperation($requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -28,14 +28,12 @@ class Client extends Runtime\Client\Client
     /**
      * Get the configuration of the mempool's filter and bounds. Values of the form [ "21", "20" ] are rational numbers given as a numerator and a denominator, e.g. 21/20 = 1.05. The minimal_fees (in mutez), minimal_nanotez_per_gas_unit, and minimal_nanotez_per_byte are requirements that a manager operation must meet to be considered by the mempool. replace_by_fee_factor is how much better a manager operation must be to replace a previous valid operation **from the same manager** (both its fee and its fee/gas ratio must exceed the old operation's by at least this factor). max_operations and max_total_bytes are the bounds on respectively the number of valid operations in the mempool and the sum of their sizes in bytes.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $include_default Show fields equal to their default value (set by default)
-     *             }
-     *
+     * @param array{
+     *    "include_default": string, //Show fields equal to their default value (set by default)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getFilter(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -48,7 +46,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postFilter($requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -58,21 +56,19 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor the mempool operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $validated Include validated operations (set by default)
-     * @var string $refused Include refused operations
-     * @var string $outdated Include outdated operations
-     * @var string $branch_refused Include branch refused operations
-     * @var string $branch_delayed Include branch delayed operations (set by default)
-     * @var string $validation_pass Include operations filtered by validation pass (all by default)
-     * @var string $sources Include operations filtered by sources (all by default)
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "validated": string, //Include validated operations (set by default)
+     *    "refused": string, //Include refused operations
+     *    "outdated": string, //Include outdated operations
+     *    "branch_refused": string, //Include branch refused operations
+     *    "branch_delayed": string, //Include branch delayed operations (set by default)
+     *    "validation_pass"?: string, //Include operations filtered by validation pass (all by default)
+     *    "sources"?: string, //Include operations filtered by sources (all by default)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorOperationsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorOperationsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorOperations(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -82,22 +78,20 @@ class Client extends Runtime\Client\Client
     /**
      * List the prevalidated operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "2" (default)
-     * @var string $validated Include validated operations (true by default)
-     * @var string $refused Include refused operations (true by default)
-     * @var string $outdated Include outdated operations (true by default)
-     * @var string $branch_refused Include branch refused operations (true by default)
-     * @var string $branch_delayed Include branch delayed operations (true by default)
-     * @var string $validation_pass Include operations filtered by validation pass (all by default)
-     * @var string $source Include operations filtered by source (all by default)
-     * @var string $operation_hash Include operations filtered by hash (all by default)
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "2" (default)
+     *    "validated": string, //Include validated operations (true by default)
+     *    "refused": string, //Include refused operations (true by default)
+     *    "outdated": string, //Include outdated operations (true by default)
+     *    "branch_refused": string, //Include branch refused operations (true by default)
+     *    "branch_delayed": string, //Include branch delayed operations (true by default)
+     *    "validation_pass"?: string, //Include operations filtered by validation pass (all by default)
+     *    "source"?: string, //Include operations filtered by source (all by default)
+     *    "operation_hash"?: string, //Include operations filtered by hash (all by default)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\PendingOperationsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\PendingOperationsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getPendingOperation(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -107,14 +101,12 @@ class Client extends Runtime\Client\Client
     /**
      * Request the operations of our peers or a specific peer if specified via a query parameter.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $peer_id A cryptographic node identity (Base58Check-encoded)
-     *             }
-     *
+     * @param array{
+     *    "peer_id"?: string, //A cryptographic node identity (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\RequestOperationsPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\RequestOperationsPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postRequestOperation(?Model\RequestOperationsPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -126,7 +118,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postUnbanAllOperation(?Model\UnbanAllOperationsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -139,7 +131,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postUnbanOperation($requestBody = null, string $fetch = self::FETCH_OBJECT)
     {

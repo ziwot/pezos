@@ -39,18 +39,18 @@ class HelpersScriptsRunScriptViewPostBodyNormalizer implements DenormalizerInter
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsRunScriptViewPostBody();
         if (\array_key_exists('unlimited_gas', $data) && \is_int($data['unlimited_gas'])) {
             $data['unlimited_gas'] = (bool) $data['unlimited_gas'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('contract', $data)) {
             $object->setContract($data['contract']);

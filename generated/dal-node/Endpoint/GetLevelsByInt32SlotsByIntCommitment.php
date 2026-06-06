@@ -17,7 +17,7 @@ class GetLevelsByInt32SlotsByIntCommitment extends \Pezos\Generated\Dal\Runtime\
     protected $int;
 
     /**
-     * Return the accepted commitment associated to the given slot index and published at the given level.
+     * Return the commitment associated to the given slot index and published at the given level, if any. The commitment is fetched from the skip-list storage. Note that the commitment is not present in the storage immediately after publication, but only when its attestation status is known and final.
      */
     public function __construct(string $int32, string $int)
     {
@@ -52,10 +52,10 @@ class GetLevelsByInt32SlotsByIntCommitment extends \Pezos\Generated\Dal\Runtime\
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

@@ -17,11 +17,10 @@ class PostHelpersPreapplyBlock extends \Pezos\Generated\Proto\Runtime\Client\Bas
     /**
      * Simulate the validation of a block that would contain the given operations and return the resulting fitness and context hash.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $sort
-     * @var string $timestamp A date in seconds from epoch
-     *             }
+     * @param array{
+     *    "sort"?: string,
+     *    "timestamp"?: string, //A date in seconds from epoch
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -72,10 +71,10 @@ class PostHelpersPreapplyBlock extends \Pezos\Generated\Proto\Runtime\Client\Bas
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersPreapplyBlockPostResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersPreapplyBlockPostResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

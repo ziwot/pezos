@@ -39,18 +39,18 @@ class ConfigGetResponse200P2pGreylistingConfigNormalizer implements Denormalizer
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pGreylistingConfig();
         if (\array_key_exists('factor', $data) && \is_int($data['factor'])) {
             $data['factor'] = (float) $data['factor'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('factor', $data)) {
             $object->setFactor($data['factor']);

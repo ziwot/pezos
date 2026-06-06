@@ -14,6 +14,19 @@ class GetP2pGossipsubMesh extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoi
 {
     use \Pezos\Generated\Dal\Runtime\Client\EndpointTrait;
 
+    /**
+     * Get the mesh of the peer. Concretely, the RPC returns a list of topics, where each topic is associated to the remote peers with which the current node shares a full connection (on that topic). Optional arguments allow to restrict the output to a given delegate or slot index.
+     *
+     * @param array{
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "slot_index"?: string,
+     * } $queryParameters
+     */
+    public function __construct(array $queryParameters = [])
+    {
+        $this->queryParameters = $queryParameters;
+    }
+
     public function getMethod(): string
     {
         return 'GET';
@@ -34,6 +47,18 @@ class GetP2pGossipsubMesh extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoi
         return ['Accept' => ['application/json']];
     }
 
+    protected function getQueryOptionsResolver(): \Symfony\Component\OptionsResolver\OptionsResolver
+    {
+        $optionsResolver = parent::getQueryOptionsResolver();
+        $optionsResolver->setDefined(['delegate', 'slot_index']);
+        $optionsResolver->setRequired([]);
+        $optionsResolver->setDefaults([]);
+        $optionsResolver->addAllowedTypes('delegate', ['string']);
+        $optionsResolver->addAllowedTypes('slot_index', ['string']);
+
+        return $optionsResolver;
+    }
+
     /**
      * @return \Pezos\Generated\Dal\Model\P2pGossipsubMeshGetResponse200Item[]|null
      */
@@ -41,10 +66,10 @@ class GetP2pGossipsubMesh extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoi
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\P2pGossipsubMeshGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\P2pGossipsubMeshGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

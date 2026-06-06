@@ -18,11 +18,10 @@ class DeleteP2pPointsDisconnectByPoint extends \Pezos\Generated\Dal\Runtime\Clie
     /**
      * Disconnect from a point.
      *
-     * @param string $point           a network point (ipv4:port or [ipv6]:port)
-     * @param array  $queryParameters {
-     *
-     * @var string $wait
-     *             }
+     * @param string $point a network point (ipv4:port or [ipv6]:port)
+     * @param array{
+     *    "wait"?: string,
+     * } $queryParameters
      */
     public function __construct(string $point, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class DeleteP2pPointsDisconnectByPoint extends \Pezos\Generated\Dal\Runtime\Clie
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

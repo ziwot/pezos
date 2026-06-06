@@ -16,7 +16,7 @@ class GetContextDelegatesByPkhDalParticipation extends \Pezos\Generated\Proto\Ru
     protected $pkh;
 
     /**
-     * Returns information about the delegate's participation in the attestation of slots published into the Data Availability Layer (DAL) during the current cycle. The field 'expected_assigned_shards_per_slot' indicates the expected number of shards assigned to the delegate in the cycle per DAL slot. The field 'delegate_attested_dal_slots' represents the number of attested DAL slots which are also attested by the delegate, while 'delegate_attestable_dal_slots' provides the total number of DAL slots attested during the cycle for which the delegate had shards assigned. The 'expected_dal_rewards' field specifies the expected amount of rewards for the delegate based on DAL participation, provided the delegate meets the required participation. Whether this threshold is currently met is determined by the 'sufficient_dal_participation' flag, which is true if currently the delegate has sufficiently participated in attesting DAL slots declared to be attested by the protocol. Note that this flag may evolve during the cycle. Also note, in particular, that if no DAL no DAL slots have been globally attested during the cycle (i.e., when 'delegate_attestable_dal_slots' is zero), the flag is true. The 'denounced' field specifies whether the delegate was denounced for not detecting traps during the current cycle.
+     * Returns information about the delegate's participation in the attestation of slots published into the Data Availability Layer (DAL) during the current cycle. The field 'expected_assigned_shards_per_slot' indicates the expected number of shards assigned to the delegate in the cycle per DAL slot. The field 'delegate_attested_dal_slots' represents the number of attested DAL slots which are also attested by the delegate, while 'delegate_attestable_dal_slots' provides the total number of DAL slots attested during the cycle for which the delegate had shards assigned. The 'expected_dal_rewards' field specifies the expected amount of rewards for the delegate based on DAL participation, provided the delegate meets the required participation. Whether this threshold is currently met is determined by the 'sufficient_dal_participation' flag, which is true if currently the delegate has sufficiently participated in attesting DAL slots declared to be attested by the protocol. Note that this flag may evolve during the cycle. Also note, in particular, that if no DAL slots have been globally attested during the cycle (i.e., when 'delegate_attestable_dal_slots' is zero), the flag is true; receipt of the DAL rewards is conditioned however on the receipt of the attestation rewards. The 'denounced' field specifies whether the delegate was denounced for not detecting traps during the current cycle.
      *
      * @param string $pkh A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      */
@@ -52,10 +52,10 @@ class GetContextDelegatesByPkhDalParticipation extends \Pezos\Generated\Proto\Ru
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\ContextDelegatesPkhDalParticipationGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\ContextDelegatesPkhDalParticipationGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

@@ -39,15 +39,15 @@ class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements Den
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\ContextIssuanceExpectedIssuanceGetResponse200Item();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('cycle', $data)) {
             $object->setCycle($data['cycle']);
@@ -57,13 +57,13 @@ class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements Den
             $object->setBakingRewardFixedPortion($data['baking_reward_fixed_portion']);
             unset($data['baking_reward_fixed_portion']);
         }
-        if (\array_key_exists('baking_reward_bonus_per_slot', $data)) {
-            $object->setBakingRewardBonusPerSlot($data['baking_reward_bonus_per_slot']);
-            unset($data['baking_reward_bonus_per_slot']);
+        if (\array_key_exists('baking_reward_bonus_per_block', $data)) {
+            $object->setBakingRewardBonusPerBlock($data['baking_reward_bonus_per_block']);
+            unset($data['baking_reward_bonus_per_block']);
         }
-        if (\array_key_exists('attesting_reward_per_slot', $data)) {
-            $object->setAttestingRewardPerSlot($data['attesting_reward_per_slot']);
-            unset($data['attesting_reward_per_slot']);
+        if (\array_key_exists('attesting_reward_per_block', $data)) {
+            $object->setAttestingRewardPerBlock($data['attesting_reward_per_block']);
+            unset($data['attesting_reward_per_block']);
         }
         if (\array_key_exists('seed_nonce_revelation_tip', $data)) {
             $object->setSeedNonceRevelationTip($data['seed_nonce_revelation_tip']);
@@ -91,8 +91,8 @@ class ContextIssuanceExpectedIssuanceGetResponse200ItemNormalizer implements Den
         $dataArray = [];
         $dataArray['cycle'] = $data->getCycle();
         $dataArray['baking_reward_fixed_portion'] = $data->getBakingRewardFixedPortion();
-        $dataArray['baking_reward_bonus_per_slot'] = $data->getBakingRewardBonusPerSlot();
-        $dataArray['attesting_reward_per_slot'] = $data->getAttestingRewardPerSlot();
+        $dataArray['baking_reward_bonus_per_block'] = $data->getBakingRewardBonusPerBlock();
+        $dataArray['attesting_reward_per_block'] = $data->getAttestingRewardPerBlock();
         $dataArray['seed_nonce_revelation_tip'] = $data->getSeedNonceRevelationTip();
         $dataArray['vdf_revelation_tip'] = $data->getVdfRevelationTip();
         $dataArray['dal_attesting_reward_per_shard'] = $data->getDalAttestingRewardPerShard();

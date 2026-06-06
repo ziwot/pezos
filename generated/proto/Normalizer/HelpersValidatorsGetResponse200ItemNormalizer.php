@@ -39,35 +39,42 @@ class HelpersValidatorsGetResponse200ItemNormalizer implements DenormalizerInter
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+        if (\array_key_exists('all_bakers_attest_activated', $data) && \is_int($data['all_bakers_attest_activated'])) {
+            $data['all_bakers_attest_activated'] = (bool) $data['all_bakers_attest_activated'];
         }
         if (\array_key_exists('level', $data)) {
             $object->setLevel($data['level']);
             unset($data['level']);
         }
-        if (\array_key_exists('delegate', $data)) {
-            $object->setDelegate($data['delegate']);
-            unset($data['delegate']);
+        if (\array_key_exists('consensus_threshold', $data)) {
+            $object->setConsensusThreshold($data['consensus_threshold']);
+            unset($data['consensus_threshold']);
         }
-        if (\array_key_exists('slots', $data)) {
+        if (\array_key_exists('consensus_committee', $data)) {
+            $object->setConsensusCommittee($data['consensus_committee']);
+            unset($data['consensus_committee']);
+        }
+        if (\array_key_exists('all_bakers_attest_activated', $data)) {
+            $object->setAllBakersAttestActivated($data['all_bakers_attest_activated']);
+            unset($data['all_bakers_attest_activated']);
+        }
+        if (\array_key_exists('delegates', $data)) {
             $values = [];
-            foreach ($data['slots'] as $value) {
-                $values[] = $value;
+            foreach ($data['delegates'] as $value) {
+                $values[] = $this->denormalizer->denormalize($value, \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200ItemDelegatesItem::class, 'json', $context);
             }
-            $object->setSlots($values);
-            unset($data['slots']);
-        }
-        if (\array_key_exists('consensus_key', $data)) {
-            $object->setConsensusKey($data['consensus_key']);
-            unset($data['consensus_key']);
+            $object->setDelegates($values);
+            unset($data['delegates']);
         }
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
@@ -82,13 +89,14 @@ class HelpersValidatorsGetResponse200ItemNormalizer implements DenormalizerInter
     {
         $dataArray = [];
         $dataArray['level'] = $data->getLevel();
-        $dataArray['delegate'] = $data->getDelegate();
+        $dataArray['consensus_threshold'] = $data->getConsensusThreshold();
+        $dataArray['consensus_committee'] = $data->getConsensusCommittee();
+        $dataArray['all_bakers_attest_activated'] = $data->getAllBakersAttestActivated();
         $values = [];
-        foreach ($data->getSlots() as $value) {
-            $values[] = $value;
+        foreach ($data->getDelegates() as $value) {
+            $values[] = $this->normalizer->normalize($value, 'json', $context);
         }
-        $dataArray['slots'] = $values;
-        $dataArray['consensus_key'] = $data->getConsensusKey();
+        $dataArray['delegates'] = $values;
         foreach ($data as $key => $value_1) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value_1;

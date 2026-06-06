@@ -18,11 +18,10 @@ class GetContextContractByContractId extends \Pezos\Generated\Proto\Runtime\Clie
     /**
      * Access the complete status of a contract.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param array  $queryParameters {
-     *
-     * @var string $normalize_types Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
-     *             }
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param array{
+     *    "normalize_types"?: string, //Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
+     * } $queryParameters
      */
     public function __construct(string $contractId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetContextContractByContractId extends \Pezos\Generated\Proto\Runtime\Clie
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\ContextContractsContractIdGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

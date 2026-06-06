@@ -16,7 +16,7 @@ class GetProtocolByProtocolHash extends \Pezos\Generated\Shell\Runtime\Client\Ba
     protected $Protocol_hash;
 
     /**
-     * (no description).
+     * the interface of a protocol grouped by its implementing modules.
      *
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      */
@@ -52,10 +52,10 @@ class GetProtocolByProtocolHash extends \Pezos\Generated\Shell\Runtime\Client\Ba
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Shell\\Model\\ProtocolsProtocolHashGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Shell\Model\ProtocolsProtocolHashGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

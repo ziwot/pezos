@@ -86,23 +86,23 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
      */
     protected $readBufferSize;
     /**
-     * @var int
+     * @var mixed|null
      */
     protected $readQueueSize;
     /**
-     * @var int
+     * @var mixed|null
      */
     protected $writeQueueSize;
     /**
-     * @var int
+     * @var mixed|null
      */
     protected $incomingAppMessageQueueSize;
     /**
-     * @var int
+     * @var mixed|null
      */
     protected $incomingMessageQueueSize;
     /**
-     * @var int
+     * @var mixed|null
      */
     protected $outgoingMessageQueueSize;
     /**
@@ -360,12 +360,12 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
         return $this;
     }
 
-    public function getReadQueueSize(): int
+    public function getReadQueueSize()
     {
         return $this->readQueueSize;
     }
 
-    public function setReadQueueSize(int $readQueueSize): self
+    public function setReadQueueSize($readQueueSize): self
     {
         $this->initialized['readQueueSize'] = true;
         $this->readQueueSize = $readQueueSize;
@@ -373,12 +373,12 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
         return $this;
     }
 
-    public function getWriteQueueSize(): int
+    public function getWriteQueueSize()
     {
         return $this->writeQueueSize;
     }
 
-    public function setWriteQueueSize(int $writeQueueSize): self
+    public function setWriteQueueSize($writeQueueSize): self
     {
         $this->initialized['writeQueueSize'] = true;
         $this->writeQueueSize = $writeQueueSize;
@@ -386,12 +386,12 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
         return $this;
     }
 
-    public function getIncomingAppMessageQueueSize(): int
+    public function getIncomingAppMessageQueueSize()
     {
         return $this->incomingAppMessageQueueSize;
     }
 
-    public function setIncomingAppMessageQueueSize(int $incomingAppMessageQueueSize): self
+    public function setIncomingAppMessageQueueSize($incomingAppMessageQueueSize): self
     {
         $this->initialized['incomingAppMessageQueueSize'] = true;
         $this->incomingAppMessageQueueSize = $incomingAppMessageQueueSize;
@@ -399,12 +399,12 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
         return $this;
     }
 
-    public function getIncomingMessageQueueSize(): int
+    public function getIncomingMessageQueueSize()
     {
         return $this->incomingMessageQueueSize;
     }
 
-    public function setIncomingMessageQueueSize(int $incomingMessageQueueSize): self
+    public function setIncomingMessageQueueSize($incomingMessageQueueSize): self
     {
         $this->initialized['incomingMessageQueueSize'] = true;
         $this->incomingMessageQueueSize = $incomingMessageQueueSize;
@@ -412,12 +412,12 @@ class ConfigGetResponse200P2pLimits extends \ArrayObject
         return $this;
     }
 
-    public function getOutgoingMessageQueueSize(): int
+    public function getOutgoingMessageQueueSize()
     {
         return $this->outgoingMessageQueueSize;
     }
 
-    public function setOutgoingMessageQueueSize(int $outgoingMessageQueueSize): self
+    public function setOutgoingMessageQueueSize($outgoingMessageQueueSize): self
     {
         $this->initialized['outgoingMessageQueueSize'] = true;
         $this->outgoingMessageQueueSize = $outgoingMessageQueueSize;

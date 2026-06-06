@@ -358,9 +358,9 @@ class ContextConstantsGetResponse200 extends \ArrayObject
      */
     protected $allowTz4DelegateEnable;
     /**
-     * @var mixed|null
+     * @var ContextConstantsGetResponse200AllBakersAttestActivationThreshold
      */
-    protected $allBakersAttestActivationLevel;
+    protected $allBakersAttestActivationThreshold;
     /**
      * @var int
      */
@@ -1479,15 +1479,15 @@ class ContextConstantsGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getAllBakersAttestActivationLevel()
+    public function getAllBakersAttestActivationThreshold(): ContextConstantsGetResponse200AllBakersAttestActivationThreshold
     {
-        return $this->allBakersAttestActivationLevel;
+        return $this->allBakersAttestActivationThreshold;
     }
 
-    public function setAllBakersAttestActivationLevel($allBakersAttestActivationLevel): self
+    public function setAllBakersAttestActivationThreshold(ContextConstantsGetResponse200AllBakersAttestActivationThreshold $allBakersAttestActivationThreshold): self
     {
-        $this->initialized['allBakersAttestActivationLevel'] = true;
-        $this->allBakersAttestActivationLevel = $allBakersAttestActivationLevel;
+        $this->initialized['allBakersAttestActivationThreshold'] = true;
+        $this->allBakersAttestActivationThreshold = $allBakersAttestActivationThreshold;
 
         return $this;
     }

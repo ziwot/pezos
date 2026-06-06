@@ -39,18 +39,18 @@ class P2pGossipsubScoresGetResponse200ItemNormalizer implements DenormalizerInte
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubScoresGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubScoresGetResponse200Item();
         if (\array_key_exists('score', $data) && \is_int($data['score'])) {
             $data['score'] = (float) $data['score'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('peer', $data)) {
             $object->setPeer($this->denormalizer->denormalize($data['peer'], \Pezos\Generated\Dal\Model\P2pGossipsubScoresGetResponse200ItemPeer::class, 'json', $context));

@@ -39,13 +39,16 @@ class P2pGossipsubConnectionsGetResponse200ItemConnectionNormalizer implements D
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubConnectionsGetResponse200ItemConnection();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubConnectionsGetResponse200ItemConnection();
         if (\array_key_exists('direct', $data) && \is_int($data['direct'])) {
             $data['direct'] = (bool) $data['direct'];
         }
@@ -54,9 +57,6 @@ class P2pGossipsubConnectionsGetResponse200ItemConnectionNormalizer implements D
         }
         if (\array_key_exists('bootstrap', $data) && \is_int($data['bootstrap'])) {
             $data['bootstrap'] = (bool) $data['bootstrap'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('topics', $data)) {
             $values = [];

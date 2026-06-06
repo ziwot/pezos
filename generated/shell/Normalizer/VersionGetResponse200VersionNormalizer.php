@@ -39,15 +39,15 @@ class VersionGetResponse200VersionNormalizer implements DenormalizerInterface, N
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\VersionGetResponse200Version();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Shell\Model\VersionGetResponse200Version();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('major', $data)) {
             $object->setMajor($data['major']);
@@ -56,6 +56,10 @@ class VersionGetResponse200VersionNormalizer implements DenormalizerInterface, N
         if (\array_key_exists('minor', $data)) {
             $object->setMinor($data['minor']);
             unset($data['minor']);
+        }
+        if (\array_key_exists('build', $data)) {
+            $object->setBuild($data['build']);
+            unset($data['build']);
         }
         if (\array_key_exists('additional_info', $data)) {
             $object->setAdditionalInfo($data['additional_info']);
@@ -75,6 +79,7 @@ class VersionGetResponse200VersionNormalizer implements DenormalizerInterface, N
         $dataArray = [];
         $dataArray['major'] = $data->getMajor();
         $dataArray['minor'] = $data->getMinor();
+        $dataArray['build'] = $data->getBuild();
         $dataArray['additional_info'] = $data->getAdditionalInfo();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

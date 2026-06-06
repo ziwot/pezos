@@ -39,15 +39,15 @@ class P2pGossipsubReconnectionDelaysGetResponse200ItemNormalizer implements Deno
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubReconnectionDelaysGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Dal\Model\P2pGossipsubReconnectionDelaysGetResponse200Item();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('point', $data)) {
             $object->setPoint($data['point']);

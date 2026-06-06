@@ -15,16 +15,15 @@ class GetHelpersValidators extends \Pezos\Generated\Proto\Runtime\Client\BaseEnd
     use \Pezos\Generated\Proto\Runtime\Client\EndpointTrait;
 
     /**
-     * Retrieves the level, the attestation slots and the public key hash of each delegate allowed to attest a block.
+     * Retrieves the level, the attestation slots and the public key hash of each delegate allowed to attest a block. Also returns each delegate's current consensus key, and current companion key when needed for crafting and validating attestations at this level.
      * By default, it provides this information for the next level.
      * Parameter `level` can be used to specify the (valid) level(s) in the past or future at which the attestation rights have to be returned. Parameter `delegate` can be used to restrict the results results to the given delegates. Parameter `consensus_key` can be used to restrict the results to the given consensus_keys.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -71,10 +70,10 @@ class GetHelpersValidators extends \Pezos\Generated\Proto\Runtime\Client\BaseEnd
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersValidatorsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

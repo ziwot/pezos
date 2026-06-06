@@ -19,12 +19,11 @@ class GetContextContractsByContractIdEntrypointByEntrypoint extends \Pezos\Gener
     /**
      * Return the type of the given entrypoint of the contract.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param string $entrypoint      A Michelson entrypoint (string of length < 32)
-     * @param array  $queryParameters {
-     *
-     * @var string $normalize_types Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
-     *             }
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param string $entrypoint A Michelson entrypoint (string of length < 32)
+     * @param array{
+     *    "normalize_types"?: string, //Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
+     * } $queryParameters
      */
     public function __construct(string $contractId, string $entrypoint, array $queryParameters = [])
     {
@@ -71,10 +70,10 @@ class GetContextContractsByContractIdEntrypointByEntrypoint extends \Pezos\Gener
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

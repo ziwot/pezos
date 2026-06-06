@@ -26,15 +26,11 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use CheckArray;
     use ValidatorTrait;
     protected $normalizers = [
-        \Pezos\Generated\Mempool\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => _022PsRiotumBlockHeaderAlphaFullHeaderNormalizer::class,
+        \Pezos\Generated\Mempool\Model\_024PtTALLiNBlockHeaderAlphaFullHeader::class => _024PtTALLiNBlockHeaderAlphaFullHeaderNormalizer::class,
 
-        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedAttestation::class => _022PsRiotumInlinedAttestationNormalizer::class,
+        \Pezos\Generated\Mempool\Model\_024PtTALLiNInlinedConsensusOperation::class => _024PtTALLiNInlinedConsensusOperationNormalizer::class,
 
-        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestation::class => _022PsRiotumInlinedPreattestationNormalizer::class,
-
-        \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestationContents::class => _022PsRiotumInlinedPreattestationContentsNormalizer::class,
-
-        \Pezos\Generated\Mempool\Model\_022PsRiotumScriptedContracts::class => _022PsRiotumScriptedContractsNormalizer::class,
+        \Pezos\Generated\Mempool\Model\_024PtTALLiNScriptedContracts::class => _024PtTALLiNScriptedContractsNormalizer::class,
 
         \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => MonitorOperationsGetResponse200ItemNormalizer::class,
 
@@ -106,11 +102,9 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     public function getSupportedTypes(?string $format = null): array
     {
         return [
-            \Pezos\Generated\Mempool\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => false,
-            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedAttestation::class => false,
-            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestation::class => false,
-            \Pezos\Generated\Mempool\Model\_022PsRiotumInlinedPreattestationContents::class => false,
-            \Pezos\Generated\Mempool\Model\_022PsRiotumScriptedContracts::class => false,
+            \Pezos\Generated\Mempool\Model\_024PtTALLiNBlockHeaderAlphaFullHeader::class => false,
+            \Pezos\Generated\Mempool\Model\_024PtTALLiNInlinedConsensusOperation::class => false,
+            \Pezos\Generated\Mempool\Model\_024PtTALLiNScriptedContracts::class => false,
             \Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item::class => false,
             \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200::class => false,
             \Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200ValidatedItem::class => false,

@@ -142,6 +142,10 @@ class ContextDelegatesPkhGetResponse200 extends \ArrayObject
      */
     protected $consensusKey;
     /**
+     * @var ContextDelegatesPkhGetResponse200CompanionKey
+     */
+    protected $companionKey;
+    /**
      * @var list<ContextDelegatesPkhGetResponse200StakersItem>
      */
     protected $stakers;
@@ -548,6 +552,19 @@ class ContextDelegatesPkhGetResponse200 extends \ArrayObject
     {
         $this->initialized['consensusKey'] = true;
         $this->consensusKey = $consensusKey;
+
+        return $this;
+    }
+
+    public function getCompanionKey(): ContextDelegatesPkhGetResponse200CompanionKey
+    {
+        return $this->companionKey;
+    }
+
+    public function setCompanionKey(ContextDelegatesPkhGetResponse200CompanionKey $companionKey): self
+    {
+        $this->initialized['companionKey'] = true;
+        $this->companionKey = $companionKey;
 
         return $this;
     }

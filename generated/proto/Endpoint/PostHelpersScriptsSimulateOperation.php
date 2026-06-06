@@ -17,11 +17,10 @@ class PostHelpersScriptsSimulateOperation extends \Pezos\Generated\Proto\Runtime
     /**
      * Simulate running an operation at some future moment (based on the number of blocks given in the `latency` argument), and return the operation application result. The result is the same as run_operation except for the consumed gas, which depends on the contents of the cache at that future moment. This RPC estimates future gas consumption by trying to predict the state of the cache using some heuristics.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     * @var string $successor_level If true, the simulation is done on the successor level of the current context.
-     *             }
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     *    "successor_level"?: string, //If true, the simulation is done on the successor level of the current context.
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Proto\Model\HelpersScriptsSimulateOperationPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -72,10 +71,10 @@ class PostHelpersScriptsSimulateOperation extends \Pezos\Generated\Proto\Runtime
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

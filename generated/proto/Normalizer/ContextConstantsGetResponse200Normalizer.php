@@ -39,13 +39,16 @@ class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface,
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200();
         if (\array_key_exists('smart_rollup_arith_pvm_enable', $data) && \is_int($data['smart_rollup_arith_pvm_enable'])) {
             $data['smart_rollup_arith_pvm_enable'] = (bool) $data['smart_rollup_arith_pvm_enable'];
         }
@@ -66,9 +69,6 @@ class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface,
         }
         if (\array_key_exists('allow_tz4_delegate_enable', $data) && \is_int($data['allow_tz4_delegate_enable'])) {
             $data['allow_tz4_delegate_enable'] = (bool) $data['allow_tz4_delegate_enable'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('proof_of_work_nonce_size', $data)) {
             $object->setProofOfWorkNonceSize($data['proof_of_work_nonce_size']);
@@ -386,11 +386,9 @@ class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface,
             $object->setAllowTz4DelegateEnable($data['allow_tz4_delegate_enable']);
             unset($data['allow_tz4_delegate_enable']);
         }
-        if (\array_key_exists('all_bakers_attest_activation_level', $data) && $data['all_bakers_attest_activation_level'] !== null) {
-            $object->setAllBakersAttestActivationLevel($data['all_bakers_attest_activation_level']);
-            unset($data['all_bakers_attest_activation_level']);
-        } elseif (\array_key_exists('all_bakers_attest_activation_level', $data) && $data['all_bakers_attest_activation_level'] === null) {
-            $object->setAllBakersAttestActivationLevel(null);
+        if (\array_key_exists('all_bakers_attest_activation_threshold', $data)) {
+            $object->setAllBakersAttestActivationThreshold($this->denormalizer->denormalize($data['all_bakers_attest_activation_threshold'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AllBakersAttestActivationThreshold::class, 'json', $context));
+            unset($data['all_bakers_attest_activation_threshold']);
         }
         if (\array_key_exists('issuance_modification_delay', $data)) {
             $object->setIssuanceModificationDelay($data['issuance_modification_delay']);
@@ -499,7 +497,7 @@ class ContextConstantsGetResponse200Normalizer implements DenormalizerInterface,
         $dataArray['direct_ticket_spending_enable'] = $data->getDirectTicketSpendingEnable();
         $dataArray['aggregate_attestation'] = $data->getAggregateAttestation();
         $dataArray['allow_tz4_delegate_enable'] = $data->getAllowTz4DelegateEnable();
-        $dataArray['all_bakers_attest_activation_level'] = $data->getAllBakersAttestActivationLevel();
+        $dataArray['all_bakers_attest_activation_threshold'] = $this->normalizer->normalize($data->getAllBakersAttestActivationThreshold(), 'json', $context);
         $dataArray['issuance_modification_delay'] = $data->getIssuanceModificationDelay();
         $dataArray['consensus_key_activation_delay'] = $data->getConsensusKeyActivationDelay();
         $dataArray['unstake_finalization_delay'] = $data->getUnstakeFinalizationDelay();

@@ -39,13 +39,16 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Rollup\Model\ConfigGetResponse200();
         if (\array_key_exists('reconnection_delay', $data) && \is_int($data['reconnection_delay'])) {
             $data['reconnection_delay'] = (float) $data['reconnection_delay'];
         }
@@ -55,8 +58,17 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('loop_retry_delay', $data) && \is_int($data['loop_retry_delay'])) {
             $data['loop_retry_delay'] = (float) $data['loop_retry_delay'];
         }
+        if (\array_key_exists('etherlink', $data) && \is_int($data['etherlink'])) {
+            $data['etherlink'] = (bool) $data['etherlink'];
+        }
         if (\array_key_exists('performance-metrics', $data) && \is_int($data['performance-metrics'])) {
             $data['performance-metrics'] = (bool) $data['performance-metrics'];
+        }
+        if (\array_key_exists('apply-unsafe-patches', $data) && \is_int($data['apply-unsafe-patches'])) {
+            $data['apply-unsafe-patches'] = (bool) $data['apply-unsafe-patches'];
+        }
+        if (\array_key_exists('l1_monitor_finalized', $data) && \is_int($data['l1_monitor_finalized'])) {
+            $data['l1_monitor_finalized'] = (bool) $data['l1_monitor_finalized'];
         }
         if (\array_key_exists('log-kernel-debug', $data) && \is_int($data['log-kernel-debug'])) {
             $data['log-kernel-debug'] = (bool) $data['log-kernel-debug'];
@@ -70,12 +82,13 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('bail-on-disagree', $data) && \is_int($data['bail-on-disagree'])) {
             $data['bail-on-disagree'] = (bool) $data['bail-on-disagree'];
         }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
         if (\array_key_exists('smart-rollup-address', $data)) {
             $object->setSmartRollupAddress($data['smart-rollup-address']);
             unset($data['smart-rollup-address']);
+        }
+        if (\array_key_exists('etherlink', $data)) {
+            $object->setEtherlink($data['etherlink']);
+            unset($data['etherlink']);
         }
         if (\array_key_exists('boot-sector', $data)) {
             $object->setBootSector($data['boot-sector']);
@@ -122,27 +135,27 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
             unset($data['mode']);
         }
         if (\array_key_exists('loser-mode', $data)) {
-            $values_1 = [];
-            foreach ($data['loser-mode'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class, 'json', $context);
-            }
-            $object->setLoserMode($values_1);
+            $object->setLoserMode($data['loser-mode']);
             unset($data['loser-mode']);
         }
+        if (\array_key_exists('apply-unsafe-patches', $data)) {
+            $object->setApplyUnsafePatches($data['apply-unsafe-patches']);
+            unset($data['apply-unsafe-patches']);
+        }
         if (\array_key_exists('unsafe-pvm-patches', $data)) {
-            $values_2 = [];
-            foreach ($data['unsafe-pvm-patches'] as $value_2) {
-                $values_2[] = $value_2;
+            $values_1 = [];
+            foreach ($data['unsafe-pvm-patches'] as $value_1) {
+                $values_1[] = $value_1;
             }
-            $object->setUnsafePvmPatches($values_2);
+            $object->setUnsafePvmPatches($values_1);
             unset($data['unsafe-pvm-patches']);
         }
         if (\array_key_exists('execute-outbox-messages-filter', $data)) {
-            $values_3 = [];
-            foreach ($data['execute-outbox-messages-filter'] as $value_3) {
-                $values_3[] = $this->denormalizer->denormalize($value_3, \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class, 'json', $context);
+            $values_2 = [];
+            foreach ($data['execute-outbox-messages-filter'] as $value_2) {
+                $values_2[] = $this->denormalizer->denormalize($value_2, \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class, 'json', $context);
             }
-            $object->setExecuteOutboxMessagesFilter($values_3);
+            $object->setExecuteOutboxMessagesFilter($values_2);
             unset($data['execute-outbox-messages-filter']);
         }
         if (\array_key_exists('DAL node endpoint', $data)) {
@@ -173,6 +186,10 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
             $object->setPrefetchBlocks($data['prefetch_blocks']);
             unset($data['prefetch_blocks']);
         }
+        if (\array_key_exists('l1_monitor_finalized', $data)) {
+            $object->setL1MonitorFinalized($data['l1_monitor_finalized']);
+            unset($data['l1_monitor_finalized']);
+        }
         if (\array_key_exists('l1_rpc_timeout', $data)) {
             $object->setL1RpcTimeout($data['l1_rpc_timeout']);
             unset($data['l1_rpc_timeout']);
@@ -192,6 +209,10 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         if (\array_key_exists('log-kernel-debug', $data)) {
             $object->setLogKernelDebug($data['log-kernel-debug']);
             unset($data['log-kernel-debug']);
+        }
+        if (\array_key_exists('log-kernel-debug-file', $data)) {
+            $object->setLogKernelDebugFile($data['log-kernel-debug-file']);
+            unset($data['log-kernel-debug-file']);
         }
         if (\array_key_exists('unsafe-disable-wasm-kernel-checks', $data)) {
             $object->setUnsafeDisableWasmKernelChecks($data['unsafe-disable-wasm-kernel-checks']);
@@ -217,9 +238,19 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
             $object->setBailOnDisagree($data['bail-on-disagree']);
             unset($data['bail-on-disagree']);
         }
-        foreach ($data as $key => $value_4) {
+        if (\array_key_exists('opentelemetry', $data) && $data['opentelemetry'] !== null) {
+            $object->setOpentelemetry($data['opentelemetry']);
+            unset($data['opentelemetry']);
+        } elseif (\array_key_exists('opentelemetry', $data) && $data['opentelemetry'] === null) {
+            $object->setOpentelemetry(null);
+        }
+        if (\array_key_exists('dal_slot_status_max_fetch_attempts', $data)) {
+            $object->setDalSlotStatusMaxFetchAttempts($data['dal_slot_status_max_fetch_attempts']);
+            unset($data['dal_slot_status_max_fetch_attempts']);
+        }
+        foreach ($data as $key => $value_3) {
             if (preg_match('/.*/', (string) $key)) {
-                $object[$key] = $value_4;
+                $object[$key] = $value_3;
             }
         }
 
@@ -230,6 +261,9 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
     {
         $dataArray = [];
         $dataArray['smart-rollup-address'] = $data->getSmartRollupAddress();
+        if ($data->isInitialized('etherlink') && null !== $data->getEtherlink()) {
+            $dataArray['etherlink'] = $data->getEtherlink();
+        }
         if ($data->isInitialized('bootSector') && null !== $data->getBootSector()) {
             $dataArray['boot-sector'] = $data->getBootSector();
         }
@@ -248,21 +282,18 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         $dataArray['reconnection_delay'] = $data->getReconnectionDelay();
         $dataArray['fee-parameters'] = $this->normalizer->normalize($data->getFeeParameters(), 'json', $context);
         $dataArray['mode'] = $data->getMode();
+        $dataArray['loser-mode'] = $data->getLoserMode();
+        $dataArray['apply-unsafe-patches'] = $data->getApplyUnsafePatches();
         $values_1 = [];
-        foreach ($data->getLoserMode() as $value_1) {
-            $values_1[] = $this->normalizer->normalize($value_1, 'json', $context);
+        foreach ($data->getUnsafePvmPatches() as $value_1) {
+            $values_1[] = $value_1;
         }
-        $dataArray['loser-mode'] = $values_1;
+        $dataArray['unsafe-pvm-patches'] = $values_1;
         $values_2 = [];
-        foreach ($data->getUnsafePvmPatches() as $value_2) {
-            $values_2[] = $value_2;
+        foreach ($data->getExecuteOutboxMessagesFilter() as $value_2) {
+            $values_2[] = $this->normalizer->normalize($value_2, 'json', $context);
         }
-        $dataArray['unsafe-pvm-patches'] = $values_2;
-        $values_3 = [];
-        foreach ($data->getExecuteOutboxMessagesFilter() as $value_3) {
-            $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);
-        }
-        $dataArray['execute-outbox-messages-filter'] = $values_3;
+        $dataArray['execute-outbox-messages-filter'] = $values_2;
         if ($data->isInitialized('dALNodeEndpoint') && null !== $data->getDALNodeEndpoint()) {
             $dataArray['DAL node endpoint'] = $data->getDALNodeEndpoint();
         }
@@ -276,6 +307,7 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         if ($data->isInitialized('prefetchBlocks') && null !== $data->getPrefetchBlocks()) {
             $dataArray['prefetch_blocks'] = $data->getPrefetchBlocks();
         }
+        $dataArray['l1_monitor_finalized'] = $data->getL1MonitorFinalized();
         $dataArray['l1_rpc_timeout'] = $data->getL1RpcTimeout();
         $dataArray['loop_retry_delay'] = $data->getLoopRetryDelay();
         if ($data->isInitialized('indexBufferSize') && null !== $data->getIndexBufferSize()) {
@@ -285,6 +317,9 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
             $dataArray['irmin_cache_size'] = $data->getIrminCacheSize();
         }
         $dataArray['log-kernel-debug'] = $data->getLogKernelDebug();
+        if ($data->isInitialized('logKernelDebugFile') && null !== $data->getLogKernelDebugFile()) {
+            $dataArray['log-kernel-debug-file'] = $data->getLogKernelDebugFile();
+        }
         $dataArray['unsafe-disable-wasm-kernel-checks'] = $data->getUnsafeDisableWasmKernelChecks();
         $dataArray['no-degraded'] = $data->getNoDegraded();
         $dataArray['gc-parameters'] = $this->normalizer->normalize($data->getGcParameters(), 'json', $context);
@@ -293,9 +328,11 @@ class ConfigGetResponse200Normalizer implements DenormalizerInterface, Normalize
         }
         $dataArray['cors'] = $this->normalizer->normalize($data->getCors(), 'json', $context);
         $dataArray['bail-on-disagree'] = $data->getBailOnDisagree();
-        foreach ($data as $key => $value_4) {
+        $dataArray['opentelemetry'] = $data->getOpentelemetry();
+        $dataArray['dal_slot_status_max_fetch_attempts'] = $data->getDalSlotStatusMaxFetchAttempts();
+        foreach ($data as $key => $value_3) {
             if (preg_match('/.*/', (string) $key)) {
-                $dataArray[$key] = $value_4;
+                $dataArray[$key] = $value_3;
             }
         }
 

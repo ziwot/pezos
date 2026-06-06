@@ -26,21 +26,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     use CheckArray;
     use ValidatorTrait;
     protected $normalizers = [
-        \Pezos\Generated\Proto\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => _022PsRiotumBlockHeaderAlphaFullHeaderNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNBlockHeaderAlphaFullHeader::class => _024PtTALLiNBlockHeaderAlphaFullHeaderNormalizer::class,
 
-        \Pezos\Generated\Proto\Model\_022PsRiotumBondId::class => _022PsRiotumBondIdNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNBondId::class => _024PtTALLiNBondIdNormalizer::class,
 
-        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedAttestation::class => _022PsRiotumInlinedAttestationNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNInlinedConsensusOperation::class => _024PtTALLiNInlinedConsensusOperationNormalizer::class,
 
-        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestation::class => _022PsRiotumInlinedPreattestationNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNPerBlockVotes::class => _024PtTALLiNPerBlockVotesNormalizer::class,
 
-        \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestationContents::class => _022PsRiotumInlinedPreattestationContentsNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedContracts::class => _024PtTALLiNScriptedContractsNormalizer::class,
 
-        \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class => _022PsRiotumPerBlockVotesNormalizer::class,
-
-        \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class => _022PsRiotumScriptedContractsNormalizer::class,
-
-        \Pezos\Generated\Proto\Model\_022PsRiotumScriptedTraceItem::class => _022PsRiotumScriptedTraceItemNormalizer::class,
+        \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedTraceItem::class => _024PtTALLiNScriptedTraceItemNormalizer::class,
 
         \Pezos\Generated\Proto\Model\BlockHeaderShell::class => BlockHeaderShellNormalizer::class,
 
@@ -94,6 +90,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
 
+        \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AllBakersAttestActivationThreshold::class => ContextConstantsGetResponse200AllBakersAttestActivationThresholdNormalizer::class,
+
         \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => ContextConstantsParametricGetResponse200Normalizer::class,
 
         \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => ContextConstantsParametricGetResponse200IssuanceWeightsNormalizer::class,
@@ -129,6 +127,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDzNormalizer::class,
 
         \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDzNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AllBakersAttestActivationThreshold::class => ContextConstantsParametricGetResponse200AllBakersAttestActivationThresholdNormalizer::class,
 
         \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => ContextContractsContractIdGetResponse200Normalizer::class,
 
@@ -186,9 +186,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItemNormalizer::class,
 
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200CompanionKey::class => ContextDelegatesPkhGetResponse200CompanionKeyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200CompanionKeyPendingsItem::class => ContextDelegatesPkhGetResponse200CompanionKeyPendingsItemNormalizer::class,
+
         \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => ContextDelegatesPkhGetResponse200StakersItemNormalizer::class,
 
         \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => ContextDelegatesPkhActiveStakingParametersGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhCompanionKeyGetResponse200::class => ContextDelegatesPkhCompanionKeyGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\ContextDelegatesPkhCompanionKeyGetResponse200PendingsItem::class => ContextDelegatesPkhCompanionKeyGetResponse200PendingsItemNormalizer::class,
 
         \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => ContextDelegatesPkhConsensusKeyGetResponse200Normalizer::class,
 
@@ -282,11 +290,17 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => HelpersCurrentLevelGetResponse200Normalizer::class,
 
+        \Pezos\Generated\Proto\Model\HelpersForgeBlsConsensusOperationsPostBody::class => HelpersForgeBlsConsensusOperationsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeBlsConsensusOperationsPostResponse200::class => HelpersForgeBlsConsensusOperationsPostResponse200Normalizer::class,
+
         \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => HelpersForgeOperationsPostBodyNormalizer::class,
 
         \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => HelpersForgeProtocolDataPostBodyNormalizer::class,
 
         \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => HelpersForgeProtocolDataPostResponse200Normalizer::class,
+
+        \Pezos\Generated\Proto\Model\HelpersForgeSignedOperationsPostBody::class => HelpersForgeSignedOperationsPostBodyNormalizer::class,
 
         \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => HelpersForgeBlockHeaderPostBodyNormalizer::class,
 
@@ -432,6 +446,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => HelpersValidatorsGetResponse200ItemNormalizer::class,
 
+        \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200ItemDelegatesItem::class => HelpersValidatorsGetResponse200ItemDelegatesItemNormalizer::class,
+
         \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => ProtocolsGetResponse200Normalizer::class,
 
         \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => VotesBallotListGetResponse200ItemNormalizer::class,
@@ -496,14 +512,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
     public function getSupportedTypes(?string $format = null): array
     {
         return [
-            \Pezos\Generated\Proto\Model\_022PsRiotumBlockHeaderAlphaFullHeader::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumBondId::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedAttestation::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestation::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumInlinedPreattestationContents::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class => false,
-            \Pezos\Generated\Proto\Model\_022PsRiotumScriptedTraceItem::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNBlockHeaderAlphaFullHeader::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNBondId::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNInlinedConsensusOperation::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNPerBlockVotes::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedContracts::class => false,
+            \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedTraceItem::class => false,
             \Pezos\Generated\Proto\Model\BlockHeaderShell::class => false,
             \Pezos\Generated\Proto\Model\BlockHeaderMetadata::class => false,
             \Pezos\Generated\Proto\Model\BlockHeaderMetadataMaxOperationListLengthItem::class => false,
@@ -530,6 +544,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AllBakersAttestActivationThreshold::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200IssuanceWeights::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200MinimalParticipationRatio::class => false,
@@ -548,6 +563,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsGrowthRate::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsCenterDz::class => false,
             \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AdaptiveRewardsParamsRadiusDz::class => false,
+            \Pezos\Generated\Proto\Model\ContextConstantsParametricGetResponse200AllBakersAttestActivationThreshold::class => false,
             \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200::class => false,
             \Pezos\Generated\Proto\Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item::class => false,
             \Pezos\Generated\Proto\Model\ContextContractsContractIdBigMapGetPostBody::class => false,
@@ -576,8 +592,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyActive::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKeyPendingsItem::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200CompanionKey::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200CompanionKeyPendingsItem::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200StakersItem::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhActiveStakingParametersGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhCompanionKeyGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\ContextDelegatesPkhCompanionKeyGetResponse200PendingsItem::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200Active::class => false,
             \Pezos\Generated\Proto\Model\ContextDelegatesPkhConsensusKeyGetResponse200PendingsItem::class => false,
@@ -624,9 +644,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem::class => false,
             \Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item::class => false,
             \Pezos\Generated\Proto\Model\HelpersCurrentLevelGetResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeBlsConsensusOperationsPostBody::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeBlsConsensusOperationsPostResponse200::class => false,
             \Pezos\Generated\Proto\Model\HelpersForgeOperationsPostBody::class => false,
             \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody::class => false,
             \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostResponse200::class => false,
+            \Pezos\Generated\Proto\Model\HelpersForgeSignedOperationsPostBody::class => false,
             \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostBody::class => false,
             \Pezos\Generated\Proto\Model\HelpersForgeBlockHeaderPostResponse200::class => false,
             \Pezos\Generated\Proto\Model\HelpersLevelsInCurrentCycleGetResponse200::class => false,
@@ -699,6 +722,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostBody::class => false,
             \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckDataPostResponse200::class => false,
             \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200Item::class => false,
+            \Pezos\Generated\Proto\Model\HelpersValidatorsGetResponse200ItemDelegatesItem::class => false,
             \Pezos\Generated\Proto\Model\ProtocolsGetResponse200::class => false,
             \Pezos\Generated\Proto\Model\VotesBallotListGetResponse200Item::class => false,
             \Pezos\Generated\Proto\Model\VotesBallotsGetResponse200::class => false,

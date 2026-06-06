@@ -39,23 +39,23 @@ class ProfilerRegisteredBackendGetResponse200Normalizer implements DenormalizerI
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ProfilerRegisteredBackendGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ProfilerRegisteredBackendGetResponse200();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
-        }
-        if (\array_key_exists('registered_backend', $data)) {
+        if (\array_key_exists('registered_backends', $data)) {
             $values = [];
-            foreach ($data['registered_backend'] as $value) {
+            foreach ($data['registered_backends'] as $value) {
                 $values[] = $value;
             }
-            $object->setRegisteredBackend($values);
-            unset($data['registered_backend']);
+            $object->setRegisteredBackends($values);
+            unset($data['registered_backends']);
         }
         if (\array_key_exists('backends', $data)) {
             $values_1 = [];
@@ -82,10 +82,10 @@ class ProfilerRegisteredBackendGetResponse200Normalizer implements DenormalizerI
     {
         $dataArray = [];
         $values = [];
-        foreach ($data->getRegisteredBackend() as $value) {
+        foreach ($data->getRegisteredBackends() as $value) {
             $values[] = $value;
         }
-        $dataArray['registered_backend'] = $values;
+        $dataArray['registered_backends'] = $values;
         $values_1 = [];
         foreach ($data->getBackends() as $value_1) {
             $values_2 = [];

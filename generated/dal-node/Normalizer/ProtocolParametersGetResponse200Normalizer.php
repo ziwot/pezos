@@ -39,21 +39,21 @@ class ProtocolParametersGetResponse200Normalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200();
         if (\array_key_exists('feature_enable', $data) && \is_int($data['feature_enable'])) {
             $data['feature_enable'] = (bool) $data['feature_enable'];
         }
         if (\array_key_exists('incentives_enable', $data) && \is_int($data['incentives_enable'])) {
             $data['incentives_enable'] = (bool) $data['incentives_enable'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('feature_enable', $data)) {
             $object->setFeatureEnable($data['feature_enable']);
@@ -99,6 +99,10 @@ class ProtocolParametersGetResponse200Normalizer implements DenormalizerInterfac
             $object->setBlocksPerCycle($data['blocks_per_cycle']);
             unset($data['blocks_per_cycle']);
         }
+        if (\array_key_exists('minimal_block_delay', $data)) {
+            $object->setMinimalBlockDelay($data['minimal_block_delay']);
+            unset($data['minimal_block_delay']);
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $object[$key] = $value;
@@ -122,6 +126,7 @@ class ProtocolParametersGetResponse200Normalizer implements DenormalizerInterfac
         $dataArray['commitment_period_in_blocks'] = $data->getCommitmentPeriodInBlocks();
         $dataArray['dal_attested_slots_validity_lag'] = $data->getDalAttestedSlotsValidityLag();
         $dataArray['blocks_per_cycle'] = $data->getBlocksPerCycle();
+        $dataArray['minimal_block_delay'] = $data->getMinimalBlockDelay();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

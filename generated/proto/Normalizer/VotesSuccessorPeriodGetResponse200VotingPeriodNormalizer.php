@@ -39,15 +39,15 @@ class VotesSuccessorPeriodGetResponse200VotingPeriodNormalizer implements Denorm
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\VotesSuccessorPeriodGetResponse200VotingPeriod();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('index', $data)) {
             $object->setIndex($data['index']);

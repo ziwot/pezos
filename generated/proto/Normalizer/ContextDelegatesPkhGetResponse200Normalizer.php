@@ -39,21 +39,21 @@ class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterfa
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200();
         if (\array_key_exists('deactivated', $data) && \is_int($data['deactivated'])) {
             $data['deactivated'] = (bool) $data['deactivated'];
         }
         if (\array_key_exists('is_forbidden', $data) && \is_int($data['is_forbidden'])) {
             $data['is_forbidden'] = (bool) $data['is_forbidden'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('deactivated', $data)) {
             $object->setDeactivated($data['deactivated']);
@@ -163,6 +163,10 @@ class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterfa
             $object->setConsensusKey($this->denormalizer->denormalize($data['consensus_key'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200ConsensusKey::class, 'json', $context));
             unset($data['consensus_key']);
         }
+        if (\array_key_exists('companion_key', $data)) {
+            $object->setCompanionKey($this->denormalizer->denormalize($data['companion_key'], \Pezos\Generated\Proto\Model\ContextDelegatesPkhGetResponse200CompanionKey::class, 'json', $context));
+            unset($data['companion_key']);
+        }
         if (\array_key_exists('stakers', $data)) {
             $values_3 = [];
             foreach ($data['stakers'] as $value_3) {
@@ -229,6 +233,7 @@ class ContextDelegatesPkhGetResponse200Normalizer implements DenormalizerInterfa
         $dataArray['voting_power'] = $data->getVotingPower();
         $dataArray['voting_info'] = $this->normalizer->normalize($data->getVotingInfo(), 'json', $context);
         $dataArray['consensus_key'] = $this->normalizer->normalize($data->getConsensusKey(), 'json', $context);
+        $dataArray['companion_key'] = $this->normalizer->normalize($data->getCompanionKey(), 'json', $context);
         $values_3 = [];
         foreach ($data->getStakers() as $value_3) {
             $values_3[] = $this->normalizer->normalize($value_3, 'json', $context);

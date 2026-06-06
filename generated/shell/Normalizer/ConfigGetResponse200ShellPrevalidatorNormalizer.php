@@ -39,18 +39,18 @@ class ConfigGetResponse200ShellPrevalidatorNormalizer implements DenormalizerInt
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPrevalidator();
         if (\array_key_exists('operations_request_timeout', $data) && \is_int($data['operations_request_timeout'])) {
             $data['operations_request_timeout'] = (float) $data['operations_request_timeout'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('operations_request_timeout', $data)) {
             $object->setOperationsRequestTimeout($data['operations_request_timeout']);

@@ -17,10 +17,9 @@ class GetP2pGossipsubSlotIndexesPeers extends \Pezos\Generated\Dal\Runtime\Clien
     /**
      * When the 'all' flag is given, get an association list between each public key hash part of a topic subscribed to by the connected peers and the remote peers subscribed to such topics. If the 'all' flag is not given, then restrict the output to the topics this peer is subscribed to.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $all
-     *             }
+     * @param array{
+     *    "all"?: string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetP2pGossipsubSlotIndexesPeers extends \Pezos\Generated\Dal\Runtime\Clien
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\P2pGossipsubSlotIndexesPeersGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\P2pGossipsubSlotIndexesPeersGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

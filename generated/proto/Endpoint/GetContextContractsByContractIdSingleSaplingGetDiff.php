@@ -18,12 +18,11 @@ class GetContextContractsByContractIdSingleSaplingGetDiff extends \Pezos\Generat
     /**
      * Returns the root and a diff of a state starting from an optional offset which is zero by default.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param array  $queryParameters {
-     *
-     * @var string $offset_commitment commitments and ciphertexts are returned from the specified offset up to the most recent
-     * @var string $offset_nullifier Nullifiers are returned from the specified offset up to the most recent.
-     *             }
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param array{
+     *    "offset_commitment"?: string, //Commitments and ciphertexts are returned from the specified offset up to the most recent.
+     *    "offset_nullifier"?: string, //Nullifiers are returned from the specified offset up to the most recent.
+     * } $queryParameters
      */
     public function __construct(string $contractId, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class GetContextContractsByContractIdSingleSaplingGetDiff extends \Pezos\Generat
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\ContextContractsContractIdSingleSaplingGetDiffGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

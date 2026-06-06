@@ -29,6 +29,10 @@ class VersionGetResponse200Version extends \ArrayObject
      * @var int
      */
     protected $minor;
+    /**
+     * @var int
+     */
+    protected $build;
     protected $additionalInfo;
 
     public function getMajor(): int
@@ -53,6 +57,19 @@ class VersionGetResponse200Version extends \ArrayObject
     {
         $this->initialized['minor'] = true;
         $this->minor = $minor;
+
+        return $this;
+    }
+
+    public function getBuild(): int
+    {
+        return $this->build;
+    }
+
+    public function setBuild(int $build): self
+    {
+        $this->initialized['build'] = true;
+        $this->build = $build;
 
         return $this;
     }

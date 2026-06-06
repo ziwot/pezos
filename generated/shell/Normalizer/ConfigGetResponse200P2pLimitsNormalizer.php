@@ -39,15 +39,15 @@ class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, 
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2pLimits();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('connection-timeout', $data)) {
             $object->setConnectionTimeout($data['connection-timeout']);
@@ -99,25 +99,35 @@ class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, 
             $object->setReadBufferSize($data['read-buffer-size']);
             unset($data['read-buffer-size']);
         }
-        if (\array_key_exists('read-queue-size', $data)) {
+        if (\array_key_exists('read-queue-size', $data) && $data['read-queue-size'] !== null) {
             $object->setReadQueueSize($data['read-queue-size']);
             unset($data['read-queue-size']);
+        } elseif (\array_key_exists('read-queue-size', $data) && $data['read-queue-size'] === null) {
+            $object->setReadQueueSize(null);
         }
-        if (\array_key_exists('write-queue-size', $data)) {
+        if (\array_key_exists('write-queue-size', $data) && $data['write-queue-size'] !== null) {
             $object->setWriteQueueSize($data['write-queue-size']);
             unset($data['write-queue-size']);
+        } elseif (\array_key_exists('write-queue-size', $data) && $data['write-queue-size'] === null) {
+            $object->setWriteQueueSize(null);
         }
-        if (\array_key_exists('incoming-app-message-queue-size', $data)) {
+        if (\array_key_exists('incoming-app-message-queue-size', $data) && $data['incoming-app-message-queue-size'] !== null) {
             $object->setIncomingAppMessageQueueSize($data['incoming-app-message-queue-size']);
             unset($data['incoming-app-message-queue-size']);
+        } elseif (\array_key_exists('incoming-app-message-queue-size', $data) && $data['incoming-app-message-queue-size'] === null) {
+            $object->setIncomingAppMessageQueueSize(null);
         }
-        if (\array_key_exists('incoming-message-queue-size', $data)) {
+        if (\array_key_exists('incoming-message-queue-size', $data) && $data['incoming-message-queue-size'] !== null) {
             $object->setIncomingMessageQueueSize($data['incoming-message-queue-size']);
             unset($data['incoming-message-queue-size']);
+        } elseif (\array_key_exists('incoming-message-queue-size', $data) && $data['incoming-message-queue-size'] === null) {
+            $object->setIncomingMessageQueueSize(null);
         }
-        if (\array_key_exists('outgoing-message-queue-size', $data)) {
+        if (\array_key_exists('outgoing-message-queue-size', $data) && $data['outgoing-message-queue-size'] !== null) {
             $object->setOutgoingMessageQueueSize($data['outgoing-message-queue-size']);
             unset($data['outgoing-message-queue-size']);
+        } elseif (\array_key_exists('outgoing-message-queue-size', $data) && $data['outgoing-message-queue-size'] === null) {
+            $object->setOutgoingMessageQueueSize(null);
         }
         if (\array_key_exists('max_known_points', $data)) {
             $values = [];
@@ -196,7 +206,7 @@ class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, 
         if ($data->isInitialized('maxUploadSpeed') && null !== $data->getMaxUploadSpeed()) {
             $dataArray['max-upload-speed'] = $data->getMaxUploadSpeed();
         }
-        if ($data->isInitialized('swapLinger') && null !== $data->getSwapLinger()) {
+        if ($data->isInitialized('swapLinger')) {
             $dataArray['swap-linger'] = $data->getSwapLinger();
         }
         if ($data->isInitialized('binaryChunksSize') && null !== $data->getBinaryChunksSize()) {
@@ -205,19 +215,19 @@ class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, 
         if ($data->isInitialized('readBufferSize') && null !== $data->getReadBufferSize()) {
             $dataArray['read-buffer-size'] = $data->getReadBufferSize();
         }
-        if ($data->isInitialized('readQueueSize') && null !== $data->getReadQueueSize()) {
+        if ($data->isInitialized('readQueueSize')) {
             $dataArray['read-queue-size'] = $data->getReadQueueSize();
         }
-        if ($data->isInitialized('writeQueueSize') && null !== $data->getWriteQueueSize()) {
+        if ($data->isInitialized('writeQueueSize')) {
             $dataArray['write-queue-size'] = $data->getWriteQueueSize();
         }
-        if ($data->isInitialized('incomingAppMessageQueueSize') && null !== $data->getIncomingAppMessageQueueSize()) {
+        if ($data->isInitialized('incomingAppMessageQueueSize')) {
             $dataArray['incoming-app-message-queue-size'] = $data->getIncomingAppMessageQueueSize();
         }
-        if ($data->isInitialized('incomingMessageQueueSize') && null !== $data->getIncomingMessageQueueSize()) {
+        if ($data->isInitialized('incomingMessageQueueSize')) {
             $dataArray['incoming-message-queue-size'] = $data->getIncomingMessageQueueSize();
         }
-        if ($data->isInitialized('outgoingMessageQueueSize') && null !== $data->getOutgoingMessageQueueSize()) {
+        if ($data->isInitialized('outgoingMessageQueueSize')) {
             $dataArray['outgoing-message-queue-size'] = $data->getOutgoingMessageQueueSize();
         }
         if ($data->isInitialized('maxKnownPoints') && null !== $data->getMaxKnownPoints()) {
@@ -246,7 +256,7 @@ class ConfigGetResponse200P2pLimitsNormalizer implements DenormalizerInterface, 
         if ($data->isInitialized('greylistTimeout') && null !== $data->getGreylistTimeout()) {
             $dataArray['greylist-timeout'] = $data->getGreylistTimeout();
         }
-        if ($data->isInitialized('maintenanceIdleTime') && null !== $data->getMaintenanceIdleTime()) {
+        if ($data->isInitialized('maintenanceIdleTime')) {
             $dataArray['maintenance-idle-time'] = $data->getMaintenanceIdleTime();
         }
         foreach ($data as $key => $value_2) {

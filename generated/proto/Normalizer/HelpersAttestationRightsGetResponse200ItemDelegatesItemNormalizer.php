@@ -39,15 +39,15 @@ class HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer implemen
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\HelpersAttestationRightsGetResponse200ItemDelegatesItem();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('delegate', $data)) {
             $object->setDelegate($data['delegate']);
@@ -57,9 +57,9 @@ class HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer implemen
             $object->setFirstSlot($data['first_slot']);
             unset($data['first_slot']);
         }
-        if (\array_key_exists('attestation_power', $data)) {
-            $object->setAttestationPower($data['attestation_power']);
-            unset($data['attestation_power']);
+        if (\array_key_exists('attesting_power', $data)) {
+            $object->setAttestingPower($data['attesting_power']);
+            unset($data['attesting_power']);
         }
         if (\array_key_exists('consensus_key', $data)) {
             $object->setConsensusKey($data['consensus_key']);
@@ -79,7 +79,7 @@ class HelpersAttestationRightsGetResponse200ItemDelegatesItemNormalizer implemen
         $dataArray = [];
         $dataArray['delegate'] = $data->getDelegate();
         $dataArray['first_slot'] = $data->getFirstSlot();
-        $dataArray['attestation_power'] = $data->getAttestationPower();
+        $dataArray['attesting_power'] = $data->getAttestingPower();
         $dataArray['consensus_key'] = $data->getConsensusKey();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

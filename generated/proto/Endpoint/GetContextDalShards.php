@@ -17,11 +17,10 @@ class GetContextDalShards extends \Pezos\Generated\Proto\Runtime\Client\BaseEndp
     /**
      * Get the shards assignment for a given level (the default is the current level) and given delegates (the default is all delegates).
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $delegates A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "delegates"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -67,10 +66,10 @@ class GetContextDalShards extends \Pezos\Generated\Proto\Runtime\Client\BaseEndp
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\ContextDalShardsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\ContextDalShardsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

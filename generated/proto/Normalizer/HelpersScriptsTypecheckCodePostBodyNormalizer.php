@@ -39,21 +39,21 @@ class HelpersScriptsTypecheckCodePostBodyNormalizer implements DenormalizerInter
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsTypecheckCodePostBody();
         if (\array_key_exists('legacy', $data) && \is_int($data['legacy'])) {
             $data['legacy'] = (bool) $data['legacy'];
         }
         if (\array_key_exists('show_types', $data) && \is_int($data['show_types'])) {
             $data['show_types'] = (bool) $data['show_types'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('program', $data)) {
             $object->setProgram($data['program']);

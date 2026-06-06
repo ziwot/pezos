@@ -17,10 +17,9 @@ class GetP2pPeersInfo extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint i
     /**
      * Get list of known peers and their corresponding info.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetP2pPeersInfo extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint i
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\P2pPeersInfoGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\P2pPeersInfoGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

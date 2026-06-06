@@ -39,15 +39,15 @@ class LocalBatcherQueueGetResponse200ItemNormalizer implements DenormalizerInter
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200Item();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('order', $data)) {
             $object->setOrder($data['order']);
@@ -60,6 +60,10 @@ class LocalBatcherQueueGetResponse200ItemNormalizer implements DenormalizerInter
         if (\array_key_exists('message', $data)) {
             $object->setMessage($this->denormalizer->denormalize($data['message'], \Pezos\Generated\Rollup\Model\LocalBatcherQueueGetResponse200ItemMessage::class, 'json', $context));
             unset($data['message']);
+        }
+        if (\array_key_exists('traceparent', $data)) {
+            $object->setTraceparent($data['traceparent']);
+            unset($data['traceparent']);
         }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -78,6 +82,9 @@ class LocalBatcherQueueGetResponse200ItemNormalizer implements DenormalizerInter
         }
         $dataArray['id'] = $data->getId();
         $dataArray['message'] = $this->normalizer->normalize($data->getMessage(), 'json', $context);
+        if ($data->isInitialized('traceparent') && null !== $data->getTraceparent()) {
+            $dataArray['traceparent'] = $data->getTraceparent();
+        }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
                 $dataArray[$key] = $value;

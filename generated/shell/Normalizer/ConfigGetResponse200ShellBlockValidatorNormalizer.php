@@ -39,18 +39,18 @@ class ConfigGetResponse200ShellBlockValidatorNormalizer implements DenormalizerI
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellBlockValidator();
         if (\array_key_exists('protocol_request_timeout', $data) && \is_int($data['protocol_request_timeout'])) {
             $data['protocol_request_timeout'] = (float) $data['protocol_request_timeout'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('protocol_request_timeout', $data)) {
             $object->setProtocolRequestTimeout($data['protocol_request_timeout']);

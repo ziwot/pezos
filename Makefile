@@ -26,16 +26,21 @@ help:
 
 SHELL=/bin/bash
 
-DOCKER_COMPOSE = docker compose
+PROJECT=$(notdir $(CURDIR))
+SANDBOX_IMAGE=ghcr.io/tez-capital/tezbox:tezos-v24.4
+SANDBOX_NAME=sandbox-$(PROJECT)
+SANDBOX_RPC_PORT=8732
+SANDBOX_SCRIPT=T
 
 ########################################
 #               INFRA                  #
 ########################################
-up: down ##@Infra restart containers
-	$(DOCKER_COMPOSE) up -d
+up: ##@Infra restart containers
+	@docker run --rm --name $(SANDBOX_NAME) -d -p $(SANDBOX_RPC_PORT):8732 \
+		$(SANDBOX_IMAGE) $(SANDBOX_SCRIPT)
 
-down: ##@Infra stop containers
-	$(DOCKER_COMPOSE) down --remove-orphans
+down: ##@Infra stop local infra
+	@docker stop $(SANDBOX_NAME)
 
 sandbox-shell: ##@Infra enter sandbox container
 	$(DOCKER_COMPOSE) exec sandbox ash

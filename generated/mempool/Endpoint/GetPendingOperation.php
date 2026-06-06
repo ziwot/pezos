@@ -17,18 +17,17 @@ class GetPendingOperation extends \Pezos\Generated\Mempool\Runtime\Client\BaseEn
     /**
      * List the prevalidated operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "2" (default)
-     * @var string $validated Include validated operations (true by default)
-     * @var string $refused Include refused operations (true by default)
-     * @var string $outdated Include outdated operations (true by default)
-     * @var string $branch_refused Include branch refused operations (true by default)
-     * @var string $branch_delayed Include branch delayed operations (true by default)
-     * @var string $validation_pass Include operations filtered by validation pass (all by default)
-     * @var string $source Include operations filtered by source (all by default)
-     * @var string $operation_hash Include operations filtered by hash (all by default)
-     *             }
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "2" (default)
+     *    "validated": string, //Include validated operations (true by default)
+     *    "refused": string, //Include refused operations (true by default)
+     *    "outdated": string, //Include outdated operations (true by default)
+     *    "branch_refused": string, //Include branch refused operations (true by default)
+     *    "branch_delayed": string, //Include branch delayed operations (true by default)
+     *    "validation_pass"?: string, //Include operations filtered by validation pass (all by default)
+     *    "source"?: string, //Include operations filtered by source (all by default)
+     *    "operation_hash"?: string, //Include operations filtered by hash (all by default)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -81,10 +80,10 @@ class GetPendingOperation extends \Pezos\Generated\Mempool\Runtime\Client\BaseEn
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Mempool\\Model\\PendingOperationsGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Mempool\Model\PendingOperationsGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

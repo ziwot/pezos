@@ -46,6 +46,18 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => UserActivatedUpgradesItemNormalizer::class,
 
+        \Pezos\Generated\Shell\Model\BlsAggregateProofsPostBody::class => BlsAggregateProofsPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\BlsAggregatePublicKeysPostBodyItem::class => BlsAggregatePublicKeysPostBodyItemNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\BlsAggregateSignaturesPostBody::class => BlsAggregateSignaturesPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\BlsCheckProofPostBody::class => BlsCheckProofPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\BlsThresholdSignaturesPostBody::class => BlsThresholdSignaturesPostBodyNormalizer::class,
+
+        \Pezos\Generated\Shell\Model\BlsThresholdSignaturesPostBodySignatureSharesItem::class => BlsThresholdSignaturesPostBodySignatureSharesItemNormalizer::class,
+
         \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => ChainsChainIdPatchBodyNormalizer::class,
 
         \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200::class => ChainsChainIdActivePeersHeadsGetResponse200Normalizer::class,
@@ -328,6 +340,12 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Shell\Model\P2pStat::class => false,
             \Pezos\Generated\Shell\Model\UserActivatedProtocolOverridesItem::class => false,
             \Pezos\Generated\Shell\Model\UserActivatedUpgradesItem::class => false,
+            \Pezos\Generated\Shell\Model\BlsAggregateProofsPostBody::class => false,
+            \Pezos\Generated\Shell\Model\BlsAggregatePublicKeysPostBodyItem::class => false,
+            \Pezos\Generated\Shell\Model\BlsAggregateSignaturesPostBody::class => false,
+            \Pezos\Generated\Shell\Model\BlsCheckProofPostBody::class => false,
+            \Pezos\Generated\Shell\Model\BlsThresholdSignaturesPostBody::class => false,
+            \Pezos\Generated\Shell\Model\BlsThresholdSignaturesPostBodySignatureSharesItem::class => false,
             \Pezos\Generated\Shell\Model\ChainsChainIdPatchBody::class => false,
             \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200::class => false,
             \Pezos\Generated\Shell\Model\ChainsChainIdActivePeersHeadsGetResponse200ActivePeersHeadsItem::class => false,

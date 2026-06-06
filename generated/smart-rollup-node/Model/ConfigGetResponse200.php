@@ -26,6 +26,12 @@ class ConfigGetResponse200 extends \ArrayObject
      */
     protected $smartRollupAddress;
     /**
+     * Whether the rollup is an Etherlink rollup. Defaults to identification based on known Etherlink addresses.
+     *
+     * @var bool
+     */
+    protected $etherlink;
+    /**
      * Boot sector.
      */
     protected $bootSector;
@@ -77,10 +83,14 @@ class ConfigGetResponse200 extends \ArrayObject
     protected $mode;
     /**
      * If enabled, the rollup node will issue wrong commitments (for test only!).
-     *
-     * @var list<ConfigGetResponse200LoserModeItem>
      */
     protected $loserMode;
+    /**
+     * Apply the unsafe PVM patches for this rollup (either user provided or hardcoded).
+     *
+     * @var bool
+     */
+    protected $applyUnsafePatches;
     /**
      * Unsafe patches to apply to the PVM. For tests only, don't set this value in production.
      *
@@ -122,6 +132,10 @@ class ConfigGetResponse200 extends \ArrayObject
      */
     protected $prefetchBlocks;
     /**
+     * @var bool
+     */
+    protected $l1MonitorFinalized;
+    /**
      * @var float
      */
     protected $l1RpcTimeout;
@@ -143,6 +157,10 @@ class ConfigGetResponse200 extends \ArrayObject
      * @var bool
      */
     protected $logKernelDebug;
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    protected $logKernelDebugFile;
     /**
      * @var bool
      */
@@ -167,6 +185,16 @@ class ConfigGetResponse200 extends \ArrayObject
      * @var bool
      */
     protected $bailOnDisagree;
+    /**
+     * Enable or disable opentelemetry profiling.
+     *
+     * @var mixed|null
+     */
+    protected $opentelemetry;
+    /**
+     * @var int
+     */
+    protected $dalSlotStatusMaxFetchAttempts;
 
     /**
      * Smart rollup address.
@@ -183,6 +211,25 @@ class ConfigGetResponse200 extends \ArrayObject
     {
         $this->initialized['smartRollupAddress'] = true;
         $this->smartRollupAddress = $smartRollupAddress;
+
+        return $this;
+    }
+
+    /**
+     * Whether the rollup is an Etherlink rollup. Defaults to identification based on known Etherlink addresses.
+     */
+    public function getEtherlink(): bool
+    {
+        return $this->etherlink;
+    }
+
+    /**
+     * Whether the rollup is an Etherlink rollup. Defaults to identification based on known Etherlink addresses.
+     */
+    public function setEtherlink(bool $etherlink): self
+    {
+        $this->initialized['etherlink'] = true;
+        $this->etherlink = $etherlink;
 
         return $this;
     }
@@ -377,23 +424,38 @@ class ConfigGetResponse200 extends \ArrayObject
 
     /**
      * If enabled, the rollup node will issue wrong commitments (for test only!).
-     *
-     * @return list<ConfigGetResponse200LoserModeItem>
      */
-    public function getLoserMode(): array
+    public function getLoserMode()
     {
         return $this->loserMode;
     }
 
     /**
      * If enabled, the rollup node will issue wrong commitments (for test only!).
-     *
-     * @param list<ConfigGetResponse200LoserModeItem> $loserMode
      */
-    public function setLoserMode(array $loserMode): self
+    public function setLoserMode($loserMode): self
     {
         $this->initialized['loserMode'] = true;
         $this->loserMode = $loserMode;
+
+        return $this;
+    }
+
+    /**
+     * Apply the unsafe PVM patches for this rollup (either user provided or hardcoded).
+     */
+    public function getApplyUnsafePatches(): bool
+    {
+        return $this->applyUnsafePatches;
+    }
+
+    /**
+     * Apply the unsafe PVM patches for this rollup (either user provided or hardcoded).
+     */
+    public function setApplyUnsafePatches(bool $applyUnsafePatches): self
+    {
+        $this->initialized['applyUnsafePatches'] = true;
+        $this->applyUnsafePatches = $applyUnsafePatches;
 
         return $this;
     }
@@ -547,6 +609,19 @@ class ConfigGetResponse200 extends \ArrayObject
         return $this;
     }
 
+    public function getL1MonitorFinalized(): bool
+    {
+        return $this->l1MonitorFinalized;
+    }
+
+    public function setL1MonitorFinalized(bool $l1MonitorFinalized): self
+    {
+        $this->initialized['l1MonitorFinalized'] = true;
+        $this->l1MonitorFinalized = $l1MonitorFinalized;
+
+        return $this;
+    }
+
     public function getL1RpcTimeout(): float
     {
         return $this->l1RpcTimeout;
@@ -614,6 +689,25 @@ class ConfigGetResponse200 extends \ArrayObject
     {
         $this->initialized['logKernelDebug'] = true;
         $this->logKernelDebug = $logKernelDebug;
+
+        return $this;
+    }
+
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    public function getLogKernelDebugFile()
+    {
+        return $this->logKernelDebugFile;
+    }
+
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    public function setLogKernelDebugFile($logKernelDebugFile): self
+    {
+        $this->initialized['logKernelDebugFile'] = true;
+        $this->logKernelDebugFile = $logKernelDebugFile;
 
         return $this;
     }
@@ -692,6 +786,38 @@ class ConfigGetResponse200 extends \ArrayObject
     {
         $this->initialized['bailOnDisagree'] = true;
         $this->bailOnDisagree = $bailOnDisagree;
+
+        return $this;
+    }
+
+    /**
+     * Enable or disable opentelemetry profiling.
+     */
+    public function getOpentelemetry()
+    {
+        return $this->opentelemetry;
+    }
+
+    /**
+     * Enable or disable opentelemetry profiling.
+     */
+    public function setOpentelemetry($opentelemetry): self
+    {
+        $this->initialized['opentelemetry'] = true;
+        $this->opentelemetry = $opentelemetry;
+
+        return $this;
+    }
+
+    public function getDalSlotStatusMaxFetchAttempts(): int
+    {
+        return $this->dalSlotStatusMaxFetchAttempts;
+    }
+
+    public function setDalSlotStatusMaxFetchAttempts(int $dalSlotStatusMaxFetchAttempts): self
+    {
+        $this->initialized['dalSlotStatusMaxFetchAttempts'] = true;
+        $this->dalSlotStatusMaxFetchAttempts = $dalSlotStatusMaxFetchAttempts;
 
         return $this;
     }

@@ -18,11 +18,10 @@ class GetGlobalBlockByBlockIdDurableWasm200Values extends \Pezos\Generated\Rollu
     /**
      * Retrieve values directly under a given key from PVM durable storage. PVM state is taken with respect to the specified block level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      */
     public function __construct(string $blockId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetGlobalBlockByBlockIdDurableWasm200Values extends \Pezos\Generated\Rollu
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Rollup\\Model\\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

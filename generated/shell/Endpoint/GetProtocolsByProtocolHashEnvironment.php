@@ -16,7 +16,7 @@ class GetProtocolsByProtocolHashEnvironment extends \Pezos\Generated\Shell\Runti
     protected $Protocol_hash;
 
     /**
-     * (no description).
+     * the protocol environment version required by a protocol.
      *
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      */
@@ -52,10 +52,10 @@ class GetProtocolsByProtocolHashEnvironment extends \Pezos\Generated\Shell\Runti
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

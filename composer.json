@@ -3,9 +3,7 @@
     "description": "Tezos library",
     "type": "library",
     "license": "MIT",
-    "keywords": [
-        "tezos"
-    ],
+    "keywords": ["tezos"],
     "autoload": {
         "psr-4": {
             "Pezos\\": "src/",
@@ -14,9 +12,7 @@
             "Pezos\\Generated\\Shell\\": "generated/shell",
             "Pezos\\Generated\\Rollup\\": "generated/smart-rollup-node"
         },
-        "files": [
-            "src/_bootstrap.php"
-        ]
+        "files": ["src/_bootstrap.php"]
     },
     "autoload-dev": {
         "psr-4": {
@@ -33,8 +29,6 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
         "phpunit/phpunit": "^10",
-        "vimeo/psalm": "^5.8",
-        "symfony/var-dumper": "^5.2",
         "php-http/client-common": "^2.3",
         "php-http/message": "^1.11",
         "php-http/discovery": "^1.13",

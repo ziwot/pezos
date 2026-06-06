@@ -39,15 +39,18 @@ class ContextContractsContractIdGetResponse200Normalizer implements Denormalizer
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdGetResponse200();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
+        if (\array_key_exists('revealed', $data) && \is_int($data['revealed'])) {
+            $data['revealed'] = (bool) $data['revealed'];
         }
         if (\array_key_exists('balance', $data)) {
             $object->setBalance($data['balance']);
@@ -58,12 +61,16 @@ class ContextContractsContractIdGetResponse200Normalizer implements Denormalizer
             unset($data['delegate']);
         }
         if (\array_key_exists('script', $data)) {
-            $object->setScript($this->denormalizer->denormalize($data['script'], \Pezos\Generated\Proto\Model\_022PsRiotumScriptedContracts::class, 'json', $context));
+            $object->setScript($this->denormalizer->denormalize($data['script'], \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedContracts::class, 'json', $context));
             unset($data['script']);
         }
         if (\array_key_exists('counter', $data)) {
             $object->setCounter($data['counter']);
             unset($data['counter']);
+        }
+        if (\array_key_exists('revealed', $data)) {
+            $object->setRevealed($data['revealed']);
+            unset($data['revealed']);
         }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {
@@ -86,6 +93,9 @@ class ContextContractsContractIdGetResponse200Normalizer implements Denormalizer
         }
         if ($data->isInitialized('counter') && null !== $data->getCounter()) {
             $dataArray['counter'] = $data->getCounter();
+        }
+        if ($data->isInitialized('revealed') && null !== $data->getRevealed()) {
+            $dataArray['revealed'] = $data->getRevealed();
         }
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

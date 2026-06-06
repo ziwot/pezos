@@ -18,12 +18,11 @@ class GetMonitorHeadByChainId extends \Pezos\Generated\Shell\Runtime\Client\Base
     /**
      * Monitor all blocks that are successfully validated and applied by the node and selected as the new head of the given chain.
      *
-     * @param string $chainId         A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     * @param array  $queryParameters {
-     *
-     * @var string $protocol Protocol_hash (Base58Check-encoded)
-     * @var string $next_protocol Protocol_hash (Base58Check-encoded)
-     *             }
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param array{
+     *    "protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "next_protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     * } $queryParameters
      */
     public function __construct(string $chainId, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class GetMonitorHeadByChainId extends \Pezos\Generated\Shell\Runtime\Client\Base
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Shell\\Model\\MonitorHeadsChainIdGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Shell\Model\MonitorHeadsChainIdGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

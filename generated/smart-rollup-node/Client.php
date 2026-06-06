@@ -15,15 +15,13 @@ class Client extends Runtime\Client\Client
     /**
      * Clear operation queues of injectors.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $order_below
-     * @var string $drop_no_order
-     *             }
-     *
+     * @param array{
+     *    "order_below"?: string,
+     *    "drop_no_order": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteAdminBatcherQueue(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -33,7 +31,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getAdminCancelGc(string $fetch = self::FETCH_OBJECT)
     {
@@ -43,16 +41,14 @@ class Client extends Runtime\Client\Client
     /**
      * Clear operation queues of injectors.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $order_below
-     * @var string $tag a kind of operation for the injector
-     * @var string $drop_no_order
-     *             }
-     *
+     * @param array{
+     *    "order_below"?: string,
+     *    "tag"?: string, //A kind of operation for the injector.
+     *    "drop_no_order": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteAdminInjectorQueue(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -62,14 +58,12 @@ class Client extends Runtime\Client\Client
     /**
      * Get operation queues of injectors.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $tag A kind of operation for the injector.
-     *             }
-     *
+     * @param array{
+     *    "tag"?: string, //A kind of operation for the injector.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\AdminInjectorQueuesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\AdminInjectorQueuesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getAdminInjectorQueues(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -79,7 +73,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\AdminInjectorQueuesTotalGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\AdminInjectorQueuesTotalGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getAdminInjectorQueuesTotal(string $fetch = self::FETCH_OBJECT)
     {
@@ -89,7 +83,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfig(string $fetch = self::FETCH_OBJECT)
     {
@@ -99,14 +93,12 @@ class Client extends Runtime\Client\Client
     /**
      * RPCs documentation and input/output schema.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $recurse
-     *             }
-     *
+     * @param array{
+     *    "recurse": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getDescribe(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -116,15 +108,13 @@ class Client extends Runtime\Client\Client
     /**
      * Layer-2 block of the layer-2 chain with respect to a Layer 1 block identifier.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $outbox
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "outbox": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockId(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -137,7 +127,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdCommittedStatus(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -145,43 +135,15 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Data availability processed slots and their statuses.
-     *
-     * @param string $blockId an L1 block identifier
-     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
-     *
-     * @return Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
-     */
-    public function getGlobalBlockByBlockIdDalProcessedSlots(string $blockId, string $fetch = self::FETCH_OBJECT)
-    {
-        return $this->executeEndpoint(new Endpoint\GetGlobalBlockByBlockIdDalProcessedSlots($blockId), $fetch);
-    }
-
-    /**
-     * Availability slots for a given block.
-     *
-     * @param string $blockId an L1 block identifier
-     * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
-     *
-     * @return Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
-     */
-    public function getGlobalBlockByBlockIdDalSlotHeaders(string $blockId, string $fetch = self::FETCH_OBJECT)
-    {
-        return $this->executeEndpoint(new Endpoint\GetGlobalBlockByBlockIdDalSlotHeaders($blockId), $fetch);
-    }
-
-    /**
      * Retrieve number of bytes in raw representation of value by key from PVM durable storage. PVM state is taken with respect to the specified block level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdDurableWasm200Length(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -191,15 +153,13 @@ class Client extends Runtime\Client\Client
     /**
      * Retrieve subkeys of the specified key from PVM durable storage. PVM state is taken with respect to the specified block level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdDurableWasm200Subkeys(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -209,15 +169,13 @@ class Client extends Runtime\Client\Client
     /**
      * Retrieve value by key from PVM durable storage. PVM state is taken with respect to the specified block level. Value returned in hex format.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdDurableWasm200Value(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -227,15 +185,13 @@ class Client extends Runtime\Client\Client
     /**
      * Retrieve values directly under a given key from PVM durable storage. PVM state is taken with respect to the specified block level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdDurableWasm200Values(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -248,7 +204,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdHash(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -258,15 +214,13 @@ class Client extends Runtime\Client\Client
     /**
      * Generate serialized output proof for some outbox message at level and index.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $index
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "index"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdHelpersProofsOutboxByLevelMessage(string $blockId, string $level, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -279,7 +233,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdInboxGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdInboxGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdInbox(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -292,7 +246,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdLevel(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -305,7 +259,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdNumMessage(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -315,15 +269,13 @@ class Client extends Runtime\Client\Client
     /**
      * Outbox at block for a given outbox level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $outbox_level
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "outbox_level"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdOutboxGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdOutboxGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdOutbox(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -336,7 +288,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdOutboxLevelMessagesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdOutboxByLevelMessages(string $blockId, string $level, string $fetch = self::FETCH_OBJECT)
     {
@@ -349,7 +301,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalBlockBlockIdSimulatePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalBlockBlockIdSimulatePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postGlobalBlockByBlockIdSimulate(string $blockId, ?Model\GlobalBlockBlockIdSimulatePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -359,15 +311,13 @@ class Client extends Runtime\Client\Client
     /**
      * Retrieve value from key is PVM state of specified block.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
-     *
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdState(string $blockId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -380,7 +330,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdStateCurrentLevel(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -393,7 +343,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdStateHash(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -406,7 +356,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdStatus(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -419,7 +369,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdTick(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -432,7 +382,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockId an L1 block identifier
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalBlockByBlockIdTotalTick(string $blockId, string $fetch = self::FETCH_OBJECT)
     {
@@ -442,7 +392,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalLastStoredCommitment(string $fetch = self::FETCH_OBJECT)
     {
@@ -452,7 +402,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GlobalMonitorBlocksGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalMonitorBlocksGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalMonitorBlock(string $fetch = self::FETCH_OBJECT)
     {
@@ -462,7 +412,17 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GlobalMonitorFinalizedBlocksGetResponse200|null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getGlobalMonitorFinalizedBlock(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetGlobalMonitorFinalizedBlock(), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalSmartRollupAddress(string $fetch = self::FETCH_OBJECT)
     {
@@ -472,7 +432,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalTezosHead(string $fetch = self::FETCH_OBJECT)
     {
@@ -482,7 +442,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getGlobalTezosLevel(string $fetch = self::FETCH_OBJECT)
     {
@@ -492,7 +452,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HealthGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HealthGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHealth(string $fetch = self::FETCH_OBJECT)
     {
@@ -503,15 +463,13 @@ class Client extends Runtime\Client\Client
      * Inject messages in the batcher's queue.
      *
      * @param array[]|null $requestBody
-     * @param array        $queryParameters {
-     *
-     * @var string $order
-     * @var string $drop_duplicate
-     *             }
-     *
+     * @param array{
+     *    "order"?: string,
+     *    "drop_duplicate": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postLocalBatcherInjection(?array $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -521,7 +479,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\LocalBatcherQueueGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\LocalBatcherQueueGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalBatcherQueue(string $fetch = self::FETCH_OBJECT)
     {
@@ -534,7 +492,7 @@ class Client extends Runtime\Client\Client
      * @param string $l2MessageId a L2 message id
      * @param string $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalBatcherQueueByL2MessageId(string $l2MessageId, string $fetch = self::FETCH_OBJECT)
     {
@@ -547,7 +505,7 @@ class Client extends Runtime\Client\Client
      * @param string $commitmentHash a commitment hash
      * @param string $fetch          Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalCommitmentByCommitmentHash(string $commitmentHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -560,7 +518,7 @@ class Client extends Runtime\Client\Client
      * @param array[]|null $requestBody
      * @param string       $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postLocalDalBatcherInjection(?array $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -570,7 +528,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\LocalDalInjectedOperationsStatusesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\LocalDalInjectedOperationsStatusesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalDalInjectedOperationsStatuses(string $fetch = self::FETCH_OBJECT)
     {
@@ -584,7 +542,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch                 Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postLocalDalInjectionByInjectorOperationHashForget(string $injectorOperationHash, $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -596,7 +554,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postLocalDalSlotIndex(?Model\LocalDalSlotIndicesPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -606,7 +564,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\LocalGcInfoGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\LocalGcInfoGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalGcInfo(string $fetch = self::FETCH_OBJECT)
     {
@@ -619,7 +577,7 @@ class Client extends Runtime\Client\Client
      * @param string $injectorOperationHash injector_operation_hash (Base58Check-encoded)
      * @param string $fetch                 Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalInjectorOperationByInjectorOperationHashStatus(string $injectorOperationHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -629,7 +587,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalLastPublishedCommitment(string $fetch = self::FETCH_OBJECT)
     {
@@ -637,29 +595,54 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Pending outbox messages with their status (executable, pending, or lost).
+     *
+     * @param array{
+     *    "outbox_level"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\LocalOutboxPendingExecutableGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\LocalOutboxPendingGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
-    public function getLocalOutboxPendingExecutable(string $fetch = self::FETCH_OBJECT)
+    public function getLocalOutboxPending(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new Endpoint\GetLocalOutboxPendingExecutable(), $fetch);
+        return $this->executeEndpoint(new Endpoint\GetLocalOutboxPending($queryParameters), $fetch);
+    }
+
+    /**
+     * Pending outbox messages which can be executed.
+     *
+     * @param array{
+     *    "outbox_level"?: string,
+     * } $queryParameters
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\LocalOutboxPendingExecutableGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getLocalOutboxPendingExecutable(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLocalOutboxPendingExecutable($queryParameters), $fetch);
+    }
+
+    /**
+     * Pending outbox messages which cannot yet be executed.
+     *
+     * @param array{
+     *    "outbox_level"?: string,
+     * } $queryParameters
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\LocalOutboxPendingUnexecutableGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getLocalOutboxPendingUnexecutable(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetLocalOutboxPendingUnexecutable($queryParameters), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\LocalOutboxPendingUnexecutableGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
-     */
-    public function getLocalOutboxPendingUnexecutable(string $fetch = self::FETCH_OBJECT)
-    {
-        return $this->executeEndpoint(new Endpoint\GetLocalOutboxPendingUnexecutable(), $fetch);
-    }
-
-    /**
-     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLocalSynchronized(string $fetch = self::FETCH_OBJECT)
     {
@@ -669,14 +652,12 @@ class Client extends Runtime\Client\Client
     /**
      * OpenAPI specification of RPCs for rollup node.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $protocol Protocol_hash (Base58Check-encoded)
-     *             }
-     *
+     * @param array{
+     *    "protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOpenapi(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -686,7 +667,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getPing(string $fetch = self::FETCH_OBJECT)
     {
@@ -696,7 +677,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getStatsMemory(string $fetch = self::FETCH_OBJECT)
     {
@@ -706,7 +687,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\StatsOcamlGcGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\StatsOcamlGcGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getStatsOcamlGc(string $fetch = self::FETCH_OBJECT)
     {
@@ -716,7 +697,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VersionGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VersionGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVersion(string $fetch = self::FETCH_OBJECT)
     {

@@ -15,7 +15,7 @@ class PostHelpersScriptsRunCode extends \Pezos\Generated\Proto\Runtime\Client\Ba
     use \Pezos\Generated\Proto\Runtime\Client\EndpointTrait;
 
     /**
-     * Run a Michelson script in the current context.
+     * Run a Michelson script in the current context. The gas used is bounded by the protocol's hard gas limit per operation.
      */
     public function __construct(?\Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostBody $requestBody = null)
     {
@@ -53,10 +53,10 @@ class PostHelpersScriptsRunCode extends \Pezos\Generated\Proto\Runtime\Client\Ba
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersScriptsRunCodePostResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersScriptsRunCodePostResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

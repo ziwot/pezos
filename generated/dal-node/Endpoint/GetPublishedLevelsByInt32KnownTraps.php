@@ -18,11 +18,10 @@ class GetPublishedLevelsByInt32KnownTraps extends \Pezos\Generated\Dal\Runtime\C
     /**
      * For a given published level, return all the traps known by the node. Optional arguments allow to restrict the output to a given delegate or slot index.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $slot_index
-     *             }
+     * @param array{
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "slot_index"?: string,
+     * } $queryParameters
      */
     public function __construct(string $int32, array $queryParameters = [])
     {
@@ -69,10 +68,10 @@ class GetPublishedLevelsByInt32KnownTraps extends \Pezos\Generated\Dal\Runtime\C
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\PublishedLevelsInt32KnownTrapsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\PublishedLevelsInt32KnownTrapsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

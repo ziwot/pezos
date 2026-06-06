@@ -15,16 +15,14 @@ class Client extends Runtime\Client\Client
     /**
      * All the information about a block. The associated metadata may not be present depending on the history mode and block's distance from the head.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $force_metadata DEPRECATED: Forces to recompute the operations metadata if it was considered as too large
-     * @var string $metadata defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "force_metadata"?: string, //DEPRECATED: Forces to recompute the operations metadata if it was considered as too large.
+     *    "metadata"?: string, //defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\GetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\GetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function get(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -34,7 +32,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextAdaptiveIssuanceLaunchCycle(string $fetch = self::FETCH_OBJECT)
     {
@@ -44,16 +42,14 @@ class Client extends Runtime\Client\Client
     /**
      * Get the (optionally paginated) list of values in a big map. Order of values is unspecified, but is guaranteed to be consistent.
      *
-     * @param string $bigMapId        A big map identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $offset A non-negative integer (greater than or equal to 0). Skip the first [offset] values. Useful in combination with [length] for pagination.
-     * @var string $length A non-negative integer (greater than or equal to 0). Only retrieve [length] values. Useful in combination with [offset] for pagination.
-     *             }
-     *
+     * @param string $bigMapId A big map identifier
+     * @param array{
+     *    "offset"?: string, //A non-negative integer (greater than or equal to 0). Skip the first [offset] values. Useful in combination with [length] for pagination.
+     *    "length"?: string, //A non-negative integer (greater than or equal to 0). Only retrieve [length] values. Useful in combination with [offset] for pagination.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextBigMapsByBigMapId(string $bigMapId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -67,7 +63,7 @@ class Client extends Runtime\Client\Client
      * @param string $scriptExpr script_expr (Base58Check-encoded)
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextBigMapByBigMapIdByScriptExpr(string $bigMapId, string $scriptExpr, string $fetch = self::FETCH_OBJECT)
     {
@@ -81,7 +77,7 @@ class Client extends Runtime\Client\Client
      * @param string $scriptExpr script_expr (Base58Check-encoded)
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextBigMapsByBigMapIdByScriptExprNormalized(string $bigMapId, string $scriptExpr, ?Model\ContextBigMapsBigMapIdScriptExprNormalizedPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -91,7 +87,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextCacheContractsAll(string $fetch = self::FETCH_OBJECT)
     {
@@ -104,7 +100,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextCacheContractsRank($requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -114,7 +110,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextCacheContractsSize(string $fetch = self::FETCH_OBJECT)
     {
@@ -124,7 +120,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextCacheContractsSizeLimit(string $fetch = self::FETCH_OBJECT)
     {
@@ -134,7 +130,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextConstantsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextConstantsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextConstant(string $fetch = self::FETCH_OBJECT)
     {
@@ -144,7 +140,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextConstantsError(string $fetch = self::FETCH_OBJECT)
     {
@@ -154,7 +150,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextConstantsParametricGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextConstantsParametricGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextConstantsParametric(string $fetch = self::FETCH_OBJECT)
     {
@@ -164,7 +160,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContracts(string $fetch = self::FETCH_OBJECT)
     {
@@ -174,15 +170,13 @@ class Client extends Runtime\Client\Client
     /**
      * Access the complete status of a contract.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param array  $queryParameters {
-     *
-     * @var string $normalize_types Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
-     *             }
-     *
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param array{
+     *    "normalize_types"?: string, //Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextContractsContractIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextContractsContractIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractByContractId(string $contractId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -195,7 +189,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextContractsContractIdAllTicketBalancesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdAllTicketBalances(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -208,7 +202,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdBalance(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -221,7 +215,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdBalanceAndFrozenBond(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -234,7 +228,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextContractsByContractIdBigMapGet(string $contractId, ?Model\ContextContractsContractIdBigMapGetPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -247,7 +241,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdCounter(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -260,7 +254,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdDelegate(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -270,15 +264,13 @@ class Client extends Runtime\Client\Client
     /**
      * Return the list of entrypoints of the contract.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param array  $queryParameters {
-     *
-     * @var string $normalize_types Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
-     *             }
-     *
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param array{
+     *    "normalize_types"?: string, //Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextContractsContractIdEntrypointsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextContractsContractIdEntrypointsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdEntrypoint(string $contractId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -288,16 +280,14 @@ class Client extends Runtime\Client\Client
     /**
      * Return the type of the given entrypoint of the contract.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param string $entrypoint      A Michelson entrypoint (string of length < 32)
-     * @param array  $queryParameters {
-     *
-     * @var string $normalize_types Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
-     *             }
-     *
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param string $entrypoint A Michelson entrypoint (string of length < 32)
+     * @param array{
+     *    "normalize_types"?: string, //Whether types should be normalized (annotations removed, combs flattened) or kept as they appeared in the original script.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdEntrypointByEntrypoint(string $contractId, string $entrypoint, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -310,7 +300,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdEstimatedOwnPendingSlashedAmount(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -323,7 +313,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdFrozenBond(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -336,7 +326,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdFullBalance(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -349,7 +339,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdManagerKey(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -362,7 +352,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextContractsContractIdScriptGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextContractsContractIdScriptGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdScript(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -375,7 +365,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextContractsByContractIdScriptNormalized(string $contractId, ?Model\ContextContractsContractIdScriptNormalizedPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -385,16 +375,14 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the root and a diff of a state starting from an optional offset which is zero by default.
      *
-     * @param string $contractId      a contract identifier encoded in b58check
-     * @param array  $queryParameters {
-     *
-     * @var string $offset_commitment commitments and ciphertexts are returned from the specified offset up to the most recent
-     * @var string $offset_nullifier Nullifiers are returned from the specified offset up to the most recent.
-     *             }
-     *
+     * @param string $contractId a contract identifier encoded in b58check
+     * @param array{
+     *    "offset_commitment"?: string, //Commitments and ciphertexts are returned from the specified offset up to the most recent.
+     *    "offset_nullifier"?: string, //Nullifiers are returned from the specified offset up to the most recent.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextContractsContractIdSingleSaplingGetDiffGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdSingleSaplingGetDiff(string $contractId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -407,7 +395,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdSpendable(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -420,7 +408,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdSpendableAndFrozenBond(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -433,7 +421,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdStakedBalance(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -446,7 +434,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdStakingNumerator(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -459,7 +447,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdStorage(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -472,7 +460,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextContractsByContractIdStorageNormalized(string $contractId, ?Model\ContextContractsContractIdStorageNormalizedPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -485,7 +473,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdStoragePaidSpace(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -498,7 +486,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdStorageUsedSpace(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -511,7 +499,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextContractsByContractIdTicketBalance(string $contractId, ?Model\ContextContractsContractIdTicketBalancePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -524,7 +512,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdUnstakeRequest(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -537,7 +525,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdUnstakedFinalizableBalance(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -550,7 +538,7 @@ class Client extends Runtime\Client\Client
      * @param string $contractId a contract identifier encoded in b58check
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextContractsByContractIdUnstakedFrozenBalance(string $contractId, string $fetch = self::FETCH_OBJECT)
     {
@@ -560,7 +548,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDalCommitmentsHistory(string $fetch = self::FETCH_OBJECT)
     {
@@ -570,14 +558,12 @@ class Client extends Runtime\Client\Client
     /**
      * Get the published slots headers for the given level.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     *             }
-     *
+     * @param array{
+     *    "level"?: string, //A level integer
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDalPublishedSlotHeadersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDalPublishedSlotHeadersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDalPublishedSlotHeaders(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -587,15 +573,13 @@ class Client extends Runtime\Client\Client
     /**
      * Get the shards assignment for a given level (the default is the current level) and given delegates (the default is all delegates).
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $delegates A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
-     *
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "delegates"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDalShardsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDalShardsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDalShards(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -605,7 +589,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDalSkipListCellsOfLevel(string $fetch = self::FETCH_OBJECT)
     {
@@ -615,17 +599,15 @@ class Client extends Runtime\Client\Client
     /**
      * Lists all registered delegates by default. The arguments `active`, `inactive`, `with_minimal_stake`, and `without_minimal_stake` allow to enumerate only the delegates that are active, inactive, have at least a minimal stake to participate in consensus and in governance, or do not have such a minimal stake, respectively. Note, setting these arguments to false has no effect.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $active
-     * @var string $inactive
-     * @var string $with_minimal_stake
-     * @var string $without_minimal_stake
-     *             }
-     *
+     * @param array{
+     *    "active"?: string,
+     *    "inactive"?: string,
+     *    "with_minimal_stake"?: string,
+     *    "without_minimal_stake"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegates(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -638,7 +620,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegateByPkh(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -651,7 +633,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhActiveStakingParametersGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhActiveStakingParametersGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhActiveStakingParameter(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -664,11 +646,24 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhBakingPower(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetContextDelegatesByPkhBakingPower($pkh), $fetch);
+    }
+
+    /**
+     * The active companion key (if set) for a given delegate and the pending companion keys.
+     *
+     * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhCompanionKeyGetResponse200|null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getContextDelegatesByPkhCompanionKey(string $pkh, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetContextDelegatesByPkhCompanionKey($pkh), $fetch);
     }
 
     /**
@@ -677,7 +672,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhConsensusKeyGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhConsensusKeyGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhConsensusKey(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -690,7 +685,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhCurrentBakingPower(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -703,7 +698,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhCurrentFrozenDeposit(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -716,7 +711,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhCurrentVotingPower(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -724,12 +719,12 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Returns information about the delegate's participation in the attestation of slots published into the Data Availability Layer (DAL) during the current cycle. The field 'expected_assigned_shards_per_slot' indicates the expected number of shards assigned to the delegate in the cycle per DAL slot. The field 'delegate_attested_dal_slots' represents the number of attested DAL slots which are also attested by the delegate, while 'delegate_attestable_dal_slots' provides the total number of DAL slots attested during the cycle for which the delegate had shards assigned. The 'expected_dal_rewards' field specifies the expected amount of rewards for the delegate based on DAL participation, provided the delegate meets the required participation. Whether this threshold is currently met is determined by the 'sufficient_dal_participation' flag, which is true if currently the delegate has sufficiently participated in attesting DAL slots declared to be attested by the protocol. Note that this flag may evolve during the cycle. Also note, in particular, that if no DAL no DAL slots have been globally attested during the cycle (i.e., when 'delegate_attestable_dal_slots' is zero), the flag is true. The 'denounced' field specifies whether the delegate was denounced for not detecting traps during the current cycle.
+     * Returns information about the delegate's participation in the attestation of slots published into the Data Availability Layer (DAL) during the current cycle. The field 'expected_assigned_shards_per_slot' indicates the expected number of shards assigned to the delegate in the cycle per DAL slot. The field 'delegate_attested_dal_slots' represents the number of attested DAL slots which are also attested by the delegate, while 'delegate_attestable_dal_slots' provides the total number of DAL slots attested during the cycle for which the delegate had shards assigned. The 'expected_dal_rewards' field specifies the expected amount of rewards for the delegate based on DAL participation, provided the delegate meets the required participation. Whether this threshold is currently met is determined by the 'sufficient_dal_participation' flag, which is true if currently the delegate has sufficiently participated in attesting DAL slots declared to be attested by the protocol. Note that this flag may evolve during the cycle. Also note, in particular, that if no DAL slots have been globally attested during the cycle (i.e., when 'delegate_attestable_dal_slots' is zero), the flag is true; receipt of the DAL rewards is conditioned however on the receipt of the attestation rewards. The 'denounced' field specifies whether the delegate was denounced for not detecting traps during the current cycle.
      *
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhDalParticipationGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhDalParticipationGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDalParticipation(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -742,7 +737,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDeactivated(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -755,7 +750,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDelegatedBalance(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -768,7 +763,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDelegatedContracts(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -781,7 +776,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDelegators(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -794,7 +789,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhDenunciationsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhDenunciationsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhDenunciations(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -807,7 +802,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhEstimatedSharedPendingSlashedAmount(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -820,7 +815,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhExternalDelegated(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -833,7 +828,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhExternalStaked(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -846,7 +841,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhFrozenDeposit(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -859,7 +854,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhFrozenDepositsLimit(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -872,7 +867,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhFullBalance(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -885,7 +880,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhGracePeriod(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -898,7 +893,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhIsForbidden(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -911,7 +906,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhMinDelegatedInCurrentCycleGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhMinDelegatedInCurrentCycle(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -924,7 +919,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhOwnDelegated(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -937,7 +932,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhOwnFullBalance(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -950,7 +945,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhOwnStaked(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -963,7 +958,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhParticipationGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhParticipationGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhParticipation(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -976,7 +971,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhPendingStakingParametersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhPendingStakingParameters(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -989,7 +984,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhStakersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhStakersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhStakers(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1002,7 +997,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhStakingBalance(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1015,7 +1010,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhStakingDenominator(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1028,7 +1023,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhTotalDelegated(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1041,7 +1036,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhTotalDelegatedStake(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1054,7 +1049,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhTotalStaked(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1067,7 +1062,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhTotalUnstakedPerCycleGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhTotalUnstakedPerCycle(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1080,7 +1075,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhUnstakedFrozenDepositsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhUnstakedFrozenDeposits(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1093,7 +1088,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDelegatesPkhVotingInfoGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDelegatesPkhVotingInfoGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhVotingInfo(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1106,7 +1101,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDelegatesByPkhVotingPower(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1116,7 +1111,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextDenunciationsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextDenunciationsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextDenunciations(string $fetch = self::FETCH_OBJECT)
     {
@@ -1124,9 +1119,22 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Returns the index assigned to the address if it was indexed by the opcode INDEX_ADDRESS, otherwise returns null.
+     *
+     * @param string $destinationId a destination identifier encoded in b58check
+     * @param string $fetch         Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getContextDestinationByDestinationIdIndex(string $destinationId, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetContextDestinationByDestinationIdIndex($destinationId), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextIssuanceCurrentYearlyRate(string $fetch = self::FETCH_OBJECT)
     {
@@ -1136,7 +1144,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextIssuanceCurrentYearlyRateDetailsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextIssuanceCurrentYearlyRateDetail(string $fetch = self::FETCH_OBJECT)
     {
@@ -1146,7 +1154,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextIssuanceCurrentYearlyRateExactGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextIssuanceCurrentYearlyRateExactGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextIssuanceCurrentYearlyRateExact(string $fetch = self::FETCH_OBJECT)
     {
@@ -1156,7 +1164,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextIssuanceExpectedIssuanceGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextIssuanceExpectedIssuanceGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextIssuanceExpectedIssuance(string $fetch = self::FETCH_OBJECT)
     {
@@ -1166,7 +1174,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextIssuanceIssuancePerMinute(string $fetch = self::FETCH_OBJECT)
     {
@@ -1176,7 +1184,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextLiquidityBakingCpmmAddress(string $fetch = self::FETCH_OBJECT)
     {
@@ -1186,14 +1194,12 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the merkle tree of a piece of context.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $holey Send only hashes, omit data of key
-     *             }
-     *
+     * @param array{
+     *    "holey"?: string, //Send only hashes, omit data of key
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextMerkleTree(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1203,14 +1209,12 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the Irmin merkle tree of a piece of context.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $holey Send only hashes, omit data of key
-     *             }
-     *
+     * @param array{
+     *    "holey"?: string, //Send only hashes, omit data of key
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextMerkleTreeV2(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1223,7 +1227,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockLevel A level integer
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextNonceByBlockLevel(string $blockLevel, string $fetch = self::FETCH_OBJECT)
     {
@@ -1233,7 +1237,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextProtocolFirstLevel(string $fetch = self::FETCH_OBJECT)
     {
@@ -1243,14 +1247,12 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the raw context.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $depth
-     *             }
-     *
+     * @param array{
+     *    "depth"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextRawByte(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1260,16 +1262,14 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the root and a diff of a state starting from an optional offset which is zero by default.
      *
-     * @param string $saplingStateId  A sapling state identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $offset_commitment commitments and ciphertexts are returned from the specified offset up to the most recent
-     * @var string $offset_nullifier Nullifiers are returned from the specified offset up to the most recent.
-     *             }
-     *
+     * @param string $saplingStateId A sapling state identifier
+     * @param array{
+     *    "offset_commitment"?: string, //Commitments and ciphertexts are returned from the specified offset up to the most recent.
+     *    "offset_nullifier"?: string, //Nullifiers are returned from the specified offset up to the most recent.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSaplingSaplingStateIdGetDiffGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSaplingSaplingStateIdGetDiffGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSaplingBySaplingStateIdGetDiff(string $saplingStateId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1281,7 +1281,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextSeed(?Model\ContextSeedPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1291,7 +1291,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSeedComputation(string $fetch = self::FETCH_OBJECT)
     {
@@ -1301,7 +1301,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsAll(string $fetch = self::FETCH_OBJECT)
     {
@@ -1311,7 +1311,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsAllInboxGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsAllInboxGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsAllInbox(string $fetch = self::FETCH_OBJECT)
     {
@@ -1325,7 +1325,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupCommitmentHash smart_rollup_commitment_hash (Base58Check-encoded)
      * @param string $fetch                     Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsSmartRollupSmartRollupAddressCommitmentSmartRollupCommitmentHashGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressCommitmentBySmartRollupCommitmentHash(string $smartRollupAddress, string $smartRollupCommitmentHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -1339,7 +1339,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupCommitmentHash smart_rollup_commitment_hash (Base58Check-encoded)
      * @param string $fetch                     Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressCommitmentBySmartRollupCommitmentHashCanBeCemented(string $smartRollupAddress, string $smartRollupCommitmentHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -1353,7 +1353,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupCommitmentHash smart_rollup_commitment_hash (Base58Check-encoded)
      * @param string $fetch                     Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressCommitmentBySmartRollupCommitmentHashStakersIndexes(string $smartRollupAddress, string $smartRollupCommitmentHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -1367,7 +1367,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockLevel         A level integer
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressConsumedOutputsByBlockLevel(string $smartRollupAddress, string $blockLevel, string $fetch = self::FETCH_OBJECT)
     {
@@ -1380,7 +1380,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsSmartRollupSmartRollupAddressGenesisInfoGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressGenesisInfo(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1394,7 +1394,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockLevel         A level integer
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressInboxLevelByBlockLevelCommitment(string $smartRollupAddress, string $blockLevel, string $fetch = self::FETCH_OBJECT)
     {
@@ -1407,7 +1407,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressKind(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1420,7 +1420,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsSmartRollupSmartRollupAddressLastCementedCommitmentHashWithLevelGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressLastCementedCommitmentHashWithLevel(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1433,7 +1433,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressLastWhitelistUpdate(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1447,7 +1447,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh                A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhConflictsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStakerByPkhConflicts(string $smartRollupAddress, string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1461,7 +1461,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh                A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextSmartRollupsSmartRollupSmartRollupAddressStakerPkhGamesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStakerByPkhGames(string $smartRollupAddress, string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1475,7 +1475,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh                A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStakerByPkhIndex(string $smartRollupAddress, string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1489,7 +1489,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh                A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStakerByPkhStakedOnCommitment(string $smartRollupAddress, string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1504,7 +1504,7 @@ class Client extends Runtime\Client\Client
      * @param string $staker2Pkh         A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStaker1ByStaker1PkhStaker2ByStaker2PkhTimeout(string $smartRollupAddress, string $staker1Pkh, string $staker2Pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1519,7 +1519,7 @@ class Client extends Runtime\Client\Client
      * @param string $staker2Pkh         A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStaker1ByStaker1PkhStaker2ByStaker2PkhTimeoutReached(string $smartRollupAddress, string $staker1Pkh, string $staker2Pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -1532,7 +1532,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressStakers(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1545,7 +1545,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postContextSmartRollupsSmartRollupBySmartRollupAddressTicketBalance(string $smartRollupAddress, ?Model\ContextSmartRollupsSmartRollupSmartRollupAddressTicketBalancePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1558,7 +1558,7 @@ class Client extends Runtime\Client\Client
      * @param string $smartRollupAddress smart_rollup_address (Base58Check-encoded)
      * @param string $fetch              Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextSmartRollupsSmartRollupBySmartRollupAddressWhitelist(string $smartRollupAddress, string $fetch = self::FETCH_OBJECT)
     {
@@ -1568,7 +1568,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ContextTotalCurrentlyStakedGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ContextTotalCurrentlyStakedGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextTotalCurrentlyStaked(string $fetch = self::FETCH_OBJECT)
     {
@@ -1578,7 +1578,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextTotalFrozenStake(string $fetch = self::FETCH_OBJECT)
     {
@@ -1588,7 +1588,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getContextTotalSupply(string $fetch = self::FETCH_OBJECT)
     {
@@ -1598,7 +1598,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHash(string $fetch = self::FETCH_OBJECT)
     {
@@ -1608,7 +1608,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HeaderGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HeaderGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHeader(string $fetch = self::FETCH_OBJECT)
     {
@@ -1618,7 +1618,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HeaderProtocolDataGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HeaderProtocolDataGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHeaderProtocolDatum(string $fetch = self::FETCH_OBJECT)
     {
@@ -1628,7 +1628,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHeaderProtocolDataRaw(string $fetch = self::FETCH_OBJECT)
     {
@@ -1638,7 +1638,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHeaderRaw(string $fetch = self::FETCH_OBJECT)
     {
@@ -1648,11 +1648,21 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HeaderShellGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HeaderShellGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHeaderShell(string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetHeaderShell(), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getHelpersAllBakersAttestActivationLevel(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetHelpersAllBakersAttestActivationLevel(), $fetch);
     }
 
     /**
@@ -1662,21 +1672,29 @@ class Client extends Runtime\Client\Client
      * Parameter `consensus_key` can be used to restrict the results to the given consensus_keys.
      * Returns the smallest attestation slots and the attestation power. Also returns the minimal timestamp that corresponds to attestation at the given level. The timestamps are omitted for levels in the past, and are only estimates for levels higher that the next block's, based on the hypothesis that all predecessor blocks were baked at the first round.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $cycle A cycle integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
-     *
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "cycle"?: string, //A cycle integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersAttestationRightsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersAttestationRightsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersAttestationRights(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\GetHelpersAttestationRights($queryParameters), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getHelpersBakingPowerDistributionForCurrentCycle(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetHelpersBakingPowerDistributionForCurrentCycle(), $fetch);
     }
 
     /**
@@ -1686,19 +1704,17 @@ class Client extends Runtime\Client\Client
      * Parameter `delegate` can be used to restrict the results to the given delegates. Parameter `consensus_key` can be used to restrict the results to the given consensus_keys. If parameter `all` is set, all the baking opportunities for each baker at each level are returned, instead of just the first one.
      * Returns the list of baking opportunities up to round 64. Also returns the minimal timestamps that correspond to these opportunities. The timestamps are omitted for levels in the past, and are only estimates for levels higher that the next block's, based on the hypothesis that all predecessor blocks were baked at the first round.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $cycle A cycle integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $max_round
-     * @var string $all
-     *             }
-     *
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "cycle"?: string, //A cycle integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "max_round"?: string,
+     *    "all"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersBakingRightsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersBakingRightsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersBakingRights(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1710,7 +1726,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersCompleteByPrefix(string $prefix, string $fetch = self::FETCH_OBJECT)
     {
@@ -1720,7 +1736,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersConsecutiveRoundZero(string $fetch = self::FETCH_OBJECT)
     {
@@ -1730,14 +1746,12 @@ class Client extends Runtime\Client\Client
     /**
      * Returns the level of the interrogated block, or the one of a block located `offset` blocks after it in the chain. For instance, the next block if `offset` is 1. The offset cannot be negative.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $offset
-     *             }
-     *
+     * @param array{
+     *    "offset": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersCurrentLevelGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersCurrentLevelGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersCurrentLevel(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1745,11 +1759,23 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Forge a consensus operation in BLS mode.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\HelpersForgeBlsConsensusOperationsPostResponse200|null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postHelpersForgeBlsConsensusOperation(?Model\HelpersForgeBlsConsensusOperationsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostHelpersForgeBlsConsensusOperation($requestBody), $fetch);
+    }
+
+    /**
      * Forge an operation.
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersForgeOperation(?Model\HelpersForgeOperationsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1761,7 +1787,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersForgeProtocolDataPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersForgeProtocolDataPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersForgeProtocolDatum(?Model\HelpersForgeProtocolDataPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1769,11 +1795,23 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Forge a signed operation.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postHelpersForgeSignedOperation(?Model\HelpersForgeSignedOperationsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostHelpersForgeSignedOperation($requestBody), $fetch);
+    }
+
+    /**
      * Forge a block header.
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersForgeBlockHeaderPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersForgeBlockHeaderPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersForgeBlockHeader(?Model\HelpersForgeBlockHeaderPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1783,14 +1821,12 @@ class Client extends Runtime\Client\Client
     /**
      * Levels of a cycle.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $offset
-     *             }
-     *
+     * @param array{
+     *    "offset": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersLevelsInCurrentCycleGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersLevelsInCurrentCycleGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersLevelsInCurrentCycle(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1802,7 +1838,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersParseBlockPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersParseBlockPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersParseBlock(?Model\HelpersParseBlockPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1812,14 +1848,12 @@ class Client extends Runtime\Client\Client
     /**
      * Parse operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     *             }
-     *
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersParseOperationsPostResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersParseOperationsPostResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersParseOperations(?Model\HelpersParseOperationsPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1829,15 +1863,13 @@ class Client extends Runtime\Client\Client
     /**
      * Simulate the validation of a block that would contain the given operations and return the resulting fitness and context hash.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $sort
-     * @var string $timestamp A date in seconds from epoch
-     *             }
-     *
+     * @param array{
+     *    "sort"?: string,
+     *    "timestamp"?: string, //A date in seconds from epoch
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersPreapplyBlockPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersPreapplyBlockPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersPreapplyBlock(?Model\HelpersPreapplyBlockPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1848,14 +1880,12 @@ class Client extends Runtime\Client\Client
      * Simulate the application of the operations with the context of the given block and return the result of each operation application.
      *
      * @param Model\NextOperation[]|null $requestBody
-     * @param array                      $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersPreapplyOperations(?array $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1865,7 +1895,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersRound(string $fetch = self::FETCH_OBJECT)
     {
@@ -1877,7 +1907,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsEntrypointPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsEntrypointPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsEntrypoint(?Model\HelpersScriptsEntrypointPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1889,7 +1919,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsNormalizeDataPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsNormalizeDataPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsNormalizeDatum(?Model\HelpersScriptsNormalizeDataPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1901,7 +1931,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsNormalizeScriptPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsNormalizeScriptPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsNormalizeScript(?Model\HelpersScriptsNormalizeScriptPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1913,7 +1943,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsNormalizeStackPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsNormalizeStackPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsNormalizeStack(?Model\HelpersScriptsNormalizeStackPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1925,7 +1955,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsNormalizeTypePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsNormalizeTypePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsNormalizeType(?Model\HelpersScriptsNormalizeTypePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1937,7 +1967,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsPackDataPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsPackDataPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsPackDatum(?Model\HelpersScriptsPackDataPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1945,11 +1975,11 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Run a Michelson script in the current context.
+     * Run a Michelson script in the current context. The gas used is bounded by the protocol's hard gas limit per operation.
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsRunCodePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsRunCodePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsRunCode(?Model\HelpersScriptsRunCodePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1961,7 +1991,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsRunInstructionPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsRunInstructionPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsRunInstruction(?Model\HelpersScriptsRunInstructionPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -1971,14 +2001,12 @@ class Client extends Runtime\Client\Client
     /**
      * Run an operation with the context of the given block and without signature checks. Return the operation application result, including the consumed gas. This RPC does not support consensus operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     *             }
-     *
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsRunOperation(?Model\HelpersScriptsRunOperationPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -1990,7 +2018,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsRunScriptViewPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsRunScriptViewPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsRunScriptView(?Model\HelpersScriptsRunScriptViewPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2002,7 +2030,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsRunViewPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsRunViewPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsRunView(?Model\HelpersScriptsRunViewPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2014,7 +2042,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsScriptSizePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsScriptSizePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsScriptSize(?Model\HelpersScriptsScriptSizePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2024,15 +2052,13 @@ class Client extends Runtime\Client\Client
     /**
      * Simulate running an operation at some future moment (based on the number of blocks given in the `latency` argument), and return the operation application result. The result is the same as run_operation except for the consumed gas, which depends on the contents of the cache at that future moment. This RPC estimates future gas consumption by trying to predict the state of the cache using some heuristics.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     * @var string $successor_level If true, the simulation is done on the successor level of the current context.
-     *             }
-     *
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     *    "successor_level"?: string, //If true, the simulation is done on the successor level of the current context.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsSimulateOperation(?Model\HelpersScriptsSimulateOperationPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2044,7 +2070,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsTraceCodePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsTraceCodePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsTraceCode(?Model\HelpersScriptsTraceCodePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2056,7 +2082,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsTypecheckCodePostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsTypecheckCodePostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsTypecheckCode(?Model\HelpersScriptsTypecheckCodePostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2068,7 +2094,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersScriptsTypecheckDataPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersScriptsTypecheckDataPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postHelpersScriptsTypecheckDatum(?Model\HelpersScriptsTypecheckDataPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -2076,20 +2102,43 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Retrieves the level, the attestation slots and the public key hash of each delegate allowed to attest a block.
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getHelpersTotalBakingPower(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetHelpersTotalBakingPower(), $fetch);
+    }
+
+    /**
+     * Returns the ratio of active bakers using a tz4.
+     *
+     * @param array{
+     *    "cycle"?: string, //A cycle integer
+     * } $queryParameters
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getHelpersTz4BakerNumberRatio(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetHelpersTz4BakerNumberRatio($queryParameters), $fetch);
+    }
+
+    /**
+     * Retrieves the level, the attestation slots and the public key hash of each delegate allowed to attest a block. Also returns each delegate's current consensus key, and current companion key when needed for crafting and validating attestations at this level.
      * By default, it provides this information for the next level.
      * Parameter `level` can be used to specify the (valid) level(s) in the past or future at which the attestation rights have to be returned. Parameter `delegate` can be used to restrict the results results to the given delegates. Parameter `consensus_key` can be used to restrict the results to the given consensus_keys.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     *             }
-     *
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HelpersValidatorsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HelpersValidatorsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHelpersValidators(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2099,7 +2148,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLiveBlocks(string $fetch = self::FETCH_OBJECT)
     {
@@ -2109,14 +2158,12 @@ class Client extends Runtime\Client\Client
     /**
      * All the metadata associated to the block.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\BlockHeaderMetadata|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\BlockHeaderMetadata|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMetadata(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2126,7 +2173,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMetadataHash(string $fetch = self::FETCH_OBJECT)
     {
@@ -2136,7 +2183,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationHashes(string $fetch = self::FETCH_OBJECT)
     {
@@ -2149,7 +2196,7 @@ class Client extends Runtime\Client\Client
      * @param string $listOffset index `n` of the requested validation pass
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationHashesByListOffset(string $listOffset, string $fetch = self::FETCH_OBJECT)
     {
@@ -2163,7 +2210,7 @@ class Client extends Runtime\Client\Client
      * @param string $operationOffset index `m` of the requested operation in its validation pass
      * @param string $fetch           Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationHashByListOffsetByOperationOffset(string $listOffset, string $operationOffset, string $fetch = self::FETCH_OBJECT)
     {
@@ -2173,7 +2220,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationMetadataHashes(string $fetch = self::FETCH_OBJECT)
     {
@@ -2186,7 +2233,7 @@ class Client extends Runtime\Client\Client
      * @param string $listOffset index `n` of the requested validation pass
      * @param string $fetch      Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationMetadataHashesByListOffset(string $listOffset, string $fetch = self::FETCH_OBJECT)
     {
@@ -2200,7 +2247,7 @@ class Client extends Runtime\Client\Client
      * @param string $operationOffset index `m` of the requested operation in its validation pass
      * @param string $fetch           Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationMetadataHashByListOffsetByOperationOffset(string $listOffset, string $operationOffset, string $fetch = self::FETCH_OBJECT)
     {
@@ -2210,16 +2257,14 @@ class Client extends Runtime\Client\Client
     /**
      * All the operations included in the block.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $force_metadata DEPRECATED: Forces to recompute the operations metadata if it was considered as too large
-     * @var string $metadata defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "force_metadata"?: string, //DEPRECATED: Forces to recompute the operations metadata if it was considered as too large.
+     *    "metadata"?: string, //defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperations(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2229,17 +2274,15 @@ class Client extends Runtime\Client\Client
     /**
      * All the operations included in `n-th` validation pass of the block.
      *
-     * @param string $listOffset      index `n` of the requested validation pass
-     * @param array  $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $force_metadata DEPRECATED: Forces to recompute the operations metadata if it was considered as too large
-     * @var string $metadata defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
-     *             }
-     *
+     * @param string $listOffset index `n` of the requested validation pass
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "force_metadata"?: string, //DEPRECATED: Forces to recompute the operations metadata if it was considered as too large.
+     *    "metadata"?: string, //defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationsByListOffset(string $listOffset, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2251,16 +2294,14 @@ class Client extends Runtime\Client\Client
      *
      * @param string $listOffset      index `n` of the requested validation pass
      * @param string $operationOffset index `m` of the requested operation in its validation pass
-     * @param array  $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $force_metadata DEPRECATED: Forces to recompute the operations metadata if it was considered as too large
-     * @var string $metadata defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
-     *             }
-     *
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "force_metadata"?: string, //DEPRECATED: Forces to recompute the operations metadata if it was considered as too large.
+     *    "metadata"?: string, //defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationByListOffsetByOperationOffset(string $listOffset, string $operationOffset, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -2270,7 +2311,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getOperationsMetadataHash(string $fetch = self::FETCH_OBJECT)
     {
@@ -2280,7 +2321,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ProtocolsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ProtocolsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProtocol(string $fetch = self::FETCH_OBJECT)
     {
@@ -2290,7 +2331,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getResultingContextHash(string $fetch = self::FETCH_OBJECT)
     {
@@ -2300,7 +2341,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VotesBallotListGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VotesBallotListGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesBallotList(string $fetch = self::FETCH_OBJECT)
     {
@@ -2310,7 +2351,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VotesBallotsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VotesBallotsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesBallot(string $fetch = self::FETCH_OBJECT)
     {
@@ -2320,7 +2361,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VotesCurrentPeriodGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VotesCurrentPeriodGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesCurrentPeriod(string $fetch = self::FETCH_OBJECT)
     {
@@ -2330,7 +2371,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesCurrentProposal(string $fetch = self::FETCH_OBJECT)
     {
@@ -2340,7 +2381,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesCurrentQuorum(string $fetch = self::FETCH_OBJECT)
     {
@@ -2350,7 +2391,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VotesListingsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VotesListingsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesListings(string $fetch = self::FETCH_OBJECT)
     {
@@ -2363,7 +2404,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesProposalCountByPkh(string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -2373,7 +2414,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesProposals(string $fetch = self::FETCH_OBJECT)
     {
@@ -2383,7 +2424,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VotesSuccessorPeriodGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VotesSuccessorPeriodGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesSuccessorPeriod(string $fetch = self::FETCH_OBJECT)
     {
@@ -2393,7 +2434,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVotesTotalVotingPower(string $fetch = self::FETCH_OBJECT)
     {

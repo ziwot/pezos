@@ -15,14 +15,13 @@ class PostSlot extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint implemen
     use \Pezos\Generated\Dal\Runtime\Client\EndpointTrait;
 
     /**
-     * Post a slot to the DAL node, computes its commitment and commitment proof, then computes the correspoding shards with their proof. The result of this RPC can be directly used to publish a slot header. If the sent data is smaller than the size of a DAL slot, it is padded with the character provided as padding query parameter (defaults to \000). If the slot_index query parameter is provided, the DAL node checks that its profile allows to publish data on the given slot index.
+     * Post a slot to the DAL node, computes its commitment and commitment proof, then computes the correspoding shards with their proof. The result of this RPC can be directly used to publish a slot header. If the sent data is smaller than the size of a DAL slot, it is padded with the character provided as padding query parameter (defaults to \000). If the slot_index query parameter is provided, the DAL node checks that its profile allows to publish data on the given slot index. However, slot_index is optional and has NO SEMANTIC EFFECT on the produced commitment. It exists solely to help reverse proxies route POST /slots requests to a DAL node subscribed to the corresponding topics.
      *
      * @param mixed|null $requestBody
-     * @param array      $queryParameters {
-     *
-     * @var string $padding
-     * @var string $slot_index
-     *             }
+     * @param array{
+     *    "padding": string,
+     *    "slot_index": string,
+     * } $queryParameters
      */
     public function __construct($requestBody = null, array $queryParameters = [])
     {
@@ -43,7 +42,7 @@ class PostSlot extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint implemen
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
         if (isset($this->body)) {
-            return [['Content-Type' => ['application/json']], json_encode($this->body)];
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
 
         return [[], null];
@@ -73,10 +72,10 @@ class PostSlot extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint implemen
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\SlotsPostResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\SlotsPostResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

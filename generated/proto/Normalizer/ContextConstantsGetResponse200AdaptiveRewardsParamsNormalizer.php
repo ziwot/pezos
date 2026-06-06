@@ -39,15 +39,15 @@ class ContextConstantsGetResponse200AdaptiveRewardsParamsNormalizer implements D
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParams();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('issuance_ratio_final_min', $data)) {
             $object->setIssuanceRatioFinalMin($this->denormalizer->denormalize($data['issuance_ratio_final_min'], \Pezos\Generated\Proto\Model\ContextConstantsGetResponse200AdaptiveRewardsParamsIssuanceRatioFinalMin::class, 'json', $context));

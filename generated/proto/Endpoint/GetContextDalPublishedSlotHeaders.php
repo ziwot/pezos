@@ -17,10 +17,9 @@ class GetContextDalPublishedSlotHeaders extends \Pezos\Generated\Proto\Runtime\C
     /**
      * Get the published slots headers for the given level.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     *             }
+     * @param array{
+     *    "level"?: string, //A level integer
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetContextDalPublishedSlotHeaders extends \Pezos\Generated\Proto\Runtime\C
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\ContextDalPublishedSlotHeadersGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\ContextDalPublishedSlotHeadersGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

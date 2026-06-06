@@ -13,12 +13,73 @@ namespace Pezos\Generated\Shell;
 class Client extends Runtime\Client\Client
 {
     /**
+     * Aggregate BLS proofs. Return null if the provided proofs cannot be aggregated, or if their aggregation is not a valid proof for the provided public key.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postBlsAggregateProof(?Model\BlsAggregateProofsPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostBlsAggregateProof($requestBody), $fetch);
+    }
+
+    /**
+     * Aggregate BLS public keys after checking their BLS proofs.
+     *
+     * @param Model\BlsAggregatePublicKeysPostBodyItem[]|null $requestBody
+     * @param string                                          $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postBlsAggregatePublicKey(?array $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostBlsAggregatePublicKey($requestBody), $fetch);
+    }
+
+    /**
+     * Aggregate BLS signatures. Return null if the signatures cannot be aggregated, or if their aggregation is not a valid signature for the provided public key and message.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postBlsAggregateSignature(?Model\BlsAggregateSignaturesPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostBlsAggregateSignature($requestBody), $fetch);
+    }
+
+    /**
+     * Check a BLS proof.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postBlsCheckProof(?Model\BlsCheckProofPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostBlsCheckProof($requestBody), $fetch);
+    }
+
+    /**
+     * Threshold BLS signatures.
+     *
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postBlsThresholdSignature(?Model\BlsThresholdSignaturesPostBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostBlsThresholdSignature($requestBody), $fetch);
+    }
+
+    /**
      * Forcefully set the bootstrapped flag of the node.
      *
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function patchChainByChainId(string $chainId, ?Model\ChainsChainIdPatchBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -31,7 +92,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdActivePeersHeadsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdActivePeersHeadsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdActivePeersHead(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -41,17 +102,15 @@ class Client extends Runtime\Client\Client
     /**
      * Lists block hashes from '<chain>', up to the last checkpoint, sorted with decreasing fitness. Without arguments it returns the head of the chain. Optional arguments allow to return the list of predecessors of a given block or of a set of blocks.
      *
-     * @param string $chainId         A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     * @param array  $queryParameters {
-     *
-     * @var string $length the requested number of predecessors to return (per request; see next argument)
-     * @var string $head block_hash (Base58Check-encoded) An empty argument requests blocks starting with the current head. A non empty list allows to request one or more specific fragments of the chain.
-     * @var string $min_date A date in seconds from epoch When `min_date` is provided, blocks with a timestamp before `min_date` are filtered out. However, if the `length` parameter is also provided, then up to that number of predecessors will be returned regardless of their date.
-     *             }
-     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param array{
+     *    "length"?: string, //The requested number of predecessors to return (per request; see next argument).
+     *    "head"?: string, //block_hash (Base58Check-encoded) An empty argument requests blocks starting with the current head. A non empty list allows to request one or more specific fragments of the chain.
+     *    "min_date"?: string, //A date in seconds from epoch When `min_date` is provided, blocks with a timestamp before `min_date` are filtered out. However, if the `length` parameter is also provided, then up to that number of predecessors will be returned regardless of their date.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdBlocks(string $chainId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -64,7 +123,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -78,7 +137,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh     A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdDelegatorsContributionInt32PkhGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdDelegatorsContributionByInt32ByPkh(string $chainId, string $int32, string $pkh, string $fetch = self::FETCH_OBJECT)
     {
@@ -91,7 +150,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdInvalidBlocksGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdInvalidBlocksGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdInvalidBlocks(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -105,7 +164,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockHash block_hash (Base58Check-encoded)
      * @param string $fetch     Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdInvalidBlocksBlockHashDeleteResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteChainsByChainIdInvalidBlockByBlockHash(string $chainId, string $blockHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -119,7 +178,7 @@ class Client extends Runtime\Client\Client
      * @param string $blockHash block_hash (Base58Check-encoded)
      * @param string $fetch     Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdInvalidBlocksBlockHashGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdInvalidBlockByBlockHash(string $chainId, string $blockHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -132,7 +191,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdIsBootstrappedGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdIsBootstrappedGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdIsBootstrapped(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -145,7 +204,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdLevelsCabooseGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdLevelsCabooseGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdLevelsCaboose(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -158,7 +217,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdLevelsCheckpointGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdLevelsCheckpointGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdLevelsCheckpoint(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -171,7 +230,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdLevelsSavepointGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdLevelsSavepointGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdLevelsSavepoint(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -184,7 +243,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdProtocolsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdProtocolsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdProtocols(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -198,7 +257,7 @@ class Client extends Runtime\Client\Client
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      * @param string $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ChainsChainIdProtocolsProtocolHashGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ChainsChainIdProtocolsProtocolHashGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getChainsByChainIdProtocolByProtocolHash(string $chainId, string $protocolHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -208,7 +267,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfig(string $fetch = self::FETCH_OBJECT)
     {
@@ -218,7 +277,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigHistoryModeGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigHistoryModeGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfigHistoryMode(string $fetch = self::FETCH_OBJECT)
     {
@@ -231,7 +290,7 @@ class Client extends Runtime\Client\Client
      * @param mixed|null $requestBody
      * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigLoggingPutResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigLoggingPutResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function putConfigLogging($requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -241,7 +300,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigNetworkDalGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigNetworkDalGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfigNetworkDal(string $fetch = self::FETCH_OBJECT)
     {
@@ -251,7 +310,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigNetworkUserActivatedProtocolOverridesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfigNetworkUserActivatedProtocolOverrides(string $fetch = self::FETCH_OBJECT)
     {
@@ -261,7 +320,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ConfigNetworkUserActivatedUpgradesGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getConfigNetworkUserActivatedUpgrades(string $fetch = self::FETCH_OBJECT)
     {
@@ -271,7 +330,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getError(string $fetch = self::FETCH_OBJECT)
     {
@@ -284,7 +343,7 @@ class Client extends Runtime\Client\Client
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      * @param string $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getFetchProtocolByProtocolHash(string $protocolHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -292,9 +351,22 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Trigger a full OCaml garbage collection cycle. This endpoint must be used with care.
+     *
+     * @param mixed|null $requestBody
+     * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function postGcFull($requestBody = null, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\PostGcFull($requestBody), $fetch);
+    }
+
+    /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HealthReadyGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HealthReadyGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHealthReady(string $fetch = self::FETCH_OBJECT)
     {
@@ -304,16 +376,14 @@ class Client extends Runtime\Client\Client
     /**
      * Inject a block in the node and broadcast it. The `operations` embedded in `blockHeader` might be pre-validated using a contextual RPCs from the latest block (e.g. '/blocks/head/context/preapply'). Returns the ID of the block. By default, the RPC will wait for the block to be validated before answering. If ?async is true, the function returns immediately. Otherwise, the block will be validated before the result is returned. If ?force is true, it will be injected even on non strictly increasing fitness. An optional ?chain parameter can be used to specify whether to inject on the test chain or the main chain.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $async
-     * @var string $force
-     * @var string $chain A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     *             }
-     *
+     * @param array{
+     *    "async"?: string,
+     *    "force"?: string,
+     *    "chain"?: string, //A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postInjectionBlock(?Model\InjectionBlockPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -323,15 +393,13 @@ class Client extends Runtime\Client\Client
     /**
      * Inject an operation in node and broadcast it. Returns the ID of the operation. The `signedOperationContents` should be constructed using contextual RPCs from the latest block and signed by the client. The injection of the operation will apply it on the current mempool context. This context may change at each operation injection or operation reception from peers. By default, the RPC will wait for the operation to be (pre-)validated before returning. However, if ?async is true, the function returns immediately. The optional ?chain parameter can be used to specify whether to inject on the test chain or the main chain.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $async
-     * @var string $chain A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     *             }
-     *
+     * @param array{
+     *    "async"?: string,
+     *    "chain"?: string, //A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postInjectionOperation(?string $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -341,14 +409,12 @@ class Client extends Runtime\Client\Client
     /**
      * Inject a protocol in node. Returns the ID of the protocol. If ?async is true, the function returns immediately. Otherwise, the protocol will be validated before the result is returned.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $async
-     *             }
-     *
+     * @param array{
+     *    "async"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postInjectionProtocol(?Model\InjectionProtocolPostBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -358,7 +424,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorActiveChains(string $fetch = self::FETCH_OBJECT)
     {
@@ -368,16 +434,14 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor all blocks that are successfully applied and stored by the node, disregarding whether they were selected as the new head or not.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $protocol Protocol_hash (Base58Check-encoded)
-     * @var string $next_protocol Protocol_hash (Base58Check-encoded)
-     * @var string $chain A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     *             }
-     *
+     * @param array{
+     *    "protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "next_protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "chain"?: string, //A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorAppliedBlocksGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorAppliedBlocksGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorAppliedBlock(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -387,7 +451,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorBootstrappedGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorBootstrappedGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorBootstrapped(string $fetch = self::FETCH_OBJECT)
     {
@@ -397,16 +461,14 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor all blocks that are successfully validated and applied by the node and selected as the new head of the given chain.
      *
-     * @param string $chainId         A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     * @param array  $queryParameters {
-     *
-     * @var string $protocol Protocol_hash (Base58Check-encoded)
-     * @var string $next_protocol Protocol_hash (Base58Check-encoded)
-     *             }
-     *
+     * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * @param array{
+     *    "protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "next_protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorHeadsChainIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorHeadsChainIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorHeadByChainId(string $chainId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -416,7 +478,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorProtocol(string $fetch = self::FETCH_OBJECT)
     {
@@ -429,7 +491,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorReceivedBlocksChainIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorReceivedBlocksChainIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorReceivedBlockByChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -439,16 +501,14 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor all blocks that were successfully validated by the node but are not applied nor stored yet, disregarding whether they are going to be selected as the new head or not.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $protocol Protocol_hash (Base58Check-encoded)
-     * @var string $next_protocol Protocol_hash (Base58Check-encoded)
-     * @var string $chain A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
-     *             }
-     *
+     * @param array{
+     *    "protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "next_protocol"?: string, //Protocol_hash (Base58Check-encoded)
+     *    "chain"?: string, //A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\MonitorValidatedBlocksGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\MonitorValidatedBlocksGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getMonitorValidatedBlock(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -458,7 +518,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkConnectionsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkConnectionsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkConnections(string $fetch = self::FETCH_OBJECT)
     {
@@ -468,15 +528,13 @@ class Client extends Runtime\Client\Client
     /**
      * Forced close of the current P2P connection to the given peer.
      *
-     * @param string $peerId          A cryptographic node identity (Base58Check-encoded)
-     * @param array  $queryParameters {
-     *
-     * @var string $wait
-     *             }
-     *
+     * @param string $peerId A cryptographic node identity (Base58Check-encoded)
+     * @param array{
+     *    "wait"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkConnectionsPeerIdDeleteResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkConnectionsPeerIdDeleteResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteNetworkConnectionByPeerId(string $peerId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -489,7 +547,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkConnectionsPeerIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkConnectionsPeerIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkConnectionByPeerId(string $peerId, string $fetch = self::FETCH_OBJECT)
     {
@@ -499,7 +557,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkFullStatGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkFullStatGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkFullStat(string $fetch = self::FETCH_OBJECT)
     {
@@ -509,7 +567,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkGreylistDeleteResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkGreylistDeleteResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteNetworkGreylist(string $fetch = self::FETCH_OBJECT)
     {
@@ -519,7 +577,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkGreylistIpsGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkGreylistIpsGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkGreylistIp(string $fetch = self::FETCH_OBJECT)
     {
@@ -529,7 +587,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkGreylistPeers(string $fetch = self::FETCH_OBJECT)
     {
@@ -539,7 +597,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkLog(string $fetch = self::FETCH_OBJECT)
     {
@@ -549,14 +607,12 @@ class Client extends Runtime\Client\Client
     /**
      * List the peers the node ever met.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $filter
-     *             }
-     *
+     * @param array{
+     *    "filter"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPeers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -569,7 +625,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkPeersPeerIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkPeersPeerIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPeerByPeerId(string $peerId, string $fetch = self::FETCH_OBJECT)
     {
@@ -582,7 +638,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkPeersPeerIdPatchResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkPeersPeerIdPatchResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function patchNetworkPeerByPeerId(string $peerId, ?Model\NetworkPeersPeerIdPatchBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -595,7 +651,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPeersByPeerIdBanned(string $peerId, string $fetch = self::FETCH_OBJECT)
     {
@@ -605,15 +661,13 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor network events related to a given peer.
      *
-     * @param string $peerId          A cryptographic node identity (Base58Check-encoded)
-     * @param array  $queryParameters {
-     *
-     * @var string $monitor
-     *             }
-     *
+     * @param string $peerId A cryptographic node identity (Base58Check-encoded)
+     * @param array{
+     *    "monitor"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPeerPoolEvent[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPeerPoolEvent[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPeersByPeerIdLog(string $peerId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -623,14 +677,12 @@ class Client extends Runtime\Client\Client
     /**
      * List the pool of known `IP:port` used for establishing P2P connections.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $filter
-     *             }
-     *
+     * @param array{
+     *    "filter"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPoints(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -643,7 +695,7 @@ class Client extends Runtime\Client\Client
      * @param string $point a network point (ipv4:port or [ipv6]:port)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkPointsPointGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkPointsPointGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPointByPoint(string $point, string $fetch = self::FETCH_OBJECT)
     {
@@ -656,7 +708,7 @@ class Client extends Runtime\Client\Client
      * @param string $point a network point (ipv4:port or [ipv6]:port)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkPointsPointPatchResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkPointsPointPatchResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function patchNetworkPointByPoint(string $point, ?Model\NetworkPointsPointPatchBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -666,15 +718,13 @@ class Client extends Runtime\Client\Client
     /**
      * Connect to a peer.
      *
-     * @param string $point           a network point (ipv4:port or [ipv6]:port)
-     * @param array  $queryParameters {
-     *
-     * @var string $timeout A span of time in seconds
-     *             }
-     *
+     * @param string $point a network point (ipv4:port or [ipv6]:port)
+     * @param array{
+     *    "timeout": string, //A span of time in seconds
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkPointsPointPutResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkPointsPointPutResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function putNetworkPointByPoint(string $point, ?Model\NetworkPointsPointPutBody $requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -687,7 +737,7 @@ class Client extends Runtime\Client\Client
      * @param string $point a network point (ipv4:port or [ipv6]:port)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPointsByPointBanned(string $point, string $fetch = self::FETCH_OBJECT)
     {
@@ -697,15 +747,13 @@ class Client extends Runtime\Client\Client
     /**
      * Monitor network events related to an `IP:addr`.
      *
-     * @param string $point           a network point (ipv4:port or [ipv6]:port)
-     * @param array  $queryParameters {
-     *
-     * @var string $monitor
-     *             }
-     *
+     * @param string $point a network point (ipv4:port or [ipv6]:port)
+     * @param array{
+     *    "monitor"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkPointsByPointLog(string $point, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -715,7 +763,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkSelf(string $fetch = self::FETCH_OBJECT)
     {
@@ -725,7 +773,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\NetworkStatGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\NetworkStatGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getNetworkStat(string $fetch = self::FETCH_OBJECT)
     {
@@ -735,7 +783,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ProfilerRegisteredBackendGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ProfilerRegisteredBackendGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProfilerRegisteredBackend(string $fetch = self::FETCH_OBJECT)
     {
@@ -745,7 +793,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProtocols(string $fetch = self::FETCH_OBJECT)
     {
@@ -753,12 +801,12 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * (no description).
+     * the interface of a protocol grouped by its implementing modules.
      *
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      * @param string $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ProtocolsProtocolHashGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\ProtocolsProtocolHashGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProtocolByProtocolHash(string $protocolHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -766,12 +814,12 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * (no description).
+     * the protocol environment version required by a protocol.
      *
      * @param string $protocolHash Protocol_hash (Base58Check-encoded)
      * @param string $fetch        Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProtocolsByProtocolHashEnvironment(string $protocolHash, string $fetch = self::FETCH_OBJECT)
     {
@@ -781,7 +829,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\StatsGcGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\StatsGcGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getStatsGc(string $fetch = self::FETCH_OBJECT)
     {
@@ -791,7 +839,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getStatsMemory(string $fetch = self::FETCH_OBJECT)
     {
@@ -801,7 +849,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VersionGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\VersionGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVersion(string $fetch = self::FETCH_OBJECT)
     {
@@ -811,7 +859,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersBlockValidatorGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersBlockValidatorGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersBlockValidator(string $fetch = self::FETCH_OBJECT)
     {
@@ -821,7 +869,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersChainValidatorsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersChainValidatorsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersChainValidators(string $fetch = self::FETCH_OBJECT)
     {
@@ -834,7 +882,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersChainValidatorsChainIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersChainValidatorsChainIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersChainValidatorByChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -847,7 +895,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersChainValidatorsChainIdDdbGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersChainValidatorsChainIdDdbGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersChainValidatorsByChainIdDdb(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -860,7 +908,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersChainValidatorsChainIdPeersValidatorsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersChainValidatorsByChainIdPeersValidators(string $chainId, string $fetch = self::FETCH_OBJECT)
     {
@@ -874,7 +922,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId  A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersChainValidatorsChainIdPeersValidatorsPeerIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersChainValidatorsByChainIdPeersValidatorByPeerId(string $chainId, string $peerId, string $fetch = self::FETCH_OBJECT)
     {
@@ -884,7 +932,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersPrevalidatorsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersPrevalidatorsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersPrevalidators(string $fetch = self::FETCH_OBJECT)
     {
@@ -897,7 +945,7 @@ class Client extends Runtime\Client\Client
      * @param string $chainId A chain identifier. This is either a chain hash in Base58Check notation or a one the predefined aliases: 'main', 'test'.
      * @param string $fetch   Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\WorkersPrevalidatorsChainIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\WorkersPrevalidatorsChainIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getWorkersPrevalidatorByChainId(string $chainId, string $fetch = self::FETCH_OBJECT)
     {

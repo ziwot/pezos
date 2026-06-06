@@ -17,10 +17,9 @@ class GetFilter extends \Pezos\Generated\Mempool\Runtime\Client\BaseEndpoint imp
     /**
      * Get the configuration of the mempool's filter and bounds. Values of the form [ "21", "20" ] are rational numbers given as a numerator and a denominator, e.g. 21/20 = 1.05. The minimal_fees (in mutez), minimal_nanotez_per_gas_unit, and minimal_nanotez_per_byte are requirements that a manager operation must meet to be considered by the mempool. replace_by_fee_factor is how much better a manager operation must be to replace a previous valid operation **from the same manager** (both its fee and its fee/gas ratio must exceed the old operation's by at least this factor). max_operations and max_total_bytes are the bounds on respectively the number of valid operations in the mempool and the sum of their sizes in bytes.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $include_default Show fields equal to their default value (set by default)
-     *             }
+     * @param array{
+     *    "include_default": string, //Show fields equal to their default value (set by default)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetFilter extends \Pezos\Generated\Mempool\Runtime\Client\BaseEndpoint imp
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

@@ -15,7 +15,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\HealthGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\HealthGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getHealth(string $fetch = self::FETCH_OBJECT)
     {
@@ -25,7 +25,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLastProcessedLevel(string $fetch = self::FETCH_OBJECT)
     {
@@ -33,11 +33,11 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Return the accepted commitment associated to the given slot index and published at the given level.
+     * Return the commitment associated to the given slot index and published at the given level, if any. The commitment is fetched from the skip-list storage. Note that the commitment is not present in the storage immediately after publication, but only when its attestation status is known and final.
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntCommitment(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -49,7 +49,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntContent(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -61,7 +61,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntPages(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -73,7 +73,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntPagesByIntProof(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -85,7 +85,7 @@ class Client extends Runtime\Client\Client
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntShardsByIntContent(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -93,11 +93,11 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Return the status for the given slot.
+     * Return the status for the given slot. For operator nodes only.
      *
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getLevelsByInt32SlotsByIntStatus(string $int32, string $int, string $fetch = self::FETCH_OBJECT)
     {
@@ -105,17 +105,25 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getMonitorSynchronized(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetMonitorSynchronized(), $fetch);
+    }
+
+    /**
      * Connect to a new peer.
      *
      * @param mixed|null $requestBody
-     * @param array      $queryParameters {
-     *
-     * @var string $timeout A span of time in seconds
-     *             }
-     *
+     * @param array{
+     *    "timeout"?: string, //A span of time in seconds
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function postP2pConnect($requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -125,7 +133,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubBackoffsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubBackoffsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubBackoffs(string $fetch = self::FETCH_OBJECT)
     {
@@ -135,7 +143,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubConnectionsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubConnectionsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubConnections(string $fetch = self::FETCH_OBJECT)
     {
@@ -145,7 +153,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubFanoutGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubFanoutGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubFanout(string $fetch = self::FETCH_OBJECT)
     {
@@ -153,19 +161,25 @@ class Client extends Runtime\Client\Client
     }
 
     /**
+     * Get the mesh of the peer. Concretely, the RPC returns a list of topics, where each topic is associated to the remote peers with which the current node shares a full connection (on that topic). Optional arguments allow to restrict the output to a given delegate or slot index.
+     *
+     * @param array{
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "slot_index"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubMeshGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubMeshGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
-    public function getP2pGossipsubMesh(string $fetch = self::FETCH_OBJECT)
+    public function getP2pGossipsubMesh(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
-        return $this->executeEndpoint(new Endpoint\GetP2pGossipsubMesh(), $fetch);
+        return $this->executeEndpoint(new Endpoint\GetP2pGossipsubMesh($queryParameters), $fetch);
     }
 
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubMessageCacheGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubMessageCacheGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubMessageCache(string $fetch = self::FETCH_OBJECT)
     {
@@ -175,14 +189,12 @@ class Client extends Runtime\Client\Client
     /**
      * When the 'all' flag is given, get an association list between each topic subscribed to by the connected peers and the remote peers subscribed to that topic. If the 'all' flag is not given, then restrict the output to the topics this peer is subscribed to.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $all
-     *             }
-     *
+     * @param array{
+     *    "all"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubPkhsPeersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubPkhsPeersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubPkhsPeers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -192,7 +204,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubReconnectionDelaysGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubReconnectionDelaysGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubReconnectionDelays(string $fetch = self::FETCH_OBJECT)
     {
@@ -202,7 +214,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubScoresGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubScoresGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubScores(string $fetch = self::FETCH_OBJECT)
     {
@@ -212,14 +224,12 @@ class Client extends Runtime\Client\Client
     /**
      * When the 'all' flag is given, get an association list between each public key hash part of a topic subscribed to by the connected peers and the remote peers subscribed to such topics. If the 'all' flag is not given, then restrict the output to the topics this peer is subscribed to.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $all
-     *             }
-     *
+     * @param array{
+     *    "all"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubSlotIndexesPeersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubSlotIndexesPeersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubSlotIndexesPeers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -229,7 +239,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubTopicsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubTopicsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubTopics(string $fetch = self::FETCH_OBJECT)
     {
@@ -239,14 +249,12 @@ class Client extends Runtime\Client\Client
     /**
      * When the 'all' flag is given, get an association list between each topic subscribed to by the connected peers and the remote peers subscribed to that topic. If the 'all' flag is not given, then restrict the output to the topics this peer is subscribed to.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $all
-     *             }
-     *
+     * @param array{
+     *    "all"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pGossipsubTopicsPeersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pGossipsubTopicsPeersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pGossipsubTopicsPeers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -256,14 +264,12 @@ class Client extends Runtime\Client\Client
     /**
      * By default, get the list of known peers. When the 'connected' flag is given, then only get the connected peers.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
-     *
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPeersGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPeersGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPeers(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -276,7 +282,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPeersByIdPeerIdGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPeersByIdPeerIdGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPeersByIdByPeerId(string $peerId, string $fetch = self::FETCH_OBJECT)
     {
@@ -289,7 +295,7 @@ class Client extends Runtime\Client\Client
      * @param string $peerId A cryptographic node identity (Base58Check-encoded)
      * @param string $fetch  Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPeersByIdPeerIdPatchResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPeersByIdPeerIdPatchResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function patchP2pPeersByIdByPeerId(string $peerId, ?Model\P2pPeersByIdPeerIdPatchBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
@@ -299,15 +305,13 @@ class Client extends Runtime\Client\Client
     /**
      * Disconnect from a peer.
      *
-     * @param string $peerId          A cryptographic node identity (Base58Check-encoded)
-     * @param array  $queryParameters {
-     *
-     * @var string $wait
-     *             }
-     *
+     * @param string $peerId A cryptographic node identity (Base58Check-encoded)
+     * @param array{
+     *    "wait"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteP2pPeersDisconnectByPeerId(string $peerId, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -317,14 +321,12 @@ class Client extends Runtime\Client\Client
     /**
      * Get list of known peers and their corresponding info.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
-     *
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPeersInfoGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPeersInfoGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPeersInfo(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -334,14 +336,12 @@ class Client extends Runtime\Client\Client
     /**
      * By default, get the list of known points. When the 'connected' flag is given, only get the connected points.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
-     *
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPointsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPointsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPoints(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -354,7 +354,7 @@ class Client extends Runtime\Client\Client
      * @param string $point a network point (ipv4:port or [ipv6]:port)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPointsByIdPointGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPointsByIdPointGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPointsByIdByPoint(string $point, string $fetch = self::FETCH_OBJECT)
     {
@@ -364,15 +364,13 @@ class Client extends Runtime\Client\Client
     /**
      * Disconnect from a point.
      *
-     * @param string $point           a network point (ipv4:port or [ipv6]:port)
-     * @param array  $queryParameters {
-     *
-     * @var string $wait
-     *             }
-     *
+     * @param string $point a network point (ipv4:port or [ipv6]:port)
+     * @param array{
+     *    "wait"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function deleteP2pPointsDisconnectByPoint(string $point, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -382,14 +380,12 @@ class Client extends Runtime\Client\Client
     /**
      * By default, get the list of known points and their corresponding info. When the 'connected' flag is given, then only get the connected points.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
-     *
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\P2pPointsInfoGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\P2pPointsInfoGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getP2pPointsInfo(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -399,7 +395,7 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProfile(string $fetch = self::FETCH_OBJECT)
     {
@@ -409,12 +405,11 @@ class Client extends Runtime\Client\Client
     /**
      * Update the list of profiles tracked by the DAL node. Note that it does not take the bootstrap profile as it is incompatible with other profiles.
      *
-     * @param mixed|null $requestBody
-     * @param string     $fetch       Fetch mode to use (can be OBJECT or RESPONSE)
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
-    public function patchProfile($requestBody = null, string $fetch = self::FETCH_OBJECT)
+    public function patchProfile(?Model\ProfilesPatchBody $requestBody = null, string $fetch = self::FETCH_OBJECT)
     {
         return $this->executeEndpoint(new Endpoint\PatchProfile($requestBody), $fetch);
     }
@@ -425,7 +420,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProfilesByPkhAttestedLevelsByInt32AssignedShardIndices(string $pkh, string $int32, string $fetch = self::FETCH_OBJECT)
     {
@@ -438,7 +433,7 @@ class Client extends Runtime\Client\Client
      * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return \Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProfilesByPkhAttestedLevelsByInt32AttestableSlot(string $pkh, string $int32, string $fetch = self::FETCH_OBJECT)
     {
@@ -446,16 +441,27 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Returns the protocol parameters as known by the DAL node. An optional 'level' argument can specify for which level to retrieve them.
+     * Stream attestable slot ids for a given public key hash [pkh]. A slot is attestable for attested level L if it was published at (L - attestation_lag) and *all* shards assigned at level L to [pkh] are available in the DAL node's store. If some shards of the slot are detected as traps for the baker, the slot should not be attested, so the id is not sent via the stream.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level
-     *             }
-     *
+     * @param string $pkh   A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\ProtocolParametersGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getProfilesByPkhMonitorAttestableSlot(string $pkh, string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetProfilesByPkhMonitorAttestableSlot($pkh), $fetch);
+    }
+
+    /**
+     * Returns the protocol parameters as known by the DAL node. An optional 'level' argument can specify for which level to retrieve them.
+     *
+     * @param array{
+     *    "level"?: string,
+     * } $queryParameters
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\ProtocolParametersGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getProtocolParameter(array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -465,15 +471,13 @@ class Client extends Runtime\Client\Client
     /**
      * For a given published level, return all the traps known by the node. Optional arguments allow to restrict the output to a given delegate or slot index.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $slot_index
-     *             }
-     *
+     * @param array{
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "slot_index"?: string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\PublishedLevelsInt32KnownTrapsGetResponse200Item[]|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\PublishedLevelsInt32KnownTrapsGetResponse200Item[]|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getPublishedLevelsByInt32KnownTraps(string $int32, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -481,18 +485,16 @@ class Client extends Runtime\Client\Client
     }
 
     /**
-     * Post a slot to the DAL node, computes its commitment and commitment proof, then computes the correspoding shards with their proof. The result of this RPC can be directly used to publish a slot header. If the sent data is smaller than the size of a DAL slot, it is padded with the character provided as padding query parameter (defaults to \000). If the slot_index query parameter is provided, the DAL node checks that its profile allows to publish data on the given slot index.
+     * Post a slot to the DAL node, computes its commitment and commitment proof, then computes the correspoding shards with their proof. The result of this RPC can be directly used to publish a slot header. If the sent data is smaller than the size of a DAL slot, it is padded with the character provided as padding query parameter (defaults to \000). If the slot_index query parameter is provided, the DAL node checks that its profile allows to publish data on the given slot index. However, slot_index is optional and has NO SEMANTIC EFFECT on the produced commitment. It exists solely to help reverse proxies route POST /slots requests to a DAL node subscribed to the corresponding topics.
      *
      * @param mixed|null $requestBody
-     * @param array      $queryParameters {
-     *
-     * @var string $padding
-     * @var string $slot_index
-     *             }
-     *
+     * @param array{
+     *    "padding": string,
+     *    "slot_index": string,
+     * } $queryParameters
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\SlotsPostResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? Model\SlotsPostResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function postSlot($requestBody = null, array $queryParameters = [], string $fetch = self::FETCH_OBJECT)
     {
@@ -502,7 +504,17 @@ class Client extends Runtime\Client\Client
     /**
      * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
      *
-     * @return Model\VersionGetResponse200|\Psr\Http\Message\ResponseInterface|null
+     * @return ($fetch is 'object' ? null : \Psr\Http\Message\ResponseInterface)
+     */
+    public function getSynchronized(string $fetch = self::FETCH_OBJECT)
+    {
+        return $this->executeEndpoint(new Endpoint\GetSynchronized(), $fetch);
+    }
+
+    /**
+     * @param string $fetch Fetch mode to use (can be OBJECT or RESPONSE)
+     *
+     * @return ($fetch is 'object' ? Model\VersionGetResponse200|null : \Psr\Http\Message\ResponseInterface)
      */
     public function getVersion(string $fetch = self::FETCH_OBJECT)
     {

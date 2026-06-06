@@ -39,15 +39,15 @@ class HelpersScriptsTraceCodePostResponse200Normalizer implements DenormalizerIn
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\HelpersScriptsTraceCodePostResponse200();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('storage', $data)) {
             $object->setStorage($data['storage']);
@@ -64,7 +64,7 @@ class HelpersScriptsTraceCodePostResponse200Normalizer implements DenormalizerIn
         if (\array_key_exists('trace', $data)) {
             $values_1 = [];
             foreach ($data['trace'] as $value_1) {
-                $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Proto\Model\_022PsRiotumScriptedTraceItem::class, 'json', $context);
+                $values_1[] = $this->denormalizer->denormalize($value_1, \Pezos\Generated\Proto\Model\_024PtTALLiNScriptedTraceItem::class, 'json', $context);
             }
             $object->setTrace($values_1);
             unset($data['trace']);

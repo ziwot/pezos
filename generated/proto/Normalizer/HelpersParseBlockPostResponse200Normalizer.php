@@ -39,15 +39,15 @@ class HelpersParseBlockPostResponse200Normalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\HelpersParseBlockPostResponse200();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('payload_hash', $data)) {
             $object->setPayloadHash($data['payload_hash']);
@@ -68,10 +68,6 @@ class HelpersParseBlockPostResponse200Normalizer implements DenormalizerInterfac
         if (\array_key_exists('liquidity_baking_toggle_vote', $data)) {
             $object->setLiquidityBakingToggleVote($data['liquidity_baking_toggle_vote']);
             unset($data['liquidity_baking_toggle_vote']);
-        }
-        if (\array_key_exists('adaptive_issuance_vote', $data)) {
-            $object->setAdaptiveIssuanceVote($data['adaptive_issuance_vote']);
-            unset($data['adaptive_issuance_vote']);
         }
         if (\array_key_exists('signature', $data)) {
             $object->setSignature($data['signature']);
@@ -96,7 +92,6 @@ class HelpersParseBlockPostResponse200Normalizer implements DenormalizerInterfac
             $dataArray['seed_nonce_hash'] = $data->getSeedNonceHash();
         }
         $dataArray['liquidity_baking_toggle_vote'] = $data->getLiquidityBakingToggleVote();
-        $dataArray['adaptive_issuance_vote'] = $data->getAdaptiveIssuanceVote();
         $dataArray['signature'] = $data->getSignature();
         foreach ($data as $key => $value) {
             if (preg_match('/.*/', (string) $key)) {

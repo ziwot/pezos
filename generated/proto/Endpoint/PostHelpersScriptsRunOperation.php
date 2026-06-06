@@ -17,10 +17,9 @@ class PostHelpersScriptsRunOperation extends \Pezos\Generated\Proto\Runtime\Clie
     /**
      * Run an operation with the context of the given block and without signature checks. Return the operation application result, including the consumed gas. This RPC does not support consensus operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC version is version '1'
-     *             }
+     * @param array{
+     *    "version"?: string, //Supported RPC version is version '1'
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Proto\Model\HelpersScriptsRunOperationPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class PostHelpersScriptsRunOperation extends \Pezos\Generated\Proto\Runtime\Clie
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

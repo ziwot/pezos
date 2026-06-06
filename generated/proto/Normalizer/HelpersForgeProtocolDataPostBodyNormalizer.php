@@ -39,15 +39,15 @@ class HelpersForgeProtocolDataPostBodyNormalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
-        }
-        $object = new \Pezos\Generated\Proto\Model\HelpersForgeProtocolDataPostBody();
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('payload_hash', $data)) {
             $object->setPayloadHash($data['payload_hash']);
@@ -66,7 +66,7 @@ class HelpersForgeProtocolDataPostBodyNormalizer implements DenormalizerInterfac
             unset($data['proof_of_work_nonce']);
         }
         if (\array_key_exists('per_block_votes', $data)) {
-            $object->setPerBlockVotes($this->denormalizer->denormalize($data['per_block_votes'], \Pezos\Generated\Proto\Model\_022PsRiotumPerBlockVotes::class, 'json', $context));
+            $object->setPerBlockVotes($this->denormalizer->denormalize($data['per_block_votes'], \Pezos\Generated\Proto\Model\_024PtTALLiNPerBlockVotes::class, 'json', $context));
             unset($data['per_block_votes']);
         }
         foreach ($data as $key => $value) {

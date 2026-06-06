@@ -19,11 +19,10 @@ class GetGlobalBlockByBlockIdHelpersProofsOutboxByLevelMessage extends \Pezos\Ge
     /**
      * Generate serialized output proof for some outbox message at level and index.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $index
-     *             }
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "index"?: string,
+     * } $queryParameters
      */
     public function __construct(string $blockId, string $level, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class GetGlobalBlockByBlockIdHelpersProofsOutboxByLevelMessage extends \Pezos\Ge
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Rollup\\Model\\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

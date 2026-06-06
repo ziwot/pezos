@@ -39,18 +39,18 @@ class ContextContractsContractIdScriptNormalizedPostBodyNormalizer implements De
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Proto\Model\ContextContractsContractIdScriptNormalizedPostBody();
         if (\array_key_exists('normalize_types', $data) && \is_int($data['normalize_types'])) {
             $data['normalize_types'] = (bool) $data['normalize_types'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('unparsing_mode', $data)) {
             $object->setUnparsingMode($data['unparsing_mode']);

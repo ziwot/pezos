@@ -25,12 +25,26 @@ class HelpersValidatorsGetResponse200Item extends \ArrayObject
      * @var int
      */
     protected $level;
-    protected $delegate;
     /**
-     * @var list<int>
+     * Decimal representation of 64 bit integers.
+     *
+     * @var string
      */
-    protected $slots;
-    protected $consensusKey;
+    protected $consensusThreshold;
+    /**
+     * Decimal representation of 64 bit integers.
+     *
+     * @var string
+     */
+    protected $consensusCommittee;
+    /**
+     * @var bool
+     */
+    protected $allBakersAttestActivated;
+    /**
+     * @var list<HelpersValidatorsGetResponse200ItemDelegatesItem>
+     */
+    protected $delegates;
 
     public function getLevel(): int
     {
@@ -45,47 +59,72 @@ class HelpersValidatorsGetResponse200Item extends \ArrayObject
         return $this;
     }
 
-    public function getDelegate()
+    /**
+     * Decimal representation of 64 bit integers.
+     */
+    public function getConsensusThreshold(): string
     {
-        return $this->delegate;
+        return $this->consensusThreshold;
     }
 
-    public function setDelegate($delegate): self
+    /**
+     * Decimal representation of 64 bit integers.
+     */
+    public function setConsensusThreshold(string $consensusThreshold): self
     {
-        $this->initialized['delegate'] = true;
-        $this->delegate = $delegate;
+        $this->initialized['consensusThreshold'] = true;
+        $this->consensusThreshold = $consensusThreshold;
 
         return $this;
     }
 
     /**
-     * @return list<int>
+     * Decimal representation of 64 bit integers.
      */
-    public function getSlots(): array
+    public function getConsensusCommittee(): string
     {
-        return $this->slots;
+        return $this->consensusCommittee;
     }
 
     /**
-     * @param list<int> $slots
+     * Decimal representation of 64 bit integers.
      */
-    public function setSlots(array $slots): self
+    public function setConsensusCommittee(string $consensusCommittee): self
     {
-        $this->initialized['slots'] = true;
-        $this->slots = $slots;
+        $this->initialized['consensusCommittee'] = true;
+        $this->consensusCommittee = $consensusCommittee;
 
         return $this;
     }
 
-    public function getConsensusKey()
+    public function getAllBakersAttestActivated(): bool
     {
-        return $this->consensusKey;
+        return $this->allBakersAttestActivated;
     }
 
-    public function setConsensusKey($consensusKey): self
+    public function setAllBakersAttestActivated(bool $allBakersAttestActivated): self
     {
-        $this->initialized['consensusKey'] = true;
-        $this->consensusKey = $consensusKey;
+        $this->initialized['allBakersAttestActivated'] = true;
+        $this->allBakersAttestActivated = $allBakersAttestActivated;
+
+        return $this;
+    }
+
+    /**
+     * @return list<HelpersValidatorsGetResponse200ItemDelegatesItem>
+     */
+    public function getDelegates(): array
+    {
+        return $this->delegates;
+    }
+
+    /**
+     * @param list<HelpersValidatorsGetResponse200ItemDelegatesItem> $delegates
+     */
+    public function setDelegates(array $delegates): self
+    {
+        $this->initialized['delegates'] = true;
+        $this->delegates = $delegates;
 
         return $this;
     }

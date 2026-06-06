@@ -24,7 +24,7 @@ class ProfilerRegisteredBackendGetResponse200 extends \ArrayObject
     /**
      * @var list<mixed>
      */
-    protected $registeredBackend;
+    protected $registeredBackends;
     /**
      * Backends encoding.
      *
@@ -35,18 +35,18 @@ class ProfilerRegisteredBackendGetResponse200 extends \ArrayObject
     /**
      * @return list<mixed>
      */
-    public function getRegisteredBackend(): array
+    public function getRegisteredBackends(): array
     {
-        return $this->registeredBackend;
+        return $this->registeredBackends;
     }
 
     /**
-     * @param list<mixed> $registeredBackend
+     * @param list<mixed> $registeredBackends
      */
-    public function setRegisteredBackend(array $registeredBackend): self
+    public function setRegisteredBackends(array $registeredBackends): self
     {
-        $this->initialized['registeredBackend'] = true;
-        $this->registeredBackend = $registeredBackend;
+        $this->initialized['registeredBackends'] = true;
+        $this->registeredBackends = $registeredBackends;
 
         return $this;
     }

@@ -18,12 +18,11 @@ class GetContextBigMapsByBigMapId extends \Pezos\Generated\Proto\Runtime\Client\
     /**
      * Get the (optionally paginated) list of values in a big map. Order of values is unspecified, but is guaranteed to be consistent.
      *
-     * @param string $bigMapId        A big map identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $offset A non-negative integer (greater than or equal to 0). Skip the first [offset] values. Useful in combination with [length] for pagination.
-     * @var string $length A non-negative integer (greater than or equal to 0). Only retrieve [length] values. Useful in combination with [offset] for pagination.
-     *             }
+     * @param string $bigMapId A big map identifier
+     * @param array{
+     *    "offset"?: string, //A non-negative integer (greater than or equal to 0). Skip the first [offset] values. Useful in combination with [length] for pagination.
+     *    "length"?: string, //A non-negative integer (greater than or equal to 0). Only retrieve [length] values. Useful in combination with [offset] for pagination.
+     * } $queryParameters
      */
     public function __construct(string $bigMapId, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class GetContextBigMapsByBigMapId extends \Pezos\Generated\Proto\Runtime\Client\
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

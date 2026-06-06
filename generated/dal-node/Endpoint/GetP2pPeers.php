@@ -17,10 +17,9 @@ class GetP2pPeers extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint imple
     /**
      * By default, get the list of known peers. When the 'connected' flag is given, then only get the connected peers.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $connected
-     *             }
+     * @param array{
+     *    "connected"?: string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetP2pPeers extends \Pezos\Generated\Dal\Runtime\Client\BaseEndpoint imple
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Dal\\Model\\P2pPeersGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Dal\Model\P2pPeersGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

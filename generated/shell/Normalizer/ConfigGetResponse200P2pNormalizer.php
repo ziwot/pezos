@@ -39,13 +39,16 @@ class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, Normal
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200P2p();
         if (\array_key_exists('expected-proof-of-work', $data) && \is_int($data['expected-proof-of-work'])) {
             $data['expected-proof-of-work'] = (float) $data['expected-proof-of-work'];
         }
@@ -60,9 +63,6 @@ class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, Normal
         }
         if (\array_key_exists('disable_peer_discovery', $data) && \is_int($data['disable_peer_discovery'])) {
             $data['disable_peer_discovery'] = (bool) $data['disable_peer_discovery'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('expected-proof-of-work', $data)) {
             $object->setExpectedProofOfWork($data['expected-proof-of-work']);
@@ -142,7 +142,7 @@ class ConfigGetResponse200P2pNormalizer implements DenormalizerInterface, Normal
         if ($data->isInitialized('advertisedNetPort') && null !== $data->getAdvertisedNetPort()) {
             $dataArray['advertised-net-port'] = $data->getAdvertisedNetPort();
         }
-        if ($data->isInitialized('discoveryAddr') && null !== $data->getDiscoveryAddr()) {
+        if ($data->isInitialized('discoveryAddr')) {
             $dataArray['discovery-addr'] = $data->getDiscoveryAddr();
         }
         if ($data->isInitialized('privateMode') && null !== $data->getPrivateMode()) {

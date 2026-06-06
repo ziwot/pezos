@@ -29,7 +29,7 @@ class HelpersAttestationRightsGetResponse200ItemDelegatesItem extends \ArrayObje
     /**
      * @var int
      */
-    protected $attestationPower;
+    protected $attestingPower;
     protected $consensusKey;
 
     public function getDelegate()
@@ -58,15 +58,15 @@ class HelpersAttestationRightsGetResponse200ItemDelegatesItem extends \ArrayObje
         return $this;
     }
 
-    public function getAttestationPower(): int
+    public function getAttestingPower(): int
     {
-        return $this->attestationPower;
+        return $this->attestingPower;
     }
 
-    public function setAttestationPower(int $attestationPower): self
+    public function setAttestingPower(int $attestingPower): self
     {
-        $this->initialized['attestationPower'] = true;
-        $this->attestationPower = $attestationPower;
+        $this->initialized['attestingPower'] = true;
+        $this->attestingPower = $attestingPower;
 
         return $this;
     }

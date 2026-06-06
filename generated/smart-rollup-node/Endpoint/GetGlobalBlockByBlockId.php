@@ -18,11 +18,10 @@ class GetGlobalBlockByBlockId extends \Pezos\Generated\Rollup\Runtime\Client\Bas
     /**
      * Layer-2 block of the layer-2 chain with respect to a Layer 1 block identifier.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $outbox
-     *             }
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "outbox": string,
+     * } $queryParameters
      */
     public function __construct(string $blockId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetGlobalBlockByBlockId extends \Pezos\Generated\Rollup\Runtime\Client\Bas
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Rollup\\Model\\GlobalBlockBlockIdGetResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

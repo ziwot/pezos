@@ -296,9 +296,9 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
      */
     protected $allowTz4DelegateEnable;
     /**
-     * @var mixed|null
+     * @var ContextConstantsParametricGetResponse200AllBakersAttestActivationThreshold
      */
-    protected $allBakersAttestActivationLevel;
+    protected $allBakersAttestActivationThreshold;
 
     public function getConsensusRightsDelay(): int
     {
@@ -1204,15 +1204,15 @@ class ContextConstantsParametricGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getAllBakersAttestActivationLevel()
+    public function getAllBakersAttestActivationThreshold(): ContextConstantsParametricGetResponse200AllBakersAttestActivationThreshold
     {
-        return $this->allBakersAttestActivationLevel;
+        return $this->allBakersAttestActivationThreshold;
     }
 
-    public function setAllBakersAttestActivationLevel($allBakersAttestActivationLevel): self
+    public function setAllBakersAttestActivationThreshold(ContextConstantsParametricGetResponse200AllBakersAttestActivationThreshold $allBakersAttestActivationThreshold): self
     {
-        $this->initialized['allBakersAttestActivationLevel'] = true;
-        $this->allBakersAttestActivationLevel = $allBakersAttestActivationLevel;
+        $this->initialized['allBakersAttestActivationThreshold'] = true;
+        $this->allBakersAttestActivationThreshold = $allBakersAttestActivationThreshold;
 
         return $this;
     }

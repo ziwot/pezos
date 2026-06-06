@@ -39,18 +39,18 @@ class P2pPeersByIdPeerIdGetResponse200InfoConnMetadataNormalizer implements Deno
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Dal\Model\P2pPeersByIdPeerIdGetResponse200InfoConnMetadata();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Dal\Model\P2pPeersByIdPeerIdGetResponse200InfoConnMetadata();
         if (\array_key_exists('is_bootstrap_peer', $data) && \is_int($data['is_bootstrap_peer'])) {
             $data['is_bootstrap_peer'] = (bool) $data['is_bootstrap_peer'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('advertised_net_addr', $data)) {
             $object->setAdvertisedNetAddr($data['advertised_net_addr']);

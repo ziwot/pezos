@@ -65,6 +65,12 @@ class ProtocolParametersGetResponse200 extends \ArrayObject
      * @var int
      */
     protected $blocksPerCycle;
+    /**
+     * Decimal representation of 64 bit integers.
+     *
+     * @var string
+     */
+    protected $minimalBlockDelay;
 
     public function getFeatureEnable(): bool
     {
@@ -205,6 +211,25 @@ class ProtocolParametersGetResponse200 extends \ArrayObject
     {
         $this->initialized['blocksPerCycle'] = true;
         $this->blocksPerCycle = $blocksPerCycle;
+
+        return $this;
+    }
+
+    /**
+     * Decimal representation of 64 bit integers.
+     */
+    public function getMinimalBlockDelay(): string
+    {
+        return $this->minimalBlockDelay;
+    }
+
+    /**
+     * Decimal representation of 64 bit integers.
+     */
+    public function setMinimalBlockDelay(string $minimalBlockDelay): self
+    {
+        $this->initialized['minimalBlockDelay'] = true;
+        $this->minimalBlockDelay = $minimalBlockDelay;
 
         return $this;
     }

@@ -39,13 +39,16 @@ class ConfigGetResponse200ShellPeerValidatorNormalizer implements DenormalizerIn
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator();
         if (\array_key_exists('block_header_request_timeout', $data) && \is_int($data['block_header_request_timeout'])) {
             $data['block_header_request_timeout'] = (float) $data['block_header_request_timeout'];
         }
@@ -57,9 +60,6 @@ class ConfigGetResponse200ShellPeerValidatorNormalizer implements DenormalizerIn
         }
         if (\array_key_exists('new_head_request_timeout', $data) && \is_int($data['new_head_request_timeout'])) {
             $data['new_head_request_timeout'] = (float) $data['new_head_request_timeout'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('block_header_request_timeout', $data)) {
             $object->setBlockHeaderRequestTimeout($data['block_header_request_timeout']);

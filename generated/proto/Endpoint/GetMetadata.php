@@ -17,10 +17,9 @@ class GetMetadata extends \Pezos\Generated\Proto\Runtime\Client\BaseEndpoint imp
     /**
      * All the metadata associated to the block.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     *             }
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetMetadata extends \Pezos\Generated\Proto\Runtime\Client\BaseEndpoint imp
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\BlockHeaderMetadata', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\BlockHeaderMetadata', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

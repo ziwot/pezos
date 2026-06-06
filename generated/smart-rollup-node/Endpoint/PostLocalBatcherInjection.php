@@ -18,11 +18,10 @@ class PostLocalBatcherInjection extends \Pezos\Generated\Rollup\Runtime\Client\B
      * Inject messages in the batcher's queue.
      *
      * @param array[]|null $requestBody
-     * @param array        $queryParameters {
-     *
-     * @var string $order
-     * @var string $drop_duplicate
-     *             }
+     * @param array{
+     *    "order"?: string,
+     *    "drop_duplicate": string,
+     * } $queryParameters
      */
     public function __construct(?array $requestBody = null, array $queryParameters = [])
     {
@@ -42,8 +41,8 @@ class PostLocalBatcherInjection extends \Pezos\Generated\Rollup\Runtime\Client\B
 
     public function getBody(\Symfony\Component\Serializer\SerializerInterface $serializer, $streamFactory = null): array
     {
-        if (is_array($this->body) and isset($this->body[0]) and is_array($this->body[0])) {
-            return [['Content-Type' => ['application/json']], json_encode($this->body)];
+        if (is_array($this->body)) {
+            return [['Content-Type' => ['application/json']], $serializer->serialize($this->body, 'json')];
         }
 
         return [[], null];
@@ -73,10 +72,10 @@ class PostLocalBatcherInjection extends \Pezos\Generated\Rollup\Runtime\Client\B
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

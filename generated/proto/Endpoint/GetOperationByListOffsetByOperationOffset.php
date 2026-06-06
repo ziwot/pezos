@@ -21,12 +21,11 @@ class GetOperationByListOffsetByOperationOffset extends \Pezos\Generated\Proto\R
      *
      * @param string $listOffset      index `n` of the requested validation pass
      * @param string $operationOffset index `m` of the requested operation in its validation pass
-     * @param array  $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $force_metadata DEPRECATED: Forces to recompute the operations metadata if it was considered as too large
-     * @var string $metadata defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
-     *             }
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "force_metadata"?: string, //DEPRECATED: Forces to recompute the operations metadata if it was considered as too large.
+     *    "metadata"?: string, //defines the way metadata are queried Specifies whether or not if the operations metadata should be returned. To get the metadata, even if it is needed to recompute them, use "always". To avoid getting the metadata, use "never". By default, the metadata will be returned depending on the node's metadata size limit policy.
+     * } $queryParameters
      */
     public function __construct(string $listOffset, string $operationOffset, array $queryParameters = [])
     {
@@ -75,10 +74,10 @@ class GetOperationByListOffsetByOperationOffset extends \Pezos\Generated\Proto\R
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

@@ -17,10 +17,9 @@ class PostRequestOperation extends \Pezos\Generated\Mempool\Runtime\Client\BaseE
     /**
      * Request the operations of our peers or a specific peer if specified via a query parameter.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $peer_id A cryptographic node identity (Base58Check-encoded)
-     *             }
+     * @param array{
+     *    "peer_id"?: string, //A cryptographic node identity (Base58Check-encoded)
+     * } $queryParameters
      */
     public function __construct(?\Pezos\Generated\Mempool\Model\RequestOperationsPostBody $requestBody = null, array $queryParameters = [])
     {
@@ -70,10 +69,10 @@ class PostRequestOperation extends \Pezos\Generated\Mempool\Runtime\Client\BaseE
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Mempool\\Model\\RequestOperationsPostResponse200', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Mempool\Model\RequestOperationsPostResponse200', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

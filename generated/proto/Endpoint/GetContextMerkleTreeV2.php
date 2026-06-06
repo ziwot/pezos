@@ -17,10 +17,9 @@ class GetContextMerkleTreeV2 extends \Pezos\Generated\Proto\Runtime\Client\BaseE
     /**
      * Returns the Irmin merkle tree of a piece of context.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $holey Send only hashes, omit data of key
-     *             }
+     * @param array{
+     *    "holey"?: string, //Send only hashes, omit data of key
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -65,10 +64,10 @@ class GetContextMerkleTreeV2 extends \Pezos\Generated\Proto\Runtime\Client\BaseE
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

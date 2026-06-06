@@ -36,13 +36,13 @@ class ContextIssuanceExpectedIssuanceGetResponse200Item extends \ArrayObject
      *
      * @var string
      */
-    protected $bakingRewardBonusPerSlot;
+    protected $bakingRewardBonusPerBlock;
     /**
      * Decimal representation of a positive big number.
      *
      * @var string
      */
-    protected $attestingRewardPerSlot;
+    protected $attestingRewardPerBlock;
     /**
      * Decimal representation of a positive big number.
      *
@@ -97,18 +97,18 @@ class ContextIssuanceExpectedIssuanceGetResponse200Item extends \ArrayObject
     /**
      * Decimal representation of a positive big number.
      */
-    public function getBakingRewardBonusPerSlot(): string
+    public function getBakingRewardBonusPerBlock(): string
     {
-        return $this->bakingRewardBonusPerSlot;
+        return $this->bakingRewardBonusPerBlock;
     }
 
     /**
      * Decimal representation of a positive big number.
      */
-    public function setBakingRewardBonusPerSlot(string $bakingRewardBonusPerSlot): self
+    public function setBakingRewardBonusPerBlock(string $bakingRewardBonusPerBlock): self
     {
-        $this->initialized['bakingRewardBonusPerSlot'] = true;
-        $this->bakingRewardBonusPerSlot = $bakingRewardBonusPerSlot;
+        $this->initialized['bakingRewardBonusPerBlock'] = true;
+        $this->bakingRewardBonusPerBlock = $bakingRewardBonusPerBlock;
 
         return $this;
     }
@@ -116,18 +116,18 @@ class ContextIssuanceExpectedIssuanceGetResponse200Item extends \ArrayObject
     /**
      * Decimal representation of a positive big number.
      */
-    public function getAttestingRewardPerSlot(): string
+    public function getAttestingRewardPerBlock(): string
     {
-        return $this->attestingRewardPerSlot;
+        return $this->attestingRewardPerBlock;
     }
 
     /**
      * Decimal representation of a positive big number.
      */
-    public function setAttestingRewardPerSlot(string $attestingRewardPerSlot): self
+    public function setAttestingRewardPerBlock(string $attestingRewardPerBlock): self
     {
-        $this->initialized['attestingRewardPerSlot'] = true;
-        $this->attestingRewardPerSlot = $attestingRewardPerSlot;
+        $this->initialized['attestingRewardPerBlock'] = true;
+        $this->attestingRewardPerBlock = $attestingRewardPerBlock;
 
         return $this;
     }

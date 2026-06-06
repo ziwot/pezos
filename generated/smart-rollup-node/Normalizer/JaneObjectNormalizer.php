@@ -54,8 +54,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => ConfigGetResponse200FeeParametersPublishDalCommitmentNormalizer::class,
 
-        \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => ConfigGetResponse200LoserModeItemNormalizer::class,
-
         \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemNormalizer::class,
 
         \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransactionNormalizer::class,
@@ -77,10 +75,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContentNormalizer::class,
 
         \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => GlobalBlockBlockIdGetResponse200CommitmentNormalizer::class,
-
-        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => GlobalBlockBlockIdDalProcessedSlotsGetResponse200ItemNormalizer::class,
-
-        \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => GlobalBlockBlockIdDalSlotHeadersGetResponse200ItemNormalizer::class,
 
         \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item::class => GlobalBlockBlockIdDurableWasm200ValuesGetResponse200ItemNormalizer::class,
 
@@ -104,6 +98,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => GlobalMonitorBlocksGetResponse200Normalizer::class,
 
+        \Pezos\Generated\Rollup\Model\GlobalMonitorFinalizedBlocksGetResponse200::class => GlobalMonitorFinalizedBlocksGetResponse200Normalizer::class,
+
         \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => HealthGetResponse200Normalizer::class,
 
         \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => HealthGetResponse200L1Normalizer::class,
@@ -119,6 +115,10 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
         \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => LocalDalSlotIndicesPostBodyNormalizer::class,
 
         \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => LocalGcInfoGetResponse200Normalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingGetResponse200Item::class => LocalOutboxPendingGetResponse200ItemNormalizer::class,
+
+        \Pezos\Generated\Rollup\Model\LocalOutboxPendingGetResponse200ItemMessagesItem::class => LocalOutboxPendingGetResponse200ItemMessagesItemNormalizer::class,
 
         \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => LocalOutboxPendingExecutableGetResponse200ItemNormalizer::class,
 
@@ -194,7 +194,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersRecover::class => false,
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersExecuteOutboxMessage::class => false,
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200FeeParametersPublishDalCommitment::class => false,
-            \Pezos\Generated\Rollup\Model\ConfigGetResponse200LoserModeItem::class => false,
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItem::class => false,
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200ExecuteOutboxMessagesFilterItemTransaction::class => false,
             \Pezos\Generated\Rollup\Model\ConfigGetResponse200Batcher::class => false,
@@ -206,8 +205,6 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessages::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200InboxOldLevelsMessagesContent::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdGetResponse200Commitment::class => false,
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalProcessedSlotsGetResponse200Item::class => false,
-            \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDalSlotHeadersGetResponse200Item::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdDurableWasm200ValuesGetResponse200Item::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdHelpersProofsOutboxLevelMessagesGetResponse200::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdInboxGetResponse200::class => false,
@@ -219,6 +216,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200::class => false,
             \Pezos\Generated\Rollup\Model\GlobalBlockBlockIdSimulatePostResponse200OutputItem::class => false,
             \Pezos\Generated\Rollup\Model\GlobalMonitorBlocksGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\GlobalMonitorFinalizedBlocksGetResponse200::class => false,
             \Pezos\Generated\Rollup\Model\HealthGetResponse200::class => false,
             \Pezos\Generated\Rollup\Model\HealthGetResponse200L1::class => false,
             \Pezos\Generated\Rollup\Model\HealthGetResponse200L1LastSeenHead::class => false,
@@ -227,6 +225,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Rollup\Model\LocalDalInjectedOperationsStatusesGetResponse200Item::class => false,
             \Pezos\Generated\Rollup\Model\LocalDalSlotIndicesPostBody::class => false,
             \Pezos\Generated\Rollup\Model\LocalGcInfoGetResponse200::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingGetResponse200Item::class => false,
+            \Pezos\Generated\Rollup\Model\LocalOutboxPendingGetResponse200ItemMessagesItem::class => false,
             \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200Item::class => false,
             \Pezos\Generated\Rollup\Model\LocalOutboxPendingExecutableGetResponse200ItemMessagesItem::class => false,
             \Pezos\Generated\Rollup\Model\LocalOutboxPendingUnexecutableGetResponse200Item::class => false,

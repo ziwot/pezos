@@ -17,17 +17,16 @@ class GetMonitorOperations extends \Pezos\Generated\Mempool\Runtime\Client\BaseE
     /**
      * Monitor the mempool operations.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $version Supported RPC versions are version "1" (default)
-     * @var string $validated Include validated operations (set by default)
-     * @var string $refused Include refused operations
-     * @var string $outdated Include outdated operations
-     * @var string $branch_refused Include branch refused operations
-     * @var string $branch_delayed Include branch delayed operations (set by default)
-     * @var string $validation_pass Include operations filtered by validation pass (all by default)
-     * @var string $sources Include operations filtered by sources (all by default)
-     *             }
+     * @param array{
+     *    "version": string, //Supported RPC versions are version "1" (default)
+     *    "validated": string, //Include validated operations (set by default)
+     *    "refused": string, //Include refused operations
+     *    "outdated": string, //Include outdated operations
+     *    "branch_refused": string, //Include branch refused operations
+     *    "branch_delayed": string, //Include branch delayed operations (set by default)
+     *    "validation_pass"?: string, //Include operations filtered by validation pass (all by default)
+     *    "sources"?: string, //Include operations filtered by sources (all by default)
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -79,10 +78,10 @@ class GetMonitorOperations extends \Pezos\Generated\Mempool\Runtime\Client\BaseE
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Mempool\\Model\\MonitorOperationsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Mempool\Model\MonitorOperationsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

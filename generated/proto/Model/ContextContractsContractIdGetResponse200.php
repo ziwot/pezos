@@ -29,7 +29,7 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
     protected $balance;
     protected $delegate;
     /**
-     * @var _022PsRiotumScriptedContracts
+     * @var _024PtTALLiNScriptedContracts
      */
     protected $script;
     /**
@@ -38,6 +38,12 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
      * @var string
      */
     protected $counter;
+    /**
+     * field present for implicit account only: true means the manager pk has been revealed.
+     *
+     * @var bool
+     */
+    protected $revealed;
 
     /**
      * Decimal representation of a positive big number.
@@ -71,12 +77,12 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
         return $this;
     }
 
-    public function getScript(): _022PsRiotumScriptedContracts
+    public function getScript(): _024PtTALLiNScriptedContracts
     {
         return $this->script;
     }
 
-    public function setScript(_022PsRiotumScriptedContracts $script): self
+    public function setScript(_024PtTALLiNScriptedContracts $script): self
     {
         $this->initialized['script'] = true;
         $this->script = $script;
@@ -99,6 +105,25 @@ class ContextContractsContractIdGetResponse200 extends \ArrayObject
     {
         $this->initialized['counter'] = true;
         $this->counter = $counter;
+
+        return $this;
+    }
+
+    /**
+     * field present for implicit account only: true means the manager pk has been revealed.
+     */
+    public function getRevealed(): bool
+    {
+        return $this->revealed;
+    }
+
+    /**
+     * field present for implicit account only: true means the manager pk has been revealed.
+     */
+    public function setRevealed(bool $revealed): self
+    {
+        $this->initialized['revealed'] = true;
+        $this->revealed = $revealed;
 
         return $this;
     }

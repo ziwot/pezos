@@ -39,21 +39,21 @@ class NetworkPeersPeerIdGetResponse200Normalizer implements DenormalizerInterfac
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\NetworkPeersPeerIdGetResponse200();
         if (\array_key_exists('score', $data) && \is_int($data['score'])) {
             $data['score'] = (float) $data['score'];
         }
         if (\array_key_exists('trusted', $data) && \is_int($data['trusted'])) {
             $data['trusted'] = (bool) $data['trusted'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('score', $data)) {
             $object->setScore($data['score']);

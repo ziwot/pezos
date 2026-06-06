@@ -39,21 +39,21 @@ class HealthGetResponse200Normalizer implements DenormalizerInterface, Normalize
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Rollup\Model\HealthGetResponse200();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Rollup\Model\HealthGetResponse200();
         if (\array_key_exists('healthy', $data) && \is_int($data['healthy'])) {
             $data['healthy'] = (bool) $data['healthy'];
         }
         if (\array_key_exists('degraded', $data) && \is_int($data['degraded'])) {
             $data['degraded'] = (bool) $data['degraded'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('healthy', $data)) {
             $object->setHealthy($data['healthy']);

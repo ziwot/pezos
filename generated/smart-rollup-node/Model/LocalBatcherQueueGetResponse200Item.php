@@ -32,6 +32,10 @@ class LocalBatcherQueueGetResponse200Item extends \ArrayObject
      * @var LocalBatcherQueueGetResponse200ItemMessage
      */
     protected $message;
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    protected $traceparent;
 
     /**
      * Decimal representation of a positive big number.
@@ -74,6 +78,25 @@ class LocalBatcherQueueGetResponse200Item extends \ArrayObject
     {
         $this->initialized['message'] = true;
         $this->message = $message;
+
+        return $this;
+    }
+
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    public function getTraceparent()
+    {
+        return $this->traceparent;
+    }
+
+    /**
+     * Either a plain UTF8 string, or a sequence of bytes for strings that contain invalid byte sequences.
+     */
+    public function setTraceparent($traceparent): self
+    {
+        $this->initialized['traceparent'] = true;
+        $this->traceparent = $traceparent;
 
         return $this;
     }

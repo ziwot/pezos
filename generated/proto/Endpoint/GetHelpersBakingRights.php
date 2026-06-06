@@ -21,15 +21,14 @@ class GetHelpersBakingRights extends \Pezos\Generated\Proto\Runtime\Client\BaseE
      * Parameter `delegate` can be used to restrict the results to the given delegates. Parameter `consensus_key` can be used to restrict the results to the given consensus_keys. If parameter `all` is set, all the baking opportunities for each baker at each level are returned, instead of just the first one.
      * Returns the list of baking opportunities up to round 64. Also returns the minimal timestamps that correspond to these opportunities. The timestamps are omitted for levels in the past, and are only estimates for levels higher that the next block's, based on the hypothesis that all predecessor blocks were baked at the first round.
      *
-     * @param array $queryParameters {
-     *
-     * @var string $level A level integer
-     * @var string $cycle A cycle integer
-     * @var string $delegate A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $consensus_key A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
-     * @var string $max_round
-     * @var string $all
-     *             }
+     * @param array{
+     *    "level"?: string, //A level integer
+     *    "cycle"?: string, //A cycle integer
+     *    "delegate"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "consensus_key"?: string, //A Secp256k1 of a Ed25519 public key hash (Base58Check-encoded)
+     *    "max_round"?: string,
+     *    "all"?: string,
+     * } $queryParameters
      */
     public function __construct(array $queryParameters = [])
     {
@@ -79,10 +78,10 @@ class GetHelpersBakingRights extends \Pezos\Generated\Proto\Runtime\Client\BaseE
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Proto\\Model\\HelpersBakingRightsGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Proto\Model\HelpersBakingRightsGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

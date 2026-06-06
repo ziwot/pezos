@@ -18,11 +18,10 @@ class GetGlobalBlockByBlockIdOutbox extends \Pezos\Generated\Rollup\Runtime\Clie
     /**
      * Outbox at block for a given outbox level.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $outbox_level
-     *             }
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "outbox_level"?: string,
+     * } $queryParameters
      */
     public function __construct(string $blockId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetGlobalBlockByBlockIdOutbox extends \Pezos\Generated\Rollup\Runtime\Clie
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
-            return $serializer->deserialize($body, 'Pezos\\Generated\\Rollup\\Model\\GlobalBlockBlockIdOutboxGetResponse200Item[]', 'json');
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
+            return $serializer->deserialize($body, 'Pezos\Generated\Rollup\Model\GlobalBlockBlockIdOutboxGetResponse200Item[]', 'json');
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

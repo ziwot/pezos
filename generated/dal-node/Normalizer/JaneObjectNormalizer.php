@@ -120,6 +120,8 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
 
         \Pezos\Generated\Dal\Model\P2pPointsInfoGetResponse200Item::class => P2pPointsInfoGetResponse200ItemNormalizer::class,
 
+        \Pezos\Generated\Dal\Model\ProfilesPatchBody::class => ProfilesPatchBodyNormalizer::class,
+
         \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200::class => ProtocolParametersGetResponse200Normalizer::class,
 
         \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200TrapsFraction::class => ProtocolParametersGetResponse200TrapsFractionNormalizer::class,
@@ -229,6 +231,7 @@ class JaneObjectNormalizer implements DenormalizerInterface, NormalizerInterface
             \Pezos\Generated\Dal\Model\P2pPointsGetResponse200Item::class => false,
             \Pezos\Generated\Dal\Model\P2pPointsByIdPointGetResponse200::class => false,
             \Pezos\Generated\Dal\Model\P2pPointsInfoGetResponse200Item::class => false,
+            \Pezos\Generated\Dal\Model\ProfilesPatchBody::class => false,
             \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200::class => false,
             \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200TrapsFraction::class => false,
             \Pezos\Generated\Dal\Model\ProtocolParametersGetResponse200CryptoboxParameters::class => false,

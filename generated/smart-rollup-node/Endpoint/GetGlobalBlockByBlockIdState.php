@@ -18,11 +18,10 @@ class GetGlobalBlockByBlockIdState extends \Pezos\Generated\Rollup\Runtime\Clien
     /**
      * Retrieve value from key is PVM state of specified block.
      *
-     * @param string $blockId         an L1 block identifier
-     * @param array  $queryParameters {
-     *
-     * @var string $key
-     *             }
+     * @param string $blockId an L1 block identifier
+     * @param array{
+     *    "key": string,
+     * } $queryParameters
      */
     public function __construct(string $blockId, array $queryParameters = [])
     {
@@ -68,10 +67,10 @@ class GetGlobalBlockByBlockIdState extends \Pezos\Generated\Rollup\Runtime\Clien
     {
         $status = $response->getStatusCode();
         $body = (string) $response->getBody();
-        if (is_null($contentType) === false && (200 === $status && mb_strpos($contentType, 'application/json') !== false)) {
+        if (is_null($contentType) === false && (200 === $status && mb_strpos(strtolower($contentType), 'application/json') !== false)) {
             return json_decode($body);
         }
-        if (mb_strpos($contentType, 'application/json') !== false) {
+        if (mb_strpos(strtolower($contentType), 'application/json') !== false) {
             return json_decode($body);
         }
     }

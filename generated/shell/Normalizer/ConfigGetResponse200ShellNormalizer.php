@@ -39,18 +39,18 @@ class ConfigGetResponse200ShellNormalizer implements DenormalizerInterface, Norm
 
     public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): mixed
     {
-        if (isset($data['$ref'])) {
+        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell();
+        if (null === $data || false === \is_array($data)) {
+            return $object;
+        }
+        if (isset($data['$ref']) && !isset($data['type']) && !isset($data['properties']) && !isset($data['allOf'])) {
             return new Reference($data['$ref'], $context['document-origin']);
         }
         if (isset($data['$recursiveRef'])) {
             return new Reference($data['$recursiveRef'], $context['document-origin']);
         }
-        $object = new \Pezos\Generated\Shell\Model\ConfigGetResponse200Shell();
         if (\array_key_exists('disable_context_pruning', $data) && \is_int($data['disable_context_pruning'])) {
             $data['disable_context_pruning'] = (bool) $data['disable_context_pruning'];
-        }
-        if (null === $data || false === \is_array($data)) {
-            return $object;
         }
         if (\array_key_exists('peer_validator', $data)) {
             $object->setPeerValidator($this->denormalizer->denormalize($data['peer_validator'], \Pezos\Generated\Shell\Model\ConfigGetResponse200ShellPeerValidator::class, 'json', $context));

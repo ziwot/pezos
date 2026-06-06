@@ -32,7 +32,6 @@ class HelpersParseBlockPostResponse200 extends \ArrayObject
     protected $proofOfWorkNonce;
     protected $seedNonceHash;
     protected $liquidityBakingToggleVote;
-    protected $adaptiveIssuanceVote;
     protected $signature;
 
     public function getPayloadHash()
@@ -96,19 +95,6 @@ class HelpersParseBlockPostResponse200 extends \ArrayObject
     {
         $this->initialized['liquidityBakingToggleVote'] = true;
         $this->liquidityBakingToggleVote = $liquidityBakingToggleVote;
-
-        return $this;
-    }
-
-    public function getAdaptiveIssuanceVote()
-    {
-        return $this->adaptiveIssuanceVote;
-    }
-
-    public function setAdaptiveIssuanceVote($adaptiveIssuanceVote): self
-    {
-        $this->initialized['adaptiveIssuanceVote'] = true;
-        $this->adaptiveIssuanceVote = $adaptiveIssuanceVote;
 
         return $this;
     }
