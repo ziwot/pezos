@@ -1,7 +1,0 @@
-version: '3'
-services:
-  sandbox:
-    image: 'oxheadalpha/flextesa:20230502'
-    command: mumbaibox start
-    ports:
-      - '20000:20000'
