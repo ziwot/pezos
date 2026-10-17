@@ -1,6 +1,7 @@
 # Pezos 🌮
 
-![tests](https://github.com/ziwot/pezos/workflows/tests/badge.svg)
+![qa](https://github.com/ziwot/pezos/actions/workflows/qa.yml/badge.svg)
+![tests](https://github.com/ziwot/pezos/actions/workflows/tests.yml/badge.svg)
 [![Latest Stable Version](https://poser.pugx.org/ziwot/pezos/v)](https://packagist.org/packages/ziwot/pezos)
 [![Total Downloads](https://poser.pugx.org/ziwot/pezos/downloads)](https://packagist.org/packages/ziwot/pezos)
 [![Latest Unstable Version](https://poser.pugx.org/ziwot/pezos/v/unstable)](https://packagist.org/packages/ziwot/pezos)

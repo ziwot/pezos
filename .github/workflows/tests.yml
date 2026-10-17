@@ -30,9 +30,6 @@ jobs:
       - name: Install dependencies
         run: composer install --no-progress --prefer-dist --optimize-autoloader
 
-      - name: Linter
-        run: make cs-check
-
       - name: Unit Tests
         run: make test-u
 

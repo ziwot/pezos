@@ -27,7 +27,7 @@ help:
 SHELL=/bin/bash
 
 PROJECT=$(notdir $(CURDIR))
-SANDBOX_IMAGE=ghcr.io/tez-capital/tezbox:tezos-v24.4
+SANDBOX_IMAGE=ghcr.io/tez-capital/tezbox:tezos-v25.2
 SANDBOX_NAME=sandbox-$(PROJECT)
 SANDBOX_RPC_PORT=8732
 SANDBOX_SCRIPT=T
