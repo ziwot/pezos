@@ -25,7 +25,6 @@ Base58Check encoding, and auto-generated RPC clients.
 | `generated/` | **Auto-generated** Jane OpenAPI clients — do NOT hand-edit |
 | `config/` | Jane generator configs (`jane-*-openapi.php`) |
 | `tests/Unit/`, `tests/Integration/` | PHPUnit test suites |
-| `infra/` | Test fixtures (`testdata/accounts.hjson`, sandbox init args) |
 | `Makefile` | All dev tasks (see below) |
 
 ## Commands
@@ -34,7 +33,7 @@ All tasks go through `make` (run `make help` to list them):
 
 ```bash
 composer install      # install deps (or: make install)
-make up               # start sandbox node (Docker, ghcr.io/tez-capital/tezbox:tezos-v24.4, RPC on :8732)
+make up               # start sandbox node (Docker, ghcr.io/tez-capital/tezbox:tezos-v25.2, RPC on :8732)
 make down             # stop the sandbox
 
 make test             # all tests (with --testdox)
@@ -79,4 +78,3 @@ Integration tests default to `NODE_URL=http://localhost:8732` (see
   `sandbox-pezos`).
 - `php_errors.log`, `.php-cs-fixer.cache`, `.phpunit.cache` are local
   artifacts — don't touch them (some are already gitignored).
-- `infra/` is owned by root on some machines; check permissions before editing.
